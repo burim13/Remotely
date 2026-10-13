@@ -20,7 +20,7 @@ You run a small server yourself; every connection is end-to-end encrypted betwee
 ## Build and test
 ```
 dotnet build Remotely.slnx
-dotnet test tests/Remotely.Tests          # 50 tests; runs the real server over real sockets
+dotnet test tests/Remotely.Tests          # 58 tests; runs the real server over real sockets
 build\publish.ps1                         # on Windows with Inno Setup: all installers into publish\
 mac/build.sh                              # on a Mac: universal apps and a .dmg
 ```

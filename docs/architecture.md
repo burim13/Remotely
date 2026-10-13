@@ -42,6 +42,13 @@ installer/           Inno Setup scripts (client, server)
 ### Windows host design
 A service in session 0 cannot see a desktop. The service takes the SYSTEM token of `winlogon.exe` in the active console session and starts a helper there. The helper attaches one dedicated thread to **whichever desktop currently has input** (`Default`, or `Winlogon` for the lock/sign-in screen and UAC), captures with GDI, and injects with `SendInput`. Two pipes (capture/clipboard, and input) keep mouse input from queueing behind a screen grab. The helper's pipes are SYSTEM-only and the service checks the connecting process id.
 
+### Joining: invite and family mode
+A new device joins with one **invite** (`RMT1-` + base64url of: version, the 32-byte server key pin, 8 code characters, the address, and a 3-byte checksum).
+The code inside is a normal pairing code that the server can allow several uses (the invite command asks for 10 uses, 1 hour; a plain code is still
+single use, 15 minutes). A host set up from an invite is in **family mode**: it accepts any device the server has paired, with listed view-only
+devices still watching only. Trade-off, stated plainly: the per-PC trust list no longer protects against a stranger who gets a device paired with
+your server, so the server's PC and the invites are the thing to protect. `trust-all off` brings the per-PC list back.
+
 ## What has been verified, and how
 
 "CI" means GitHub's hosted machines, driven by `.github/workflows`. These are real Windows (x64: Windows Server 2025; ARM64: Windows 11 ARM) and macOS machines, but headless: they prove the plumbing and the code paths, not what a person sees on your screen.
