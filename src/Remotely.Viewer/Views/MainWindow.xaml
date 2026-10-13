@@ -41,21 +41,6 @@
             </DockPanel>
         </Border>
 
-        <!-- First run: one thing to do. -->
-        <Grid x:Name="JoinPanel" Grid.Row="1" Grid.RowSpan="2" Visibility="Collapsed" Background="{DynamicResource Brush.Panel}">
-            <StackPanel VerticalAlignment="Center" Margin="28,0,28,40">
-                <shell:RemotelyMark Width="56" Height="56" HorizontalAlignment="Left" />
-                <TextBlock Text="Welcome to Remotely" FontSize="22" FontWeight="SemiBold" Margin="0,18,0,6" />
-                <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource Brush.Secondary}" Text="Paste the invite from your server to connect this PC. You get it from 'Remotely Server info' on the server." />
-                <TextBox x:Name="InviteBox" Style="{StaticResource TextField}" Margin="0,18,0,0" AutomationProperties.Name="Invite" TextWrapping="NoWrap" />
-                <TextBlock x:Name="JoinMessage" Margin="0,10,0,0" TextWrapping="Wrap" Visibility="Collapsed" />
-                <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
-                    <Button x:Name="JoinButton" Style="{StaticResource PrimaryButton}" Content="Connect" Click="OnJoin" IsDefault="True" />
-                    <Button Style="{StaticResource SecondaryButton}" Content="Set up by hand" Margin="8,0,0,0" Click="OnSettings" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-
         <!-- Your computers. -->
         <Grid Grid.Row="2">
             <ScrollViewer Style="{StaticResource ThinScrollViewer}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -95,6 +80,21 @@
                                Text="No computers yet. Install Remotely on the PC you want to reach and paste the same invite there." />
                 </StackPanel>
             </ScrollViewer>
+        </Grid>
+
+        <!-- First run: one thing to do. -->
+        <Grid x:Name="JoinPanel" Grid.Row="1" Grid.RowSpan="2" Visibility="Collapsed" Background="{DynamicResource Brush.Panel}">
+            <StackPanel VerticalAlignment="Center" Margin="28,0,28,40">
+                <shell:RemotelyMark Width="56" Height="56" HorizontalAlignment="Left" />
+                <TextBlock Text="Welcome to Remotely" FontSize="22" FontWeight="SemiBold" Margin="0,18,0,6" />
+                <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource Brush.Secondary}" Text="Paste the invite from your server to connect this PC. You get it from 'Remotely Server info' on the server." />
+                <TextBox x:Name="InviteBox" Style="{StaticResource TextField}" Margin="0,18,0,0" AutomationProperties.Name="Invite" TextWrapping="NoWrap" />
+                <TextBlock x:Name="JoinMessage" Margin="0,10,0,0" TextWrapping="Wrap" Visibility="Collapsed" />
+                <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                    <Button x:Name="JoinButton" Style="{StaticResource PrimaryButton}" Content="Connect" Click="OnJoin" IsDefault="True" />
+                    <Button Style="{StaticResource SecondaryButton}" Content="Set up by hand" Margin="8,0,0,0" Click="OnSettings" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
 
         <!-- Footer: who am I. Click to copy the device id the host needs to trust. -->
