@@ -90,13 +90,14 @@ check "net host online and listed for the swift viewer" $([ ${#NID} -eq 64 ]; ec
 cli watch "$NID" --out "$W/frames-b" --count 2 --seconds 12 > "$W/b-watch.log" 2>&1; cat "$W/b-watch.log"
 check "B: swift viewer receives frames" $(contains "$W/b-watch.log" "desktop=Default")
 check "B: swift viewer decodes the .NET hello" $(contains "$W/b-watch.log" "Control, Clipboard, Files")
+cli control "$NID" --wait 2 > "$W/b-hostclip.log" 2>&1; cat "$W/b-hostclip.log"   # host-to-viewer clipboard on its own, before the viewer overwrites it
 echo "payload from swift" > "$W/up-b.txt"
 ( cd "$W" && cli control "$NID" --move 1000,2000 --key 65 --clip "clip from swift" --upload "$W/up-b.txt" --list-share --download hello.txt --wait 2 > "$W/b-control.log" 2>&1 ); cat "$W/b-control.log"
 sleep 2
 check "B: mouse move reached the .NET host" $(contains "$W/fakehost.log" "INPUT MouseMove x=1000 y=2000")
 check "B: key press reached the .NET host" $(contains "$W/fakehost.log" "INPUT KeyDown x=0 y=0 a1=65")
 check "B: clipboard reached the .NET host" $(contains "$W/fakehost.log" "CLIPBOARD set: clip from swift")
-check "B: clipboard of the .NET host reached the swift viewer" $(contains "$W/b-control.log" "clipboard from host: fake host clipboard")
+check "B: clipboard of the .NET host reached the swift viewer" $(contains "$W/b-hostclip.log" "clipboard from host: fake host clipboard")
 check "B: upload stored by the .NET host" $(contains "$W/fakehost.log" "Received file 'up-b.txt'")
 check "B: shared file downloaded by the swift viewer, identical" $([ "$(cat "$W/downloads/hello.txt" 2>/dev/null)" = "shared by the fake host" ]; echo $?)
 kill $FAKE_PID 2>/dev/null; wait $FAKE_PID 2>/dev/null
