@@ -20,6 +20,12 @@ public static class RemotelyServer
 
         builder.WebHost.ConfigureKestrel(k =>
         {
+            // The public port faces the internet: bound what an anonymous caller can hold open or send.
+            k.Limits.MaxConcurrentConnections = 256;
+            k.Limits.MaxConcurrentUpgradedConnections = 256;
+            k.Limits.MaxRequestBodySize = 64 * 1024;
+            k.Limits.RequestHeadersTimeout = TimeSpan.FromSeconds(15);
+            k.AddServerHeader = false;
             k.ListenAnyIP(options.PublicPort, l => { if (cert is not null) l.UseHttps(cert); });
             k.Listen(IPAddress.Loopback, options.AdminPort);
         });
