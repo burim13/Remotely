@@ -215,7 +215,7 @@ jobs:
               Write-Host "END-IMG $f"
             }
           }
-          if ($script:fail -gt 0) { exit 1 }
+          if ($script:fail -gt 0) { exit 1 } else { exit 0 }   # without this the exit code of the last native command (sc.exe query on a removed service = 1060) leaks out
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -356,7 +356,7 @@ jobs:
 
           Write-Host "`nFAILED CHECKS: $script:fail"
           Get-ChildItem *.log | ForEach-Object { Write-Host "--- $($_.Name) (last 25 lines)"; Get-Content $_ -Tail 25 }
-          if ($script:fail -gt 0) { exit 1 }
+          if ($script:fail -gt 0) { exit 1 } else { exit 0 }   # without this the exit code of the last native command (sc.exe query on a removed service = 1060) leaks out
       - uses: actions/upload-artifact@v4
         if: always()
         with:
