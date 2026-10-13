@@ -182,4 +182,29 @@ final class KitTests: XCTestCase {
         // Every mapped key round-trips.
         for vk in 0..<0x100 { if let mac = KeyMap.macKeyCode(forVirtualKey: UInt16(vk)) { XCTAssertEqual(KeyMap.virtualKey(forMacKeyCode: mac), UInt16(vk)) } }
     }
+
+    func testInviteDecodesTheStringMadeOutsideSwiftAndRoundTrips() throws {
+        // Built independently (Python) from the documented layout; the .NET test suite parses the same string.
+        let known = "RMT1-AeNBHolYTMKVNOZp8flLP9e0Cr4Smw32U6t3Fji9pBqtRjRXRzRGRkp3c3M6Ly8xOTIuMTY4LjEuNTA6ODQ0My93c56b7g"
+        let invite = try Invite.parse(known)
+        XCTAssertEqual(invite.serverURI, "wss://192.168.1.50:8443/ws")
+        XCTAssertEqual(invite.pinHex, "e3411e89584cc29534e669f1f94b3fd7b40abe129b0df653ab771638bda41aad")
+        XCTAssertEqual(invite.code, "F4WG-4FFJ")
+        XCTAssertEqual(try invite.encode(), known)
+
+        // Line breaks and a lower-case prefix from copying out of an e-mail are fine.
+        let messy = "  rmt1-" + String(known.dropFirst(5).prefix(20)) + "\r\n" + String(known.dropFirst(25)) + " \n"
+        XCTAssertEqual(try Invite.parse(messy), invite)
+
+        // A typing mistake, a cut-off invite and text that is not an invite are refused with plain messages.
+        var typo = Array(known)
+        typo[30] = typo[30] == "A" ? "B" : "A"
+        XCTAssertThrowsError(try Invite.parse(String(typo))) { XCTAssertTrue("\($0)".contains("typing mistake")) }
+        XCTAssertThrowsError(try Invite.parse(String(known.dropLast(6))))
+        XCTAssertThrowsError(try Invite.parse("hello")) { XCTAssertTrue("\($0)".contains("RMT1-")) }
+
+        // No TLS: no pin.
+        let plain = try Invite(serverURI: "ws://127.0.0.1:19443/ws", pinHex: "", code: "ABCD-2345").encode()
+        XCTAssertEqual(try Invite.parse(plain).pinHex, "")
+    }
 }

@@ -1,3 +1,4 @@
+using Remotely.Core.Protocol;
 using System.Diagnostics;
 using Microsoft.Win32;
 using Remotely.Host.Service;
@@ -72,6 +73,16 @@ internal static class Installer
         HostPaths.EnsureDataDir();
         var config = HostConfig.Load(HostPaths.ConfigFile);
         string? Opt(string name) { var i = Array.IndexOf(args, name); return i >= 0 && i + 1 < args.Length ? args[i + 1] : null; }
+        if (Opt("--invite") is { } inviteText)
+        {
+            if (!Invite.TryParse(inviteText, out var invite, out var problem)) { Console.WriteLine(problem); return 1; }
+            config.ServerUri = invite!.ServerUri;
+            config.ServerPin = invite.PinHex;
+            config.PairCode = invite.Code;
+            config.AllowInsecureTransport = invite.ServerUri.StartsWith("ws://", StringComparison.OrdinalIgnoreCase);
+            // Joining with an invite is the family set-up: any device paired with your server may connect. --trusted-only keeps a per-PC list instead.
+            config.TrustAllPaired = !args.Contains("--trusted-only");
+        }
         config.ServerUri = Opt("--server") ?? config.ServerUri;
         config.ServerPin = Opt("--pin") ?? config.ServerPin;
         config.PairCode = Opt("--code") ?? config.PairCode;
@@ -79,12 +90,24 @@ internal static class Installer
         if (args.Contains("--insecure")) config.AllowInsecureTransport = true;
         for (var i = 0; i < args.Length - 1; i++)
         {
-            if (args[i] == "--trust" && !config.IsTrusted(args[i + 1])) config.TrustedViewers.Add(args[i + 1]);
-            if (args[i] == "--view-only" && !config.IsTrusted(args[i + 1])) config.ViewOnlyViewers.Add(args[i + 1]);
+            if (args[i] == "--trust" && !config.TrustedViewers.Contains(args[i + 1], StringComparer.OrdinalIgnoreCase)) config.TrustedViewers.Add(args[i + 1]);
+            if (args[i] == "--view-only" && !config.ViewOnlyViewers.Contains(args[i + 1], StringComparer.OrdinalIgnoreCase)) config.ViewOnlyViewers.Add(args[i + 1]);
         }
         config.Save(HostPaths.ConfigFile);
         var identity = HostPaths.LoadOrCreateIdentity();
-        Console.WriteLine($"Saved {HostPaths.ConfigFile}\nThis host's device id: {identity.DeviceId}\nTrusted viewers (control): {Describe(config.TrustedViewers)}\nView-only viewers: {Describe(config.ViewOnlyViewers)}");
+        Console.WriteLine($"Saved {HostPaths.ConfigFile}\nThis host's device id: {identity.DeviceId}\nAny device paired with your server may connect: {(config.TrustAllPaired ? "yes" : "no, only the lists below")}\nTrusted viewers (control): {Describe(config.TrustedViewers)}\nView-only viewers: {Describe(config.ViewOnlyViewers)}");
+        return 0;
+    }
+
+    /// <summary>trust-all on|off: switch between "any device paired with my server" and the per-PC list of viewer ids.</summary>
+    public static int TrustAll(bool on)
+    {
+        if (!HostPaths.UserMode && !RequireAdmin()) return 1;
+        HostPaths.EnsureDataDir();
+        var config = HostConfig.Load(HostPaths.ConfigFile);
+        config.TrustAllPaired = on;
+        config.Save(HostPaths.ConfigFile);
+        Console.WriteLine(on ? "Any device paired with your server may now connect to this PC." : "Only the viewers on this PC's trust list may connect now.");
         return 0;
     }
 

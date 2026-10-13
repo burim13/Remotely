@@ -5,6 +5,7 @@ import RemotelyKit
 let usage = """
 Remotely CLI (macOS)
 
+  remotely-cli pair --invite RMT1-... [--name "My Mac"]
   remotely-cli pair --server wss://host:8443/ws --pin <server key pin> --code XXXX-XXXX --name "My Mac" [--insecure]
   remotely-cli list
   remotely-cli watch <host id or prefix> [--out frames] [--count 5] [--seconds 10]
@@ -37,11 +38,19 @@ func loadOptions() throws -> CoordinatorOptions {
 }
 
 func pair(_ args: [String]) async throws -> Int32 {
-    guard let server = option("--server", args), let url = URL(string: server) else { throw RemotelyError.io("--server is required") }
-    guard let code = option("--code", args) else { throw RemotelyError.io("--code is required") }
+    var server: String, pin: String, code: String, insecure: Bool
+    if let text = option("--invite", args) {
+        let invite = try Invite.parse(text)
+        (server, pin, code) = (invite.serverURI, invite.pinHex, invite.code)
+        insecure = server.hasPrefix("ws://")
+    } else {
+        guard let s = option("--server", args) else { throw RemotelyError.io("--server or --invite is required") }
+        guard let c = option("--code", args) else { throw RemotelyError.io("--code is required") }
+        (server, pin, code, insecure) = (s, option("--pin", args) ?? "", c, args.contains("--insecure"))
+    }
+    guard let url = URL(string: server) else { throw RemotelyError.io("The server address is not valid.") }
     let identity = try loadIdentity()
-    let insecure = args.contains("--insecure")
-    let options = CoordinatorOptions(serverURL: url, pinnedServerKey: option("--pin", args) ?? "", allowInsecureTransport: insecure)
+    let options = CoordinatorOptions(serverURL: url, pinnedServerKey: pin, allowInsecureTransport: insecure)
     let client = try await CoordinatorClient.connect(options: options, identity: identity)
     defer { client.shutdown() }
     if !client.isPaired { try await client.pair(code: code, name: option("--name", args) ?? ComputerName.current, canHost: false) }

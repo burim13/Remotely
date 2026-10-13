@@ -19,15 +19,16 @@ public partial class MainWindow : Window
         ThisDevice.Text = $"This device: {App.Current.Settings.DeviceName} · {DeviceIds.Short(App.Current.Connection.Identity.DeviceId)}";
         Loaded += async (_, _) =>
         {
-            if (!App.Current.Settings.IsConfigured) { OpenSettings(); return; }
+            if (App.Current.InviteOnStart is { Length: > 0 } invite)
+            {
+                var (ok, message) = await Join.WithInviteAsync(invite);
+                if (!ok) { BannerText.Text = message; Banner.Visibility = Visibility.Visible; }
+            }
+            if (!App.Current.Settings.IsConfigured) { JoinPanel.Visibility = Visibility.Visible; InviteBox.Focus(); return; }
             if (App.Current.PairOnStart is { Length: > 0 } code)
             {
-                try { await App.Current.Connection.PairAsync(code); }
-                catch (Exception ex) when (ex is CoordinatorException or IOException or System.Net.WebSockets.WebSocketException or HttpRequestException or TimeoutException)
-                {
-                    BannerText.Text = "Pairing failed: " + ex.Message;
-                    Banner.Visibility = Visibility.Visible;
-                }
+                var (ok, message) = await Join.PairAsync(code);
+                if (!ok) { BannerText.Text = "Pairing failed: " + message; Banner.Visibility = Visibility.Visible; }
             }
             await RefreshAsync();
             if (App.Current.ConnectOnStart is { Length: > 0 } wanted && Devices.ItemsSource is IEnumerable<Row> rows
@@ -82,6 +83,26 @@ public partial class MainWindow : Window
             new SessionWindow(row.Device).Show();
     }
 
+    private async void OnJoin(object sender, RoutedEventArgs e)
+    {
+        JoinButton.IsEnabled = false;
+        ShowJoin("Connecting…", error: false);
+        var (ok, message) = await Join.WithInviteAsync(InviteBox.Text);
+        JoinButton.IsEnabled = true;
+        ShowJoin(message, error: !ok);
+        if (!ok) return;
+        JoinPanel.Visibility = Visibility.Collapsed;
+        ThisDevice.Text = $"This device: {App.Current.Settings.DeviceName} · {DeviceIds.Short(App.Current.Connection.Identity.DeviceId)}";
+        await RefreshAsync();
+    }
+
+    private void ShowJoin(string text, bool error)
+    {
+        JoinMessage.Text = text;
+        JoinMessage.Foreground = (Brush)FindResource(error ? "Brush.Error" : "Brush.Connected");
+        JoinMessage.Visibility = Visibility.Visible;
+    }
+
     private async void OnRefresh(object sender, RoutedEventArgs e) => await RefreshAsync();
 
     private void OnSettings(object sender, RoutedEventArgs e) => OpenSettings();
@@ -91,12 +112,13 @@ public partial class MainWindow : Window
         var window = new SetupWindow { Owner = this };
         window.ShowDialog();
         ThisDevice.Text = $"This device: {App.Current.Settings.DeviceName} · {DeviceIds.Short(App.Current.Connection.Identity.DeviceId)}";
+        if (App.Current.Settings.IsConfigured) JoinPanel.Visibility = Visibility.Collapsed;
         _ = RefreshAsync();
     }
 
     private void OnCopyId(object sender, RoutedEventArgs e)
     {
-        try { Clipboard.SetText(App.Current.Connection.Identity.DeviceId); ThisDevice.Text = "Device id copied. Give it to the host's 'trust' command."; }
+        try { Clipboard.SetText(App.Current.Connection.Identity.DeviceId); ThisDevice.Text = "Device id copied."; }
         catch (System.Runtime.InteropServices.COMException) { /* clipboard busy: user can click again */ }
     }
 

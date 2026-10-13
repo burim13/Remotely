@@ -3,7 +3,9 @@
 ;   ISCC.exe /DArch=x64   /DVersion=0.2.0 installer\Remotely.iss
 ; At the start the installer asks: for all users (administrator: the Host runs as a Windows service that survives sign-out and shows the
 ; lock screen) or only for me (no administrator: the Host runs while you are signed in). Same choice as Portico's per-user installer, plus the service.
-; Silent install for scripts and tests:  Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /Server=wss://host:8443/ws /Pin=<hex> /Code=XXXX-XXXX /Name="Dad's PC" /Trust=<viewer id>
+; The only thing the wizard asks for is the invite that "Remotely Server info" prints on your server (it holds the address, key pin and a pairing code).
+; Silent install for scripts and tests:  Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /Invite=RMT1-... /Name="Dad's PC"
+;   The long form still works: /Server=wss://host:8443/ws /Pin=<hex> /Code=XXXX-XXXX /Trust=<viewer id>
 ;   add /CURRENTUSER for the no-administrator mode, /Insecure=1 only for local testing over ws://
 
 #ifndef Arch
@@ -69,7 +71,7 @@ Name: "{group}\Uninstall Remotely"; Filename: "{uninstallexe}"
 ; Configure and start the host. Both commands are the same ones you can run by hand (Remotely.Host.exe setup / install).
 Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostSetupArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Connecting this PC to your server..."; Check: NeedsSetup
 Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostInstallArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Starting Remotely Host..."; Check: ShouldStartHost
-Filename: "{app}\Remotely.exe"; Description: "Open Remotely"; Flags: nowait postinstall skipifsilent; Components: viewer
+Filename: "{app}\Remotely.exe"; Parameters: "{code:ViewerArgs}"; Description: "Open Remotely"; Flags: nowait postinstall skipifsilent runasoriginaluser; Components: viewer
 
 [UninstallRun]
 ; Removes the service (or the sign-in entry). Your settings, device key and logs are never touched.
@@ -89,10 +91,17 @@ begin
   Result := ExpandConstant('{param:' + Name + '|}');
 end;
 
+// Index 0 = invite, 1 = this PC's name, 2 = server, 3 = pin, 4 = code, 5 = viewer ids. Only 0 and 1 are shown; the rest come from the command line (scripts, tests).
 function HostPageValue(Index: Integer; ParamName: String): String;
 begin
-  if WizardSilent then Result := Param(ParamName)
-  else Result := Trim(HostPage.Values[Index]);
+  if (Index <= 1) and (not WizardSilent) then Result := Trim(HostPage.Values[Index])
+  else Result := Param(ParamName);
+  if (Index = 1) and (Result = '') then Result := GetComputerNameString;
+end;
+
+function InviteValue: String;
+begin
+  Result := HostPageValue(0, 'Invite');
 end;
 
 function IsInsecure: Boolean;
@@ -108,58 +117,42 @@ end;
 procedure InitializeWizard;
 begin
   HostPage := CreateInputQueryPage(wpSelectComponents, 'Connect this PC to your server',
-    'Remotely Host needs the details of your own Remotely server.',
-    'The address, key pin and a one-time pairing code are shown by "Remotely Server info" on your server. ' +
-    'Leave the server address empty to set this PC up later.');
-  HostPage.Add('Server address (wss://...):', False);
-  HostPage.Add('Server key pin:', False);
-  HostPage.Add('Pairing code:', False);
+    'Paste the invite from your own Remotely server.',
+    'On the server, open "Remotely Server info" and copy the invite. It holds the address, the key and a one-time code, so there is nothing else to type. ' +
+    'Leave it empty to connect this PC later.');
+  HostPage.Add('Invite:', False);
   HostPage.Add('This PC''s name:', False);
-  HostPage.Add('Viewer ids allowed to control this PC (optional, separate with spaces):', False);
-  HostPage.Values[0] := Param('Server');
-  HostPage.Values[1] := Param('Pin');
-  HostPage.Values[2] := Param('Code');
-  HostPage.Values[3] := Param('Name');
-  if HostPage.Values[3] = '' then HostPage.Values[3] := GetComputerNameString;
-  HostPage.Values[4] := Param('Trust');
+  HostPage.Values[0] := Param('Invite');
+  HostPage.Values[1] := Param('Name');
+  if HostPage.Values[1] = '' then HostPage.Values[1] := GetComputerNameString;
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
-  Result := (PageID = HostPage.ID) and (not WizardIsComponentSelected('host'));
+  Result := (PageID = HostPage.ID) and (not WizardIsComponentSelected('host')) and (not WizardIsComponentSelected('viewer'));
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
 var
-  Server: String;
+  Text: String;
 begin
   Result := True;
   if CurPageID = HostPage.ID then
   begin
-    Server := Trim(HostPage.Values[0]);
-    if Server = '' then Exit;
-    if (Pos('wss://', Server) <> 1) and (Pos('ws://', Server) <> 1) then
+    Text := Trim(HostPage.Values[0]);
+    if Text = '' then Exit;
+    if (CompareText(Copy(Text, 1, 5), 'RMT1-') <> 0) or (Length(Text) < 60) then
     begin
-      MsgBox('The server address should start with wss://', mbError, MB_OK);
-      Result := False;
-    end
-    else if (Pos('wss://', Server) = 1) and (Length(Trim(HostPage.Values[1])) <> 64) then
-    begin
-      MsgBox('The server key pin is 64 characters. Copy it from the server''s info screen.', mbError, MB_OK);
-      Result := False;
-    end
-    else if Trim(HostPage.Values[2]) = '' then
-    begin
-      MsgBox('Enter the pairing code from your server (it works once).', mbError, MB_OK);
+      MsgBox('That does not look like a Remotely invite. It starts with RMT1- and is one long line. Copy all of it from "Remotely Server info" on your server.', mbError, MB_OK);
       Result := False;
     end;
   end;
 end;
 
-// Set the host up only if a server address was given (wizard) or passed on the command line (silent).
+// Set the host up only if an invite was given (wizard or /Invite=) or the long-form /Server= was passed on the command line (silent).
 function NeedsSetup: Boolean;
 begin
-  Result := HostPageValue(0, 'Server') <> '';
+  Result := (InviteValue <> '') or (Param('Server') <> '');
 end;
 
 function HostConfigExists: Boolean;
@@ -179,10 +172,18 @@ var
   Ids, One: String;
   P: Integer;
 begin
-  Result := 'setup ' + UserFlag + '--server "' + HostPageValue(0, 'Server') + '" --code "' + HostPageValue(2, 'Code') + '" --name "' + HostPageValue(3, 'Name') + '"';
-  if HostPageValue(1, 'Pin') <> '' then Result := Result + ' --pin "' + HostPageValue(1, 'Pin') + '"';
-  if IsInsecure then Result := Result + ' --insecure';
-  Ids := HostPageValue(4, 'Trust');
+  if InviteValue <> '' then
+  begin
+    Result := 'setup ' + UserFlag + '--invite "' + InviteValue + '" --name "' + HostPageValue(1, 'Name') + '"';
+    Ids := Trim(ExpandConstant('{param:Trust|}'));
+  end
+  else
+  begin
+    Result := 'setup ' + UserFlag + '--server "' + ExpandConstant('{param:Server|}') + '" --code "' + ExpandConstant('{param:Code|}') + '" --name "' + HostPageValue(1, 'Name') + '"';
+    if ExpandConstant('{param:Pin|}') <> '' then Result := Result + ' --pin "' + ExpandConstant('{param:Pin|}') + '"';
+    if IsInsecure then Result := Result + ' --insecure';
+    Ids := Trim(ExpandConstant('{param:Trust|}'));
+  end;
   while Ids <> '' do
   begin
     P := Pos(' ', Ids);
@@ -190,6 +191,12 @@ begin
     else begin One := Copy(Ids, 1, P - 1); Ids := Trim(Copy(Ids, P + 1, MaxInt)); end;
     if One <> '' then Result := Result + ' --trust "' + One + '"';
   end;
+end;
+
+// The viewer joins the same server with the same invite (it works for several devices).
+function ViewerArgs(Param: String): String;
+begin
+  if InviteValue <> '' then Result := '--invite "' + InviteValue + '"' else Result := '';
 end;
 
 function HostInstallArgs(Param: String): String;

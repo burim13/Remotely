@@ -14,6 +14,8 @@ public partial class App : Application
 
     /// <summary>--connect &lt;host id or prefix&gt;: open a session to that host as soon as the device list loads (used by shortcuts and tests).</summary>
     internal string? ConnectOnStart { get; private set; }
+    /// <summary>--invite &lt;RMT1-...&gt;: join the server in the invite (used by the installer after it has set up this PC's host).</summary>
+    internal string? InviteOnStart { get; private set; }
     /// <summary>--pair &lt;code&gt;: pair this device with the configured server at start-up (used by installers and tests).</summary>
     internal string? PairOnStart { get; private set; }
 
@@ -58,6 +60,7 @@ public partial class App : Application
         {
             if (e.Args[i] == "--connect") ConnectOnStart = e.Args[i + 1];
             if (e.Args[i] == "--pair") PairOnStart = e.Args[i + 1];
+            if (e.Args[i] == "--invite") InviteOnStart = e.Args[i + 1];
         }
         new MainWindow().Show();
     }

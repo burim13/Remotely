@@ -9,6 +9,7 @@ struct HostSettingsView: View {
     @State private var config = HostConfig.load()
     @State private var controlIds = HostConfig.load().TrustedViewers.joined(separator: "\n")
     @State private var viewOnlyIds = HostConfig.load().ViewOnlyViewers.joined(separator: "\n")
+    @State private var inviteText = ""
     @State private var message = ""
     @State private var isError = false
     @State private var screenAllowed = CGPreflightScreenCaptureAccess()
@@ -27,14 +28,21 @@ struct HostSettingsView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     section("YOUR SERVER")
-                    field("Server address", "Looks like wss://your-name.example.com:8443/ws", $config.ServerUri)
-                    field("Server key pin", "Printed by the server when it starts.", $config.ServerPin)
+                    field("Invite", "Paste the invite from your server's 'Remotely Server info'. It holds the address, the key and a one-time code.", $inviteText)
                     field("This Mac's name", nil, $config.DeviceName)
-                    field("Pairing code", "One-time code from your server. Only needed the first time.", $config.PairCode)
+                    DisclosureGroup("Set up by hand instead") {
+                        field("Server address", "Looks like wss://your-name.example.com:8443/ws", $config.ServerUri)
+                        field("Server key pin", nil, $config.ServerPin)
+                        field("Pairing code", "One-time code from your server.", $config.PairCode)
+                    }.font(Theme.font(Theme.line)).foregroundColor(Theme.secondary)
 
                     section("WHO MAY CONNECT")
-                    multiline("Can control this Mac (one device id per line)", "Copy a viewer's id from its Settings screen.", $controlIds)
-                    multiline("Can only watch (one per line)", nil, $viewOnlyIds)
+                    Toggle("Any device paired with my server may connect", isOn: $config.TrustAllPaired)
+                        .font(Theme.font(Theme.line)).foregroundColor(Theme.text).padding(.vertical, 6)
+                    DisclosureGroup("Only specific devices (used when the switch above is off)") {
+                        multiline("Can control this Mac (one device id per line)", "Copy a viewer's id from its Settings screen.", $controlIds)
+                        multiline("Can only watch (one per line)", nil, $viewOnlyIds)
+                    }.font(Theme.font(Theme.line)).foregroundColor(Theme.secondary)
                     Toggle("Ctrl on the other computer acts as Command here", isOn: $config.CtrlAsCommand)
                         .font(Theme.font(Theme.line)).foregroundColor(Theme.text).padding(.vertical, 10)
 
@@ -105,6 +113,17 @@ struct HostSettingsView: View {
     }
 
     private func save() {
+        if !inviteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            do {
+                let invite = try Invite.parse(inviteText)
+                config.ServerUri = invite.serverURI
+                config.ServerPin = invite.pinHex
+                config.PairCode = invite.code
+                config.AllowInsecureTransport = invite.serverURI.hasPrefix("ws://")
+                if !config.ServerUri.isEmpty && config.TrustedViewers.isEmpty && config.ViewOnlyViewers.isEmpty { config.TrustAllPaired = true }
+                inviteText = ""
+            } catch { message = "\(error)"; isError = true; return }
+        }
         let server = config.ServerUri.trimmingCharacters(in: .whitespaces)
         if !server.isEmpty {
             guard let url = URL(string: server), let scheme = url.scheme, ["wss", "ws"].contains(scheme) else { message = "The server address should start with wss://"; isError = true; return }

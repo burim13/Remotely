@@ -13,6 +13,7 @@ public partial class SetupWindow : Window
         var s = App.Current.Settings;
         Server.Text = s.ServerUri;
         Pin.Text = s.ServerPin;
+        if (s.IsConfigured) HandPanel.Visibility = Visibility.Collapsed;
         DeviceName.Text = s.DeviceName;
         SyncClipboard.IsChecked = s.SyncClipboard;
         foreach (ComboBoxItem item in Theme.Items) if ((string)item.Tag == s.Theme) Theme.SelectedItem = item;
@@ -21,9 +22,28 @@ public partial class SetupWindow : Window
         IdCard.Visibility = Visibility.Visible;
     }
 
+    private void OnToggleHand(object sender, RoutedEventArgs e)
+    {
+        HandPanel.Visibility = HandPanel.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+        HandToggle.Content = HandPanel.Visibility == Visibility.Visible ? "Hide the manual fields" : "Set up by hand instead";
+    }
+
     private async void OnSave(object sender, RoutedEventArgs e)
     {
         var s = App.Current.Settings;
+        if (!string.IsNullOrWhiteSpace(Invite.Text))
+        {
+            s.SyncClipboard = SyncClipboard.IsChecked == true;
+            s.Theme = (string)((ComboBoxItem)Theme.SelectedItem).Tag;
+            SaveButton.IsEnabled = false;
+            Show("Connecting…", error: false);
+            var (ok, message) = await Join.WithInviteAsync(Invite.Text, DeviceName.Text);
+            SaveButton.IsEnabled = true;
+            if (ok) { s.Save(); App.Current.ApplyTheme(); }
+            Show(message, error: !ok);
+            if (ok) { await Task.Delay(700); Close(); }
+            return;
+        }
         var server = Server.Text.Trim();
         if (!Uri.TryCreate(server, UriKind.Absolute, out var uri) || uri.Scheme is not ("wss" or "ws"))
         {

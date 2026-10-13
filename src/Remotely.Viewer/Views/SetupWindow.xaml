@@ -28,16 +28,9 @@
             <TextBlock Style="{StaticResource SectionLabel}" Text="YOUR SERVER" Margin="0,4,0,8" />
             <Border Style="{StaticResource Row}">
                 <StackPanel>
-                    <TextBlock Style="{StaticResource RowLabel}" Text="Server address" />
-                    <TextBox x:Name="Server" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="Server address" />
-                    <TextBlock Style="{StaticResource RowHelp}" Text="Looks like wss://your-name.example.com:8443/ws" />
-                </StackPanel>
-            </Border>
-            <Border Style="{StaticResource Row}">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource RowLabel}" Text="Server key pin" />
-                    <TextBox x:Name="Pin" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="Server key pin" />
-                    <TextBlock Style="{StaticResource RowHelp}" Text="Printed by the server when it starts. It makes sure you are talking to your own server." />
+                    <TextBlock Style="{StaticResource RowLabel}" Text="Invite" />
+                    <TextBox x:Name="Invite" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="Invite" />
+                    <TextBlock Style="{StaticResource RowHelp}" Text="Paste the invite from your server's 'Remotely Server info'. It contains the address, the key and a one-time code." />
                 </StackPanel>
             </Border>
             <Border Style="{StaticResource Row}">
@@ -46,13 +39,28 @@
                     <TextBox x:Name="DeviceName" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="This device's name" />
                 </StackPanel>
             </Border>
-            <Border x:Name="CodeRow" Style="{StaticResource Row}">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource RowLabel}" Text="Pairing code" />
-                    <TextBox x:Name="Code" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="Pairing code" />
-                    <TextBlock Style="{StaticResource RowHelp}" Text="One-time code from your server. Only needed the first time this device connects." />
-                </StackPanel>
-            </Border>
+            <Button x:Name="HandToggle" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" Margin="0,10,0,0" Content="Set up by hand instead" Click="OnToggleHand" />
+            <StackPanel x:Name="HandPanel" Visibility="Collapsed">
+                <Border Style="{StaticResource Row}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource RowLabel}" Text="Server address" />
+                        <TextBox x:Name="Server" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="Server address" />
+                        <TextBlock Style="{StaticResource RowHelp}" Text="Looks like wss://your-name.example.com:8443/ws" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Row}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource RowLabel}" Text="Server key pin" />
+                        <TextBox x:Name="Pin" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="Server key pin" />
+                    </StackPanel>
+                </Border>
+                <Border x:Name="CodeRow" Style="{StaticResource Row}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource RowLabel}" Text="Pairing code" />
+                        <TextBox x:Name="Code" Style="{StaticResource TextField}" Margin="0,6,0,0" AutomationProperties.Name="Pairing code" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
 
             <TextBlock Style="{StaticResource SectionLabel}" Text="APPEARANCE" />
             <Border Style="{StaticResource Row}">
@@ -74,7 +82,7 @@
                 <StackPanel>
                     <TextBlock Text="This device's id" FontWeight="SemiBold" />
                     <TextBlock x:Name="IdText" FontFamily="Consolas" FontSize="{DynamicResource Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,0" />
-                    <TextBlock Style="{StaticResource RowHelp}" Text="On each computer you want to control, run:  Remotely.Host trust &lt;this id&gt;" />
+                    <TextBlock Style="{StaticResource RowHelp}" Text="Only needed if a computer you control is set to trust a list of ids instead of every device on your server." />
                 </StackPanel>
             </Border>
 

@@ -66,9 +66,9 @@ public static class RemotelyServer
                 ? await next(ctx)
                 : Results.NotFound();
         });
-        admin.MapPost("/pair-codes", (PairingCodes pairing) =>
+        admin.MapPost("/pair-codes", (PairingCodes pairing, int? uses, int? minutes) =>
         {
-            var (code, expires) = pairing.Create();
+            var (code, expires) = pairing.Create(uses ?? 1, minutes is > 0 ? TimeSpan.FromMinutes(minutes.Value) : null);
             return Results.Ok(new { code, expiresUtc = expires });
         });
         admin.MapGet("/devices", (DeviceStore store, Hub hub) =>

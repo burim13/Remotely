@@ -15,7 +15,9 @@ const string Usage = """
 
       install [--user]             copy to the install folder and start it (service: Program Files; user: your profile, starts at sign-in)
       uninstall [--user]           remove it (keeps settings, key and logs)
-      setup [--user] --server wss://host:8443/ws --pin <server key pin> --code XXXX-XXXX --name "Dad's PC" [--trust <viewer id>] [--view-only <viewer id>] [--insecure]
+      setup [--user] --invite RMT1-... [--name "Dad's PC"] [--trusted-only]   join your server with the invite its 'info' command prints
+      setup [--user] --server wss://host:8443/ws --pin <server key pin> --code XXXX-XXXX --name "Dad's PC" [--trust <viewer id>] [--view-only <viewer id>] [--insecure]   (long form, per-PC trust list)
+      trust-all [--user] on|off    on: any device paired with your server may connect (the invite default); off: only listed viewers
       trust [--user] <viewer id> [--view-only]     allow a viewer (control, or watch only)
       untrust [--user] <viewer id>                 remove a viewer
       enable-sas                   allow the service to send Ctrl+Alt+Del (administrator)
@@ -46,6 +48,7 @@ switch (command)
     case "uninstall": return Installer.Uninstall();
     case "setup": return Installer.Setup(rest);
     case "trust" when rest.Length >= 1: return Installer.Trust(rest[0], rest.Contains("--view-only"));
+    case "trust-all" when rest.Length >= 1 && rest[0] is "on" or "off": return Installer.TrustAll(rest[0] == "on");
     case "untrust" when rest.Length >= 1: return Installer.Untrust(rest[0]);
     case "enable-sas": return Installer.EnableSas();
     case "diag": return Diagnostics.Run(rest.Length >= 1 ? rest[0] : null);

@@ -13,6 +13,12 @@ public sealed class HostConfig
     public List<string> TrustedViewers { get; set; } = [];
     /// <summary>Viewer device ids allowed to watch only (no input, clipboard or files).</summary>
     public List<string> ViewOnlyViewers { get; set; } = [];
+    /// <summary>
+    /// Family mode: accept any device that is paired with your server (the server only lets paired devices connect) instead of a list of ids.
+    /// Viewers listed in <see cref="ViewOnlyViewers"/> still get view-only access. The trade-off: you rely on your own server's pairing instead of
+    /// a per-PC list, so anyone who could pair a device with your server could reach this PC.
+    /// </summary>
+    public bool TrustAllPaired { get; set; }
     /// <summary>Permit ws:// (no encryption to the coordinator). Local testing only.</summary>
     public bool AllowInsecureTransport { get; set; }
 
@@ -29,7 +35,10 @@ public sealed class HostConfig
         File.Move(temp, path, overwrite: true);
     }
 
-    public bool IsTrusted(string viewerDeviceId) => CanControl(viewerDeviceId) || ViewOnlyViewers.Contains(viewerDeviceId, StringComparer.OrdinalIgnoreCase);
+    public bool IsTrusted(string viewerDeviceId) => TrustAllPaired || CanControl(viewerDeviceId) || IsViewOnlyListed(viewerDeviceId);
 
-    public bool CanControl(string viewerDeviceId) => TrustedViewers.Contains(viewerDeviceId, StringComparer.OrdinalIgnoreCase);
+    public bool CanControl(string viewerDeviceId) =>
+        !IsViewOnlyListed(viewerDeviceId) && (TrustAllPaired || TrustedViewers.Contains(viewerDeviceId, StringComparer.OrdinalIgnoreCase));
+
+    private bool IsViewOnlyListed(string id) => ViewOnlyViewers.Contains(id, StringComparer.OrdinalIgnoreCase);
 }

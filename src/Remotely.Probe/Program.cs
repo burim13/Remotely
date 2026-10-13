@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Remotely.Client;
 using Remotely.Core.Crypto;
+using Remotely.Core.Protocol;
 using Remotely.HostCore;
 using Remotely.ViewerCore;
 
@@ -8,6 +9,7 @@ using Remotely.ViewerCore;
 const string Usage = """
     Remotely.Probe: command-line test viewer
 
+      pair  --invite RMT1-... [--name "My laptop"]
       pair  --server wss://host:8443/ws --pin <server key pin> --code XXXX-XXXX --name "My laptop" [--insecure]
       list
       watch   <host id or prefix> [--out frames] [--count 5] [--seconds 10]
@@ -68,11 +70,22 @@ CoordinatorOptions LoadOptions()
 
 async Task<int> PairAsync(string[] a)
 {
-    var server = Option(a, "--server") ?? throw new ArgumentException("--server is required");
-    var pin = Option(a, "--pin") ?? "";
-    var code = Option(a, "--code") ?? throw new ArgumentException("--code is required");
+    string server, pin, code;
+    bool insecure;
+    if (Option(a, "--invite") is { } inviteText)
+    {
+        if (!Invite.TryParse(inviteText, out var invite, out var problem)) throw new ArgumentException(problem);
+        (server, pin, code) = (invite!.ServerUri, invite.PinHex, invite.Code);
+        insecure = server.StartsWith("ws://", StringComparison.OrdinalIgnoreCase);
+    }
+    else
+    {
+        server = Option(a, "--server") ?? throw new ArgumentException("--server or --invite is required");
+        pin = Option(a, "--pin") ?? "";
+        code = Option(a, "--code") ?? throw new ArgumentException("--code is required");
+        insecure = a.Contains("--insecure");
+    }
     var name = Option(a, "--name") ?? Environment.MachineName;
-    var insecure = a.Contains("--insecure");
     var identity = LoadOrCreateIdentity();
     var options = new CoordinatorOptions { ServerUri = new Uri(server), PinnedServerKey = pin, AllowInsecureTransport = insecure };
     await using var client = await CoordinatorClient.ConnectAsync(options, identity);

@@ -63,7 +63,7 @@ final class AppModel: ObservableObject {
     private var client: CoordinatorClient?
     private var refreshing = false
 
-    init() { showSettings = !settings.isConfigured }
+    init() {}
 
     var colorScheme: ColorScheme? { settings.theme == "dark" ? .dark : settings.theme == "light" ? .light : nil }
 
@@ -97,6 +97,23 @@ final class AppModel: ObservableObject {
             catch { connected.shutdown(); throw error }
         }
         client = connected
+    }
+
+    /// "Join with an invite": read it, remember the server, pair this device. If it fails nothing is kept, so the welcome screen comes back.
+    func join(inviteText: String, deviceName: String? = nil) async throws {
+        let invite = try Invite.parse(inviteText)
+        let previous = settings
+        settings.serverURL = invite.serverURI
+        settings.serverPin = invite.pinHex
+        settings.allowInsecure = invite.serverURI.hasPrefix("ws://")
+        if let name = deviceName?.trimmingCharacters(in: .whitespaces), !name.isEmpty { settings.deviceName = name }
+        saveSettings()
+        do { try await pair(code: invite.code) }
+        catch {
+            settings = previous
+            saveSettings()
+            throw error
+        }
     }
 
     func saveSettings() {

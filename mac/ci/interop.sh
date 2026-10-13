@@ -101,6 +101,29 @@ check "B: clipboard of the .NET host reached the swift viewer" $(contains "$W/b-
 check "B: upload stored by the .NET host" $(contains "$W/fakehost.log" "Received file 'up-b.txt'")
 check "B: shared file downloaded by the swift viewer, identical" $([ "$(cat "$W/downloads/hello.txt" 2>/dev/null)" = "shared by the fake host" ]; echo $?)
 kill $FAKE_PID 2>/dev/null; wait $FAKE_PID 2>/dev/null
+
+echo; echo "===== C. Invite and family mode: Swift host + Swift viewer, no pin, no code, no trust list ====="
+INV=$(dotnet "$W/server/Remotely.Server.dll" invite --address 127.0.0.1:19443 2>&1 | grep -o 'RMT1-[A-Za-z0-9_-]*' | head -1)
+check "the server prints an invite" $([ ${#INV} -gt 60 ]; echo $?)
+CLI2="$W/clihome2"; mkdir -p "$CLI2"
+cli2() { HOME="$CLI2" T 60 "$CLI_BIN" "$@"; }
+cli2 pair --invite "$INV" --name family-viewer > "$W/c-pair.log" 2>&1; cat "$W/c-pair.log"
+check "C: the Swift viewer joins with the invite alone" $(contains "$W/c-pair.log" "Paired.")
+export REMOTELY_HOME="$W/hosthome2"; mkdir -p "$REMOTELY_HOME/Documents/Remotely/Share"
+T 30 "$HOST_BIN" setup --invite "$INV" --name family-host > "$W/c-hostsetup.log" 2>&1; cat "$W/c-hostsetup.log"
+check "C: setup --invite turns family trust on" $(contains "$W/c-hostsetup.log" "Any device paired with your server may connect: yes")
+"$HOST_BIN" run --fake-screen --seconds 40 > "$W/c-host.log" 2>&1 &
+C_HOST_PID=$!
+for i in $(seq 1 30); do cli2 list 2>/dev/null | grep -q "online.*family-host" && break; sleep 1; done
+CID=$(cli2 list | awk '/family-host/ {print $4}')
+check "C: the family host is online and listed" $([ ${#CID} -eq 64 ]; echo $?)
+cli2 watch "$CID" --out "$W/frames-c" --count 1 --seconds 12 > "$W/c-watch.log" 2>&1; cat "$W/c-watch.log"
+check "C: a paired device gets frames without being on a trust list" $(contains "$W/c-watch.log" "desktop=Default")
+check "C: and may control (the hello says so)" $(contains "$W/c-watch.log" "Control")
+cli2 control "$CID" --key 65 --wait 2 > "$W/c-control.log" 2>&1; cat "$W/c-control.log"
+sleep 1
+check "C: key press reached the host" $(contains "$W/c-host.log" "INPUT keyDown")
+kill $C_HOST_PID 2>/dev/null; wait $C_HOST_PID 2>/dev/null
 kill $SERVER_PID 2>/dev/null
 
 echo; echo "FAILED CHECKS: $FAIL"

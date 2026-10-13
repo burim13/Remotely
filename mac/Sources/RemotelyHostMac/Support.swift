@@ -36,6 +36,8 @@ struct HostConfig: Codable {
     /// Viewer device ids allowed to watch only.
     var ViewOnlyViewers: [String] = []
     var AllowInsecureTransport = false
+    /// Family mode: accept any device paired with your server instead of a list of ids (listed view-only viewers still only watch).
+    var TrustAllPaired = false
     /// Ctrl on the viewer acts as Command here (so Ctrl+C from a Windows PC copies). Turn off to keep Ctrl as Control.
     var CtrlAsCommand = true
 
@@ -50,6 +52,7 @@ struct HostConfig: Codable {
         TrustedViewers = try c.decodeIfPresent([String].self, forKey: .TrustedViewers) ?? []
         ViewOnlyViewers = try c.decodeIfPresent([String].self, forKey: .ViewOnlyViewers) ?? []
         AllowInsecureTransport = try c.decodeIfPresent(Bool.self, forKey: .AllowInsecureTransport) ?? false
+        TrustAllPaired = try c.decodeIfPresent(Bool.self, forKey: .TrustAllPaired) ?? false
         CtrlAsCommand = try c.decodeIfPresent(Bool.self, forKey: .CtrlAsCommand) ?? true
     }
 
@@ -66,8 +69,9 @@ struct HostConfig: Codable {
         try? FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: HostPaths.configFile.path)
     }
 
-    func canControl(_ id: String) -> Bool { TrustedViewers.contains { $0.caseInsensitiveCompare(id) == .orderedSame } }
-    func isTrusted(_ id: String) -> Bool { canControl(id) || ViewOnlyViewers.contains { $0.caseInsensitiveCompare(id) == .orderedSame } }
+    private func isViewOnlyListed(_ id: String) -> Bool { ViewOnlyViewers.contains { $0.caseInsensitiveCompare(id) == .orderedSame } }
+    func canControl(_ id: String) -> Bool { !isViewOnlyListed(id) && (TrustAllPaired || TrustedViewers.contains { $0.caseInsensitiveCompare(id) == .orderedSame }) }
+    func isTrusted(_ id: String) -> Bool { TrustAllPaired || canControl(id) || isViewOnlyListed(id) }
 }
 
 /// The device's private key: in the login Keychain when possible, otherwise in a 0600 file under Application Support.

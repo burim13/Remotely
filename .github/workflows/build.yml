@@ -96,6 +96,9 @@ jobs:
           $o = & $probe pair --server ws://127.0.0.1:8443/ws --code (NewCode) --name ci-viewer --insecure 2>&1; $o
           $viewerId = [regex]::Match(($o -join "`n"), '[0-9a-f]{64}').Value
           Check "viewer paired" ($viewerId.Length -eq 64)
+          $inviteOut = (& "$PWD\server\Remotely.Server.exe" invite --address 127.0.0.1:8443 2>&1) -join "`n"; Write-Host $inviteOut
+          $inv = [regex]::Match($inviteOut, 'RMT1-\S+').Value
+          Check "the server prints an invite" ($inv.Length -gt 60)
           $payload = New-Object byte[] 2000000; (New-Object Random).NextBytes($payload)
           [IO.File]::WriteAllBytes("$PWD\upload.bin", $payload)
           $uploadHash = (Get-FileHash "$PWD\upload.bin").Hash
@@ -124,7 +127,9 @@ jobs:
 
           # ---------- SERVICE MODE ----------
           Write-Host "`n===== SERVICE MODE ====="
-          $o = & $hostExe setup --server ws://127.0.0.1:8443/ws --insecure --code (NewCode) --name ci-host --trust $viewerId 2>&1; $o
+          # Service mode joins with the invite alone: no pin, no code, no list of viewer ids (family mode trusts every device paired with the server).
+          $o = & $hostExe setup --invite $inv --name ci-host 2>&1; $o
+          Check "setup --invite turns family trust on" (($o -join "`n") -match 'Any device paired with your server may connect: yes')
           & $hostExe install
           for ($i = 0; $i -lt 20 -and -not ((sc.exe query Remotely.Host) -match 'RUNNING'); $i++) { Start-Sleep 1 }
           Check "service running" ((sc.exe query Remotely.Host) -match 'RUNNING')
@@ -170,11 +175,11 @@ jobs:
           }
           Shot 'ui-setup'; Stop-Process $v -Force -ErrorAction SilentlyContinue
           $uiDir = "$env:LOCALAPPDATA\Remotely"; New-Item -ItemType Directory $uiDir -Force | Out-Null
-          '{"ServerUri":"ws://127.0.0.1:8443/ws","ServerPin":"","DeviceName":"ci-ui-viewer","Theme":"dark","SyncClipboard":true,"AllowInsecureTransport":true}' | Set-Content "$uiDir\viewer.json"
-          $v = Start-Process $viewerExe -ArgumentList '--pair', (NewCode) -PassThru; Start-Sleep 9; Stop-Process $v -Force -ErrorAction SilentlyContinue
+          '{"DeviceName":"ci-ui-viewer","Theme":"dark","SyncClipboard":true}' | Set-Content "$uiDir\viewer.json"
+          # The first-run path: no server configured, started with the invite (what the installer does).
+          $v = Start-Process $viewerExe -ArgumentList '--invite', $inv -PassThru; Start-Sleep 9; Stop-Process $v -Force -ErrorAction SilentlyContinue
           $uiId = (Get-Content "$uiDir\device-id.txt" -ErrorAction SilentlyContinue)
           Check "viewer wrote its device id and paired" (($uiId -match '^[0-9a-f]{64}$') -and (((& $probe list 2>&1) -join "`n") -match 'ci-ui-viewer'))
-          & $hostExe trust $uiId
           $v = Start-Process $viewerExe -PassThru; Start-Sleep 8
           Check "viewer main window runs with a saved configuration" (-not $v.HasExited)
           Shot 'ui-main'; Stop-Process $v -Force -ErrorAction SilentlyContinue
@@ -303,7 +308,7 @@ jobs:
           }
 
           Write-Host "===== SERVER INSTALLER ====="
-          $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.2.0-x64.exe" ($silent + '/LOG=server-install.log')
+          $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.2.0-x64.exe" ($silent + '/LOG=server-install.log' + '/Address=127.0.0.1')
           Check "server installer exit code 0" ($p.ExitCode -eq 0)
           Check "server service running" (WaitFor 'server' { (sc.exe query Remotely.Server) -match 'RUNNING' } 30)
           Check "firewall rule added" ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Remotely Server')
@@ -311,14 +316,17 @@ jobs:
           Check "server key pin printed (64 hex)" ($pin -match '^[0-9a-f]{64}$')
           function NewCode { for ($i = 0; $i -lt 20; $i++) { $c = (& $serverExe pair-code 2>$null | Select-Object -First 1); if ($c -match '^[A-Z0-9]{4}-[A-Z0-9]{4}$') { return $c }; Start-Sleep 1 } }
           $server = 'wss://127.0.0.1:8443/ws'
-          $o = & $probe pair --server $server --pin $pin --code (NewCode) --name inst-viewer 2>&1; $o
+          $inviteOut = (& $serverExe invite 2>&1) -join "`n"; Write-Host $inviteOut
+          $inv = [regex]::Match($inviteOut, 'RMT1-\S+').Value
+          Check "the server prints an invite for the address given to the installer" ($inv.Length -gt 60 -and $inviteOut -match 'wss://127\.0\.0\.1:8443/ws')
+          $o = & $probe pair --invite $inv --name inst-viewer 2>&1; $o
           $viewerId = [regex]::Match(($o -join "`n"), '[0-9a-f]{64}').Value
-          Check "viewer paired over TLS with the pinned key" ($viewerId.Length -eq 64)
+          Check "viewer paired from the invite over TLS with the pinned key" ($viewerId.Length -eq 64)
           $wrong = & $probe pair --server $server --pin ('0' * 64) --code (NewCode) --name evil 2>&1
           Check "a wrong key pin is refused" (($wrong -join "`n") -match 'Error')
 
           Write-Host "`n===== CLIENT INSTALLER: ALL USERS (service) ====="
-          $args1 = $silent + @('/LOG=client-install.log', "/Server=$server", "/Pin=$pin", "/Code=$(NewCode)", '/Name=inst-host', "/Trust=$viewerId")
+          $args1 = $silent + @('/LOG=client-install.log', "/Invite=$inv", '/Name=inst-host')   # the invite alone: no pin, no code, no viewer ids
           $p = RunWait (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName $args1
           Check "client installer exit code 0" ($p.ExitCode -eq 0)
           Check "viewer installed" (Test-Path 'C:\Program Files\Remotely\Remotely.exe')
