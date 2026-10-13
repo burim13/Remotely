@@ -156,8 +156,8 @@ internal static class ServerCommands
         Console.WriteLine("Remotely server");
         Console.WriteLine();
         Console.WriteLine($"  Port:           {options.PublicPort}  (forward this TCP port on your router to this PC)");
-        Console.WriteLine($"  Address to use: wss://<your address>:{options.PublicPort}/ws");
-        Console.WriteLine($"  Server key pin: {pin}");
+        Console.WriteLine($"  Address to use: {(options.TlsEnabled ? "wss" : "ws")}://<your address>:{options.PublicPort}/ws");
+        Console.WriteLine(options.TlsEnabled ? $"  Server key pin: {pin}" : "  Server key pin: (not used: TLS is turned off in appsettings.json, for local testing only)");
         var code = await PairCodeAsync(options, quiet: true);
         Console.WriteLine();
         Console.WriteLine("Enter the address, the key pin and the pairing code in Remotely on each device.");
