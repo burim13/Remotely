@@ -162,6 +162,11 @@ jobs:
           }
           $v = Start-Process $viewerExe -PassThru; Start-Sleep 7
           Check "viewer starts and stays running on first run" (-not $v.HasExited)
+          if ($v.HasExited) {
+            Write-Host "viewer exit code: $($v.ExitCode)"
+            Get-Content "$env:LOCALAPPDATA\Remotely\logs\viewer-crash.log" -ErrorAction SilentlyContinue | Select-Object -First 40
+            Get-WinEvent -FilterHashtable @{LogName='Application'; StartTime=(Get-Date).AddMinutes(-3)} -ErrorAction SilentlyContinue | Where-Object { $_.Message -match 'Remotely' } | Select-Object -First 3 | ForEach-Object { $_.Message.Substring(0, [Math]::Min(1500, $_.Message.Length)) }
+          }
           Shot 'ui-setup'; Stop-Process $v -Force -ErrorAction SilentlyContinue
           $uiDir = "$env:LOCALAPPDATA\Remotely"; New-Item -ItemType Directory $uiDir -Force | Out-Null
           '{"ServerUri":"ws://127.0.0.1:8443/ws","ServerPin":"","DeviceName":"ci-ui-viewer","Theme":"dark","SyncClipboard":true,"AllowInsecureTransport":true}' | Set-Content "$uiDir\viewer.json"

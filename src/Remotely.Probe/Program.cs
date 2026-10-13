@@ -36,7 +36,7 @@ try
         _ => Print(Usage, 1),
     };
 }
-catch (Exception ex) when (ex is CoordinatorException or HandshakeException or IOException or InvalidOperationException or FormatException or ArgumentException or TimeoutException)
+catch (Exception ex) when (ex is System.Net.WebSockets.WebSocketException or System.Net.Http.HttpRequestException or System.Net.Sockets.SocketException or System.Security.Authentication.AuthenticationException or OperationCanceledException or CoordinatorException or HandshakeException or IOException or InvalidOperationException or FormatException or ArgumentException or TimeoutException)
 {
     Console.Error.WriteLine("Error: " + ex.Message);
     return 2;

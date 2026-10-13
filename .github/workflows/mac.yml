@@ -38,7 +38,7 @@ jobs:
         run: set -o pipefail; swift build -c debug 2>&1 | tail -30
       - name: Interoperability with the .NET side, both directions
         working-directory: mac
-        run: ci/interop.sh "$PWD/.build/debug/RemotelyHostMac" "$PWD/.build/debug/RemotelyCLI"
+        run: ci/interop.sh "$PWD/.build/debug/remotely-host-mac" "$PWD/.build/debug/remotely-cli"
       - name: Package universal build (.dmg)
         if: github.event_name == 'workflow_dispatch' && inputs.package
         working-directory: mac

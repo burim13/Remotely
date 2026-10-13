@@ -19,6 +19,29 @@ public partial class App : Application
 
     internal static new App Current => (App)Application.Current;
 
+    // A GUI app that dies silently is undiagnosable; leave the reason where support (and CI) can read it.
+    static App()
+    {
+        AppDomain.CurrentDomain.UnhandledException += (_, a) => LogCrash(a.ExceptionObject as Exception);
+    }
+
+    public App()
+    {
+        DispatcherUnhandledException += (_, a) => LogCrash(a.Exception);
+    }
+
+    private static void LogCrash(Exception? ex)
+    {
+        try
+        {
+            var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Remotely", "logs");
+            Directory.CreateDirectory(dir);
+            File.AppendAllText(Path.Combine(dir, "viewer-crash.log"), DateTime.Now.ToString("u") + "  " + ex + Environment.NewLine + Environment.NewLine);
+        }
+        catch (IOException) { }
+        catch (UnauthorizedAccessException) { }
+    }
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
