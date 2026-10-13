@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main, "claude/**"]
+    # Documentation alone does not need the Windows machines.
+    paths-ignore: ["docs/**", "**/*.md", "LICENSE", "mac/**", ".github/workflows/mac.yml"]
 
 jobs:
   build:
