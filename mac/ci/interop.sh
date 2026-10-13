@@ -47,6 +47,8 @@ probe "$V1" watch "$HID" --out "$W/frames-a" --count 2 --seconds 12 > "$W/a-watc
 check "A: frames arrive from the swift host" $(contains "$W/a-watch.log" "desktop=Default")
 check "A: the hello announces control, clipboard and files" $(contains "$W/a-watch.log" "Control, Clipboard, Files")
 
+# The host announces its own clipboard to a viewer that just connected; check that on its own, before the viewer overwrites the host clipboard in the next call.
+probe "$V1" control "$HID" --wait 2 > "$W/a-hostclip.log" 2>&1; cat "$W/a-hostclip.log"
 echo "payload from dotnet" > "$W/up-a.txt"
 probe "$V1" control "$HID" --move 16384,16384 --key 65 --clip "clip from dotnet" --upload "$W/up-a.txt" --list-share --wait 2 > "$W/a-control.log" 2>&1; cat "$W/a-control.log"
 ( cd "$W" && probe "$V1" control "$HID" --download hello.txt --wait 1 > "$W/a-download.log" 2>&1 ); cat "$W/a-download.log"
@@ -55,7 +57,7 @@ sleep 1
 check "A: mouse move reached the swift host" $(contains "$W/swifthost.log" "INPUT mouseMove x=16384 y=16384")
 check "A: key press reached the swift host (VK 65)" $(contains "$W/swifthost.log" "INPUT keyDown x=0 y=0 a1=65")
 check "A: clipboard reached the swift host" $(contains "$W/swifthost.log" "CLIPBOARD set: clip from dotnet")
-check "A: clipboard of the swift host reached the viewer" $(contains "$W/a-control.log" "clipboard from host: fake host clipboard")
+check "A: clipboard of the swift host reached the viewer" $(contains "$W/a-hostclip.log" "clipboard from host: fake host clipboard")
 check "A: upload stored by the swift host, identical" $([ "$(cat "$REMOTELY_HOME/Documents/Remotely/Received/up-a.txt" 2>/dev/null)" = "payload from dotnet" ]; echo $?)
 check "A: shared folder listed" $(contains "$W/a-control.log" "hello.txt")
 check "A: shared file downloaded, identical" $([ "$(cat "$W/downloads/hello.txt" 2>/dev/null)" = "shared by the swift host" ]; echo $?)
