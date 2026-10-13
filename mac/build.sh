@@ -61,5 +61,8 @@ remotely-cli is a command-line viewer for scripting and testing.
 TXT
 
 hdiutil create -volname "Remotely $VERSION" -srcfolder "$OUT" -ov -format UDZO "$PWD/Remotely-$VERSION-mac.dmg" >/dev/null
-lipo -archs "$OUT/Remotely.app/Contents/MacOS/Remotely" "$OUT/Remotely Host.app/Contents/MacOS/remotely-host-mac" "$OUT/remotely-cli"
+for f in "$OUT/Remotely.app/Contents/MacOS/Remotely" "$OUT/Remotely Host.app/Contents/MacOS/remotely-host-mac" "$OUT/remotely-cli"; do
+  archs="$(lipo -archs "$f")"; echo "$f: $archs"
+  case "$archs" in *x86_64*arm64*|*arm64*x86_64*) ;; *) echo "not universal: $f"; exit 1 ;; esac
+done
 echo "Built $PWD/Remotely-$VERSION-mac.dmg"
