@@ -36,3 +36,55 @@ jobs:
         with: { name: Remotely.Probe-win-x64, path: out/probe-win-x64/Remotely.Probe.exe }
       - uses: actions/upload-artifact@v4
         with: { name: Remotely.Probe-osx-x64, path: out/probe-osx-x64/Remotely.Probe }
+
+  # Runs the real chain on real Windows machines (x64 and ARM64): server, pairing, service install, helper launch, frame through the relay.
+  # GitHub's runners are headless, so this proves the plumbing, not what a person sees on a real screen.
+  smoke:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, rid: win-x64 }
+          - { os: windows-11-arm, rid: win-arm64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: "Remotely.Host-${{ matrix.rid }}", path: host }
+      - uses: actions/download-artifact@v4
+        with: { name: "Remotely.Probe-${{ matrix.rid }}", path: probe }
+      - uses: actions/download-artifact@v4
+        with: { name: Remotely.Server-win-x64, path: server }
+      - name: End to end
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $hostExe = "$PWD\host\Remotely.Host.exe"; $probe = "$PWD\probe\Remotely.Probe.exe"
+          Write-Host "== diag (as runner user)"; & $hostExe diag "$PWD\diag-user.jpg"
+          $env:Remotely__TlsEnabled = 'false'; $env:Remotely__DataDir = "$env:RUNNER_TEMP\srvdata"
+          $null = Start-Process "$PWD\server\Remotely.Server.exe" -PassThru -RedirectStandardOutput "$PWD\server.out" -RedirectStandardError "$PWD\server.err"
+          Start-Sleep 8
+          $c1 = (Invoke-RestMethod -Method Post http://127.0.0.1:8181/admin/pair-codes).code
+          Write-Host "== probe pair"; $o = & $probe pair --server ws://127.0.0.1:8443/ws --code $c1 --name ci-viewer --insecure 2>&1; $o
+          $viewerId = [regex]::Match(($o -join "`n"), '[0-9a-f]{64}').Value
+          $c2 = (Invoke-RestMethod -Method Post http://127.0.0.1:8181/admin/pair-codes).code
+          Write-Host "== host setup"; $o = & $hostExe setup --server ws://127.0.0.1:8443/ws --insecure --code $c2 --name ci-host --trust $viewerId 2>&1; $o
+          $hostId = [regex]::Match(($o -join "`n"), 'device id: ([0-9a-f]{64})').Groups[1].Value
+          Write-Host "== host install"; & $hostExe install
+          Start-Sleep 25
+          Write-Host "== service"; sc.exe query Remotely.Host
+          Write-Host "== host log"; Get-Content "C:\ProgramData\Remotely\logs\*.log" -ErrorAction SilentlyContinue
+          Write-Host "== probe list"; & $probe list
+          Write-Host "== probe watch"; & $probe watch $hostId --out "$PWD\frames" --count 3 --interval 1500
+          Write-Host "== host log after"; Get-Content "C:\ProgramData\Remotely\logs\*.log" -ErrorAction SilentlyContinue | Select-Object -Last 20
+          Write-Host "== uninstall"; & $hostExe uninstall
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-${{ matrix.rid }}
+          path: |
+            frames
+            diag-user.jpg
+            server.out
+            server.err
+          if-no-files-found: ignore
