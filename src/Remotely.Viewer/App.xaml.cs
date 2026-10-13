@@ -30,7 +30,7 @@ public partial class App : Application
         DispatcherUnhandledException += (_, a) => LogCrash(a.Exception);
     }
 
-    private static void LogCrash(Exception? ex)
+    internal static void LogCrash(Exception? ex)
     {
         try
         {

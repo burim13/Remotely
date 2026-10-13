@@ -164,8 +164,9 @@ jobs:
           Check "viewer starts and stays running on first run" (-not $v.HasExited)
           if ($v.HasExited) {
             Write-Host "viewer exit code: $($v.ExitCode)"
+            Get-ChildItem "$env:LOCALAPPDATA\Remotely" -Recurse -ErrorAction SilentlyContinue | ForEach-Object FullName
             Get-Content "$env:LOCALAPPDATA\Remotely\logs\viewer-crash.log" -ErrorAction SilentlyContinue | Select-Object -First 40
-            Get-WinEvent -FilterHashtable @{LogName='Application'; StartTime=(Get-Date).AddMinutes(-3)} -ErrorAction SilentlyContinue | Where-Object { $_.Message -match 'Remotely' } | Select-Object -First 3 | ForEach-Object { $_.Message.Substring(0, [Math]::Min(1500, $_.Message.Length)) }
+            Get-WinEvent -FilterHashtable @{LogName='Application'; StartTime=(Get-Date).AddMinutes(-3)} -ErrorAction SilentlyContinue | Where-Object { $_.ProviderName -match 'Runtime|Application Error|WER' } | Select-Object -First 4 | ForEach-Object { $_.Message.Substring(0, [Math]::Min(1500, $_.Message.Length)) }
           }
           Shot 'ui-setup'; Stop-Process $v -Force -ErrorAction SilentlyContinue
           $uiDir = "$env:LOCALAPPDATA\Remotely"; New-Item -ItemType Directory $uiDir -Force | Out-Null

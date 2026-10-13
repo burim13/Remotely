@@ -185,16 +185,18 @@ public final class CoordinatorClient: NSObject, URLSessionDelegate, @unchecked S
     }
 
     private func handshake() async throws {
-        guard case .serverHello(let challenge, let version) = try await receiveOne() else { throw RemotelyError.coordinator("Unexpected reply from server.") }
+        let first = try await receiveOne()
+        guard case .serverHello(let challenge, let version) = first else { throw RemotelyError.coordinator("Unexpected reply from server (expected the hello, got \(first)).") }
         guard version == ProtocolInfo.version else { throw RemotelyError.coordinator("Server speaks a different protocol version.") }
         var signed = FieldWriter()
         signed.field(Array(ProtocolInfo.authLabel.utf8))
         signed.field(challenge)
         try await sendControl(ControlBuilder.authResponse(publicKey: identity.publicKey, signature: try identity.sign(signed.bytes)))
-        switch try await receiveOne() {
+        let second = try await receiveOne()
+        switch second {
         case .authenticated: isPaired = true
         case .notPaired: isPaired = false
-        default: throw RemotelyError.coordinator("Unexpected reply from server.")
+        default: throw RemotelyError.coordinator("Unexpected reply from server (expected the sign-in result, got \(second)).")
         }
     }
 
@@ -213,9 +215,11 @@ public final class CoordinatorClient: NSObject, URLSessionDelegate, @unchecked S
     public func pair(code: String, name: String, canHost: Bool) async throws {
         if isPaired { return }
         try await sendControl(ControlBuilder.pairRequest(code: code, name: name, canHost: canHost))
-        guard case .pairResult(let ok, let error) = try await receiveOne() else { throw RemotelyError.coordinator("Unexpected reply from server.") }
+        let result = try await receiveOne()
+        guard case .pairResult(let ok, let error) = result else { throw RemotelyError.coordinator("Unexpected reply from server (expected the pairing result, got \(result)).") }
         guard ok else { throw RemotelyError.coordinator(error ?? "Pairing refused.") }
-        guard case .authenticated = try await receiveOne() else { throw RemotelyError.coordinator("Unexpected reply from server.") }
+        let confirm = try await receiveOne()
+        guard case .authenticated = confirm else { throw RemotelyError.coordinator("Unexpected reply from server (expected the sign-in, got \(confirm)).") }
         isPaired = true
         startReceiving()
     }
