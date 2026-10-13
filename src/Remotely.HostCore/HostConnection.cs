@@ -6,9 +6,12 @@ namespace Remotely.HostCore;
 /// <summary>Connect, pair (once), and serve; reconnects with backoff until cancelled. The config is re-read on every attempt and every viewer check, so edits apply without a restart.</summary>
 public static class HostConnection
 {
-    public static async Task RunForeverAsync(string configPath, DeviceIdentity identity, IFrameSource source, Action<string> log, CancellationToken ct)
+    /// <param name="build">Creates the host's services; <c>isTrusted</c> and <c>canControl</c> read the config file fresh on every call.</param>
+    public static async Task RunForeverAsync(string configPath, DeviceIdentity identity, Func<Func<string, bool>, Func<string, bool>, HostServices> build, Action<string> log, CancellationToken ct)
     {
-        var agent = new HostAgent(identity, source, viewerId => HostConfig.Load(configPath).IsTrusted(viewerId), log);
+        var agent = new HostAgent(identity, build(
+            viewerId => HostConfig.Load(configPath).IsTrusted(viewerId),
+            viewerId => HostConfig.Load(configPath).CanControl(viewerId)), log);
         var delay = TimeSpan.FromSeconds(2);
         while (!ct.IsCancellationRequested)
         {

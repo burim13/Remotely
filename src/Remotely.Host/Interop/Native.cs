@@ -32,8 +32,45 @@ internal struct BITMAPINFOHEADER
     public uint biClrUsed, biClrImportant;
 }
 
+[StructLayout(LayoutKind.Sequential)]
+internal struct MOUSEINPUT
+{
+    public int dx, dy;
+    public uint mouseData, dwFlags, time;
+    public UIntPtr dwExtraInfo;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+internal struct KEYBDINPUT
+{
+    public ushort wVk, wScan;
+    public uint dwFlags, time;
+    public UIntPtr dwExtraInfo;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+internal struct INPUTUNION
+{
+    [FieldOffset(0)] public MOUSEINPUT mi;
+    [FieldOffset(0)] public KEYBDINPUT ki;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+internal struct INPUT
+{
+    public uint type;
+    public INPUTUNION u;
+}
+
 internal static class Native
 {
+    public const uint INPUT_MOUSE = 0, INPUT_KEYBOARD = 1;
+    public const uint MOUSEEVENTF_MOVE = 0x0001, MOUSEEVENTF_LEFTDOWN = 0x0002, MOUSEEVENTF_LEFTUP = 0x0004, MOUSEEVENTF_RIGHTDOWN = 0x0008,
+        MOUSEEVENTF_RIGHTUP = 0x0010, MOUSEEVENTF_MIDDLEDOWN = 0x0020, MOUSEEVENTF_MIDDLEUP = 0x0040, MOUSEEVENTF_XDOWN = 0x0080,
+        MOUSEEVENTF_XUP = 0x0100, MOUSEEVENTF_WHEEL = 0x0800, MOUSEEVENTF_HWHEEL = 0x1000, MOUSEEVENTF_VIRTUALDESK = 0x4000, MOUSEEVENTF_ABSOLUTE = 0x8000;
+    public const uint KEYEVENTF_EXTENDEDKEY = 0x0001, KEYEVENTF_KEYUP = 0x0002;
+    public const uint CF_UNICODETEXT = 13, GMEM_MOVEABLE = 0x0002;
+
     public const uint NoSession = 0xFFFFFFFF;
 
     public const uint PROCESS_QUERY_INFORMATION = 0x0400;
@@ -70,6 +107,18 @@ internal static class Native
     [DllImport("user32.dll")] public static extern IntPtr GetDC(IntPtr window);
     [DllImport("user32.dll")] public static extern int ReleaseDC(IntPtr window, IntPtr dc);
     [DllImport("user32.dll")] public static extern bool SetProcessDpiAwarenessContext(IntPtr value);
+    [DllImport("user32.dll", SetLastError = true)] public static extern uint SendInput(uint count, INPUT[] inputs, int size);
+    [DllImport("user32.dll", SetLastError = true)] public static extern bool OpenClipboard(IntPtr owner);
+    [DllImport("user32.dll", SetLastError = true)] public static extern bool CloseClipboard();
+    [DllImport("user32.dll", SetLastError = true)] public static extern bool EmptyClipboard();
+    [DllImport("user32.dll", SetLastError = true)] public static extern IntPtr GetClipboardData(uint format);
+    [DllImport("user32.dll", SetLastError = true)] public static extern IntPtr SetClipboardData(uint format, IntPtr memory);
+    [DllImport("user32.dll")] public static extern uint GetClipboardSequenceNumber();
+    [DllImport("kernel32.dll", SetLastError = true)] public static extern IntPtr GlobalAlloc(uint flags, UIntPtr bytes);
+    [DllImport("kernel32.dll", SetLastError = true)] public static extern IntPtr GlobalLock(IntPtr memory);
+    [DllImport("kernel32.dll")] public static extern bool GlobalUnlock(IntPtr memory);
+    [DllImport("kernel32.dll")] public static extern IntPtr GlobalFree(IntPtr memory);
+    [DllImport("sas.dll")] public static extern void SendSAS([MarshalAs(UnmanagedType.Bool)] bool asUser);
 
     [DllImport("gdi32.dll")] public static extern IntPtr CreateCompatibleDC(IntPtr dc);
     [DllImport("gdi32.dll")] public static extern bool DeleteDC(IntPtr dc);

@@ -35,6 +35,7 @@ internal static class Diagnostics
             Native.CloseDesktop(input);
         }
 
+        Console.WriteLine($"Mode:             {(HostPaths.UserMode ? "user only (no service)" : "service")}");
         Console.WriteLine($"Data directory:   {HostPaths.DataDir} (exists: {Directory.Exists(HostPaths.DataDir)})");
         Console.WriteLine($"Installed copy:   {HostPaths.InstalledExe} (exists: {File.Exists(HostPaths.InstalledExe)})");
         Console.WriteLine($"Service state:    {Installer.ServiceState()}");
@@ -44,8 +45,8 @@ internal static class Diagnostics
             try
             {
                 Native.SetProcessDpiAwarenessContext(new IntPtr(-4));
-                using var capturer = new DesktopCapturer();
-                var frame = capturer.CaptureAsync(CancellationToken.None).GetAwaiter().GetResult();
+                using var desktop = new DesktopThread();
+                var frame = new DesktopCapturer(desktop).CaptureAsync(CancellationToken.None).GetAwaiter().GetResult();
                 File.WriteAllBytes(capturePath, frame.Jpeg);
                 Console.WriteLine($"Capture:          OK {frame.Width}x{frame.Height} desktop={frame.Desktop} {frame.Jpeg.Length / 1024} KB -> {capturePath}");
             }

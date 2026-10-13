@@ -59,31 +59,102 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Continue'
+          $script:fail = 0
+          function Check($name, $ok) { if ($ok) { Write-Host "CHECK PASS: $name" } else { Write-Host "CHECK FAIL: $name"; $script:fail++ } }
+          function Observe($text) { Write-Host "OBSERVE: $text" }
           $hostExe = "$PWD\host\Remotely.Host.exe"; $probe = "$PWD\probe\Remotely.Probe.exe"
+          Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public static class Cur { [StructLayout(LayoutKind.Sequential)] public struct P { public int X; public int Y; } [DllImport("user32.dll")] public static extern bool GetCursorPos(out P p); }'
+          function Cursor { $p = New-Object Cur+P; [void][Cur]::GetCursorPos([ref]$p); return $p }
+          function NewCode { (Invoke-RestMethod -Method Post http://127.0.0.1:8181/admin/pair-codes).code }
+          function WaitOnline($name) {
+            for ($i = 0; $i -lt 40; $i++) { $l = (& $probe list 2>&1) -join "`n"; if ($l -match "online\s+host\s+$name\s") { return $true }; Start-Sleep 1 }
+            return $false
+          }
+
           Write-Host "== diag (as runner user)"; & $hostExe diag "$PWD\diag-user.jpg"
           $env:Remotely__TlsEnabled = 'false'; $env:Remotely__DataDir = "$env:RUNNER_TEMP\srvdata"
           $null = Start-Process "$PWD\server\Remotely.Server.exe" -PassThru -RedirectStandardOutput "$PWD\server.out" -RedirectStandardError "$PWD\server.err"
           Start-Sleep 8
-          $c1 = (Invoke-RestMethod -Method Post http://127.0.0.1:8181/admin/pair-codes).code
-          Write-Host "== probe pair"; $o = & $probe pair --server ws://127.0.0.1:8443/ws --code $c1 --name ci-viewer --insecure 2>&1; $o
+          $o = & $probe pair --server ws://127.0.0.1:8443/ws --code (NewCode) --name ci-viewer --insecure 2>&1; $o
           $viewerId = [regex]::Match(($o -join "`n"), '[0-9a-f]{64}').Value
-          $c2 = (Invoke-RestMethod -Method Post http://127.0.0.1:8181/admin/pair-codes).code
-          Write-Host "== host setup"; $o = & $hostExe setup --server ws://127.0.0.1:8443/ws --insecure --code $c2 --name ci-host --trust $viewerId 2>&1; $o
-          $hostId = [regex]::Match(($o -join "`n"), 'device id: ([0-9a-f]{64})').Groups[1].Value
-          Write-Host "== host install"; & $hostExe install
-          Start-Sleep 25
-          Write-Host "== service"; sc.exe query Remotely.Host
-          Write-Host "== host log"; Get-Content "C:\ProgramData\Remotely\logs\*.log" -ErrorAction SilentlyContinue
-          Write-Host "== probe list"; & $probe list
-          Write-Host "== probe watch"; & $probe watch $hostId --out "$PWD\frames" --count 3 --interval 1500
-          Write-Host "== host log after"; Get-Content "C:\ProgramData\Remotely\logs\*.log" -ErrorAction SilentlyContinue | Select-Object -Last 20
-          Write-Host "== uninstall"; & $hostExe uninstall
+          Check "viewer paired" ($viewerId.Length -eq 64)
+          $payload = New-Object byte[] 2000000; (New-Object Random).NextBytes($payload)
+          [IO.File]::WriteAllBytes("$PWD\upload.bin", $payload)
+          $uploadHash = (Get-FileHash "$PWD\upload.bin").Hash
+
+          # ---------- USER MODE (no service, no administrator needed) ----------
+          Write-Host "`n===== USER MODE ====="
+          $o = & $hostExe setup --user --server ws://127.0.0.1:8443/ws --insecure --code (NewCode) --name ci-user-host --trust $viewerId 2>&1; $o
+          & $hostExe install --user
+          Check "user-mode host online" (WaitOnline 'ci-user-host')
+          $userHostId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'ci-user-host\s+([0-9a-f]{64})')).Groups[1].Value
+          $o = & $probe watch $userHostId --out "$PWD\frames-user" --count 1 --seconds 10 2>&1; $o
+          Check "user mode: frame received from the Default desktop" (($o -join "`n") -match 'desktop=Default')
+          & $probe control $userHostId --move 16384,16384 --wait 2 2>&1
+          $c = Cursor; Observe "user mode cursor after move to 16384,16384: $($c.X),$($c.Y)"
+          Check "user mode: mouse moved to about a quarter of the screen" ([math]::Abs($c.X - 256) -le 3 -and [math]::Abs($c.Y - 192) -le 3)
+          & $probe control $userHostId --clip "user-mode-clip" --wait 2 2>&1
+          Check "user mode: clipboard written" ((Get-Clipboard -Raw) -eq 'user-mode-clip')
+          $o = & $probe control $userHostId --upload "$PWD\upload.bin" --wait 1 2>&1; $o
+          $rcv = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Remotely\Received\upload.bin'
+          Check "user mode: uploaded file identical" ((Test-Path $rcv) -and ((Get-FileHash $rcv).Hash -eq $uploadHash))
+          $o = & $probe control $userHostId --sas --wait 1 2>&1; $o
+          Check "user mode: does not claim Ctrl+Alt+Del" (($o -join "`n") -match 'Ctrl\+Alt\+Del available: False')
+          Get-Content "$env:LOCALAPPDATA\Remotely\logs\*.log" -ErrorAction SilentlyContinue | Select-Object -Last 12
+          & $hostExe uninstall --user
+          Start-Sleep 2
+
+          # ---------- SERVICE MODE ----------
+          Write-Host "`n===== SERVICE MODE ====="
+          $o = & $hostExe setup --server ws://127.0.0.1:8443/ws --insecure --code (NewCode) --name ci-host --trust $viewerId 2>&1; $o
+          & $hostExe install
+          Check "service running" ((sc.exe query Remotely.Host) -match 'RUNNING')
+          Check "service host online" (WaitOnline 'ci-host')
+          $hostId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'ci-host\s+([0-9a-f]{64})')).Groups[1].Value
+          Get-Content "C:\ProgramData\Remotely\logs\*.log" -ErrorAction SilentlyContinue
+          $o = & $probe watch $hostId --out "$PWD\frames" --count 1 --seconds 10 2>&1; $o
+          Check "service: frame received from the Default desktop" (($o -join "`n") -match 'desktop=Default')
+          & $probe control $hostId --move 49152,49152 --wait 2 2>&1
+          $c = Cursor; Observe "service cursor after move to 49152,49152: $($c.X),$($c.Y)"
+          Check "service: mouse moved to about three quarters of the screen" ([math]::Abs($c.X - 768) -le 3 -and [math]::Abs($c.Y - 576) -le 3)
+          & $probe control $hostId --clip "service-clip" --wait 2 2>&1
+          Check "service: clipboard written" ((Get-Clipboard -Raw) -eq 'service-clip')
+          $o = & $probe control $hostId --upload "$PWD\upload.bin" --wait 1 2>&1; $o
+          $rcv = 'C:\Users\Public\Documents\Remotely\Received\upload.bin'
+          Check "service: uploaded file identical" ((Test-Path $rcv) -and ((Get-FileHash $rcv).Hash -eq $uploadHash))
+          New-Item -ItemType Directory -Force 'C:\Users\Public\Documents\Remotely\Share' | Out-Null
+          Copy-Item "$PWD\upload.bin" 'C:\Users\Public\Documents\Remotely\Share\shared.bin'
+          $o = & $probe control $hostId --list-share --download shared.bin --wait 1 2>&1; $o
+          Check "service: shared file downloaded identical" ((Test-Path "$PWD\downloads\shared.bin") -and ((Get-FileHash "$PWD\downloads\shared.bin").Hash -eq $uploadHash))
+          $o = & $probe control $hostId --download "..\..\Windows\win.ini" --wait 1 2>&1; $o
+          Check "service: path traversal refused" (($o -join "`n") -match 'download failed')
+
+          # ---------- THE LOCK SCREEN ----------
+          Write-Host "`n===== LOCK SCREEN ====="
+          Start-Process rundll32.exe -ArgumentList 'user32.dll,LockWorkStation'
+          Start-Sleep 8
+          $o = & $probe watch $hostId --out "$PWD\frames-lock" --count 2 --seconds 12 2>&1; $o
+          Observe "lock screen capture lines above: desktop=Winlogon means the lock screen was captured"
+          Check "lock screen: host still answers while locked" (($o -join "`n") -match 'desktop=')
+          if (($o -join "`n") -match 'desktop=Winlogon') { Observe "LOCK SCREEN CAPTURED (desktop=Winlogon)" } else { Observe "lock screen NOT reported as Winlogon" }
+          & $hostExe enable-sas
+          $o = & $probe control $hostId --sas --wait 3 2>&1; $o
+          Observe "Ctrl+Alt+Del request sent; see host log for any error"
+          Start-Sleep 2
+          Write-Host "== host log"; Get-Content "C:\ProgramData\Remotely\logs\*.log" -ErrorAction SilentlyContinue | Select-Object -Last 25
+          $o = & $probe watch $hostId --out "$PWD\frames-sas" --count 2 --seconds 8 2>&1; $o
+          & $hostExe uninstall
+          Write-Host "`nFAILED CHECKS: $script:fail"
+          if ($script:fail -gt 0) { exit 1 }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: smoke-${{ matrix.rid }}
           path: |
             frames
+            frames-user
+            frames-lock
+            frames-sas
             diag-user.jpg
             server.out
             server.err

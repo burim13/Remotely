@@ -8,6 +8,7 @@ public sealed class SecureSession : IDisposable
 {
     private readonly RelaySession _relay;
     private readonly SecureChannel _channel;
+    private readonly SemaphoreSlim _sendGate = new(1, 1);
 
     private SecureSession(RelaySession relay, SecureChannel channel, string peerDeviceId)
     {
@@ -38,8 +39,13 @@ public sealed class SecureSession : IDisposable
         return new SecureSession(relay, channel, initiatorId);
     }
 
-    public Task SendAsync(ReadOnlyMemory<byte> plaintext, CancellationToken ct = default) =>
-        _relay.SendAsync(_channel.Seal(plaintext.Span), ct);
+    /// <summary>Seal and send are one step under a lock: frames must reach the wire in counter order or the peer rejects them.</summary>
+    public async Task SendAsync(ReadOnlyMemory<byte> plaintext, CancellationToken ct = default)
+    {
+        await _sendGate.WaitAsync(ct).ConfigureAwait(false);
+        try { await _relay.SendAsync(_channel.Seal(plaintext.Span), ct).ConfigureAwait(false); }
+        finally { _sendGate.Release(); }
+    }
 
     /// <summary>Next decrypted message, or null if the session ended. Throws <see cref="CryptographicException"/> if the relay tampers with traffic.</summary>
     public async Task<byte[]?> ReceiveAsync(CancellationToken ct = default)

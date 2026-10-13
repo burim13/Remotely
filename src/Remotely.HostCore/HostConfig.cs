@@ -9,8 +9,10 @@ public sealed class HostConfig
     public string ServerPin { get; set; } = "";
     public string DeviceName { get; set; } = Environment.MachineName;
     public string PairCode { get; set; } = "";
-    /// <summary>Viewer device ids allowed to connect. Empty means nobody.</summary>
+    /// <summary>Viewer device ids allowed to connect and control this PC. Empty means nobody.</summary>
     public List<string> TrustedViewers { get; set; } = [];
+    /// <summary>Viewer device ids allowed to watch only (no input, clipboard or files).</summary>
+    public List<string> ViewOnlyViewers { get; set; } = [];
     /// <summary>Permit ws:// (no encryption to the coordinator). Local testing only.</summary>
     public bool AllowInsecureTransport { get; set; }
 
@@ -27,5 +29,7 @@ public sealed class HostConfig
         File.Move(temp, path, overwrite: true);
     }
 
-    public bool IsTrusted(string viewerDeviceId) => TrustedViewers.Contains(viewerDeviceId, StringComparer.OrdinalIgnoreCase);
+    public bool IsTrusted(string viewerDeviceId) => CanControl(viewerDeviceId) || ViewOnlyViewers.Contains(viewerDeviceId, StringComparer.OrdinalIgnoreCase);
+
+    public bool CanControl(string viewerDeviceId) => TrustedViewers.Contains(viewerDeviceId, StringComparer.OrdinalIgnoreCase);
 }

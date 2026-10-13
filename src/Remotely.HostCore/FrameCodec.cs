@@ -43,19 +43,3 @@ public static class FrameCodec
         return new FrameInfo(width, height, desktop, data[(14 + nameLength)..].ToArray());
     }
 }
-
-/// <summary>Messages inside the encrypted viewer/host session (prototype protocol v0).</summary>
-public static class HostMessages
-{
-    public const byte FrameRequest = 0x01;
-    public const byte FrameReply = 0x81;
-    public const byte Error = 0xFF;
-
-    public static byte[] Prefixed(byte kind, ReadOnlySpan<byte> body)
-    {
-        var message = new byte[1 + body.Length];
-        message[0] = kind;
-        body.CopyTo(message.AsSpan(1));
-        return message;
-    }
-}

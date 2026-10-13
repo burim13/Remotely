@@ -11,13 +11,16 @@ internal sealed class HostService(FileLog log) : BackgroundService
         try
         {
             var identity = HostPaths.LoadOrCreateIdentity();
-            log.Write($"Remotely.Host starting. Device id: {identity.DeviceId}");
+            log.Write($"Remotely.Host (service) starting. Device id: {identity.DeviceId}");
+            Directory.CreateDirectory(HostPaths.ReceiveDir);
+            Directory.CreateDirectory(HostPaths.ShareDir);
 
-            var source = new PipeFrameSource();
-            var supervisor = new HelperSupervisor(source, log.Write);
+            var link = new HelperLink();
+            var supervisor = new HelperSupervisor(link, log.Write);
             await Task.WhenAll(
                 supervisor.RunAsync(stoppingToken),
-                HostConnection.RunForeverAsync(HostPaths.ConfigFile, identity, source, log.Write, stoppingToken)).ConfigureAwait(false);
+                HostConnection.RunForeverAsync(HostPaths.ConfigFile, identity,
+                    (trusted, control) => HostRuntime.ForService(link, trusted, control), log.Write, stoppingToken)).ConfigureAwait(false);
         }
         catch (OperationCanceledException) { }
         catch (Exception ex)
