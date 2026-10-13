@@ -213,17 +213,17 @@ public sealed class HostAgent(DeviceIdentity identity, HostServices services, Ac
                 }
                 break;
             case HostMessages.FileEnd when s.Upload is not null && s.UploadId == id:
-                try
+                string? stored = null, failure = null;
+                try { stored = Path.GetFileName(s.Upload.Complete()); }
+                catch (Exception ex) when (ex is InvalidDataException or IOException) { failure = ex.Message; }
+                // Release (and, on failure, delete) the partial file BEFORE telling the viewer, so "rejected" always means "nothing left behind".
+                s.Upload.Dispose(); s.Upload = null;
+                if (failure is null)
                 {
-                    var path = s.Upload.Complete();
-                    log($"Received file '{Path.GetFileName(path)}' from {DeviceIds.Short(s.ViewerId)}.");
-                    await AckAsync(s, id, true, Path.GetFileName(path), ct).ConfigureAwait(false);
+                    log($"Received file '{stored}' from {DeviceIds.Short(s.ViewerId)}.");
+                    await AckAsync(s, id, true, stored!, ct).ConfigureAwait(false);
                 }
-                catch (Exception ex) when (ex is InvalidDataException or IOException)
-                {
-                    await AckAsync(s, id, false, ex.Message, ct).ConfigureAwait(false);
-                }
-                finally { s.Upload.Dispose(); s.Upload = null; }
+                else await AckAsync(s, id, false, failure, ct).ConfigureAwait(false);
                 break;
         }
     }

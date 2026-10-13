@@ -1,5 +1,5 @@
 # Signs a file with a code-signing certificate from the current user's store (Authenticode, SHA-256, timestamped). Same approach as Portico's build\sign.ps1.
-#   powershell -ExecutionPolicy Bypass -File build\sign.ps1 -Path publish\Remotely-Setup-0.2.0-arm64.exe
+#   powershell -ExecutionPolicy Bypass -File build\sign.ps1 -Path publish\Remotely-Setup-0.3.0-arm64.exe
 # A self-made certificate names the publisher and proves the file is untouched, but SmartScreen still warns on downloaded files because it has no reputation.
 # Make one (once):  New-SelfSignedCertificate -Type CodeSigningCert -Subject "CN=Remotely" -CertStoreLocation Cert:\CurrentUser\My
 param([Parameter(Mandatory = $true)][string]$Path, [string]$Subject = "Remotely")

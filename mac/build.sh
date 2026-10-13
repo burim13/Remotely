@@ -5,7 +5,7 @@
 # right-click > Open, and macOS asks again for Screen Recording / Accessibility after each rebuild because an ad hoc signature changes.
 set -euo pipefail
 cd "$(dirname "$0")"
-VERSION="${1:-0.2.0}"
+VERSION="${1:-0.3.0}"
 OUT="$PWD/dist"
 rm -rf "$OUT" && mkdir -p "$OUT"
 

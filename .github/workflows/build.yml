@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: "Publish the installers as a draft release with this tag (for example v0.2.0). Leave empty for a normal build."
+        description: "Publish the installers as a draft release with this tag (for example v0.3.0). Leave empty for a normal build."
         type: string
         default: ""
   push:
@@ -261,15 +261,15 @@ jobs:
         run: |
           $iscc = @("${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
           Write-Host "Using $iscc"
-          foreach ($arch in "x64", "arm64") { & $iscc "/DArch=$arch" "/DVersion=0.2.0" installer\Remotely.iss; if ($LASTEXITCODE -ne 0) { throw "client installer $arch failed" } }
-          & $iscc "/DVersion=0.2.0" installer\Remotely-Server.iss; if ($LASTEXITCODE -ne 0) { throw "server installer failed" }
+          foreach ($arch in "x64", "arm64") { & $iscc "/DArch=$arch" "/DVersion=0.3.0" installer\Remotely.iss; if ($LASTEXITCODE -ne 0) { throw "client installer $arch failed" } }
+          & $iscc "/DVersion=0.3.0" installer\Remotely-Server.iss; if ($LASTEXITCODE -ne 0) { throw "server installer failed" }
           Get-ChildItem publish\*.exe | ForEach-Object { "{0}  {1:N1} MB" -f $_.Name, ($_.Length / 1MB) }
       - uses: actions/upload-artifact@v4
-        with: { name: Installer-x64, path: publish/Remotely-Setup-0.2.0-x64.exe }
+        with: { name: Installer-x64, path: publish/Remotely-Setup-0.3.0-x64.exe }
       - uses: actions/upload-artifact@v4
-        with: { name: Installer-arm64, path: publish/Remotely-Setup-0.2.0-arm64.exe }
+        with: { name: Installer-arm64, path: publish/Remotely-Setup-0.3.0-arm64.exe }
       - uses: actions/upload-artifact@v4
-        with: { name: Installer-server, path: publish/Remotely-Server-Setup-0.2.0-x64.exe }
+        with: { name: Installer-server, path: publish/Remotely-Server-Setup-0.3.0-x64.exe }
 
   # Runs the real installers silently on real Windows (x64 and ARM64): server installer, then client installer for all users, then for the current user,
   # over real TLS with the server key pin.
@@ -308,7 +308,7 @@ jobs:
           }
 
           Write-Host "===== SERVER INSTALLER ====="
-          $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.2.0-x64.exe" ($silent + '/LOG=server-install.log' + '/Address=127.0.0.1')
+          $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.3.0-x64.exe" ($silent + '/LOG=server-install.log' + '/Address=127.0.0.1')
           Check "server installer exit code 0" ($p.ExitCode -eq 0)
           Check "server service running" (WaitFor 'server' { (sc.exe query Remotely.Server) -match 'RUNNING' } 30)
           Check "firewall rule added" ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Remotely Server')
@@ -374,7 +374,7 @@ jobs:
             frames-service
           if-no-files-found: ignore
 
-  # One click: Actions > build > Run workflow > fill in "release_tag" (for example v0.2.0) to publish the installers as a DRAFT release.
+  # One click: Actions > build > Run workflow > fill in "release_tag" (for example v0.3.0) to publish the installers as a DRAFT release.
   release:
     if: github.event_name == 'workflow_dispatch' && inputs.release_tag != ''
     needs: [installers, installer-smoke]

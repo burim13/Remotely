@@ -43,14 +43,14 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.package
         working-directory: mac
         run: |
-          ./build.sh 0.2.0
+          ./build.sh 0.3.0
           codesign --verify --deep --strict "dist/Remotely.app" && echo "viewer signature ok"
           codesign --verify --deep --strict "dist/Remotely Host.app" && echo "host signature ok"
           ci/interop.sh "$PWD/dist/Remotely Host.app/Contents/MacOS/remotely-host-mac" "$PWD/dist/remotely-cli"
           if arch -x86_64 /usr/bin/true 2>/dev/null; then echo "Rosetta present: running the Intel slice"; arch -x86_64 "$PWD/dist/remotely-cli" | head -3; else echo "OBSERVE: Rosetta not installed on this runner; the Intel slice was built (lipo) but not executed"; fi
       - uses: actions/upload-artifact@v4
         if: github.event_name == 'workflow_dispatch' && inputs.package
-        with: { name: Remotely-mac-dmg, path: mac/Remotely-0.2.0-mac.dmg }
+        with: { name: Remotely-mac-dmg, path: mac/Remotely-0.3.0-mac.dmg }
       - name: Attach to the release
         if: github.event_name == 'workflow_dispatch' && inputs.package && inputs.release_tag != ''
         env:
@@ -58,4 +58,4 @@ jobs:
           TAG: ${{ inputs.release_tag }}
         run: |
           gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --draft --title "Remotely $TAG" --notes "See docs/user-guide.md."
-          gh release upload "$TAG" mac/Remotely-0.2.0-mac.dmg --repo "$GITHUB_REPOSITORY" --clobber
+          gh release upload "$TAG" mac/Remotely-0.3.0-mac.dmg --repo "$GITHUB_REPOSITORY" --clobber

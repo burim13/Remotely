@@ -1,7 +1,7 @@
 # Builds everything and the installers into .\publish, on a Windows PC with the .NET 10 SDK and Inno Setup 6 (winget install JRSoftware.InnoSetup).
-#   powershell -ExecutionPolicy Bypass -File build\publish.ps1 [-Version 0.2.0]
+#   powershell -ExecutionPolicy Bypass -File build\publish.ps1 [-Version 0.3.0]
 # Output: Remotely-Setup-<version>-arm64.exe, Remotely-Setup-<version>-x64.exe, Remotely-Server-Setup-<version>-x64.exe (signed if build\sign.ps1 finds your certificate).
-param([string]$Version = "0.2.0")
+param([string]$Version = "0.3.0")
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 Set-Location $root

@@ -1,6 +1,6 @@
 ; Remotely installer (Inno Setup 6). One per architecture, built by build\publish.ps1 or the CI "installers" job:
-;   ISCC.exe /DArch=arm64 /DVersion=0.2.0 installer\Remotely.iss
-;   ISCC.exe /DArch=x64   /DVersion=0.2.0 installer\Remotely.iss
+;   ISCC.exe /DArch=arm64 /DVersion=0.3.0 installer\Remotely.iss
+;   ISCC.exe /DArch=x64   /DVersion=0.3.0 installer\Remotely.iss
 ; At the start the installer asks: for all users (administrator: the Host runs as a Windows service that survives sign-out and shows the
 ; lock screen) or only for me (no administrator: the Host runs while you are signed in). Same choice as Portico's per-user installer, plus the service.
 ; The only thing the wizard asks for is the invite that "Remotely Server info" prints on your server (it holds the address, key pin and a pairing code).
@@ -12,7 +12,7 @@
   #define Arch "x64"
 #endif
 #ifndef Version
-  #define Version "0.2.0"
+  #define Version "0.3.0"
 #endif
 #define Publish "..\publish\" + Arch
 
