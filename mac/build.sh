@@ -44,8 +44,8 @@ bundle() { # appdir name executable-in-bin executable-name identifier agent
 }
 
 bundle "$OUT/Remotely.app" "Remotely" RemotelyViewerMac Remotely com.remotely.viewer "<false/>"
-bundle "$OUT/Remotely Host.app" "Remotely Host" RemotelyHostMac remotely-host-mac com.remotely.host "<true/>"
-cp "$BIN/RemotelyCLI" "$OUT/remotely-cli"
+bundle "$OUT/Remotely Host.app" "Remotely Host" remotely-host-mac remotely-host-mac com.remotely.host "<true/>"
+cp "$BIN/remotely-cli" "$OUT/remotely-cli"
 
 cat > "$OUT/READ ME FIRST.txt" <<TXT
 Remotely $VERSION for macOS (Intel and Apple silicon)
