@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -46,6 +47,7 @@ jobs:
   # GitHub's runners are headless, so this proves the plumbing, not what a person sees on a real screen.
   smoke:
     needs: build
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -62,6 +64,8 @@ jobs:
         with: { name: Remotely.Server-win-x64, path: server }
       - name: End to end
         shell: pwsh
+        env:
+          RID: ${{ matrix.rid }}
         run: |
           $ErrorActionPreference = 'Continue'
           $script:fail = 0
@@ -142,7 +146,10 @@ jobs:
           Observe "LogonUI process present after $i s: $([bool](Get-Process LogonUI -ErrorAction SilentlyContinue))"
           Start-Sleep 3
           $o = & $probe watch $hostId --out "$PWD\frames-lock" --count 2 --seconds 12 2>&1; $o
-          Check "lock screen: captured as the Winlogon desktop" (($o -join "`n") -match 'desktop=Winlogon')
+          # On the headless x64 runner Windows switches to the lock screen straight away. On the headless ARM64 runner the lock UI starts but the input desktop
+          # stays "Default" until Ctrl+Alt+Del, so there it is reported, not required (the secure desktop itself is required below, on both).
+          if ($env:RID -eq 'win-x64') { Check "lock screen: captured as the Winlogon desktop" (($o -join "`n") -match 'desktop=Winlogon') }
+          else { Observe "lock screen capture on $env:RID: $(if (($o -join "`n") -match 'desktop=Winlogon') { 'Winlogon' } else { 'still the Default desktop on this runner' })" }
           Observe "lock screen capture lines above: desktop=Winlogon means the lock screen was captured"
           Check "lock screen: host still answers while locked" (($o -join "`n") -match 'desktop=')
           if (($o -join "`n") -match 'desktop=Winlogon') { Observe "LOCK SCREEN CAPTURED (desktop=Winlogon)" } else { Observe "lock screen NOT reported as Winlogon" }
@@ -151,7 +158,8 @@ jobs:
           Observe "Ctrl+Alt+Del request sent; see host log for any error"
           Start-Sleep 2
           Write-Host "== host log"; Get-Content "C:\ProgramData\Remotely\logs\*.log" -ErrorAction SilentlyContinue | Select-Object -Last 25
-          $o = & $probe watch $hostId --out "$PWD\frames-sas" --count 2 --seconds 8 2>&1; $o
+          $o = & $probe watch $hostId --out "$PWD\frames-sas" --count 1 --seconds 10 2>&1; $o
+          Check "secure desktop (after Ctrl+Alt+Del) captured as Winlogon" (($o -join "`n") -match 'desktop=Winlogon')
           & $hostExe uninstall
           Write-Host "`nFAILED CHECKS: $script:fail"
           if ($script:fail -gt 0) { exit 1 }
@@ -172,6 +180,7 @@ jobs:
   # Compiles the three installers with Inno Setup on Windows.
   installers:
     needs: build
+    timeout-minutes: 20
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -207,6 +216,7 @@ jobs:
   # over real TLS with the server key pin.
   installer-smoke:
     needs: installers
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -231,9 +241,15 @@ jobs:
           $probe = "$PWD\probe\Remotely.Probe.exe"
           $serverExe = "C:\Program Files\Remotely Server\Remotely.Server.exe"
           $silent = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART')
+          # Start-Process -Wait also waits for descendants, and a per-user install deliberately leaves a long-running host behind: wait for the process itself.
+          function RunWait($file, $argList, $timeoutSec = 300) {
+            $p = Start-Process $file -ArgumentList $argList -PassThru
+            if (-not $p.WaitForExit($timeoutSec * 1000)) { Write-Host "TIMEOUT waiting for $file"; try { $p.Kill() } catch {} }
+            return $p
+          }
 
           Write-Host "===== SERVER INSTALLER ====="
-          $p = Start-Process "$PWD\inst\Remotely-Server-Setup-0.2.0-x64.exe" -ArgumentList ($silent + '/LOG=server-install.log') -Wait -PassThru
+          $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.2.0-x64.exe" ($silent + '/LOG=server-install.log')
           Check "server installer exit code 0" ($p.ExitCode -eq 0)
           Check "server service running" (WaitFor 'server' { (sc.exe query Remotely.Server) -match 'RUNNING' } 30)
           Check "firewall rule added" ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Remotely Server')
@@ -249,7 +265,7 @@ jobs:
 
           Write-Host "`n===== CLIENT INSTALLER: ALL USERS (service) ====="
           $args1 = $silent + @('/LOG=client-install.log', "/Server=$server", "/Pin=$pin", "/Code=$(NewCode)", '/Name=inst-host', "/Trust=$viewerId")
-          $p = Start-Process (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName -ArgumentList $args1 -Wait -PassThru
+          $p = RunWait (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName $args1
           Check "client installer exit code 0" ($p.ExitCode -eq 0)
           Check "viewer installed" (Test-Path 'C:\Program Files\Remotely\Remotely.exe')
           Check "host installed" (Test-Path 'C:\Program Files\Remotely\Remotely.Host.exe')
@@ -260,26 +276,26 @@ jobs:
           Check "frame received from the installed service" (($o -join "`n") -match 'desktop=')
           Check "start menu entry exists" (Test-Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Remotely\Remotely.lnk')
           $o = & "C:\Program Files\Remotely\Remotely.Host.exe" diag 2>&1; $o | Select-Object -First 12
-          Start-Process 'C:\Program Files\Remotely\unins000.exe' -ArgumentList ($silent + '/LOG=client-uninstall.log') -Wait
+          $null = RunWait 'C:\Program Files\Remotely\unins000.exe' ($silent + '/LOG=client-uninstall.log')
           Check "uninstall removed the service" (WaitFor 'gone' { (sc.exe query Remotely.Host) -match '1060' } 20)
           Check "uninstall removed the program files" (-not (Test-Path 'C:\Program Files\Remotely\Remotely.Host.exe'))
           Check "uninstall kept the user's data" (Test-Path 'C:\ProgramData\Remotely\host.json')
 
           Write-Host "`n===== CLIENT INSTALLER: CURRENT USER (no service) ====="
           $args2 = $silent + @('/CURRENTUSER', '/LOG=client-install-user.log', "/Server=$server", "/Pin=$pin", "/Code=$(NewCode)", '/Name=inst-user-host', "/Trust=$viewerId")
-          $p = Start-Process (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName -ArgumentList $args2 -Wait -PassThru
+          $p = RunWait (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName $args2
           Check "per-user installer exit code 0" ($p.ExitCode -eq 0)
           $userDir = Join-Path $env:LOCALAPPDATA 'Programs\Remotely'
           Check "per-user files in the user's profile" ((Test-Path "$userDir\Remotely.exe") -and (Test-Path "$userDir\Remotely.Host.exe"))
           Check "no service was created for the per-user install" ((sc.exe query Remotely.Host) -match '1060')
           Check "sign-in entry registered" ($null -ne (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'Remotely.Host' -ErrorAction SilentlyContinue))
           Check "user-mode host online" (WaitFor 'uonline' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+inst-user-host\s' } 40)
-          Start-Process "$userDir\unins000.exe" -ArgumentList ($silent + '/LOG=client-uninstall-user.log') -Wait
+          $null = RunWait "$userDir\unins000.exe" ($silent + '/LOG=client-uninstall-user.log')
           Check "per-user uninstall removed the sign-in entry" ($null -eq (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'Remotely.Host' -ErrorAction SilentlyContinue))
           Check "per-user uninstall removed the program" (WaitFor 'ugone' { -not (Test-Path "$userDir\Remotely.Host.exe") } 20)
 
           Write-Host "`n===== SERVER UNINSTALL ====="
-          Start-Process 'C:\Program Files\Remotely Server\unins000.exe' -ArgumentList ($silent + '/LOG=server-uninstall.log') -Wait
+          $null = RunWait 'C:\Program Files\Remotely Server\unins000.exe' ($silent + '/LOG=server-uninstall.log')
           Check "server service removed" (WaitFor 'sgone' { (sc.exe query Remotely.Server) -match '1060' } 20)
           Check "firewall rule removed" (-not ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Rule Name'))
           Check "server data kept" (Test-Path 'C:\ProgramData\Remotely Server\devices.json')

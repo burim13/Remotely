@@ -33,9 +33,10 @@ public final class RelaySession: @unchecked Sendable {
         self.isInitiator = isInitiator
         self.owner = owner
         var c: AsyncStream<[UInt8]>.Continuation!
-        stream = AsyncStream(bufferingPolicy: .unbounded) { c = $0 }
+        let s = AsyncStream<[UInt8]>(bufferingPolicy: .unbounded) { c = $0 }
+        stream = s
         continuation = c
-        iterator = stream.makeAsyncIterator()
+        iterator = s.makeAsyncIterator()
     }
 
     public func send(_ payload: [UInt8]) async throws {

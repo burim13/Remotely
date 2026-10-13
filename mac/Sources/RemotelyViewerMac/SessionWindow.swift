@@ -322,13 +322,13 @@ struct SessionView: View {
 /// One AppKit window per session. The remote screen is an NSView so it gets raw keyboard and mouse events.
 @MainActor
 final class SessionWindowController: NSObject, NSWindowDelegate {
-    private static var open = Set<SessionWindowController>()
+    private static var controllers = Set<SessionWindowController>()
     private let window: NSWindow
     private let model: SessionModel
 
     static func open(model app: AppModel, host: DeviceInfo) {
         let controller = SessionWindowController(app: app, host: host)
-        open.insert(controller)
+        controllers.insert(controller)
         controller.window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
         Task { await controller.model.connect() }
@@ -348,6 +348,6 @@ final class SessionWindowController: NSObject, NSWindowDelegate {
 
     func windowWillClose(_ notification: Notification) {
         model.close()
-        Self.open.remove(self)
+        Self.controllers.remove(self)
     }
 }
