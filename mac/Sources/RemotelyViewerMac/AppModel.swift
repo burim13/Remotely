@@ -7,7 +7,7 @@ import RemotelyKit
 struct ViewerSettings: Codable {
     var serverURL = ""
     var serverPin = ""
-    var deviceName = Host.current().localizedName ?? "Mac"
+    var deviceName = ComputerName.current
     /// "system", "dark" or "light"
     var theme = "system"
     var syncClipboard = true

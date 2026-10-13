@@ -19,7 +19,7 @@ on:
 jobs:
   mac:
     runs-on: macos-latest
-    timeout-minutes: 40
+    timeout-minutes: 25
     permissions:
       contents: write
     steps:
@@ -32,10 +32,10 @@ jobs:
           sw_vers; uname -m; swift --version
       - name: Unit tests (known-answer vectors from the .NET implementation)
         working-directory: mac
-        run: swift test 2>&1 | tail -60
+        run: set -o pipefail; swift test 2>&1 | tail -80
       - name: Build debug binaries
         working-directory: mac
-        run: swift build -c debug 2>&1 | tail -30
+        run: set -o pipefail; swift build -c debug 2>&1 | tail -30
       - name: Interoperability with the .NET side, both directions
         working-directory: mac
         run: ci/interop.sh "$PWD/.build/debug/RemotelyHostMac" "$PWD/.build/debug/RemotelyCLI"

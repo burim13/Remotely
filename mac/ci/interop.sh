@@ -8,10 +8,12 @@ HOST_BIN="$1"; CLI_BIN="$2"
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 W="${RUNNER_TEMP:-/tmp}/remotely-interop"; rm -rf "$W"; mkdir -p "$W"
 FAIL=0
+# Every external command gets a hard time limit, so a stuck handshake can never hang the whole run (macOS has no `timeout`; perl's alarm does the same job).
+T() { local secs="$1"; shift; perl -e 'alarm shift; exec @ARGV' "$secs" "$@"; }
 check() { if [ "$2" -eq 0 ]; then echo "CHECK PASS: $1"; else echo "CHECK FAIL: $1"; FAIL=$((FAIL+1)); fi; }
 contains() { grep -q -- "$2" "$1"; echo $?; }   # prints 0 when file $1 contains $2
 
-echo "== build the .NET side"
+echo "== build the .NET side"; date
 dotnet publish "$ROOT/src/Remotely.Server" -c Release -o "$W/server" -v q 2>&1 | grep -E "error" ; dotnet publish "$ROOT/src/Remotely.Probe" -c Release -o "$W/probe" -v q 2>&1 | grep -E "error"
 
 export Remotely__TlsEnabled=false Remotely__DataDir="$W/srvdata" Remotely__PublicPort=19443 Remotely__AdminPort=19181
@@ -19,8 +21,9 @@ dotnet "$W/server/Remotely.Server.dll" > "$W/server.log" 2>&1 &
 SERVER_PID=$!
 sleep 6
 URL=ws://127.0.0.1:19443/ws
-code() { curl -s -X POST http://127.0.0.1:19181/admin/pair-codes | python3 -c "import sys,json;print(json.load(sys.stdin)['code'])"; }
-probe() { local home="$1"; shift; HOME="$home" dotnet "$W/probe/Remotely.Probe.dll" "$@"; }
+code() { curl -s -m 10 -X POST http://127.0.0.1:19181/admin/pair-codes | python3 -c "import sys,json;print(json.load(sys.stdin)['code'])"; }
+probe() { local home="$1"; shift; HOME="$home" T 60 dotnet "$W/probe/Remotely.Probe.dll" "$@"; }
+cli() { T 60 "$CLI_BIN" "$@"; }
 
 echo; echo "===== A. Swift host <-> .NET viewer ====="
 V1="$W/viewer1"; V2="$W/viewer2"; V3="$W/viewer3"; mkdir -p "$V1" "$V2" "$V3"
@@ -32,7 +35,7 @@ check "three .NET viewers paired" $([ ${#ID1} -eq 64 ] && [ ${#ID2} -eq 64 ]; ec
 export REMOTELY_HOME="$W/hosthome"
 mkdir -p "$REMOTELY_HOME/Documents/Remotely/Share"
 printf 'shared by the swift host' > "$REMOTELY_HOME/Documents/Remotely/Share/hello.txt"
-"$HOST_BIN" setup --server $URL --insecure --code "$(code)" --name swift-host --trust "$ID1" --view-only "$ID2" > "$W/hostsetup.log" 2>&1
+T 30 "$HOST_BIN" setup --server $URL --insecure --code "$(code)" --name swift-host --trust "$ID1" --view-only "$ID2" > "$W/hostsetup.log" 2>&1
 cat "$W/hostsetup.log"
 "$HOST_BIN" run --fake-screen --seconds 75 > "$W/swifthost.log" 2>&1 &
 HOST_PID=$!
@@ -70,22 +73,23 @@ check "A: the swift host logs the refusal with the id to trust" $(contains "$W/s
 kill $HOST_PID 2>/dev/null; wait $HOST_PID 2>/dev/null
 
 echo; echo "===== B. .NET host <-> Swift viewer ====="
+rm -rf "$W/downloads"   # the file sink never overwrites; start B with a clean folder
 export HOME="$W/clihome"; mkdir -p "$HOME"
-CLIID=$("$CLI_BIN" pair --server $URL --code "$(code)" --name swift-viewer --insecure | tail -1)
+CLIID=$(cli pair --server $URL --code "$(code)" --name swift-viewer --insecure | tail -1)
 check "swift viewer paired" $([ ${#CLIID} -eq 64 ]; echo $?)
 FH="$W/fakehome"; mkdir -p "$FH"
 probe "$FH" pair --server $URL --code "$(code)" --name unused --insecure > /dev/null
 probe "$FH" host-fake --name net-host --code "$(code)" --trust "$CLIID" --seconds 70 > "$W/fakehost.log" 2>&1 &
 FAKE_PID=$!
-for i in $(seq 1 40); do "$CLI_BIN" list 2>/dev/null | grep -q "online.*net-host" && break; sleep 1; done
-NID=$("$CLI_BIN" list | awk '/net-host/ {print $4}')
+for i in $(seq 1 40); do cli list 2>/dev/null | grep -q "online.*net-host" && break; sleep 1; done
+NID=$(cli list | awk '/net-host/ {print $4}')
 check "net host online and listed for the swift viewer" $([ ${#NID} -eq 64 ]; echo $?)
 
-"$CLI_BIN" watch "$NID" --out "$W/frames-b" --count 2 --seconds 12 > "$W/b-watch.log" 2>&1; cat "$W/b-watch.log"
+cli watch "$NID" --out "$W/frames-b" --count 2 --seconds 12 > "$W/b-watch.log" 2>&1; cat "$W/b-watch.log"
 check "B: swift viewer receives frames" $(contains "$W/b-watch.log" "desktop=Default")
 check "B: swift viewer decodes the .NET hello" $(contains "$W/b-watch.log" "Control, Clipboard, Files")
 echo "payload from swift" > "$W/up-b.txt"
-( cd "$W" && "$CLI_BIN" control "$NID" --move 1000,2000 --key 65 --clip "clip from swift" --upload "$W/up-b.txt" --list-share --download hello.txt --wait 2 > "$W/b-control.log" 2>&1 ); cat "$W/b-control.log"
+( cd "$W" && cli control "$NID" --move 1000,2000 --key 65 --clip "clip from swift" --upload "$W/up-b.txt" --list-share --download hello.txt --wait 2 > "$W/b-control.log" 2>&1 ); cat "$W/b-control.log"
 sleep 2
 check "B: mouse move reached the .NET host" $(contains "$W/fakehost.log" "INPUT MouseMove x=1000 y=2000")
 check "B: key press reached the .NET host" $(contains "$W/fakehost.log" "INPUT KeyDown x=0 y=0 a1=65")

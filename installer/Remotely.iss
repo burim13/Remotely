@@ -67,8 +67,8 @@ Name: "{group}\Uninstall Remotely"; Filename: "{uninstallexe}"
 
 [Run]
 ; Configure and start the host. Both commands are the same ones you can run by hand (Remotely.Host.exe setup / install).
-Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostSetupArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Connecting this PC to your server..."; Check: HostConfigured
-Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostInstallArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Starting Remotely Host..."; Check: HostConfigured
+Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostSetupArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Connecting this PC to your server..."; Check: NeedsSetup
+Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostInstallArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Starting Remotely Host..."; Check: ShouldStartHost
 Filename: "{app}\Remotely.exe"; Description: "Open Remotely"; Flags: nowait postinstall skipifsilent; Components: viewer
 
 [UninstallRun]
@@ -156,10 +156,22 @@ begin
   end;
 end;
 
-// The host is configured only if a server address was given (wizard) or passed on the command line (silent).
-function HostConfigured: Boolean;
+// Set the host up only if a server address was given (wizard) or passed on the command line (silent).
+function NeedsSetup: Boolean;
 begin
   Result := HostPageValue(0, 'Server') <> '';
+end;
+
+function HostConfigExists: Boolean;
+begin
+  if IsAdminInstallMode then Result := FileExists(ExpandConstant('{commonappdata}\Remotely\host.json'))
+  else Result := FileExists(ExpandConstant('{localappdata}\Remotely\host.json'));
+end;
+
+// Start (or restart) the host when it was just set up, or when an earlier install left its settings behind: an upgrade keeps working without new details.
+function ShouldStartHost: Boolean;
+begin
+  Result := NeedsSetup or HostConfigExists;
 end;
 
 function HostSetupArgs(Param: String): String;
@@ -197,6 +209,20 @@ function InitializeSetup(): Boolean;
 begin
   StopRemotely();
   Result := True;
+end;
+
+// Let go of the program files before they are replaced: stop the service (it would otherwise be restarted by its recovery settings) and any leftover helper.
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+var
+  ResultCode: Integer;
+begin
+  if IsAdminInstallMode then
+  begin
+    Exec(ExpandConstant('{sys}\sc.exe'), 'stop Remotely.Host', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    Sleep(3000);
+  end;
+  Exec(ExpandConstant('{sys}\taskkill.exe'), '/IM Remotely.Host.exe /F /T', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Result := '';
 end;
 
 function InitializeUninstall(): Boolean;

@@ -44,7 +44,7 @@ func pair(_ args: [String]) async throws -> Int32 {
     let options = CoordinatorOptions(serverURL: url, pinnedServerKey: option("--pin", args) ?? "", allowInsecureTransport: insecure)
     let client = try await CoordinatorClient.connect(options: options, identity: identity)
     defer { client.shutdown() }
-    if !client.isPaired { try await client.pair(code: code, name: option("--name", args) ?? Host.current().localizedName ?? "Mac", canHost: false) }
+    if !client.isPaired { try await client.pair(code: code, name: option("--name", args) ?? ComputerName.current, canHost: false) }
     let settings = ["server": server, "pin": options.pinnedServerKey, "insecure": insecure ? "true" : "false"]
     try JSONSerialization.data(withJSONObject: settings).write(to: settingsPath, options: .atomic)
     print("Paired. This viewer's device id (give it to the host's 'trust' command):\n\(identity.deviceId)")

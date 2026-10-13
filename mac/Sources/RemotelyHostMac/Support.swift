@@ -29,7 +29,7 @@ enum HostPaths {
 struct HostConfig: Codable {
     var ServerUri = ""
     var ServerPin = ""
-    var DeviceName = Host.current().localizedName ?? "Mac"
+    var DeviceName = ComputerName.current
     var PairCode = ""
     /// Viewer device ids allowed to connect and control this Mac. Empty means nobody.
     var TrustedViewers: [String] = []
@@ -45,7 +45,7 @@ struct HostConfig: Codable {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         ServerUri = try c.decodeIfPresent(String.self, forKey: .ServerUri) ?? ""
         ServerPin = try c.decodeIfPresent(String.self, forKey: .ServerPin) ?? ""
-        DeviceName = try c.decodeIfPresent(String.self, forKey: .DeviceName) ?? (Host.current().localizedName ?? "Mac")
+        DeviceName = try c.decodeIfPresent(String.self, forKey: .DeviceName) ?? (ComputerName.current)
         PairCode = try c.decodeIfPresent(String.self, forKey: .PairCode) ?? ""
         TrustedViewers = try c.decodeIfPresent([String].self, forKey: .TrustedViewers) ?? []
         ViewOnlyViewers = try c.decodeIfPresent([String].self, forKey: .ViewOnlyViewers) ?? []

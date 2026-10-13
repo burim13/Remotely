@@ -175,7 +175,7 @@ struct SettingsView: View {
         draft.serverPin = draft.serverPin.trimmingCharacters(in: .whitespaces).lowercased()
         if scheme == "wss" && draft.serverPin.count != 64 { show("The server key pin is 64 characters. Copy it from the server's start-up message.", error: true); return }
         draft.allowInsecure = scheme == "ws"
-        if draft.deviceName.trimmingCharacters(in: .whitespaces).isEmpty { draft.deviceName = Host.current().localizedName ?? "Mac" }
+        if draft.deviceName.trimmingCharacters(in: .whitespaces).isEmpty { draft.deviceName = ComputerName.current }
         app.settings = draft
         app.saveSettings()
         busy = true
