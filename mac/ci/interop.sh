@@ -64,8 +64,7 @@ check "A: path traversal refused" $(contains "$W/a-traversal.log" "download fail
 probe "$V2" control "$HID" --move 1,1 --key 66 --clip "view only must not work" --wait 2 > "$W/a-viewonly.log" 2>&1; cat "$W/a-viewonly.log"
 sleep 1
 check "A: a view-only viewer connects with no capabilities" $(contains "$W/a-viewonly.log" "Capabilities: None")
-grep -n "x=1 y=1" "$W/swifthost.log" | head -3
-check "A: a view-only viewer cannot inject input" $(grep -c "x=1 y=1" "$W/swifthost.log" | grep -qx 0; echo $?)
+check "A: a view-only viewer cannot inject input" $(grep -q "x=1 y=1" "$W/swifthost.log"; [ $? -ne 0 ]; echo $?)
 check "A: a view-only viewer cannot write the clipboard" $(grep -q "view only must not work" "$W/swifthost.log"; [ $? -ne 0 ]; echo $?)
 
 probe "$V3" watch "$HID" --out "$W/frames-stranger" --count 1 --seconds 6 > "$W/a-stranger.log" 2>&1; cat "$W/a-stranger.log"

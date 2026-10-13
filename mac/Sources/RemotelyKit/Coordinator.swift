@@ -157,7 +157,7 @@ public final class CoordinatorClient: NSObject, URLSessionDelegate, @unchecked S
             client.shutdown()
             throw error
         }
-        client.startReceiving()
+        if client.isPaired { client.startReceiving() }   // an unpaired client reads the pairing replies itself (pair() starts the pump afterwards)
         return client
     }
 

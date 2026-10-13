@@ -75,11 +75,8 @@
     <Geometry x:Key="Icon.Monitor">M4,5 H20 A1,1 0 0 1 21,6 V15 A1,1 0 0 1 20,16 H4 A1,1 0 0 1 3,15 V6 A1,1 0 0 1 4,5 Z M9,20 H15 M12,16 V20</Geometry>
     <Geometry x:Key="Icon.Keyboard">M3,7 H21 A1,1 0 0 1 22,8 V16 A1,1 0 0 1 21,17 H3 A1,1 0 0 1 2,16 V8 A1,1 0 0 1 3,7 Z M6,11 H6.5 M10,11 H10.5 M14,11 H14.5 M18,11 H18.5 M7,14 H17</Geometry>
     <Geometry x:Key="Icon.Upload">M12,16 V4 M7,9 L12,4 L17,9 M4,16 V19 H20 V16</Geometry>
-    <Geometry x:Key="Icon.Download">M12,4 V16 M7,11 L12,16 L17,11 M4,16 V19 H20 V16</Geometry>
     <Geometry x:Key="Icon.Fullscreen">M4,9 V4 H9 M15,4 H20 V9 M20,15 V20 H15 M9,20 H4 V15</Geometry>
     <Geometry x:Key="Icon.Clipboard">M9,4 H15 V7 H9 Z M7,5 H6 A1,1 0 0 0 5,6 V20 A1,1 0 0 0 6,21 H18 A1,1 0 0 0 19,20 V6 A1,1 0 0 0 18,5 H17</Geometry>
-    <Geometry x:Key="Icon.Copy">M9,9 H19 V20 H9 Z M5,15 V4 H15</Geometry>
     <Geometry x:Key="Icon.Cursor">M5,3 L19,11 L12,13 L9,20 Z</Geometry>
-    <Geometry x:Key="Icon.Power">M12,3 V12 M6.5,6.5 A8,8 0 1 0 17.5,6.5</Geometry>
     <Geometry x:Key="Icon.Fit">M4,4 H20 V20 H4 Z M8,8 H16 V16 H8 Z</Geometry>
 </ResourceDictionary>
