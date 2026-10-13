@@ -213,6 +213,37 @@ public class ServerTests
         await Assert.ThrowsAsync<CoordinatorException>(() => CoordinatorClient.ConnectAsync(opts, DeviceIdentity.Generate()));
     }
 
+    [Theory]
+    [InlineData("""{"PublicKey":"BAU=","Signature":"BgA=","t":"auth.response"}""")]   // discriminator not first
+    [InlineData("""{"t":"nonsense"}""")]
+    [InlineData("""{"t":"pair.request","Code":5,"Name":"n","CanHost":false}""")]       // wrong value type
+    [InlineData("[1,2,3]")]
+    [InlineData("null")]
+    [InlineData("")]
+    public void Malformed_control_json_is_always_a_format_error_never_another_exception(string json)
+    {
+        Assert.Throws<FormatException>(() => Remotely.Core.Protocol.ControlCodec.Deserialize(Encoding.UTF8.GetBytes(json)));
+    }
+
+    [Fact]
+    public async Task A_client_that_sends_garbage_is_dropped_without_hurting_the_server()
+    {
+        await using var server = await TestServer.StartAsync();
+        using var raw = new System.Net.WebSockets.ClientWebSocket();
+        await raw.ConnectAsync(new Uri($"ws://127.0.0.1:{server.PublicPort}/ws"), CancellationToken.None);
+        var buffer = new byte[4096];
+        await raw.ReceiveAsync(buffer, CancellationToken.None);                        // server hello
+        await raw.SendAsync(Encoding.UTF8.GetBytes("""{"PublicKey":"BAU=","Signature":"BgA=","t":"auth.response"}"""),
+            System.Net.WebSockets.WebSocketMessageType.Text, true, CancellationToken.None);
+        var result = await raw.ReceiveAsync(buffer, CancellationToken.None);          // server closes the connection
+        Assert.Equal(System.Net.WebSockets.WebSocketMessageType.Close, result.MessageType);
+
+        // A normal client still works afterwards.
+        var (client, _) = await server.PairedDeviceAsync("Still fine", canHost: true);
+        await using var _c = client;
+        Assert.True(client.IsPaired);
+    }
+
     [Fact]
     public async Task Paired_devices_survive_a_server_restart()
     {

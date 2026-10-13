@@ -59,8 +59,9 @@ public static class ControlCodec
             return JsonSerializer.Deserialize(utf8, ControlJsonContext.Default.ControlMessage)
                    ?? throw new FormatException("Empty message.");
         }
-        catch (JsonException ex)
+        catch (Exception ex) when (ex is JsonException or NotSupportedException or InvalidOperationException)
         {
+            // Includes a discriminator that is not the first property, an unknown type, or a wrong value type.
             throw new FormatException("Malformed control message.", ex);
         }
     }

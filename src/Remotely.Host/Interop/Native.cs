@@ -107,6 +107,7 @@ internal static class Native
     [DllImport("user32.dll")] public static extern IntPtr GetDC(IntPtr window);
     [DllImport("user32.dll")] public static extern int ReleaseDC(IntPtr window, IntPtr dc);
     [DllImport("user32.dll")] public static extern bool SetProcessDpiAwarenessContext(IntPtr value);
+    [DllImport("user32.dll")] public static extern uint MapVirtualKeyW(uint code, uint mapType);
     [DllImport("user32.dll", SetLastError = true)] public static extern uint SendInput(uint count, INPUT[] inputs, int size);
     [DllImport("user32.dll", SetLastError = true)] public static extern bool OpenClipboard(IntPtr owner);
     [DllImport("user32.dll", SetLastError = true)] public static extern bool CloseClipboard();

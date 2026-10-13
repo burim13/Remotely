@@ -91,7 +91,14 @@ internal sealed class InputInjector(DesktopThread desktop) : IInputSink
         },
     };
 
-    private static INPUT Key(ushort vk, ushort scan, bool extended, bool up) => new()
+    private static INPUT Key(ushort vk, ushort scan, bool extended, bool up)
+    {
+        // Viewers on other platforms (macOS) send no scan code; derive it from the virtual key so apps that read scan codes still work.
+        if (scan == 0) scan = (ushort)Native.MapVirtualKeyW(vk, 0);
+        return KeyInput(vk, scan, extended, up);
+    }
+
+    private static INPUT KeyInput(ushort vk, ushort scan, bool extended, bool up) => new()
     {
         type = Native.INPUT_KEYBOARD,
         u = new INPUTUNION

@@ -11,6 +11,8 @@ const string Usage = """
       pair  --server wss://host:8443/ws --pin <server key pin> --code XXXX-XXXX --name "My laptop" [--insecure]
       list
       watch   <host id or prefix> [--out frames] [--count 5] [--seconds 10]
+      host-fake [--name NAME] [--code CODE] [--trust ID]... [--seconds 60]
+              runs a host with a synthetic screen on any OS, for testing viewers (prints what it receives)
       control <host id or prefix> [--move X,Y] [--click left|right] [--key VK] [--clip TEXT] [--sas]
                                   [--upload FILE] [--list-share] [--download NAME] [--wait 3]
               (X,Y are 0..65535 across the whole screen; VK is a Windows virtual-key code, e.g. 65 for A)
@@ -30,6 +32,7 @@ try
         "list" => await ListAsync(),
         "watch" when args.Length >= 2 => await WatchAsync(args[1], args[2..]),
         "control" when args.Length >= 2 => await ControlAsync(args[1], args[2..]),
+        "host-fake" => await FakeHostAsync(args[1..]),
         _ => Print(Usage, 1),
     };
 }
@@ -184,4 +187,75 @@ async Task<int> ControlAsync(string hostPrefix, string[] a)
 
     await Task.Delay(TimeSpan.FromSeconds(int.Parse(Option(a, "--wait") ?? "3")));
     return failures == 0 ? 0 : 4;
+}
+
+async Task<int> FakeHostAsync(string[] a)
+{
+    var name = Option(a, "--name") ?? "fake-host";
+    var seconds = int.Parse(Option(a, "--seconds") ?? "60");
+    var trusted = new List<string>();
+    for (var i = 0; i < a.Length - 1; i++) if (a[i] == "--trust") trusted.Add(a[i + 1].ToLowerInvariant());
+
+    Directory.CreateDirectory(dir);
+    var keyPath = Path.Combine(dir, "fakehost.key");
+    DeviceIdentity identity;
+    if (File.Exists(keyPath)) identity = DeviceIdentity.FromPkcs8(File.ReadAllBytes(keyPath));
+    else { identity = DeviceIdentity.Generate(); File.WriteAllBytes(keyPath, identity.ExportPkcs8()); }
+
+    var work = Path.Combine(Path.GetTempPath(), "remotely-fakehost-" + Environment.ProcessId);
+    var share = Path.Combine(work, "share");
+    var receive = Path.Combine(work, "received");
+    Directory.CreateDirectory(share);
+    Directory.CreateDirectory(receive);
+    await File.WriteAllTextAsync(Path.Combine(share, "hello.txt"), "shared by the fake host");
+
+    await using var client = await CoordinatorClient.ConnectAsync(LoadOptions(), identity);
+    if (!client.IsPaired)
+        await client.PairAsync(Option(a, "--code") ?? throw new ArgumentException("--code is required the first time"), name, canHost: true);
+    Console.WriteLine($"fake host online: {identity.DeviceId}");
+
+    var frame = 0;
+    var services = new HostServices(new FakeScreen(() => Interlocked.Increment(ref frame)))
+    {
+        IsTrusted = id => trusted.Contains(id.ToLowerInvariant()),
+        CanControl = id => trusted.Contains(id.ToLowerInvariant()),
+        Input = new PrintingInput(),
+        Clipboard = new FakeClipboardSync(),
+        ReceiveDirectory = receive,
+        ShareDirectory = share,
+    };
+    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(seconds));
+    await new HostAgent(identity, services, line => Console.WriteLine("host: " + line)).RunAsync(client, cts.Token);
+    foreach (var f in Directory.GetFiles(receive)) Console.WriteLine($"received file on disk: {Path.GetFileName(f)} {new FileInfo(f).Length} bytes");
+    return 0;
+}
+
+sealed class FakeScreen(Func<int> next) : IFrameSource
+{
+    // Not a real image: enough for protocol tests. Changes every few requests so "unchanged" detection is exercised too.
+    public Task<FrameInfo> CaptureAsync(CancellationToken ct) =>
+        Task.FromResult(new FrameInfo(640, 480, "Default", System.Text.Encoding.ASCII.GetBytes("fake-jpeg-" + next() / 3)));
+}
+
+sealed class PrintingInput : IInputSink
+{
+    public Task InjectAsync(IReadOnlyList<InputEvent> events, CancellationToken ct)
+    {
+        foreach (var e in events)
+            Console.WriteLine($"INPUT {e.Kind} x={e.X} y={e.Y} a1={e.Arg1} a2={e.Arg2} flags={e.Flags}");
+        return Task.CompletedTask;
+    }
+}
+
+sealed class FakeClipboardSync : IClipboardSync
+{
+    private long _sequence = 1;
+    private string _text = "fake host clipboard";
+    public Task<(long, string?)> ReadAsync(CancellationToken ct) => Task.FromResult((_sequence, (string?)_text));
+    public Task<long> WriteAsync(string text, CancellationToken ct)
+    {
+        _text = text;
+        Console.WriteLine("CLIPBOARD set: " + text);
+        return Task.FromResult(++_sequence);
+    }
 }

@@ -1,0 +1,46 @@
+name: mac
+
+# macOS runners are billed at 10x on private repositories, so this runs only when the Mac code (or the protocol it must match) changes, or by hand.
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Also build the universal .dmg"
+        type: boolean
+        default: false
+  push:
+    branches: [main, "claude/**"]
+    paths: ["mac/**", "src/Remotely.Core/**", "src/Remotely.HostCore/**", "src/Remotely.ViewerCore/**", "src/Remotely.Probe/**", "src/Remotely.Server/**", ".github/workflows/mac.yml"]
+
+jobs:
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Toolchain
+        run: |
+          sw_vers; uname -m; swift --version
+      - name: Unit tests (known-answer vectors from the .NET implementation)
+        working-directory: mac
+        run: swift test 2>&1 | tail -60
+      - name: Build debug binaries
+        working-directory: mac
+        run: swift build -c debug 2>&1 | tail -30
+      - name: Interoperability with the .NET side, both directions
+        working-directory: mac
+        run: ci/interop.sh "$PWD/.build/debug/RemotelyHostMac" "$PWD/.build/debug/RemotelyCLI"
+      - name: Package universal build (.dmg)
+        if: github.event_name == 'workflow_dispatch' && inputs.package
+        working-directory: mac
+        run: |
+          ./build.sh 0.2.0
+          codesign --verify --deep --strict "dist/Remotely.app" && echo "viewer signature ok"
+          codesign --verify --deep --strict "dist/Remotely Host.app" && echo "host signature ok"
+          ci/interop.sh "$PWD/dist/Remotely Host.app/Contents/MacOS/remotely-host-mac" "$PWD/dist/remotely-cli"
+          if arch -x86_64 /usr/bin/true 2>/dev/null; then echo "Rosetta present: running the Intel slice"; arch -x86_64 "$PWD/dist/remotely-cli" | head -3; else echo "OBSERVE: Rosetta not installed on this runner; the Intel slice was built (lipo) but not executed"; fi
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch' && inputs.package
+        with: { name: Remotely-mac-dmg, path: mac/Remotely-0.2.0-mac.dmg }
