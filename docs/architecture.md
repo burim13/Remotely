@@ -128,7 +128,10 @@ for each change rather than claim it works.
 | `Remotely.Server`: pairing codes + lockout, device store, signalling, blind relay, TLS with self-generated cert, loopback admin API, Windows-service hosting | Built, run for real on Linux |
 | `Remotely.Client`: coordinator connection with server-key pinning, relayed sessions, `SecureSession` | Built |
 | Integration tests (13): pairing, lockout, unpaired refusal, admin port isolation, end-to-end encrypted echo through the relay, untrusted-viewer refusal, tamper detection, session teardown, TLS pin accept/reject, restart persistence | Pass, stable over repeated runs (Linux) |
-| `Remotely.Host` (service + session helper), `Remotely.Viewer` (WPF, Portico theme), screen/input, installers | **Not started.** Need Windows to run; see "Testing limits". |
+| `Remotely.HostCore`: frame format, host config, host agent (accept, trust check, serve frames), reconnect loop | Built; 7 tests pass (Linux) |
+| `Remotely.Host`: SYSTEM service, session launcher, capture helper (GDI), prototype install/diag commands | Compiles and publishes for win-x64 and win-arm64 (cross-built on Linux). **Never run on Windows.** See `docs/prototype.md`. |
+| `Remotely.Probe`: test viewer (Windows/macOS Intel) | Built; end-to-end path covered by tests with a fake screen |
+| `Remotely.Viewer` (WPF, Portico theme), input control, real installers | Not started |
 
 The server is not yet verified as a running Windows service on Server 2025: only built and run on Linux here.
 

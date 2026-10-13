@@ -214,8 +214,11 @@ public sealed class CoordinatorClient : IAsyncDisposable
         return ControlCodec.Deserialize(m.Value.Data);
     }
 
+    private int _disposed;
+
     public async ValueTask DisposeAsync()
     {
+        if (Interlocked.Exchange(ref _disposed, 1) != 0) return;
         await _lifetime.CancelAsync().ConfigureAwait(false);
         try { await _pump.ConfigureAwait(false); } catch { /* pump swallows its own errors */ }
         _socket.Dispose();

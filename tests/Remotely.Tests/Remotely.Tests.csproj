@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Remotely.Core\Remotely.Core.csproj" />
     <ProjectReference Include="..\..\src\Remotely.Client\Remotely.Client.csproj" />
+    <ProjectReference Include="..\..\src\Remotely.HostCore\Remotely.HostCore.csproj" />
     <ProjectReference Include="..\..\src\Remotely.Server\Remotely.Server.csproj" />
   </ItemGroup>
 
