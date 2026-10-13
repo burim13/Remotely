@@ -98,7 +98,11 @@ Known values from Dark: panel `#1C2127`, surface `#2B3239`, text `#F2F4F5`, acce
 type scale 17/16/14/13/12/11. The macOS app mirrors the same colours, font and radii natively.
 
 ## Installer
-Inno Setup 6, one installer per architecture, `build/publish.ps1` modelled on Portico's, signed with the
+One installer per architecture offers two modes (Inno Setup privileges dialog; exact behaviour **VERIFY** when built):
+- **Full (admin, one UAC prompt):** service + session helper. Unattended access, survives logoff, reaches the lock screen and UAC.
+- **User only (no admin):** per-user app started at login, like Portico. Works only while someone is logged in; cannot show the
+  login screen; cannot send input into elevated windows (Windows blocks it for a non-elevated process).
+Both use the same viewer and protocol. Inno Setup 6, one installer per architecture, `build/publish.ps1` modelled on Portico's, signed with the
 owner's self-signed cert, upgrades in place, **never touches user data**. Installs the host service, viewer,
 and (optionally) the server component. Same SmartScreen caveat as Portico (`docs/code-signing.md` there).
 
@@ -115,3 +119,23 @@ and (optionally) the server component. Same SmartScreen caveat as Portico (`docs
 This build environment is Linux. I can compile and unit-test `Core` and `Server` here. I cannot run the WPF
 apps, the Windows service, screen capture, or macOS code here: those need the owner's machines, and I will say so
 for each change rather than claim it works.
+
+## Phase 1 progress
+
+| Piece | State |
+|---|---|
+| `Remotely.Core`: identity (ECDSA P-256), mutual-auth ECDH handshake, AES-256-GCM channel, wire framing, control protocol | Built, 11 unit tests pass (Linux) |
+| `Remotely.Server`: pairing codes + lockout, device store, signalling, blind relay, TLS with self-generated cert, loopback admin API, Windows-service hosting | Built, run for real on Linux |
+| `Remotely.Client`: coordinator connection with server-key pinning, relayed sessions, `SecureSession` | Built |
+| Integration tests (13): pairing, lockout, unpaired refusal, admin port isolation, end-to-end encrypted echo through the relay, untrusted-viewer refusal, tamper detection, session teardown, TLS pin accept/reject, restart persistence | Pass, stable over repeated runs (Linux) |
+| `Remotely.Host` (service + session helper), `Remotely.Viewer` (WPF, Portico theme), screen/input, installers | **Not started.** Need Windows to run; see "Testing limits". |
+
+The server is not yet verified as a running Windows service on Server 2025: only built and run on Linux here.
+
+## Running the server (current state)
+```
+dotnet run --project src/Remotely.Server
+# prints: Server key pin (give this to devices when pairing): <hex>
+curl -X POST http://127.0.0.1:8181/admin/pair-codes      # on the server itself; loopback only
+```
+Settings (`appsettings.json`, section `Remotely`): `PublicPort` (8443), `AdminPort` (8181), `TlsEnabled`, `DataDir`.

@@ -1,0 +1,8 @@
+bin/
+obj/
+publish/
+*.user
+.vs/
+build/update-token.txt
+*.pfx
+TestResults/
