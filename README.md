@@ -5,6 +5,7 @@ You run a small server yourself; every connection is end-to-end encrypted betwee
 
 - **Set it up:** [docs/user-guide.md](docs/user-guide.md)
 - **How it works and what has been verified:** [docs/architecture.md](docs/architecture.md)
+- **Check it on your own PCs (20 minutes):** [docs/verify-on-your-pc.md](docs/verify-on-your-pc.md)
 - **Open source:** MIT licence (see `LICENSE`).
 
 | Part | What it is |

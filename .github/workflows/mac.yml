@@ -8,6 +8,10 @@ on:
         description: "Also build the universal .dmg"
         type: boolean
         default: false
+      release_tag:
+        description: "Attach the .dmg to the release with this tag (created as a draft if it does not exist yet)"
+        type: string
+        default: ""
   push:
     branches: [main, "claude/**"]
     paths: ["mac/**", "src/Remotely.Core/**", "src/Remotely.HostCore/**", "src/Remotely.ViewerCore/**", "src/Remotely.Probe/**", "src/Remotely.Server/**", ".github/workflows/mac.yml"]
@@ -16,6 +20,8 @@ jobs:
   mac:
     runs-on: macos-latest
     timeout-minutes: 40
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -45,3 +51,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: github.event_name == 'workflow_dispatch' && inputs.package
         with: { name: Remotely-mac-dmg, path: mac/Remotely-0.2.0-mac.dmg }
+      - name: Attach to the release
+        if: github.event_name == 'workflow_dispatch' && inputs.package && inputs.release_tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.release_tag }}
+        run: |
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --draft --title "Remotely $TAG" --notes "See docs/user-guide.md."
+          gh release upload "$TAG" mac/Remotely-0.2.0-mac.dmg --repo "$GITHUB_REPOSITORY" --clobber

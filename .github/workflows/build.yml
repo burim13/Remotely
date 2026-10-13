@@ -2,6 +2,11 @@ name: build
 
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Publish the installers as a draft release with this tag (for example v0.2.0). Leave empty for a normal build."
+        type: string
+        default: ""
   push:
     branches: [main, "claude/**"]
     # Documentation alone does not need the Windows machines.
@@ -354,3 +359,23 @@ jobs:
             *.log
             frames-service
           if-no-files-found: ignore
+
+  # One click: Actions > build > Run workflow > fill in "release_tag" (for example v0.2.0) to publish the installers as a DRAFT release.
+  release:
+    if: github.event_name == 'workflow_dispatch' && inputs.release_tag != ''
+    needs: [installers, installer-smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { pattern: "Installer-*", path: release, merge-multiple: true }
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.release_tag }}
+        run: |
+          ls -la release
+          gh release create "$TAG" release/*.exe --repo "$GITHUB_REPOSITORY" --draft --title "Remotely $TAG" \
+            --notes "Installers for Windows 11 (x64 and ARM64) and the server. Unsigned: see docs/user-guide.md. The Mac .dmg is attached by the 'mac' workflow."
