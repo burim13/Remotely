@@ -62,6 +62,8 @@ jobs:
         with: { name: "Remotely.Probe-${{ matrix.rid }}", path: probe }
       - uses: actions/download-artifact@v4
         with: { name: Remotely.Server-win-x64, path: server }
+      - uses: actions/download-artifact@v4
+        with: { name: "Remotely.Viewer-${{ matrix.rid }}", path: viewer }
       - name: End to end
         shell: pwsh
         env:
@@ -139,6 +141,36 @@ jobs:
           $o = & $probe control $hostId --download "..\..\Windows\win.ini" --wait 1 2>&1; $o
           Check "service: path traversal refused" (($o -join "`n") -match 'download failed')
 
+          # ---------- THE VIEWER (WPF, Portico theme): first run, pairing, device list, a live session ----------
+          Write-Host "`n===== VIEWER UI ====="
+          $viewerExe = "$PWD\viewer\Remotely.exe"
+          Add-Type -AssemblyName System.Windows.Forms, System.Drawing
+          function Shot($name) {
+            $b = New-Object System.Drawing.Bitmap 1024, 768
+            $g = [System.Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0, 0, 0, 0, $b.Size); $g.Dispose()
+            $codec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq 'image/jpeg' }
+            $ep = New-Object System.Drawing.Imaging.EncoderParameters 1
+            $ep.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter -ArgumentList @([System.Drawing.Imaging.Encoder]::Quality, [long]65)
+            $b.Save("$PWD\$name.jpg", $codec, $ep); $b.Dispose()
+          }
+          $v = Start-Process $viewerExe -PassThru; Start-Sleep 7
+          Check "viewer starts and stays running on first run" (-not $v.HasExited)
+          Shot 'ui-setup'; Stop-Process $v -Force -ErrorAction SilentlyContinue
+          $uiDir = "$env:LOCALAPPDATA\Remotely"; New-Item -ItemType Directory $uiDir -Force | Out-Null
+          '{"ServerUri":"ws://127.0.0.1:8443/ws","ServerPin":"","DeviceName":"ci-ui-viewer","Theme":"dark","SyncClipboard":true,"AllowInsecureTransport":true}' | Set-Content "$uiDir\viewer.json"
+          $v = Start-Process $viewerExe -ArgumentList '--pair', (NewCode) -PassThru; Start-Sleep 9; Stop-Process $v -Force -ErrorAction SilentlyContinue
+          $uiId = (Get-Content "$uiDir\device-id.txt" -ErrorAction SilentlyContinue)
+          Check "viewer wrote its device id and paired" (($uiId -match '^[0-9a-f]{64}$') -and (((& $probe list 2>&1) -join "`n") -match 'ci-ui-viewer'))
+          & $hostExe trust $uiId
+          $v = Start-Process $viewerExe -PassThru; Start-Sleep 8
+          Check "viewer main window runs with a saved configuration" (-not $v.HasExited)
+          Shot 'ui-main'; Stop-Process $v -Force -ErrorAction SilentlyContinue
+          $v = Start-Process $viewerExe -ArgumentList '--connect', $hostId -PassThru; Start-Sleep 12
+          Check "viewer session window runs" (-not $v.HasExited)
+          Shot 'ui-session'
+          Check "the service host saw the GUI viewer connect" ($null -ne (Get-Content "C:\ProgramData\Remotely\logs\*.log" | Select-String "Viewer $($uiId.Substring(0,4))-$($uiId.Substring(4,4))"))
+          Stop-Process $v -Force -ErrorAction SilentlyContinue
+
           # ---------- THE LOCK SCREEN ----------
           Write-Host "`n===== LOCK SCREEN ====="
           Start-Process rundll32.exe -ArgumentList 'user32.dll,LockWorkStation'
@@ -162,6 +194,14 @@ jobs:
           Check "secure desktop (after Ctrl+Alt+Del) captured as Winlogon" (($o -join "`n") -match 'desktop=Winlogon')
           & $hostExe uninstall
           Write-Host "`nFAILED CHECKS: $script:fail"
+          if ($env:RID -eq 'win-x64') {
+            foreach ($f in 'ui-setup', 'ui-main', 'ui-session') {
+              $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes("$PWD\$f.jpg"))
+              Write-Host "BEGIN-IMG $f"
+              for ($i = 0; $i -lt $b64.Length; $i += 3000) { Write-Host $b64.Substring($i, [Math]::Min(3000, $b64.Length - $i)) }
+              Write-Host "END-IMG $f"
+            }
+          }
           if ($script:fail -gt 0) { exit 1 }
       - uses: actions/upload-artifact@v4
         if: always()
@@ -172,6 +212,7 @@ jobs:
             frames-user
             frames-lock
             frames-sas
+            ui-*.jpg
             diag-user.jpg
             server.out
             server.err

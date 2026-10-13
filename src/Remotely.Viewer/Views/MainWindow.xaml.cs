@@ -19,8 +19,20 @@ public partial class MainWindow : Window
         ThisDevice.Text = $"This device: {App.Current.Settings.DeviceName} · {DeviceIds.Short(App.Current.Connection.Identity.DeviceId)}";
         Loaded += async (_, _) =>
         {
-            if (!App.Current.Settings.IsConfigured) OpenSettings();
+            if (!App.Current.Settings.IsConfigured) { OpenSettings(); return; }
+            if (App.Current.PairOnStart is { Length: > 0 } code)
+            {
+                try { await App.Current.Connection.PairAsync(code); }
+                catch (Exception ex) when (ex is CoordinatorException or IOException or System.Net.WebSockets.WebSocketException or HttpRequestException or TimeoutException)
+                {
+                    BannerText.Text = "Pairing failed: " + ex.Message;
+                    Banner.Visibility = Visibility.Visible;
+                }
+            }
             await RefreshAsync();
+            if (App.Current.ConnectOnStart is { Length: > 0 } wanted && Devices.ItemsSource is IEnumerable<Row> rows
+                && rows.FirstOrDefault(r => r.CanConnect && r.DeviceId.StartsWith(wanted.Replace("-", ""), StringComparison.OrdinalIgnoreCase)) is { } match)
+                new SessionWindow(match.Device).Show();
         };
         _timer.Tick += async (_, _) => { if (IsActive) await RefreshAsync(); };
         _timer.Start();
