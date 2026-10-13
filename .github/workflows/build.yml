@@ -19,15 +19,20 @@ jobs:
         run: |
           set -e
           for rid in win-arm64 win-x64; do
-            dotnet publish src/Remotely.Host  -c Release -r $rid --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o out/host-$rid
-            dotnet publish src/Remotely.Probe -c Release -r $rid --self-contained -p:PublishSingleFile=true -o out/probe-$rid
+            dotnet publish src/Remotely.Host   -c Release -r $rid --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -o out/host-$rid
+            dotnet publish src/Remotely.Viewer -c Release -r $rid --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -o out/viewer-$rid
+            dotnet publish src/Remotely.Probe  -c Release -r $rid --self-contained -p:PublishSingleFile=true -p:DebugType=none -o out/probe-$rid
           done
-          dotnet publish src/Remotely.Probe  -c Release -r osx-x64   --self-contained -p:PublishSingleFile=true -o out/probe-osx-x64
-          dotnet publish src/Remotely.Server -c Release -r win-x64   --self-contained -p:PublishSingleFile=true -o out/server-win-x64
+          dotnet publish src/Remotely.Probe  -c Release -r osx-x64 --self-contained -p:PublishSingleFile=true -p:DebugType=none -o out/probe-osx-x64
+          dotnet publish src/Remotely.Server -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:DebugType=none -o out/server-win-x64
       - uses: actions/upload-artifact@v4
         with: { name: Remotely.Host-win-arm64, path: out/host-win-arm64/Remotely.Host.exe }
       - uses: actions/upload-artifact@v4
         with: { name: Remotely.Host-win-x64, path: out/host-win-x64/Remotely.Host.exe }
+      - uses: actions/upload-artifact@v4
+        with: { name: Remotely.Viewer-win-arm64, path: out/viewer-win-arm64/Remotely.exe }
+      - uses: actions/upload-artifact@v4
+        with: { name: Remotely.Viewer-win-x64, path: out/viewer-win-x64/Remotely.exe }
       - uses: actions/upload-artifact@v4
         with: { name: Remotely.Server-win-x64, path: "out/server-win-x64/Remotely.Server.exe\nout/server-win-x64/appsettings.json" }
       - uses: actions/upload-artifact@v4
@@ -108,6 +113,7 @@ jobs:
           Write-Host "`n===== SERVICE MODE ====="
           $o = & $hostExe setup --server ws://127.0.0.1:8443/ws --insecure --code (NewCode) --name ci-host --trust $viewerId 2>&1; $o
           & $hostExe install
+          for ($i = 0; $i -lt 20 -and -not ((sc.exe query Remotely.Host) -match 'RUNNING'); $i++) { Start-Sleep 1 }
           Check "service running" ((sc.exe query Remotely.Host) -match 'RUNNING')
           Check "service host online" (WaitOnline 'ci-host')
           $hostId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'ci-host\s+([0-9a-f]{64})')).Groups[1].Value
@@ -132,8 +138,11 @@ jobs:
           # ---------- THE LOCK SCREEN ----------
           Write-Host "`n===== LOCK SCREEN ====="
           Start-Process rundll32.exe -ArgumentList 'user32.dll,LockWorkStation'
-          Start-Sleep 8
+          for ($i = 0; $i -lt 40 -and -not (Get-Process LogonUI -ErrorAction SilentlyContinue); $i++) { Start-Sleep 1 }
+          Observe "LogonUI process present after $i s: $([bool](Get-Process LogonUI -ErrorAction SilentlyContinue))"
+          Start-Sleep 3
           $o = & $probe watch $hostId --out "$PWD\frames-lock" --count 2 --seconds 12 2>&1; $o
+          Check "lock screen: captured as the Winlogon desktop" (($o -join "`n") -match 'desktop=Winlogon')
           Observe "lock screen capture lines above: desktop=Winlogon means the lock screen was captured"
           Check "lock screen: host still answers while locked" (($o -join "`n") -match 'desktop=')
           if (($o -join "`n") -match 'desktop=Winlogon') { Observe "LOCK SCREEN CAPTURED (desktop=Winlogon)" } else { Observe "lock screen NOT reported as Winlogon" }
@@ -158,4 +167,131 @@ jobs:
             diag-user.jpg
             server.out
             server.err
+          if-no-files-found: ignore
+
+  # Compiles the three installers with Inno Setup on Windows.
+  installers:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: Remotely.Viewer-win-x64, path: publish/x64/viewer }
+      - uses: actions/download-artifact@v4
+        with: { name: Remotely.Host-win-x64, path: publish/x64/host }
+      - uses: actions/download-artifact@v4
+        with: { name: Remotely.Viewer-win-arm64, path: publish/arm64/viewer }
+      - uses: actions/download-artifact@v4
+        with: { name: Remotely.Host-win-arm64, path: publish/arm64/host }
+      - uses: actions/download-artifact@v4
+        with: { name: Remotely.Server-win-x64, path: publish/server }
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup -y --no-progress
+      - name: Compile installers
+        shell: pwsh
+        run: |
+          $iscc = @("${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
+          Write-Host "Using $iscc"
+          foreach ($arch in "x64", "arm64") { & $iscc "/DArch=$arch" "/DVersion=0.2.0" installer\Remotely.iss; if ($LASTEXITCODE -ne 0) { throw "client installer $arch failed" } }
+          & $iscc "/DVersion=0.2.0" installer\Remotely-Server.iss; if ($LASTEXITCODE -ne 0) { throw "server installer failed" }
+          Get-ChildItem publish\*.exe | ForEach-Object { "{0}  {1:N1} MB" -f $_.Name, ($_.Length / 1MB) }
+      - uses: actions/upload-artifact@v4
+        with: { name: Installer-x64, path: publish/Remotely-Setup-0.2.0-x64.exe }
+      - uses: actions/upload-artifact@v4
+        with: { name: Installer-arm64, path: publish/Remotely-Setup-0.2.0-arm64.exe }
+      - uses: actions/upload-artifact@v4
+        with: { name: Installer-server, path: publish/Remotely-Server-Setup-0.2.0-x64.exe }
+
+  # Runs the real installers silently on real Windows (x64 and ARM64): server installer, then client installer for all users, then for the current user,
+  # over real TLS with the server key pin.
+  installer-smoke:
+    needs: installers
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, rid: win-x64, arch: x64 }
+          - { os: windows-11-arm, rid: win-arm64, arch: arm64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: "Installer-${{ matrix.arch }}", path: inst }
+      - uses: actions/download-artifact@v4
+        with: { name: Installer-server, path: inst }
+      - uses: actions/download-artifact@v4
+        with: { name: "Remotely.Probe-${{ matrix.rid }}", path: probe }
+      - name: Install and test
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $script:fail = 0
+          function Check($name, $ok) { if ($ok) { Write-Host "CHECK PASS: $name" } else { Write-Host "CHECK FAIL: $name"; $script:fail++ } }
+          function WaitFor($what, [scriptblock]$test, $seconds = 40) { for ($i = 0; $i -lt $seconds; $i++) { if (& $test) { return $true }; Start-Sleep 1 }; return $false }
+          $probe = "$PWD\probe\Remotely.Probe.exe"
+          $serverExe = "C:\Program Files\Remotely Server\Remotely.Server.exe"
+          $silent = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART')
+
+          Write-Host "===== SERVER INSTALLER ====="
+          $p = Start-Process "$PWD\inst\Remotely-Server-Setup-0.2.0-x64.exe" -ArgumentList ($silent + '/LOG=server-install.log') -Wait -PassThru
+          Check "server installer exit code 0" ($p.ExitCode -eq 0)
+          Check "server service running" (WaitFor 'server' { (sc.exe query Remotely.Server) -match 'RUNNING' } 30)
+          Check "firewall rule added" ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Remotely Server')
+          $pin = ((& $serverExe pin) | Select-Object -Last 1).Trim()
+          Check "server key pin printed (64 hex)" ($pin -match '^[0-9a-f]{64}$')
+          function NewCode { for ($i = 0; $i -lt 20; $i++) { $c = (& $serverExe pair-code 2>$null | Select-Object -First 1); if ($c -match '^[A-Z0-9]{4}-[A-Z0-9]{4}$') { return $c }; Start-Sleep 1 } }
+          $server = 'wss://127.0.0.1:8443/ws'
+          $o = & $probe pair --server $server --pin $pin --code (NewCode) --name inst-viewer 2>&1; $o
+          $viewerId = [regex]::Match(($o -join "`n"), '[0-9a-f]{64}').Value
+          Check "viewer paired over TLS with the pinned key" ($viewerId.Length -eq 64)
+          $wrong = & $probe pair --server $server --pin ('0' * 64) --code (NewCode) --name evil 2>&1
+          Check "a wrong key pin is refused" (($wrong -join "`n") -match 'Error')
+
+          Write-Host "`n===== CLIENT INSTALLER: ALL USERS (service) ====="
+          $args1 = $silent + @('/LOG=client-install.log', "/Server=$server", "/Pin=$pin", "/Code=$(NewCode)", '/Name=inst-host', "/Trust=$viewerId")
+          $p = Start-Process (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName -ArgumentList $args1 -Wait -PassThru
+          Check "client installer exit code 0" ($p.ExitCode -eq 0)
+          Check "viewer installed" (Test-Path 'C:\Program Files\Remotely\Remotely.exe')
+          Check "host installed" (Test-Path 'C:\Program Files\Remotely\Remotely.Host.exe')
+          Check "host service running" (WaitFor 'svc' { (sc.exe query Remotely.Host) -match 'RUNNING' } 30)
+          Check "host online" (WaitFor 'online' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+inst-host\s' } 40)
+          $hostId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'inst-host\s+([0-9a-f]{64})')).Groups[1].Value
+          $o = & $probe watch $hostId --out "$PWD\frames-service" --count 1 --seconds 15 2>&1; $o
+          Check "frame received from the installed service" (($o -join "`n") -match 'desktop=')
+          Check "start menu entry exists" (Test-Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Remotely\Remotely.lnk')
+          $o = & "C:\Program Files\Remotely\Remotely.Host.exe" diag 2>&1; $o | Select-Object -First 12
+          Start-Process 'C:\Program Files\Remotely\unins000.exe' -ArgumentList ($silent + '/LOG=client-uninstall.log') -Wait
+          Check "uninstall removed the service" (WaitFor 'gone' { (sc.exe query Remotely.Host) -match '1060' } 20)
+          Check "uninstall removed the program files" (-not (Test-Path 'C:\Program Files\Remotely\Remotely.Host.exe'))
+          Check "uninstall kept the user's data" (Test-Path 'C:\ProgramData\Remotely\host.json')
+
+          Write-Host "`n===== CLIENT INSTALLER: CURRENT USER (no service) ====="
+          $args2 = $silent + @('/CURRENTUSER', '/LOG=client-install-user.log', "/Server=$server", "/Pin=$pin", "/Code=$(NewCode)", '/Name=inst-user-host', "/Trust=$viewerId")
+          $p = Start-Process (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName -ArgumentList $args2 -Wait -PassThru
+          Check "per-user installer exit code 0" ($p.ExitCode -eq 0)
+          $userDir = Join-Path $env:LOCALAPPDATA 'Programs\Remotely'
+          Check "per-user files in the user's profile" ((Test-Path "$userDir\Remotely.exe") -and (Test-Path "$userDir\Remotely.Host.exe"))
+          Check "no service was created for the per-user install" ((sc.exe query Remotely.Host) -match '1060')
+          Check "sign-in entry registered" ($null -ne (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'Remotely.Host' -ErrorAction SilentlyContinue))
+          Check "user-mode host online" (WaitFor 'uonline' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+inst-user-host\s' } 40)
+          Start-Process "$userDir\unins000.exe" -ArgumentList ($silent + '/LOG=client-uninstall-user.log') -Wait
+          Check "per-user uninstall removed the sign-in entry" ($null -eq (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'Remotely.Host' -ErrorAction SilentlyContinue))
+          Check "per-user uninstall removed the program" (WaitFor 'ugone' { -not (Test-Path "$userDir\Remotely.Host.exe") } 20)
+
+          Write-Host "`n===== SERVER UNINSTALL ====="
+          Start-Process 'C:\Program Files\Remotely Server\unins000.exe' -ArgumentList ($silent + '/LOG=server-uninstall.log') -Wait
+          Check "server service removed" (WaitFor 'sgone' { (sc.exe query Remotely.Server) -match '1060' } 20)
+          Check "firewall rule removed" (-not ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Rule Name'))
+          Check "server data kept" (Test-Path 'C:\ProgramData\Remotely Server\devices.json')
+
+          Write-Host "`nFAILED CHECKS: $script:fail"
+          Get-ChildItem *.log | ForEach-Object { Write-Host "--- $($_.Name) (last 25 lines)"; Get-Content $_ -Tail 25 }
+          if ($script:fail -gt 0) { exit 1 }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: installer-smoke-${{ matrix.arch }}
+          path: |
+            *.log
+            frames-service
           if-no-files-found: ignore

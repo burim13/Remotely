@@ -46,7 +46,7 @@ internal static class Diagnostics
             {
                 Native.SetProcessDpiAwarenessContext(new IntPtr(-4));
                 using var desktop = new DesktopThread();
-                var frame = new DesktopCapturer(desktop).CaptureAsync(CancellationToken.None).GetAwaiter().GetResult();
+                var frame = new DesktopCapturer(desktop, Console.WriteLine).CaptureAsync(CancellationToken.None).GetAwaiter().GetResult();
                 File.WriteAllBytes(capturePath, frame.Jpeg);
                 Console.WriteLine($"Capture:          OK {frame.Width}x{frame.Height} desktop={frame.Desktop} {frame.Jpeg.Length / 1024} KB -> {capturePath}");
             }

@@ -13,7 +13,7 @@ public sealed class ServerOptions
     /// <summary>Serve the public port over TLS with a self-generated certificate that clients pin. Turn off only for local testing.</summary>
     public bool TlsEnabled { get; set; } = true;
 
-    /// <summary>Where devices.json and the TLS certificate live. Empty means %ProgramData%\Remotely (Windows) or ~/.local/share/Remotely.</summary>
+    /// <summary>Where devices.json and the TLS certificate live. Empty means %ProgramData%\Remotely Server (Windows) or ~/.local/share/RemotelyServer.</summary>
     public string DataDir { get; set; } = "";
 
     public string ResolveDataDir()
@@ -22,6 +22,6 @@ public sealed class ServerOptions
         var root = OperatingSystem.IsWindows()
             ? Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
             : Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        return Path.Combine(root, "Remotely");
+        return Path.Combine(root, OperatingSystem.IsWindows() ? "Remotely Server" : "RemotelyServer");
     }
 }

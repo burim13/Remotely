@@ -7,17 +7,33 @@ using Remotely.HostCore;
 namespace Remotely.Host.Helper;
 
 /// <summary>Captures the whole virtual desktop of whichever desktop has input, using GDI (BitBlt). JPEG encoding happens on a pool thread, never on the desktop thread.</summary>
-internal sealed class DesktopCapturer(DesktopThread desktop) : IFrameSource
+internal sealed class DesktopCapturer(DesktopThread desktop, Action<string>? log = null) : IFrameSource
 {
+    private const int Attempts = 5;
     private const int MaxJpegBytes = 900_000;
     private static readonly long[] Qualities = [60, 45, 30, 15];
 
     private sealed record RawFrame(int Width, int Height, string Desktop, byte[] Bgra);
 
+    /// <summary>
+    /// Right after the screen locks or unlocks, Windows is switching the input desktop and GDI can fail briefly with "Access is denied" on the
+    /// handle we just opened (seen on Windows 11 ARM64). Each retry re-opens the current input desktop, which resolves it.
+    /// </summary>
     public async Task<FrameInfo> CaptureAsync(CancellationToken ct)
     {
-        var raw = await desktop.RunAsync(CaptureNow).ConfigureAwait(false);
-        return await Task.Run(() => new FrameInfo(raw.Width, raw.Height, raw.Desktop, EncodeJpeg(raw)), ct).ConfigureAwait(false);
+        for (var attempt = 1; ; attempt++)
+        {
+            try
+            {
+                var raw = await desktop.RunAsync(CaptureNow).ConfigureAwait(false);
+                return await Task.Run(() => new FrameInfo(raw.Width, raw.Height, raw.Desktop, EncodeJpeg(raw)), ct).ConfigureAwait(false);
+            }
+            catch (InvalidOperationException ex) when (attempt < Attempts && ex.Message.Contains("failed:", StringComparison.Ordinal))
+            {
+                log?.Invoke($"Capture attempt {attempt} failed ({ex.Message}) Retrying on the current input desktop.");
+                await Task.Delay(150 * attempt, ct).ConfigureAwait(false);
+            }
+        }
     }
 
     private static RawFrame CaptureNow(string desktopName)

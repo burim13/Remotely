@@ -22,7 +22,7 @@ internal static class HelperProgram
             main.Connect(5000);
             input.Connect(5000);
             using var desktop = new DesktopThread();
-            var capturer = new DesktopCapturer(desktop);
+            var capturer = new DesktopCapturer(desktop, log.Write);
             var injector = new InputInjector(desktop);
             var clipboard = new ClipboardAccess();
             log.Write($"Helper started in session {System.Diagnostics.Process.GetCurrentProcess().SessionId}.");

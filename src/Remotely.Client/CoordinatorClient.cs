@@ -34,6 +34,9 @@ public sealed class CoordinatorClient : IAsyncDisposable
 
     public DeviceIdentity Identity { get; }
 
+    /// <summary>True while the connection is up and this device is paired (so requests can be made).</summary>
+    public bool IsConnected => IsPaired && _socket.State == WebSocketState.Open && !_pump.IsCompleted;
+
     /// <summary>False until <see cref="PairAsync"/> succeeds on a device the server has not seen before.</summary>
     public bool IsPaired { get; private set; }
 

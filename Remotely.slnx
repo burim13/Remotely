@@ -6,6 +6,7 @@
     <Project Path="src/Remotely.HostCore/Remotely.HostCore.csproj" />
     <Project Path="src/Remotely.Probe/Remotely.Probe.csproj" />
     <Project Path="src/Remotely.Server/Remotely.Server.csproj" />
+    <Project Path="src/Remotely.Viewer/Remotely.Viewer.csproj" />
     <Project Path="src/Remotely.ViewerCore/Remotely.ViewerCore.csproj" />
   </Folder>
   <Folder Name="/tests/">

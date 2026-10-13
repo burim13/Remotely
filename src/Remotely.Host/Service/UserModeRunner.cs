@@ -33,7 +33,7 @@ internal static class UserModeRunner
 
         using var desktop = new DesktopThread();
         await HostConnection.RunForeverAsync(HostPaths.ConfigFile, identity,
-            (trusted, control) => HostRuntime.ForUser(desktop, trusted, control), log.Write, cts.Token).ConfigureAwait(false);
+            (trusted, control) => HostRuntime.ForUser(desktop, trusted, control, log.Write), log.Write, cts.Token).ConfigureAwait(false);
         log.Write("Remotely.Host (user mode) stopped.");
         return 0;
     }

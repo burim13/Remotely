@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Windows high-contrast: every token comes from the user's chosen system colors, so the panel follows their theme. -->
+    <SolidColorBrush x:Key="Brush.Panel" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+    <SolidColorBrush x:Key="Brush.ContentLayer" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Surface" Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Well" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+    <SolidColorBrush x:Key="Brush.ListSurface" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Hairline" Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}" />
+    <SolidColorBrush x:Key="Brush.ControlBorder" Color="{DynamicResource {x:Static SystemColors.WindowTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Text" Color="{DynamicResource {x:Static SystemColors.WindowTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Body" Color="{DynamicResource {x:Static SystemColors.WindowTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Secondary" Color="{DynamicResource {x:Static SystemColors.GrayTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.ChipText" Color="{DynamicResource {x:Static SystemColors.WindowTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Accent" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+    <SolidColorBrush x:Key="Brush.AccentText" Color="{DynamicResource {x:Static SystemColors.HotTrackColorKey}}" />
+    <SolidColorBrush x:Key="Brush.AccentHover" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+    <SolidColorBrush x:Key="Brush.AccentPressed" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+    <SolidColorBrush x:Key="Brush.OnAccent" Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.AccentSurface" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+    <SolidColorBrush x:Key="Brush.OnAccentSurface" Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}" />
+    <!-- Messages module bubbles follow the system highlight / window colors. -->
+    <SolidColorBrush x:Key="Brush.BubbleMe" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+    <SolidColorBrush x:Key="Brush.BubbleSms" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+    <SolidColorBrush x:Key="Brush.OnBubbleMe" Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.BubbleThem" Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+    <SolidColorBrush x:Key="Brush.OnBubbleThem" Color="{DynamicResource {x:Static SystemColors.ControlTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.ReactionPill" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Connected" Color="{DynamicResource {x:Static SystemColors.WindowTextColorKey}}" />
+    <SolidColorBrush x:Key="Brush.Error" Color="{DynamicResource {x:Static SystemColors.HotTrackColorKey}}" />
+    <SolidColorBrush x:Key="Brush.HoverOverlay" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Opacity="0.35" />
+    <SolidColorBrush x:Key="Brush.PressedOverlay" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Opacity="0.55" />
+    <SolidColorBrush x:Key="Brush.ScrollThumb" Color="{DynamicResource {x:Static SystemColors.GrayTextColorKey}}" />
+    <Color x:Key="Color.Shadow">#00000000</Color>
+</ResourceDictionary>
