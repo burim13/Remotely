@@ -1,0 +1,33 @@
+name: winui
+
+# Builds the WinUI 3 app on real Windows (x64 and ARM64). WinUI cannot be built on Linux, so this is the only place it is compiled.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, "claude/**"]
+    paths: ["src/Remotely.App/**", "src/Remotely.Core/**", "src/Remotely.HostCore/**", "src/Remotely.ViewerCore/**", "src/Remotely.Client/**", ".github/workflows/winui.yml"]
+
+jobs:
+  app:
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, rid: win-x64, platform: x64 }
+          - { os: windows-11-arm, rid: win-arm64, platform: ARM64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Publish the WinUI 3 app
+        shell: pwsh
+        run: |
+          dotnet publish src/Remotely.App -c Release -r ${{ matrix.rid }} -p:Platform=${{ matrix.platform }} -o out/app-${{ matrix.rid }}
+          if ($LASTEXITCODE -ne 0) { throw "publish failed" }
+          Get-ChildItem out/app-${{ matrix.rid }} | Select-Object -First 15 | ForEach-Object { Write-Host $_.Name ($_.Length) }
+          Write-Host "files: $((Get-ChildItem out/app-${{ matrix.rid }} -Recurse -File).Count)"
+      - uses: actions/upload-artifact@v4
+        with: { name: Remotely.App-${{ matrix.rid }}, path: out/app-${{ matrix.rid }} }
