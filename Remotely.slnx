@@ -4,6 +4,7 @@
     <Project Path="src/Remotely.Core/Remotely.Core.csproj" />
     <Project Path="src/Remotely.Host/Remotely.Host.csproj" />
     <Project Path="src/Remotely.HostCore/Remotely.HostCore.csproj" />
+    <Project Path="src/Remotely.HostWindows/Remotely.HostWindows.csproj" />
     <Project Path="src/Remotely.Probe/Remotely.Probe.csproj" />
     <Project Path="src/Remotely.Server/Remotely.Server.csproj" />
     <Project Path="src/Remotely.Viewer/Remotely.Viewer.csproj" />

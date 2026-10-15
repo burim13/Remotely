@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>Remotely.Host</RootNamespace>
+    <AssemblyName>Remotely.HostWindows</AssemblyName>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Remotely.HostCore\Remotely.HostCore.csproj" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The capture, input and clipboard code is shared by the background host and the app; the types stay internal to those two. -->
+    <InternalsVisibleTo Include="Remotely.Host" />
+    <InternalsVisibleTo Include="Remotely" />
+  </ItemGroup>
+
+</Project>
