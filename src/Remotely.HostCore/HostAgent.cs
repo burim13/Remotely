@@ -52,19 +52,7 @@ public sealed class HostAgent(DeviceIdentity identity, HostServices services, Ac
         try
         {
             using var secure = await SecureSession.AcceptAsync(relay, identity, services.IsTrusted, ct).ConfigureAwait(false);
-            var session = new Session(secure, relay.PeerDeviceId, services.CanControl(relay.PeerDeviceId));
-            log($"Viewer {viewer} connected ({(session.Control ? "control" : "view only")}).");
-            await secure.SendAsync(new HelloInfo(HostMessages.ProtocolVersion, Capabilities(session)).Encode(), ct).ConfigureAwait(false);
-            try
-            {
-                while (await secure.ReceiveAsync(ct).ConfigureAwait(false) is { } message)
-                    await HandleAsync(session, message, ct).ConfigureAwait(false);
-            }
-            finally
-            {
-                session.Dispose();
-            }
-            log($"Viewer {viewer} left.");
+            await ServeChannelAsync(secure, viewer, services.CanControl(relay.PeerDeviceId), ct).ConfigureAwait(false);
         }
         catch (HandshakeException ex)
         {
@@ -81,6 +69,27 @@ public sealed class HostAgent(DeviceIdentity identity, HostServices services, Ac
         {
             Interlocked.Decrement(ref _active);
         }
+    }
+
+    /// <summary>
+    /// Serves one already-authenticated viewer over any encrypted channel (a relay through the server, or a direct connection on the local network):
+    /// introduces the host, then answers frame requests, input, clipboard and file messages until the viewer leaves.
+    /// </summary>
+    public async Task ServeChannelAsync(IMessageChannel secure, string viewerLabel, bool control, CancellationToken ct)
+    {
+        var session = new Session(secure, viewerLabel, control);
+        log($"Viewer {viewerLabel} connected ({(session.Control ? "control" : "view only")}).");
+        await secure.SendAsync(new HelloInfo(HostMessages.ProtocolVersion, Capabilities(session)).Encode(), ct).ConfigureAwait(false);
+        try
+        {
+            while (await secure.ReceiveAsync(ct).ConfigureAwait(false) is { } message)
+                await HandleAsync(session, message, ct).ConfigureAwait(false);
+        }
+        finally
+        {
+            session.Dispose();
+        }
+        log($"Viewer {viewerLabel} left.");
     }
 
     private HostCapabilities Capabilities(Session s)
@@ -275,9 +284,9 @@ public sealed class HostAgent(DeviceIdentity identity, HostServices services, Ac
     private static Task ErrorAsync(Session s, string message, CancellationToken ct) =>
         s.Secure.SendAsync(HostMessages.Prefixed(HostMessages.Error, Encoding.UTF8.GetBytes(message)), ct);
 
-    private sealed class Session(SecureSession secure, string viewerId, bool control) : IDisposable
+    private sealed class Session(IMessageChannel secure, string viewerId, bool control) : IDisposable
     {
-        public SecureSession Secure { get; } = secure;
+        public IMessageChannel Secure { get; } = secure;
         public string ViewerId { get; } = viewerId;
         public bool Control { get; } = control;
         public CancellationTokenSource Cancel { get; } = new();

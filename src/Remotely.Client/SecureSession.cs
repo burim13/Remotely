@@ -4,7 +4,7 @@ using Remotely.Core.Crypto;
 namespace Remotely.Client;
 
 /// <summary>An end-to-end encrypted, mutually authenticated session layered over a <see cref="RelaySession"/>.</summary>
-public sealed class SecureSession : IDisposable
+public sealed class SecureSession : IMessageChannel
 {
     private readonly RelaySession _relay;
     private readonly SecureChannel _channel;

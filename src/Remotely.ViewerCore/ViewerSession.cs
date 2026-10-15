@@ -18,7 +18,7 @@ public sealed class ViewerSession : IAsyncDisposable
     private static readonly TimeSpan MinFrameInterval = TimeSpan.FromMilliseconds(33);
     private static readonly TimeSpan UnchangedBackoff = TimeSpan.FromMilliseconds(60);
 
-    private readonly SecureSession _secure;
+    private readonly IMessageChannel _secure;
     private readonly CancellationTokenSource _cts = new();
     private readonly object _inputGate = new();
     private readonly List<InputEvent> _pendingInput = [];
@@ -33,7 +33,7 @@ public sealed class ViewerSession : IAsyncDisposable
     private uint _nextId;
     private int _disposed;
 
-    private ViewerSession(SecureSession secure, HelloInfo hello, string hostDeviceId)
+    private ViewerSession(IMessageChannel secure, HelloInfo hello, string hostDeviceId)
     {
         _secure = secure;
         Hello = hello;
@@ -63,14 +63,7 @@ public sealed class ViewerSession : IAsyncDisposable
         try
         {
             secure = await SecureSession.InitiateAsync(relay, identity, ct).ConfigureAwait(false);
-            var first = await secure.ReceiveAsync(ct).ConfigureAwait(false) ?? throw new HandshakeException("Host closed the session.");
-            var hello = HelloInfo.Decode(first) ?? throw new HandshakeException("Host did not introduce itself.");
-            if (hello.Version != HostMessages.ProtocolVersion) throw new HandshakeException("Host speaks a different protocol version.");
-            var session = new ViewerSession(secure, hello, hostDeviceId);
-            session._receiveLoop = Task.Run(session.ReceiveLoopAsync);
-            session._frameLoop = Task.Run(session.FrameLoopAsync);
-            session._inputLoop = Task.Run(session.InputLoopAsync);
-            return session;
+            return await StartAsync(secure, hostDeviceId, ct).ConfigureAwait(false);
         }
         catch
         {
@@ -78,6 +71,30 @@ public sealed class ViewerSession : IAsyncDisposable
             await relay.CloseAsync().ConfigureAwait(false);
             throw;
         }
+    }
+
+    /// <summary>Starts a session over a channel that is already authenticated (for example a direct connection on the local network). Takes ownership of the channel.</summary>
+    public static async Task<ViewerSession> OpenAsync(IMessageChannel channel, string hostLabel, CancellationToken ct = default)
+    {
+        try { return await StartAsync(channel, hostLabel, ct).ConfigureAwait(false); }
+        catch
+        {
+            try { await channel.CloseAsync().ConfigureAwait(false); } catch (Exception ex) when (ex is not OutOfMemoryException) { }
+            channel.Dispose();
+            throw;
+        }
+    }
+
+    private static async Task<ViewerSession> StartAsync(IMessageChannel secure, string hostLabel, CancellationToken ct)
+    {
+        var first = await secure.ReceiveAsync(ct).ConfigureAwait(false) ?? throw new HandshakeException("Host closed the session.");
+        var hello = HelloInfo.Decode(first) ?? throw new HandshakeException("Host did not introduce itself.");
+        if (hello.Version != HostMessages.ProtocolVersion) throw new HandshakeException("Host speaks a different protocol version.");
+        var session = new ViewerSession(secure, hello, hostLabel);
+        session._receiveLoop = Task.Run(session.ReceiveLoopAsync);
+        session._frameLoop = Task.Run(session.FrameLoopAsync);
+        session._inputLoop = Task.Run(session.InputLoopAsync);
+        return session;
     }
 
     // ---- input ----

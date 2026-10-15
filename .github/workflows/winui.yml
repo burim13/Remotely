@@ -30,4 +30,6 @@ jobs:
           Get-ChildItem out/app-${{ matrix.rid }} | Select-Object -First 15 | ForEach-Object { Write-Host $_.Name ($_.Length) }
           Write-Host "files: $((Get-ChildItem out/app-${{ matrix.rid }} -Recurse -File).Count)"
       - uses: actions/upload-artifact@v4
-        with: { name: Remotely.App-${{ matrix.rid }}, path: out/app-${{ matrix.rid }} }
+        with:
+          name: "Remotely.App-${{ matrix.rid }}"
+          path: "out/app-${{ matrix.rid }}"
