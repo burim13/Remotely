@@ -2,8 +2,69 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Remotely">
-    <StackPanel Padding="32" Spacing="12" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock Text="Remotely" FontSize="28" FontWeight="SemiBold" />
-        <TextBlock Text="WinUI 3 build check" />
-    </StackPanel>
+    <ScrollViewer>
+        <Grid Padding="32,24" MaxWidth="980" HorizontalAlignment="Center" RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Remotely" Style="{StaticResource TitleTextBlockStyle}" />
+                <TextBlock x:Name="NetworkText" Style="{StaticResource BodyTextBlockStyle}" Opacity="0.7" />
+            </StackPanel>
+
+            <Grid Grid.Row="1" ColumnSpacing="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Share this PC -->
+                <Border Padding="24" CornerRadius="8" BorderThickness="1"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                    <StackPanel Spacing="14">
+                        <TextBlock Text="Share this PC" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock Text="Turn this on, then type the token on the PC you want to use from." TextWrapping="Wrap" Opacity="0.7" />
+                        <ToggleSwitch x:Name="ShareSwitch" OnContent="Sharing" OffContent="Not sharing" Toggled="OnShareToggled" />
+                        <StackPanel x:Name="TokenPanel" Spacing="8" Visibility="Collapsed">
+                            <TextBlock Text="Token" Opacity="0.7" />
+                            <TextBlock x:Name="TokenText" FontFamily="Cascadia Mono, Consolas" FontSize="38" FontWeight="SemiBold"
+                                       IsTextSelectionEnabled="True" AutomationProperties.Name="Token" />
+                            <TextBlock x:Name="TokenInfo" Opacity="0.7" TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="Copy" Click="OnCopyToken" />
+                                <Button Content="New token" Click="OnNewToken" />
+                            </StackPanel>
+                        </StackPanel>
+                        <InfoBar x:Name="ShareBar" IsOpen="False" IsClosable="False" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Connect to a PC -->
+                <Border Grid.Column="1" Padding="24" CornerRadius="8" BorderThickness="1"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                    <StackPanel Spacing="14">
+                        <TextBlock Text="Connect to a PC" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock Text="Type the token that the other PC is showing." TextWrapping="Wrap" Opacity="0.7" />
+                        <TextBox x:Name="TokenBox" PlaceholderText="ABCD-EFGH-JKLM" FontFamily="Cascadia Mono, Consolas" FontSize="24"
+                                 CharacterCasing="Upper" MaxLength="20" KeyDown="OnTokenKeyDown" AutomationProperties.Name="Token to connect with" />
+                        <Expander Header="Cannot find it? Enter its address" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Use this only if the token alone does not work, for example when the network blocks discovery." TextWrapping="Wrap" Opacity="0.7" />
+                                <TextBox x:Name="AddressBox" PlaceholderText="192.168.1.20" AutomationProperties.Name="Address of the other PC" />
+                            </StackPanel>
+                        </Expander>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <Button x:Name="ConnectButton" Content="Connect" Style="{StaticResource AccentButtonStyle}" Click="OnConnect" />
+                            <ProgressRing x:Name="Busy" IsActive="False" Width="24" Height="24" />
+                        </StackPanel>
+                        <InfoBar x:Name="ConnectBar" IsOpen="False" IsClosable="False" Severity="Error" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>

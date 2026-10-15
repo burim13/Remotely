@@ -8,6 +8,8 @@ public partial class App : Application
 
     public App() => InitializeComponent();
 
+    public static ShareService Share { get; } = new();
+
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         _window = new MainWindow();

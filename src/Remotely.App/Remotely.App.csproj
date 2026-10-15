@@ -27,6 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Remotely.Core\Remotely.Core.csproj" />
+    <ProjectReference Include="..\Remotely.Client\Remotely.Client.csproj" />
+    <ProjectReference Include="..\Remotely.HostCore\Remotely.HostCore.csproj" />
+    <ProjectReference Include="..\Remotely.ViewerCore\Remotely.ViewerCore.csproj" />
+    <ProjectReference Include="..\Remotely.HostWindows\Remotely.HostWindows.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
