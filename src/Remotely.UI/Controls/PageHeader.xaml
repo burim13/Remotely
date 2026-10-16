@@ -1,0 +1,19 @@
+<UserControl x:Class="Remotely.UI.Controls.PageHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Remotely.UI.Controls"
+             IsTabStop="False">
+    <Grid ColumnSpacing="16" Padding="0,0,0,8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <local:PorticoIcon x:Name="IconView" Size="28" VerticalAlignment="Center" Foreground="{ThemeResource Portico.AccentText}" Visibility="Collapsed" />
+        <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
+            <TextBlock x:Name="TitleText" Style="{StaticResource Portico.Text.Title}" AutomationProperties.HeadingLevel="Level1" />
+            <TextBlock x:Name="SubtitleText" Style="{StaticResource Portico.Text.Secondary}" Visibility="Collapsed" />
+        </StackPanel>
+        <ContentPresenter x:Name="ActionsHost" Grid.Column="2" VerticalAlignment="Center" />
+    </Grid>
+</UserControl>

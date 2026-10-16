@@ -1,0 +1,9 @@
+<UserControl x:Class="Remotely.UI.Controls.SectionTitle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             IsTabStop="False">
+    <StackPanel Spacing="4" Padding="0,8,0,0">
+        <TextBlock x:Name="TitleText" Style="{StaticResource Portico.Text.Subtitle}" AutomationProperties.HeadingLevel="Level2" />
+        <TextBlock x:Name="DescriptionText" Style="{StaticResource Portico.Text.Secondary}" Visibility="Collapsed" />
+    </StackPanel>
+</UserControl>

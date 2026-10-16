@@ -1,0 +1,51 @@
+<UserControl x:Class="Remotely.UI.Controls.DeviceTile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Remotely.UI.Controls"
+             IsTabStop="False">
+    <Button x:Name="Tile" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="16,12,16,12" Click="OnTileClick">
+        <Button.Template>
+            <ControlTemplate TargetType="Button">
+                <Border x:Name="Frame" Background="{ThemeResource Portico.Card}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1"
+                        CornerRadius="{StaticResource Portico.Radius.Medium}" Padding="{TemplateBinding Padding}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Target="Frame.Background" Value="{ThemeResource Portico.CardRaised}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Target="Frame.Background" Value="{ThemeResource Portico.Surface}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Target="Frame.Opacity" Value="0.6" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" />
+                </Border>
+            </ControlTemplate>
+        </Button.Template>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Width="40" Height="40" CornerRadius="{StaticResource Portico.Radius.Medium}" Background="{ThemeResource Portico.Field}" VerticalAlignment="Center">
+                <local:PorticoIcon x:Name="Mark" Size="22" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource Portico.AccentText}" />
+            </Border>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                <TextBlock x:Name="NameText" Style="{StaticResource Portico.Text.BodyStrong}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                <TextBlock x:Name="DetailText" Style="{StaticResource Portico.Text.Secondary}" FontSize="{StaticResource Portico.FontSize.Caption}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+            </StackPanel>
+            <local:StatusPill x:Name="Pill" Grid.Column="2" VerticalAlignment="Center" />
+        </Grid>
+    </Button>
+</UserControl>
