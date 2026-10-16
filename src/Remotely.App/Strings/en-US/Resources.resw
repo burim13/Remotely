@@ -9,4 +9,42 @@
   <data name="Nav_Home" xml:space="preserve"><value>This network</value></data>
   <data name="Nav_Computers" xml:space="preserve"><value>My computers</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
+  <!-- A4 Connect. Messages produced by Remotely.Core (token hints, connection check results) are English only for now. -->
+  <data name="Connect_Title" xml:space="preserve"><value>Connect to a PC</value></data>
+  <data name="Connect_Intro" xml:space="preserve"><value>Type the token that the other PC is showing.</value></data>
+  <data name="Connect_TokenName" xml:space="preserve"><value>Token to connect with</value></data>
+  <data name="Connect_Button" xml:space="preserve"><value>Connect</value></data>
+  <data name="Connect_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Connect_Cancelled" xml:space="preserve"><value>Cancelled.</value></data>
+  <data name="Connect_StepFinding" xml:space="preserve"><value>Looking for the PC on this network…</value></data>
+  <data name="Connect_StepReaching" xml:space="preserve"><value>Reaching the PC…</value></data>
+  <data name="Connect_StepVerifying" xml:space="preserve"><value>Checking the token and setting up the secure connection…</value></data>
+  <data name="Connect_Timeout" xml:space="preserve"><value>The other PC did not answer in time. Check the token and that both PCs are on the same network.</value></data>
+  <data name="Connect_SessionFailed" xml:space="preserve"><value>Connected, but the other PC did not start the session: {0}</value></data>
+  <data name="Connect_Diagnose" xml:space="preserve"><value>Why did this fail?</value></data>
+  <data name="Connect_NearbyTitle" xml:space="preserve"><value>Sharing on this network</value></data>
+  <data name="Connect_NearbySearching" xml:space="preserve"><value>Looking for PCs that are sharing…</value></data>
+  <data name="Connect_NearbyEmpty" xml:space="preserve"><value>No PC is sharing on this network right now.</value></data>
+  <data name="Connect_NearbyHint" xml:space="preserve"><value>Click a PC, then type the rest of its token.</value></data>
+  <data name="Connect_NearbyLabel" xml:space="preserve"><value>Token starts with {0}</value></data>
+  <data name="Connect_NearbyLock" xml:space="preserve"><value>Needs the token</value></data>
+  <data name="Connect_RecentTitle" xml:space="preserve"><value>Recent PCs</value></data>
+  <data name="Connect_RecentEmpty" xml:space="preserve"><value>PCs you connect to will appear here.</value></data>
+  <data name="Connect_RecentUsed" xml:space="preserve"><value>last used {0}</value></data>
+  <data name="Connect_RecentRemove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Connect_AddressHeader" xml:space="preserve"><value>Cannot find it? Enter its address</value></data>
+  <data name="Connect_AddressHelp" xml:space="preserve"><value>Use this only if the token alone does not work, for example when the network blocks discovery.</value></data>
+  <data name="Connect_AddressName" xml:space="preserve"><value>Address of the other PC</value></data>
+  <data name="Diag_Title" xml:space="preserve"><value>Connection check</value></data>
+  <data name="Diag_Intro" xml:space="preserve"><value>Checks this PC's network and the other PC, one step at a time, and says which step fails.</value></data>
+  <data name="Diag_Run" xml:space="preserve"><value>Check again</value></data>
+  <data name="Diag_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Diag_Passed" xml:space="preserve"><value>The network checks out</value></data>
+  <data name="Diag_Failed" xml:space="preserve"><value>A problem was found</value></data>
+  <data name="Diag_Cancelled" xml:space="preserve"><value>The check was cancelled.</value></data>
+  <data name="Diag_TimedOut" xml:space="preserve"><value>The check took too long and was stopped.</value></data>
+  <data name="Diag_Step_Adapter" xml:space="preserve"><value>Network connection</value></data>
+  <data name="Diag_Step_Subnet" xml:space="preserve"><value>Same network</value></data>
+  <data name="Diag_Step_Discovery" xml:space="preserve"><value>Answer from the other PC</value></data>
+  <data name="Diag_Step_Port" xml:space="preserve"><value>Connection port</value></data>
 </root>
