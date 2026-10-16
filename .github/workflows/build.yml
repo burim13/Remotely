@@ -67,6 +67,15 @@ jobs:
           dotnet publish src/Remotely.App -c Release -r ${{ matrix.rid }} -p:Platform=${{ matrix.platform }} -p:Version=0.4.0 -o out/app-${{ matrix.rid }}
           if ($LASTEXITCODE -ne 0) { throw "publish failed" }
           Write-Host "files: $((Get-ChildItem out/app-${{ matrix.rid }} -Recurse -File).Count)"
+      - name: Publish the Server Manager (WinUI 3)
+        shell: pwsh
+        run: |
+          dotnet publish src/Remotely.ServerManager -c Release -r ${{ matrix.rid }} -p:Platform=${{ matrix.platform }} -p:Version=0.4.0 -o out/manager-${{ matrix.rid }}
+          if ($LASTEXITCODE -ne 0) { throw "server manager publish failed" }
+          $m = Start-Process "out/manager-${{ matrix.rid }}/Remotely.ServerManager.exe" -PassThru
+          Start-Sleep -Seconds 8
+          if ($m.HasExited) { throw "the Server Manager exited with code $($m.ExitCode)" }
+          $m.Kill()
       - name: Self-test - share this PC, connect with the token, receive a frame
         shell: pwsh
         run: |
@@ -95,6 +104,10 @@ jobs:
         with:
           name: "Remotely.App-${{ matrix.rid }}"
           path: "out/app-${{ matrix.rid }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "Remotely.ServerManager-${{ matrix.rid }}"
+          path: "out/manager-${{ matrix.rid }}"
 
   # Runs the real chain on real Windows machines (x64 and ARM64): server, pairing, service install, helper launch, frame through the relay.
   # GitHub's runners are headless, so this proves the plumbing, not what a person sees on a real screen.

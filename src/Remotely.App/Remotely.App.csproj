@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Remotely.UI\Remotely.UI.csproj" />
     <ProjectReference Include="..\Remotely.Core\Remotely.Core.csproj" />
     <ProjectReference Include="..\Remotely.Client\Remotely.Client.csproj" />
     <ProjectReference Include="..\Remotely.HostCore\Remotely.HostCore.csproj" />
