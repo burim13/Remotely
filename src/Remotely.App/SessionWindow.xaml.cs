@@ -1,5 +1,6 @@
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Remotely.HostCore;
 using Remotely.ViewerCore;
@@ -20,7 +21,7 @@ public sealed partial class SessionWindow : Window
     private FrameInfo? _pending;
     private bool _renderQueued;
     private bool _closing;
-    private bool _clipboardOn = true;
+    private bool _clipboardOn;
     private string? _lastClipboard;
 
     public SessionWindow(ViewerSession session, string hostName)
@@ -34,9 +35,12 @@ public sealed partial class SessionWindow : Window
         Screen.CanControl = session.CanControl;
         Screen.Input = e => _session.SendInput(e);
         Screen.FocusLost = () => _session.ReleaseAllInput();
-        UploadButton.IsEnabled = session.HasFiles;
+        App.ApplyTheme(this);
+        _clipboardOn = App.Settings.SyncClipboard && session.HasClipboard;
+        UploadButton.IsEnabled = DownloadButton.IsEnabled = session.HasFiles;
+        SasButton.IsEnabled = session.CanSendSecureAttention;
         ClipboardButton.IsEnabled = session.HasClipboard;
-        ClipboardButton.IsChecked = session.HasClipboard;
+        ClipboardButton.IsChecked = _clipboardOn;
         Status.Text = session.CanControl
             ? "Connected. Your keyboard and mouse control the other PC while this window has focus."
             : "Connected in view-only mode.";
@@ -87,7 +91,7 @@ public sealed partial class SessionWindow : Window
     {
         if (_closing) return;
         Screen.CanControl = false;
-        UploadButton.IsEnabled = ClipboardButton.IsEnabled = false;
+        UploadButton.IsEnabled = DownloadButton.IsEnabled = SasButton.IsEnabled = ClipboardButton.IsEnabled = false;
         OverlayTitle.Text = "Disconnected";
         OverlayText.Text = reason ?? "The other PC ended the session.";
         Overlay.Visibility = Visibility.Visible;
@@ -139,5 +143,40 @@ public sealed partial class SessionWindow : Window
             Status.Text = $"Sent {result} to the other PC.";
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException) { Status.Text = "Could not send the file: " + ex.Message; }
+    }
+
+    private async void OnSas(object sender, RoutedEventArgs e)
+    {
+        await _session.SendSecureAttentionAsync();
+        Status.Text = "Sent Ctrl+Alt+Del.";
+        Screen.Focus(FocusState.Programmatic);
+    }
+
+    private async void OnDownload(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var files = await _session.ListSharedFilesAsync();
+            if (files.Length == 0)
+            {
+                Status.Text = $"{_hostName} has nothing in its shared folder. Put files in Documents\\Remotely\\Share on that PC to make them available.";
+                return;
+            }
+            var list = new ListView { ItemsSource = files.Select(f => f.Name).ToList(), SelectionMode = ListViewSelectionMode.Single, MinWidth = 360, MaxHeight = 320 };
+            var dialog = new ContentDialog
+            {
+                XamlRoot = Content.XamlRoot, Title = $"Files on {_hostName}", Content = list,
+                PrimaryButtonText = "Get file", CloseButtonText = "Cancel", DefaultButton = ContentDialogButton.Primary,
+            };
+            if (await dialog.ShowAsync() != ContentDialogResult.Primary || list.SelectedItem is not string chosen) return;
+            Status.Text = $"Downloading {chosen}…";
+            var path = await _session.DownloadFileAsync(chosen);
+            Status.Text = $"Saved to {path}";
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("explorer.exe", $"/select,\"{path}\"") { UseShellExecute = true });
+        }
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or TimeoutException)
+        {
+            Status.Text = "Download failed: " + ex.Message;
+        }
     }
 }

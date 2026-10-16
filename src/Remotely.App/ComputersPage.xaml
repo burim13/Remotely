@@ -1,0 +1,38 @@
+<Page x:Class="Remotely.App.ComputersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      NavigationCacheMode="Required">
+    <ScrollViewer>
+        <StackPanel Padding="32,24" MaxWidth="760" HorizontalAlignment="Center" Spacing="16">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <TextBlock Text="My computers" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" />
+                <Button x:Name="RefreshButton" Click="OnRefresh" AutomationProperties.Name="Refresh" ToolTipService.ToolTip="Refresh">
+                    <SymbolIcon Symbol="Refresh" />
+                </Button>
+            </StackPanel>
+            <TextBlock x:Name="Subtitle" Opacity="0.7" TextWrapping="Wrap"
+                       Text="Computers paired with your own server. They work from any network. Connections go only through your server." />
+            <InfoBar x:Name="Bar" IsOpen="False" IsClosable="False" Severity="Error" />
+
+            <!-- First run: one thing to do. -->
+            <Border x:Name="JoinPanel" Visibility="Collapsed" Padding="24" CornerRadius="8" BorderThickness="1"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Connect to your server" Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <TextBlock TextWrapping="Wrap" Opacity="0.7"
+                               Text="Paste the invite from your server to connect this PC. You get it from 'Remotely Server info' on the server. Not needed for connections on this network." />
+                    <TextBox x:Name="InviteBox" PlaceholderText="RMT1-…" AutomationProperties.Name="Invite" />
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button x:Name="JoinButton" Content="Connect" Style="{StaticResource AccentButtonStyle}" Click="OnJoin" />
+                        <ProgressRing x:Name="JoinBusy" IsActive="False" Width="24" Height="24" />
+                    </StackPanel>
+                    <TextBlock x:Name="JoinMessage" TextWrapping="Wrap" Visibility="Collapsed" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel x:Name="List" Spacing="8" />
+            <TextBlock x:Name="EmptyText" Visibility="Collapsed" TextWrapping="Wrap" Opacity="0.7"
+                       Text="No computers yet. Install Remotely on the PC you want to reach and paste the same invite there." />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -6,6 +6,75 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Portico look: IBM Plex Sans, warm amber accent, calm grey panels. Values match the earlier WPF viewer's Dark/Light themes. -->
+            <FontFamily x:Key="ContentControlThemeFontFamily">ms-appx:///Assets/Fonts/#IBM Plex Sans</FontFamily>
+            <Color x:Key="SystemAccentColor">#F7BE55</Color>
+            <Color x:Key="SystemAccentColorLight1">#F9CB74</Color>
+            <Color x:Key="SystemAccentColorLight2">#F9CB74</Color>
+            <Color x:Key="SystemAccentColorDark1">#E2A93B</Color>
+            <Color x:Key="SystemAccentColorDark2">#E2A93B</Color>
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#1C2127" />
+                    <SolidColorBrush x:Key="CardBackgroundFillColorDefaultBrush" Color="#2B3239" />
+                    <SolidColorBrush x:Key="CardStrokeColorDefaultBrush" Color="#303840" />
+                    <SolidColorBrush x:Key="TextFillColorPrimaryBrush" Color="#F2F4F5" />
+                    <SolidColorBrush x:Key="TextFillColorSecondaryBrush" Color="#A9B3BA" />
+                    <SolidColorBrush x:Key="TextFillColorTertiaryBrush" Color="#7F8A93" />
+                    <SolidColorBrush x:Key="AccentTextFillColorPrimaryBrush" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="AccentButtonBackground" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="#F9CB74" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="#E2A93B" />
+                    <SolidColorBrush x:Key="AccentButtonBackgroundPointerOver" Color="#F9CB74" />
+                    <SolidColorBrush x:Key="AccentButtonBackgroundPressed" Color="#E2A93B" />
+                    <SolidColorBrush x:Key="AccentButtonForeground" Color="#1E2328" />
+                    <SolidColorBrush x:Key="AccentButtonForegroundPointerOver" Color="#1E2328" />
+                    <SolidColorBrush x:Key="AccentButtonForegroundPressed" Color="#1E2328" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOn" Color="#1E2328" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPointerOver" Color="#1E2328" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPressed" Color="#1E2328" />
+                    <SolidColorBrush x:Key="AccentButtonBorderBrush" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="AccentButtonBorderBrushPointerOver" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="AccentButtonBorderBrushPressed" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" Color="#F7BE55" />
+                    <SolidColorBrush x:Key="Portico.Connected" Color="#6FCF97" />
+                    <SolidColorBrush x:Key="Portico.Error" Color="#FF9B8A" />
+                    <SolidColorBrush x:Key="Portico.Field" Color="#161A1E" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#F9FAFB" />
+                    <SolidColorBrush x:Key="CardBackgroundFillColorDefaultBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="CardStrokeColorDefaultBrush" Color="#E1E5E8" />
+                    <SolidColorBrush x:Key="TextFillColorPrimaryBrush" Color="#1F2429" />
+                    <SolidColorBrush x:Key="TextFillColorSecondaryBrush" Color="#5F6A74" />
+                    <SolidColorBrush x:Key="TextFillColorTertiaryBrush" Color="#7B858E" />
+                    <SolidColorBrush x:Key="AccentTextFillColorPrimaryBrush" Color="#8A5A00" />
+                    <SolidColorBrush x:Key="AccentButtonBackground" Color="#E8A93A" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="#E8A93A" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="#F0B54F" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="#D3982F" />
+                    <SolidColorBrush x:Key="AccentButtonBackgroundPointerOver" Color="#F0B54F" />
+                    <SolidColorBrush x:Key="AccentButtonBackgroundPressed" Color="#D3982F" />
+                    <SolidColorBrush x:Key="AccentButtonForeground" Color="#1E2328" />
+                    <SolidColorBrush x:Key="AccentButtonForegroundPointerOver" Color="#1E2328" />
+                    <SolidColorBrush x:Key="AccentButtonForegroundPressed" Color="#1E2328" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOn" Color="#1E2328" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPointerOver" Color="#1E2328" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPressed" Color="#1E2328" />
+                    <SolidColorBrush x:Key="AccentButtonBorderBrush" Color="#E8A93A" />
+                    <SolidColorBrush x:Key="AccentButtonBorderBrushPointerOver" Color="#E8A93A" />
+                    <SolidColorBrush x:Key="AccentButtonBorderBrushPressed" Color="#E8A93A" />
+                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#E8A93A" />
+                    <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" Color="#E8A93A" />
+                    <SolidColorBrush x:Key="Portico.Connected" Color="#1F7A4D" />
+                    <SolidColorBrush x:Key="Portico.Error" Color="#B3261E" />
+                    <SolidColorBrush x:Key="Portico.Field" Color="#FFFFFF" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
