@@ -68,6 +68,11 @@ public enum HostCapabilities : byte
     SecureAttention = 2,  // Ctrl+Alt+Del can be sent (service mode only)
     Clipboard = 4,
     Files = 8,
+    // Reserved for Remotely 1.0 work (one owner each, see docs/agent-specs.md). Not offered by any host yet.
+    Monitors = 16,        // A6: monitor list in the hello extension, per-monitor capture, tiled frames
+    CursorShape = 32,     // A6: cursor image sent separately from pixels
+    RichClipboard = 64,   // A7: HTML, images and file lists on the clipboard
+    ResumableFiles = 128, // A8: transfers with offsets (resume)
 }
 
 public sealed record HelloInfo(int Version, HostCapabilities Capabilities)

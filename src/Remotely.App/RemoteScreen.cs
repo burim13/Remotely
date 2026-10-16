@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -19,8 +18,6 @@ namespace Remotely.App;
 /// </summary>
 public sealed class RemoteScreen : Grid
 {
-    [DllImport("user32.dll")] private static extern uint MapVirtualKeyW(uint code, uint mapType);
-
     private readonly Image _image = new() { Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch };
     private int _frameWidth, _frameHeight;
 
@@ -121,16 +118,8 @@ public sealed class RemoteScreen : Grid
 
     private void SendKey(KeyRoutedEventArgs e, bool down)
     {
-        if (!CanControl) return;
-        var vk = (ushort)e.Key;
-        if (vk == 0) return;
-        var scan = (ushort)MapVirtualKeyW(vk, 0);
-        Input?.Invoke(InputEvent.Key(down, vk, scan, IsExtended(e.Key)));
+        if (!CanControl || !Session.KeyTranslator.TryTranslate(e.Key, out var vk, out var scan, out var extended)) return;
+        Input?.Invoke(InputEvent.Key(down, vk, scan, extended));
         e.Handled = true; // the other PC, not this window, should see Tab, Alt, F10 and the arrow keys
     }
-
-    private static bool IsExtended(VirtualKey key) => key is VirtualKey.Up or VirtualKey.Down or VirtualKey.Left or VirtualKey.Right
-        or VirtualKey.Home or VirtualKey.End or VirtualKey.PageUp or VirtualKey.PageDown or VirtualKey.Insert or VirtualKey.Delete
-        or VirtualKey.RightControl or VirtualKey.RightMenu or VirtualKey.Divide or VirtualKey.NumberKeyLock or VirtualKey.Snapshot
-        or VirtualKey.LeftWindows or VirtualKey.RightWindows or VirtualKey.Application;
 }
