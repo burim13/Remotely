@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: "Publish the installers as a draft release with this tag (for example v0.3.0). Leave empty for a normal build."
+        description: "Publish the installers as a draft release with this tag (for example v0.4.0). Leave empty for a normal build."
         type: string
         default: ""
   push:
@@ -28,7 +28,6 @@ jobs:
           set -e
           for rid in win-arm64 win-x64; do
             dotnet publish src/Remotely.Host   -c Release -r $rid --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -o out/host-$rid
-            dotnet publish src/Remotely.Viewer -c Release -r $rid --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -o out/viewer-$rid
             dotnet publish src/Remotely.Probe  -c Release -r $rid --self-contained -p:PublishSingleFile=true -p:DebugType=none -o out/probe-$rid
           done
           dotnet publish src/Remotely.Probe  -c Release -r osx-x64 --self-contained -p:PublishSingleFile=true -p:DebugType=none -o out/probe-osx-x64
@@ -38,10 +37,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: Remotely.Host-win-x64, path: out/host-win-x64/Remotely.Host.exe }
       - uses: actions/upload-artifact@v4
-        with: { name: Remotely.Viewer-win-arm64, path: out/viewer-win-arm64/Remotely.exe }
-      - uses: actions/upload-artifact@v4
-        with: { name: Remotely.Viewer-win-x64, path: out/viewer-win-x64/Remotely.exe }
-      - uses: actions/upload-artifact@v4
         with: { name: Remotely.Server-win-x64, path: "out/server-win-x64/Remotely.Server.exe\nout/server-win-x64/appsettings.json" }
       - uses: actions/upload-artifact@v4
         with: { name: Remotely.Probe-win-arm64, path: out/probe-win-arm64/Remotely.Probe.exe }
@@ -50,10 +45,61 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: Remotely.Probe-osx-x64, path: out/probe-osx-x64/Remotely.Probe }
 
+  # The WinUI 3 app cannot be built on Linux. Builds it on real Windows (x64 and ARM64), runs its same-network self-test (share, connect with the token,
+  # receive a screen frame, a used token is refused), starts the window and takes a screenshot.
+  app:
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, rid: win-x64, platform: x64 }
+          - { os: windows-11-arm, rid: win-arm64, platform: ARM64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Publish the WinUI 3 app
+        shell: pwsh
+        run: |
+          dotnet publish src/Remotely.App -c Release -r ${{ matrix.rid }} -p:Platform=${{ matrix.platform }} -p:Version=0.4.0 -o out/app-${{ matrix.rid }}
+          if ($LASTEXITCODE -ne 0) { throw "publish failed" }
+          Write-Host "files: $((Get-ChildItem out/app-${{ matrix.rid }} -Recurse -File).Count)"
+      - name: Self-test - share this PC, connect with the token, receive a frame
+        shell: pwsh
+        run: |
+          $exe = "out/app-${{ matrix.rid }}/Remotely.exe"
+          $p = Start-Process $exe -ArgumentList "--selftest","$PWD/selftest.txt" -PassThru
+          if (-not $p.WaitForExit(120000)) { $p.Kill(); Write-Host "timed out" }
+          if (Test-Path selftest.txt) { Get-Content selftest.txt } else { Write-Host "no result file" }
+          if (-not (Test-Path selftest.txt) -or (Get-Content selftest.txt -TotalCount 1) -ne "PASS") { throw "self-test failed" }
+      - name: Start the window and take a screenshot
+        shell: pwsh
+        run: |
+          Add-Type -AssemblyName System.Windows.Forms, System.Drawing
+          $p = Start-Process "out/app-${{ matrix.rid }}/Remotely.exe" -PassThru
+          Start-Sleep -Seconds 8
+          if ($p.HasExited) { throw "the app exited with code $($p.ExitCode)" }
+          $b = [System.Windows.Forms.SystemInformation]::VirtualScreen
+          $bmp = New-Object System.Drawing.Bitmap $b.Width, $b.Height
+          [System.Drawing.Graphics]::FromImage($bmp).CopyFromScreen($b.Left, $b.Top, 0, 0, $bmp.Size)
+          $bmp.Save("$PWD/winui-home-${{ matrix.rid }}.png")
+          $p.Kill()
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "Remotely.App-screenshot-${{ matrix.rid }}"
+          path: "winui-home-${{ matrix.rid }}.png"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "Remotely.App-${{ matrix.rid }}"
+          path: "out/app-${{ matrix.rid }}"
+
   # Runs the real chain on real Windows machines (x64 and ARM64): server, pairing, service install, helper launch, frame through the relay.
   # GitHub's runners are headless, so this proves the plumbing, not what a person sees on a real screen.
   smoke:
-    needs: build
+    needs: [build, app]
     timeout-minutes: 15
     strategy:
       fail-fast: false
@@ -70,7 +116,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with: { name: Remotely.Server-win-x64, path: server }
       - uses: actions/download-artifact@v4
-        with: { name: "Remotely.Viewer-${{ matrix.rid }}", path: viewer }
+        with: { name: "Remotely.App-${{ matrix.rid }}", path: app }
       - name: End to end
         shell: pwsh
         env:
@@ -153,41 +199,40 @@ jobs:
           $o = & $probe control $hostId --download "..\..\Windows\win.ini" --wait 1 2>&1; $o
           Check "service: path traversal refused" (($o -join "`n") -match 'download failed')
 
-          # ---------- THE VIEWER (WPF, Portico theme): first run, pairing, device list, a live session ----------
-          Write-Host "`n===== VIEWER UI ====="
-          $viewerExe = "$PWD\viewer\Remotely.exe"
+          # ---------- THE APP (WinUI 3): first run, joining from the invite, the server path ----------
+          Write-Host "`n===== APP UI (server path) ====="
+          $appExe = "$PWD\app\Remotely.exe"
           Add-Type -AssemblyName System.Windows.Forms, System.Drawing
           function Shot($name) {
-            $b = New-Object System.Drawing.Bitmap 1024, 768
-            $g = [System.Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0, 0, 0, 0, $b.Size); $g.Dispose()
+            $b = [System.Windows.Forms.SystemInformation]::VirtualScreen
+            $bmp = New-Object System.Drawing.Bitmap $b.Width, $b.Height
+            $g = [System.Drawing.Graphics]::FromImage($bmp); $g.CopyFromScreen($b.Left, $b.Top, 0, 0, $bmp.Size); $g.Dispose()
             $codec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq 'image/jpeg' }
             $ep = New-Object System.Drawing.Imaging.EncoderParameters 1
             $ep.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter -ArgumentList @([System.Drawing.Imaging.Encoder]::Quality, [long]65)
-            $b.Save("$PWD\$name.jpg", $codec, $ep); $b.Dispose()
+            $bmp.Save("$PWD\$name.jpg", $codec, $ep); $bmp.Dispose()
           }
-          $v = Start-Process $viewerExe -PassThru; Start-Sleep 7
-          Check "viewer starts and stays running on first run" (-not $v.HasExited)
+          $v = Start-Process $appExe -PassThru; Start-Sleep 8
+          Check "the app starts and stays running on first run" (-not $v.HasExited)
           if ($v.HasExited) {
-            Write-Host "viewer exit code: $($v.ExitCode)"
-            Get-ChildItem "$env:LOCALAPPDATA\Remotely" -Recurse -ErrorAction SilentlyContinue | ForEach-Object FullName
-            Get-Content "$env:LOCALAPPDATA\Remotely\logs\viewer-crash.log" -ErrorAction SilentlyContinue | Select-Object -First 40
-            Get-WinEvent -FilterHashtable @{LogName='Application'; StartTime=(Get-Date).AddMinutes(-3)} -ErrorAction SilentlyContinue | Where-Object { $_.ProviderName -match 'Runtime|Application Error|WER' } | Select-Object -First 4 | ForEach-Object { $_.Message.Substring(0, [Math]::Min(1500, $_.Message.Length)) }
+            Write-Host "app exit code: $($v.ExitCode)"
+            Get-Content "$env:LOCALAPPDATA\Remotely\logs\app-crash.log" -ErrorAction SilentlyContinue | Select-Object -First 40
           }
-          Shot 'ui-setup'; Stop-Process $v -Force -ErrorAction SilentlyContinue
+          Shot 'ui-home'; Stop-Process $v -Force -ErrorAction SilentlyContinue
           $uiDir = "$env:LOCALAPPDATA\Remotely"; New-Item -ItemType Directory $uiDir -Force | Out-Null
           '{"DeviceName":"ci-ui-viewer","Theme":"dark","SyncClipboard":true}' | Set-Content "$uiDir\viewer.json"
-          # The first-run path: no server configured, started with the invite (what the installer does).
-          $v = Start-Process $viewerExe -ArgumentList '--invite', $inv -PassThru; Start-Sleep 9; Stop-Process $v -Force -ErrorAction SilentlyContinue
+          # The first-run path: no server configured, started with the invite (what the installer does). The app joins and shows My computers.
+          $v = Start-Process $appExe -ArgumentList '--invite', $inv -PassThru; Start-Sleep 10
+          Check "the app stays running while joining from the invite" (-not $v.HasExited)
+          Shot 'ui-computers'; Stop-Process $v -Force -ErrorAction SilentlyContinue
           $uiId = (Get-Content "$uiDir\device-id.txt" -ErrorAction SilentlyContinue)
-          Check "viewer wrote its device id and paired" (($uiId -match '^[0-9a-f]{64}$') -and (((& $probe list 2>&1) -join "`n") -match 'ci-ui-viewer'))
-          $v = Start-Process $viewerExe -PassThru; Start-Sleep 8
-          Check "viewer main window runs with a saved configuration" (-not $v.HasExited)
-          Shot 'ui-main'; Stop-Process $v -Force -ErrorAction SilentlyContinue
-          $v = Start-Process $viewerExe -ArgumentList '--connect', $hostId -PassThru; Start-Sleep 12
-          Check "viewer session window runs" (-not $v.HasExited)
-          Shot 'ui-session'
-          Check "the service host saw the GUI viewer connect" ($null -ne (Get-Content "C:\ProgramData\Remotely\logs\*.log" | Select-String "Viewer $($uiId.Substring(0,4))-$($uiId.Substring(4,4))"))
-          Stop-Process $v -Force -ErrorAction SilentlyContinue
+          Check "the app wrote its device id and paired with the server" (($uiId -match '^[0-9a-f]{64}$') -and (((& $probe list 2>&1) -join "`n") -match 'ci-ui-viewer'))
+          # The server path through the app's own code: device list, session to the service host, a frame, input.
+          $t = Start-Process $appExe -ArgumentList '--selftest-server', "$PWD\selftest-server.txt", $hostId -PassThru
+          if (-not $t.WaitForExit(120000)) { $t.Kill(); Write-Host "server self-test timed out" }
+          if (Test-Path "$PWD\selftest-server.txt") { Get-Content "$PWD\selftest-server.txt" }
+          Check "app server path: list, connect, frame and input through the server" ((Test-Path "$PWD\selftest-server.txt") -and ((Get-Content "$PWD\selftest-server.txt" -TotalCount 1) -eq 'PASS'))
+          Check "the service host saw the app connect" ($null -ne (Get-Content "C:\ProgramData\Remotely\logs\*.log" | Select-String "Viewer $($uiId.Substring(0,4))-$($uiId.Substring(4,4))"))
 
           # ---------- THE LOCK SCREEN ----------
           Write-Host "`n===== LOCK SCREEN ====="
@@ -213,7 +258,7 @@ jobs:
           & $hostExe uninstall
           Write-Host "`nFAILED CHECKS: $script:fail"
           if ($env:RID -eq 'win-x64') {
-            foreach ($f in 'ui-setup', 'ui-main', 'ui-session') {
+            foreach ($f in 'ui-home', 'ui-computers') {
               $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes("$PWD\$f.jpg"))
               Write-Host "BEGIN-IMG $f"
               for ($i = 0; $i -lt $b64.Length; $i += 3000) { Write-Host $b64.Substring($i, [Math]::Min(3000, $b64.Length - $i)) }
@@ -231,6 +276,7 @@ jobs:
             frames-lock
             frames-sas
             ui-*.jpg
+            selftest-server.txt
             diag-user.jpg
             server.out
             server.err
@@ -238,17 +284,17 @@ jobs:
 
   # Compiles the three installers with Inno Setup on Windows.
   installers:
-    needs: build
+    needs: [build, app]
     timeout-minutes: 20
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
-        with: { name: Remotely.Viewer-win-x64, path: publish/x64/viewer }
+        with: { name: Remotely.App-win-x64, path: publish/x64/app }
       - uses: actions/download-artifact@v4
         with: { name: Remotely.Host-win-x64, path: publish/x64/host }
       - uses: actions/download-artifact@v4
-        with: { name: Remotely.Viewer-win-arm64, path: publish/arm64/viewer }
+        with: { name: Remotely.App-win-arm64, path: publish/arm64/app }
       - uses: actions/download-artifact@v4
         with: { name: Remotely.Host-win-arm64, path: publish/arm64/host }
       - uses: actions/download-artifact@v4
@@ -261,15 +307,15 @@ jobs:
         run: |
           $iscc = @("${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
           Write-Host "Using $iscc"
-          foreach ($arch in "x64", "arm64") { & $iscc "/DArch=$arch" "/DVersion=0.3.0" installer\Remotely.iss; if ($LASTEXITCODE -ne 0) { throw "client installer $arch failed" } }
-          & $iscc "/DVersion=0.3.0" installer\Remotely-Server.iss; if ($LASTEXITCODE -ne 0) { throw "server installer failed" }
+          foreach ($arch in "x64", "arm64") { & $iscc "/DArch=$arch" "/DVersion=0.4.0" installer\Remotely.iss; if ($LASTEXITCODE -ne 0) { throw "client installer $arch failed" } }
+          & $iscc "/DVersion=0.4.0" installer\Remotely-Server.iss; if ($LASTEXITCODE -ne 0) { throw "server installer failed" }
           Get-ChildItem publish\*.exe | ForEach-Object { "{0}  {1:N1} MB" -f $_.Name, ($_.Length / 1MB) }
       - uses: actions/upload-artifact@v4
-        with: { name: Installer-x64, path: publish/Remotely-Setup-0.3.0-x64.exe }
+        with: { name: Installer-x64, path: publish/Remotely-Setup-0.4.0-x64.exe }
       - uses: actions/upload-artifact@v4
-        with: { name: Installer-arm64, path: publish/Remotely-Setup-0.3.0-arm64.exe }
+        with: { name: Installer-arm64, path: publish/Remotely-Setup-0.4.0-arm64.exe }
       - uses: actions/upload-artifact@v4
-        with: { name: Installer-server, path: publish/Remotely-Server-Setup-0.3.0-x64.exe }
+        with: { name: Installer-server, path: publish/Remotely-Server-Setup-0.4.0-x64.exe }
 
   # Runs the real installers silently on real Windows (x64 and ARM64): server installer, then client installer for all users, then for the current user,
   # over real TLS with the server key pin.
@@ -308,7 +354,7 @@ jobs:
           }
 
           Write-Host "===== SERVER INSTALLER ====="
-          $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.3.0-x64.exe" ($silent + '/LOG=server-install.log' + '/Address=127.0.0.1')
+          $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.4.0-x64.exe" ($silent + '/LOG=server-install.log' + '/Address=127.0.0.1')
           Check "server installer exit code 0" ($p.ExitCode -eq 0)
           Check "server service running" (WaitFor 'server' { (sc.exe query Remotely.Server) -match 'RUNNING' } 30)
           Check "firewall rule added" ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Remotely Server')
@@ -331,6 +377,13 @@ jobs:
           Check "client installer exit code 0" ($p.ExitCode -eq 0)
           Check "viewer installed" (Test-Path 'C:\Program Files\Remotely\Remotely.exe')
           Check "host installed" (Test-Path 'C:\Program Files\Remotely\Remotely.Host.exe')
+          Check "the app's runtime files were installed with it" ((Get-ChildItem 'C:\Program Files\Remotely' -Recurse -File).Count -gt 50)
+          Check "firewall rules for same-network sharing added" (((netsh advfirewall firewall show rule name="Remotely same-network (TCP)") -match '47810') -and ((netsh advfirewall firewall show rule name="Remotely same-network (UDP)") -match '47811'))
+          # The installed app, on the installed machine: share this PC, connect with the token, receive a frame.
+          $lan = Start-Process 'C:\Program Files\Remotely\Remotely.exe' -ArgumentList '--selftest', "$PWD\lan-selftest.txt" -PassThru
+          if (-not $lan.WaitForExit(120000)) { $lan.Kill(); Write-Host "same-network self-test timed out" }
+          if (Test-Path "$PWD\lan-selftest.txt") { Get-Content "$PWD\lan-selftest.txt" }
+          Check "installed app: same-network token connection works" ((Test-Path "$PWD\lan-selftest.txt") -and ((Get-Content "$PWD\lan-selftest.txt" -TotalCount 1) -eq 'PASS'))
           Check "host service running" (WaitFor 'svc' { (sc.exe query Remotely.Host) -match 'RUNNING' } 30)
           Check "host online" (WaitFor 'online' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+inst-host\s' } 40)
           $hostId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'inst-host\s+([0-9a-f]{64})')).Groups[1].Value
@@ -341,6 +394,7 @@ jobs:
           $null = RunWait 'C:\Program Files\Remotely\unins000.exe' ($silent + '/LOG=client-uninstall.log')
           Check "uninstall removed the service" (WaitFor 'gone' { (sc.exe query Remotely.Host) -match '1060' } 20)
           Check "uninstall removed the program files" (-not (Test-Path 'C:\Program Files\Remotely\Remotely.Host.exe'))
+          Check "uninstall removed the firewall rules" (-not ((netsh advfirewall firewall show rule name="Remotely same-network (TCP)") -match 'Rule Name'))
           Check "uninstall kept the user's data" (Test-Path 'C:\ProgramData\Remotely\host.json')
 
           Write-Host "`n===== CLIENT INSTALLER: CURRENT USER (no service) ====="
@@ -371,10 +425,11 @@ jobs:
           name: installer-smoke-${{ matrix.arch }}
           path: |
             *.log
+            lan-selftest.txt
             frames-service
           if-no-files-found: ignore
 
-  # One click: Actions > build > Run workflow > fill in "release_tag" (for example v0.3.0) to publish the installers as a DRAFT release.
+  # One click: Actions > build > Run workflow > fill in "release_tag" (for example v0.4.0) to publish the installers as a DRAFT release.
   release:
     if: github.event_name == 'workflow_dispatch' && inputs.release_tag != ''
     needs: [installers, installer-smoke]

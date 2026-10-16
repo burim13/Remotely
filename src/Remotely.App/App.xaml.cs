@@ -45,12 +45,6 @@ public partial class App : Application
     protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
         var argv = Environment.GetCommandLineArgs();
-        var at = Array.IndexOf(argv, "--selftest");
-        if (at >= 0 && at + 1 < argv.Length)
-        {
-            Environment.Exit(await SelfTest.RunAsync(argv[at + 1]));
-            return;
-        }
         Settings = ViewerSettings.Load();
         DeviceIdentity identity;
         try { identity = ViewerSettings.LoadOrCreateIdentity(); }
@@ -64,6 +58,10 @@ public partial class App : Application
         try { File.WriteAllText(Path.Combine(ViewerSettings.Dir, "device-id.txt"), identity.DeviceId); }
         catch (IOException) { }
         catch (UnauthorizedAccessException) { }
+        var lan = Array.IndexOf(argv, "--selftest");
+        if (lan >= 0 && lan + 1 < argv.Length) { Environment.Exit(await SelfTest.RunAsync(argv[lan + 1])); return; }
+        var srv = Array.IndexOf(argv, "--selftest-server");
+        if (srv >= 0 && srv + 2 < argv.Length) { Environment.Exit(await SelfTest.RunServerAsync(argv[srv + 1], argv[srv + 2])); return; }
         for (var i = 0; i < argv.Length - 1; i++)
         {
             if (argv[i] == "--pair") PairOnStart = argv[i + 1];

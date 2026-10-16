@@ -1,10 +1,10 @@
 ; Remotely Server installer (Inno Setup 6), x64, for the always-on PC or VM that runs your own coordinator (for example Windows Server 2025).
-;   ISCC.exe /DVersion=0.3.0 installer\Remotely-Server.iss
+;   ISCC.exe /DVersion=0.4.0 installer\Remotely-Server.iss
 ; Installs Remotely.Server.exe as the "Remotely.Server" service (runs as LocalService), opens its TCP port in Windows Firewall, and shows an invite
 ; (address, key pin and pairing code in one string) at the end. Silent:  Setup.exe /VERYSILENT /SUPPRESSMSGBOXES [/Address=myhome.example.com]
 
 #ifndef Version
-  #define Version "0.3.0"
+  #define Version "0.4.0"
 #endif
 #define Publish "..\publish\server"
 
@@ -26,7 +26,7 @@ SolidCompression=yes
 WizardStyle=modern
 UninstallDisplayName=Remotely Server
 UninstallDisplayIcon={app}\Remotely.Server.exe
-SetupIconFile=..\src\Remotely.Viewer\Assets\remotely.ico
+SetupIconFile=..\src\Remotely.App\Assets\remotely.ico
 SetupLogging=yes
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible

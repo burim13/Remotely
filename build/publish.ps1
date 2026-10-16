@@ -1,7 +1,7 @@
 # Builds everything and the installers into .\publish, on a Windows PC with the .NET 10 SDK and Inno Setup 6 (winget install JRSoftware.InnoSetup).
-#   powershell -ExecutionPolicy Bypass -File build\publish.ps1 [-Version 0.3.0]
+#   powershell -ExecutionPolicy Bypass -File build\publish.ps1 [-Version 0.4.0]
 # Output: Remotely-Setup-<version>-arm64.exe, Remotely-Setup-<version>-x64.exe, Remotely-Server-Setup-<version>-x64.exe (signed if build\sign.ps1 finds your certificate).
-param([string]$Version = "0.3.0")
+param([string]$Version = "0.4.0")
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 Set-Location $root
@@ -13,11 +13,12 @@ New-Item -ItemType Directory publish | Out-Null
 foreach ($arch in @("arm64", "x64")) {
     $rid = "win-$arch"
     Write-Host "== publish $rid"
-    dotnet publish src\Remotely.Viewer -c Release -r $rid --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -p:Version=$Version -o "publish\$arch\viewer"
-    if ($LASTEXITCODE -ne 0) { throw "viewer publish failed for $rid" }
+    # The WinUI 3 app is a folder (self-contained Windows App SDK), not a single file.
+    dotnet publish src\Remotely.App -c Release -r $rid -p:Platform=$($arch.ToUpper() -replace 'X64','x64') -p:Version=$Version -o "publish\$arch\app"
+    if ($LASTEXITCODE -ne 0) { throw "app publish failed for $rid" }
     dotnet publish src\Remotely.Host -c Release -r $rid --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -p:Version=$Version -o "publish\$arch\host"
     if ($LASTEXITCODE -ne 0) { throw "host publish failed for $rid" }
-    & powershell -NoProfile -ExecutionPolicy Bypass -File build\sign.ps1 -Path "publish\$arch\viewer\Remotely.exe"
+    & powershell -NoProfile -ExecutionPolicy Bypass -File build\sign.ps1 -Path "publish\$arch\app\Remotely.exe"
     & powershell -NoProfile -ExecutionPolicy Bypass -File build\sign.ps1 -Path "publish\$arch\host\Remotely.Host.exe"
     Write-Host "== Inno Setup $arch"
     & $iscc "/DArch=$arch" "/DVersion=$Version" "/Qp" installer\Remotely.iss

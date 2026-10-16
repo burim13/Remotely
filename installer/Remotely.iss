@@ -1,9 +1,9 @@
 ; Remotely installer (Inno Setup 6). One per architecture, built by build\publish.ps1 or the CI "installers" job:
-;   ISCC.exe /DArch=arm64 /DVersion=0.3.0 installer\Remotely.iss
-;   ISCC.exe /DArch=x64   /DVersion=0.3.0 installer\Remotely.iss
+;   ISCC.exe /DArch=arm64 /DVersion=0.4.0 installer\Remotely.iss
+;   ISCC.exe /DArch=x64   /DVersion=0.4.0 installer\Remotely.iss
 ; At the start the installer asks: for all users (administrator: the Host runs as a Windows service that survives sign-out and shows the
 ; lock screen) or only for me (no administrator: the Host runs while you are signed in). Same choice as Portico's per-user installer, plus the service.
-; The only thing the wizard asks for is the invite that "Remotely Server info" prints on your server (it holds the address, key pin and a pairing code).
+; Same-network sharing needs nothing from the wizard. The only optional question is the invite that "Remotely Server info" prints on your server (it holds the address, key pin and a pairing code).
 ; Silent install for scripts and tests:  Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /Invite=RMT1-... /Name="Dad's PC"
 ;   The long form still works: /Server=wss://host:8443/ws /Pin=<hex> /Code=XXXX-XXXX /Trust=<viewer id>
 ;   add /CURRENTUSER for the no-administrator mode, /Insecure=1 only for local testing over ws://
@@ -12,7 +12,7 @@
   #define Arch "x64"
 #endif
 #ifndef Version
-  #define Version "0.3.0"
+  #define Version "0.4.0"
 #endif
 #define Publish "..\publish\" + Arch
 
@@ -36,7 +36,7 @@ SolidCompression=yes
 WizardStyle=modern
 UninstallDisplayName=Remotely
 UninstallDisplayIcon={app}\Remotely.exe
-SetupIconFile=..\src\Remotely.Viewer\Assets\remotely.ico
+SetupIconFile=..\src\Remotely.App\Assets\remotely.ico
 CloseApplications=yes
 RestartApplications=no
 SetupLogging=yes
@@ -56,11 +56,11 @@ Name: "full"; Description: "Both: control other computers, and let this PC be co
 Name: "custom"; Description: "Choose what to install"; Flags: iscustom
 
 [Components]
-Name: "viewer"; Description: "Remotely: control your other computers from this PC"; Types: full custom
+Name: "viewer"; Description: "Remotely: control other computers, and share this PC on your network with a token"; Types: full custom
 Name: "host"; Description: "Remotely Host: let your other devices control this PC"; Types: full custom
 
 [Files]
-Source: "{#Publish}\viewer\Remotely.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: viewer
+Source: "{#Publish}\app\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: viewer
 Source: "{#Publish}\host\Remotely.Host.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: host
 
 [Icons]
@@ -68,12 +68,18 @@ Name: "{group}\Remotely"; Filename: "{app}\Remotely.exe"; Components: viewer
 Name: "{group}\Uninstall Remotely"; Filename: "{uninstallexe}"
 
 [Run]
+; Same-network sharing listens on TCP 47810 (token connections) and UDP 47811 (finding the PC by its token). Only on private and domain networks, never public Wi-Fi.
+; Only an all-users install can add firewall rules; a per-user install is asked by Windows the first time instead.
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""Remotely same-network (TCP)"" dir=in action=allow program=""{app}\Remotely.exe"" protocol=TCP localport=47810 profile=private,domain"; Flags: runhidden waituntilterminated; Components: viewer; Check: IsAdminInstallMode
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""Remotely same-network (UDP)"" dir=in action=allow program=""{app}\Remotely.exe"" protocol=UDP localport=47811 profile=private,domain"; Flags: runhidden waituntilterminated; Components: viewer; Check: IsAdminInstallMode
 ; Configure and start the host. Both commands are the same ones you can run by hand (Remotely.Host.exe setup / install).
 Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostSetupArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Connecting this PC to your server..."; Check: NeedsSetup
 Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostInstallArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Starting Remotely Host..."; Check: ShouldStartHost
 Filename: "{app}\Remotely.exe"; Parameters: "{code:ViewerArgs}"; Description: "Open Remotely"; Flags: nowait postinstall skipifsilent runasoriginaluser; Components: viewer
 
 [UninstallRun]
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall delete rule name=""Remotely same-network (TCP)"""; Flags: runhidden waituntilterminated; RunOnceId: "RemoveFirewallTcp"; Check: IsAdminInstallMode
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall delete rule name=""Remotely same-network (UDP)"""; Flags: runhidden waituntilterminated; RunOnceId: "RemoveFirewallUdp"; Check: IsAdminInstallMode
 ; Removes the service (or the sign-in entry). Your settings, device key and logs are never touched.
 Filename: "{app}\Remotely.Host.exe"; Parameters: "uninstall"; Flags: runhidden waituntilterminated; RunOnceId: "RemoveHostService"; Check: IsAdminInstallMode
 Filename: "{app}\Remotely.Host.exe"; Parameters: "uninstall --user"; Flags: runhidden waituntilterminated; RunOnceId: "RemoveHostUser"; Check: not IsAdminInstallMode
@@ -119,7 +125,7 @@ begin
   HostPage := CreateInputQueryPage(wpSelectComponents, 'Connect this PC to your server',
     'Paste the invite from your own Remotely server.',
     'On the server, open "Remotely Server info" and copy the invite. It holds the address, the key and a one-time code, so there is nothing else to type. ' +
-    'Leave it empty to connect this PC later.');
+    'Leave it empty if you only connect PCs on the same network, or to connect this PC later.');
   HostPage.Add('Invite:', False);
   HostPage.Add('This PC''s name:', False);
   HostPage.Values[0] := Param('Invite');

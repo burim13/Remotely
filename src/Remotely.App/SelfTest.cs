@@ -1,10 +1,11 @@
 using Remotely.Core.Lan;
+using Remotely.Client;
 using Remotely.ViewerCore;
 
 namespace Remotely.App;
 
 /// <summary>
-/// <c>Remotely.exe --selftest result.txt</c>: shares this PC, connects to it with the displayed token, waits for a real screen frame, sends a mouse move and
+/// <c>Remotely.exe --selftest result.txt</c> (same network) and <c>Remotely.exe --selftest-server result.txt hostIdPrefix</c> (through the configured server, the same calls the My computers page makes): shares this PC, connects to it with the displayed token, waits for a real screen frame, sends a mouse move and
 /// writes PASS or FAIL plus details to the file. Used by CI on real Windows machines; also handy to check a PC.
 /// </summary>
 internal static class SelfTest
@@ -46,6 +47,38 @@ internal static class SelfTest
 
             await session.DisposeAsync();
             await share.DisposeAsync();
+            File.WriteAllLines(resultPath, ["PASS", .. lines]);
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Log("FAILED: " + ex);
+            File.WriteAllLines(resultPath, ["FAIL", .. lines]);
+            return 1;
+        }
+    }
+
+    public static async Task<int> RunServerAsync(string resultPath, string hostPrefix)
+    {
+        var lines = new List<string>();
+        void Log(string s) => lines.Add($"{DateTime.UtcNow:HH:mm:ss.fff} {s}");
+        try
+        {
+            if (!App.Settings.IsConfigured) throw new InvalidOperationException("No server is configured for this app.");
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+            var client = await App.Connection.EnsureAsync(cts.Token);
+            var devices = await client.ListDevicesAsync(cts.Token);
+            Log($"Server lists {devices.Length} device(s): {string.Join(", ", devices.Select(d => d.Name + (d.Online ? " (online)" : "")))}");
+            var host = devices.FirstOrDefault(d => d.Online && d.CanHost && d.DeviceId.StartsWith(hostPrefix, StringComparison.OrdinalIgnoreCase))
+                ?? throw new InvalidOperationException("The host is not online in the server's list.");
+            await using var session = await ViewerSession.OpenAsync(client, App.Connection.Identity, host.DeviceId, cts.Token);
+            var gotFrame = new TaskCompletionSource<(int W, int H, int Bytes)>(TaskCreationOptions.RunContinuationsAsynchronously);
+            session.FrameReceived += f => gotFrame.TrySetResult((f.Width, f.Height, f.Jpeg.Length));
+            if (!session.CanControl) throw new InvalidOperationException("Session is view-only.");
+            var frame = await gotFrame.Task.WaitAsync(cts.Token);
+            Log($"Frame {frame.W}x{frame.H}, {frame.Bytes} bytes, Ctrl+Alt+Del offered: {session.CanSendSecureAttention}");
+            session.SendInput(Remotely.HostCore.InputEvent.Move(20000, 20000));
+            await Task.Delay(500, cts.Token);
             File.WriteAllLines(resultPath, ["PASS", .. lines]);
             return 0;
         }
