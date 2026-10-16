@@ -9,4 +9,58 @@
   <data name="Nav_Home" xml:space="preserve"><value>This network</value></data>
   <data name="Nav_Computers" xml:space="preserve"><value>My computers</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
+  <!-- Remote session window (agent A5). -->
+  <data name="Session_WindowTitle" xml:space="preserve"><value>Remotely – {0}</value></data>
+  <data name="Session_Monitor" xml:space="preserve"><value>Monitor</value></data>
+  <data name="Session_AllMonitors" xml:space="preserve"><value>All monitors</value></data>
+  <data name="Session_MonitorN" xml:space="preserve"><value>Monitor {0}</value></data>
+  <data name="Session_Scale" xml:space="preserve"><value>Scaling</value></data>
+  <data name="Session_ScaleFit" xml:space="preserve"><value>Fit to window</value></data>
+  <data name="Session_ScaleActual" xml:space="preserve"><value>Actual size (100%)</value></data>
+  <data name="Session_ScaleFill" xml:space="preserve"><value>Fill the window</value></data>
+  <data name="Session_FullScreen" xml:space="preserve"><value>Full screen</value></data>
+  <data name="Session_Stats" xml:space="preserve"><value>Session statistics</value></data>
+  <data name="Session_KeyboardCapture" xml:space="preserve"><value>Send keyboard to the other PC</value></data>
+  <data name="Session_ViewOnly" xml:space="preserve"><value>View only</value></data>
+  <data name="Session_Sas" xml:space="preserve"><value>Send Ctrl+Alt+Del</value></data>
+  <data name="Session_Clipboard" xml:space="preserve"><value>Share clipboard</value></data>
+  <data name="Session_Files" xml:space="preserve"><value>Files</value></data>
+  <data name="Session_SendFile" xml:space="preserve"><value>Send a file…</value></data>
+  <data name="Session_GetFile" xml:space="preserve"><value>Get a file…</value></data>
+  <data name="Session_PinToolbar" xml:space="preserve"><value>Keep the toolbar visible</value></data>
+  <data name="Session_End" xml:space="preserve"><value>End session</value></data>
+  <data name="Session_Badge_Remote" xml:space="preserve"><value>Keyboard: other PC</value></data>
+  <data name="Session_Badge_Local" xml:space="preserve"><value>Keyboard: this PC</value></data>
+  <data name="Session_Badge_ViewOnly" xml:space="preserve"><value>View only</value></data>
+  <data name="Session_ConnectedControl" xml:space="preserve"><value>Connected. Your keyboard and mouse control the other PC while this window has focus.</value></data>
+  <data name="Session_ConnectedViewOnly" xml:space="preserve"><value>Connected in view-only mode.</value></data>
+  <data name="Session_Stats_Fps" xml:space="preserve"><value>Frames: {0} per second</value></data>
+  <data name="Session_Stats_Bandwidth" xml:space="preserve"><value>Bandwidth: {0}</value></data>
+  <data name="Session_Stats_Latency" xml:space="preserve"><value>Latency: {0}</value></data>
+  <data name="Session_Stats_NotMeasured" xml:space="preserve"><value>not measured</value></data>
+  <data name="Session_Stats_Codec" xml:space="preserve"><value>Codec: {0}</value></data>
+  <data name="Session_Stats_Resolution" xml:space="preserve"><value>Remote screen: {0} × {1}</value></data>
+  <data name="Session_ZoomNotice" xml:space="preserve"><value>Zoom {0}%</value></data>
+  <data name="Session_SasSent" xml:space="preserve"><value>Sent Ctrl+Alt+Del.</value></data>
+  <data name="Session_OtherPcError" xml:space="preserve"><value>Other PC: {0}</value></data>
+  <data name="Session_Disconnected" xml:space="preserve"><value>Disconnected</value></data>
+  <data name="Session_ConnectionLost" xml:space="preserve"><value>Connection lost</value></data>
+  <data name="Session_EndedByOther" xml:space="preserve"><value>The other PC ended the session.</value></data>
+  <data name="Session_Countdown" xml:space="preserve"><value>Reconnecting in {0} s (attempt {1} of {2})</value></data>
+  <data name="Session_Reconnecting" xml:space="preserve"><value>Reconnecting…</value></data>
+  <data name="Session_Reconnected" xml:space="preserve"><value>Reconnected.</value></data>
+  <data name="Session_ReconnectFailed" xml:space="preserve"><value>Could not reconnect</value></data>
+  <data name="Session_RetryNow" xml:space="preserve"><value>Reconnect now</value></data>
+  <data name="Session_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Session_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Session_Sending" xml:space="preserve"><value>Sending {0}…</value></data>
+  <data name="Session_SendingProgress" xml:space="preserve"><value>Sending {0}… {1}</value></data>
+  <data name="Session_Sent" xml:space="preserve"><value>Sent {0} to the other PC.</value></data>
+  <data name="Session_SendFailed" xml:space="preserve"><value>Could not send the file: {0}</value></data>
+  <data name="Session_ShareEmpty" xml:space="preserve"><value>{0} has nothing in its shared folder. Put files in Documents\Remotely\Share on that PC to make them available.</value></data>
+  <data name="Session_FilesOn" xml:space="preserve"><value>Files on {0}</value></data>
+  <data name="Session_GetFileButton" xml:space="preserve"><value>Get file</value></data>
+  <data name="Session_Downloading" xml:space="preserve"><value>Downloading {0}…</value></data>
+  <data name="Session_Saved" xml:space="preserve"><value>Saved to {0}</value></data>
+  <data name="Session_DownloadFailed" xml:space="preserve"><value>Download failed: {0}</value></data>
 </root>
