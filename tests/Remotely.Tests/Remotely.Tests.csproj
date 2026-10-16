@@ -24,6 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Agent A2: the app shell's UI-free logic (command line, window placement, navigation catalog, single instance) is compiled into the tests, since the WinUI app cannot be referenced from Linux. -->
+    <Compile Include="..\..\src\Remotely.App\Shell\Core\*.cs" LinkBase="ShellCore" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

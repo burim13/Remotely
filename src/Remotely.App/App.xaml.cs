@@ -1,28 +1,42 @@
+using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml;
+using Remotely.App.Services;
+using Remotely.App.Shell;
 using Remotely.Core.Crypto;
+using Remotely.UI.Localization;
 
 namespace Remotely.App;
 
 public partial class App : Application
 {
     private Window? _window;
+    private static SingleInstance? _single;
 
     public App()
     {
         InitializeComponent();
-        UnhandledException += (_, e) => LogCrash(e.Exception);
+        UnhandledException += (_, e) =>
+        {
+            if (CrashReporter.TryHandle(e.Exception ?? new InvalidOperationException(e.Message))) e.Handled = true;
+        };
+        AppDomain.CurrentDomain.UnhandledException += (_, e) => LogCrash(e.ExceptionObject as Exception);
+        TaskScheduler.UnobservedTaskException += (_, e) => LogCrash(e.Exception);
     }
 
     internal static MainWindow? Main { get; private set; }
     public static ShareService Share { get; } = new();
     internal static ViewerSettings Settings { get; private set; } = new();
     internal static Connection Connection { get; private set; } = null!;
+    internal static AppServices Services { get; } = new();
+    internal static TrayIcon? Tray { get; private set; }
+    /// <summary>The parsed command line of this process (see docs/cli.md).</summary>
+    internal static AppOptions Options { get; private set; } = new();
     /// <summary>--invite RMT1-...: join the server in the invite (the installer uses this).</summary>
-    internal static string? InviteOnStart { get; private set; }
+    internal static string? InviteOnStart => Options.Invite;
     /// <summary>--pair CODE: pair with the already configured server.</summary>
-    internal static string? PairOnStart { get; private set; }
+    internal static string? PairOnStart => Options.Pair;
     /// <summary>--show PageName: open the app on that page (any <c>Page</c> class in this assembly, by short name). Used by CI to start and photograph every screen.</summary>
-    internal static string? ShowOnStart { get; private set; }
+    internal static string? ShowOnStart => Options.Show;
 
     /// <summary>A GUI app that dies silently is undiagnosable; leave the reason where support (and CI) can read it.</summary>
     internal static void LogCrash(Exception? ex)
@@ -44,9 +58,27 @@ public partial class App : Application
             root.RequestedTheme = Settings.Theme switch { "dark" => ElementTheme.Dark, "light" => ElementTheme.Light, _ => ElementTheme.Default };
     }
 
+    /// <summary>Called when the main window has closed: the tray icon and the single-instance claim go away with it.</summary>
+    internal static void ReleaseShell()
+    {
+        Tray?.Dispose();
+        Tray = null;
+        _single?.Dispose();
+        _single = null;
+    }
+
     protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
-        var argv = Environment.GetCommandLineArgs();
+        var argv = Environment.GetCommandLineArgs().Skip(1).ToArray();
+        Options = AppOptions.Parse(argv);
+        foreach (var problem in Options.Problems) LogCrash(new ArgumentException("Command line: " + problem));
+
+        if (Options.UsesSingleInstance && !await ClaimSingleInstanceAsync(argv))
+        {
+            Environment.Exit(0);
+            return;
+        }
+
         Settings = ViewerSettings.Load();
         DeviceIdentity identity;
         try { identity = ViewerSettings.LoadOrCreateIdentity(); }
@@ -60,19 +92,75 @@ public partial class App : Application
         try { File.WriteAllText(Path.Combine(ViewerSettings.Dir, "device-id.txt"), identity.DeviceId); }
         catch (IOException) { }
         catch (UnauthorizedAccessException) { }
-        var lan = Array.IndexOf(argv, "--selftest");
-        if (lan >= 0 && lan + 1 < argv.Length) { Environment.Exit(await SelfTest.RunAsync(argv[lan + 1])); return; }
-        var srv = Array.IndexOf(argv, "--selftest-server");
-        if (srv >= 0 && srv + 2 < argv.Length) { Environment.Exit(await SelfTest.RunServerAsync(argv[srv + 1], argv[srv + 2])); return; }
-        for (var i = 0; i < argv.Length - 1; i++)
+
+        if (Options.SelfTestResultPath is { } lanFile) { Environment.Exit(await SelfTest.RunAsync(lanFile)); return; }
+        if (Options.SelfTestServerResultPath is { } serverFile && Options.SelfTestServerHostPrefix is { } hostPrefix)
         {
-            if (argv[i] == "--pair") PairOnStart = argv[i + 1];
-            if (argv[i] == "--invite") InviteOnStart = argv[i + 1];
-            if (argv[i] == "--show") ShowOnStart = argv[i + 1];
+            Environment.Exit(await SelfTest.RunServerAsync(serverFile, hostPrefix));
+            return;
         }
+
+        // CI starts every page with --show. A build whose strings did not load would show resource keys everywhere, so fail that launch loudly.
+        if (Options.Show is not null && Loc.Get("App_Name") == "App_Name")
+        {
+            LogCrash(new InvalidOperationException("The string resources (Strings/en-US/Resources.resw) did not load."));
+            Environment.Exit(3);
+            return;
+        }
+
+        BuiltInPages.Register();
         var main = new MainWindow();
         Main = main;
         _window = main;
-        main.Activate();
+        if (Options.UsesSingleInstance) Tray = CreateTray();
+
+        if (Options.Minimized && Tray is { IsAdded: true } && !MainWindow.NeedsOnboarding) { /* start in the tray */ }
+        else main.ShowInitially();
+
+        if (Settings.ShareOnStart && Options.UsesSingleInstance && Share.Start(_ => { }) is { } shareError) LogCrash(new InvalidOperationException(shareError));
+        _ = main.HandleOptionsAsync(Options);
     }
+
+    private static TrayIcon? CreateTray()
+    {
+        try { return TrayMenu.Create(); }
+        catch (Exception ex) when (ex is InvalidOperationException or DllNotFoundException or EntryPointNotFoundException or MarshalDirectiveException)
+        {
+            LogCrash(ex);   // no tray: the window then always opens and closing it quits, as before
+            return null;
+        }
+    }
+
+    /// <summary>True when this process is the only one (or the running one did not answer); false when the arguments were handed to the running instance.</summary>
+    private static async Task<bool> ClaimSingleInstanceAsync(string[] argv)
+    {
+        var user = new string(Environment.UserName.Where(char.IsLetterOrDigit).ToArray());
+        var name = $"Remotely.App.{user}.{System.Diagnostics.Process.GetCurrentProcess().SessionId}";
+        var instance = SingleInstance.Acquire(name);
+        if (instance.IsPrimary)
+        {
+            instance.Listen(OnForwarded);
+            _single = instance;
+            return true;
+        }
+        var forwarded = await instance.ForwardAsync(argv, TimeSpan.FromSeconds(5), pid => AllowSetForegroundWindow(pid));
+        instance.Dispose();
+        if (forwarded) return false;
+        LogCrash(new TimeoutException("Another Remotely is running but did not answer; starting anyway."));
+        return true;
+    }
+
+    /// <summary>Arguments of a later launch arrive here (on a worker thread): bring the window up and act on them.</summary>
+    private static void OnForwarded(string[] args)
+    {
+        var options = AppOptions.Parse(args);
+        if (options.Minimized && !options.HasWork) return;   // Windows started a second copy at sign-in: nothing to show
+        Main?.DispatcherQueue.TryEnqueue(() =>
+        {
+            Main?.ShowAndFocus();
+            _ = Main?.HandleOptionsAsync(options);
+        });
+    }
+
+    [DllImport("user32.dll")] private static extern bool AllowSetForegroundWindow(int processId);
 }
