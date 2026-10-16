@@ -12,7 +12,8 @@ You run a small server yourself; every connection is end-to-end encrypted betwee
 |---|---|
 | `src/Remotely.Server` | The coordinator and relay you run on your always-on PC or VM. Windows service, pinned self-made TLS key. |
 | `src/Remotely.Host` | Windows host: SYSTEM service plus a helper in your session (survives sign-out, sees the lock screen), or a no-administrator per-user mode. |
-| `src/Remotely.Viewer` | The Windows viewer (WPF, Portico theme). |
+| `src/Remotely.App` | The Windows app (WinUI 3, Portico theme): share this PC or connect to one with a token on the same network, plus the server-based computer list. |
+| `src/Remotely.HostWindows` | Windows screen capture, input and clipboard, used by the host and by the app. |
 | `mac/` | The Mac host, viewer and command-line viewer (Swift, universal binaries). |
 | `src/Remotely.Core`, `Client`, `HostCore`, `ViewerCore` | The shared protocol, crypto and session logic. |
 | `installer/` | Inno Setup scripts for the server and the client. |

@@ -1,5 +1,18 @@
 # Remotely: setting it up
 
+## Quick start: two PCs on the same network (no server)
+
+1. Install `Remotely-Setup-<version>-x64.exe` (or `-arm64`) on both PCs. Leave the invite question empty.
+2. On the PC you want to control: open **Remotely**, turn on **Share this PC**. It shows a token like `K7P4-4NX2-QMH9`.
+3. On the PC you sit at: open **Remotely**, type the token under **Connect to a PC**, press **Connect**. The other PC is found on the network by itself.
+
+The token works once and changes after 10 minutes or after three wrong tries; the PC only answers PCs on its own subnet. If your network blocks discovery
+(some Wi-Fi guest networks do), open "Cannot find it? Enter its address" and type the other PC's address. Limits of this mode: it runs inside the signed-in
+Windows session, so it cannot show the lock screen or send Ctrl+Alt+Del (use the server mode with the Remotely Host service for that); the token is a
+short code protected by a slow key derivation, not a formal password-authenticated key exchange.
+
+## Reaching PCs from outside your network (server mode)
+
 Remotely lets your own devices reach each other, with no public servers. You run one small **server** yourself; every connection is
 **end-to-end encrypted** between the two devices, so the server only introduces them and relays bytes it cannot read.
 
@@ -13,7 +26,7 @@ Remotely lets your own devices reach each other, with no public servers. You run
 |---|---|---|
 | The always-on PC or VM (for example your Windows Server 2025 VM) | **Remotely Server** | `Remotely-Server-Setup-<version>-x64.exe` |
 | Each Windows PC you want to control | **Remotely Host** (inside the client installer) | `Remotely-Setup-<version>-x64.exe` or `-arm64.exe` |
-| Each device you control things *from* | **Remotely** (the viewer, inside the same installer; or the Mac app) | same / `Remotely-<version>-mac.dmg` |
+| Each device you control things *from* | **Remotely** (the app, inside the same installer; or the Mac app) | same / `Remotely-<version>-mac.dmg` |
 
 The installers are built by the GitHub **Actions** tab (artifacts of the latest *build* run), or on a Windows PC with `build\publish.ps1`.
 They are unsigned unless you sign them with your own certificate (`build\sign.ps1`, same approach as Portico), so Windows SmartScreen shows

@@ -6,8 +6,8 @@
 |---|---|
 | Name, licence | Remotely, open source (MIT) |
 | Targets | Windows 11 x64 and ARM64; macOS Intel and Apple silicon |
-| Framework | .NET 10 on Windows and for the server; native Swift on macOS (WPF does not exist there) |
-| Windows UI | WPF, reusing Portico's theme files (Dark/Light/High-contrast dictionaries, controls, icons, IBM Plex Sans) |
+| Framework | .NET 10 on Windows and for the server; native Swift on macOS (WinUI does not exist there) |
+| Windows UI | WinUI 3 (Windows App SDK 1.8, unpackaged and self-contained), Portico colours and IBM Plex Sans applied as theme resources; the app is a folder, not a single file |
 | No public servers | Everything is self-hosted: one small server you run on your own always-on PC or VM |
 | Reach | Same network and from outside; direct peer-to-peer was planned (see "Not built") but all traffic currently goes through your server |
 | Survive sign-out | Windows service (SYSTEM) plus a helper in the user's session; a no-administrator "user mode" is offered too |
@@ -23,7 +23,8 @@ Remotely.HostCore    HostAgent: serves frames, input, clipboard, files; trust an
 Remotely.ViewerCore  ViewerSession: frame pump, coalesced input, clipboard, file transfer
 Remotely.Server      coordinator and relay: pairing, device list, blind relay, loopback admin API, Windows service
 Remotely.Host        Windows host: service + session helper, or per-user mode; GDI capture, SendInput, clipboard, Ctrl+Alt+Del
-Remotely.Viewer      Windows viewer (WPF, Portico theme)
+Remotely.App         Windows app (WinUI 3, Portico theme): Home (share / connect by token), My computers (server), Settings
+Remotely.HostWindows Windows screen capture, input and clipboard (used by Remotely.Host and Remotely.App)
 Remotely.Probe       command-line test viewer, and a "fake host" for testing viewers on any OS
 mac/RemotelyKit      the same protocol in Swift (CryptoKit), byte-compatible with the .NET side
 mac/RemotelyHostMac  Mac host: ScreenCaptureKit, CGEvent, NSPasteboard, menu bar item, LaunchAgent
@@ -63,7 +64,8 @@ your server, so the server's PC and the invites are the thing to protect. `trust
 | Ctrl+Alt+Del | Service mode reports the capability and sends it; the secure desktop appears afterwards in the captured frames |
 | Installers | Inno scripts compile in CI; the silent installers are run in CI (server, then client for all users, then client for the current user, then uninstall) |
 | TLS pinning | CI installs the server with its installer and pairs over `wss://` with the pin; a wrong pin is refused |
-| The Windows viewer launches, pairs, lists devices and opens a live session | CI launches the real `Remotely.exe` on Windows and checks the host saw it connect |
+| The Windows app joins from an invite, lists devices and opens a live session through the server | CI, Windows x64 and ARM64: the real `Remotely.exe` is started with `--invite`, then run in `--selftest-server` mode (the same list and connect calls as the My computers page) against a service host; the host log shows it connected and a frame arrived |
+| Same-network token connection | CI, Windows x64 and ARM64, from the build output and again from the installed copy: `Remotely.exe --selftest` shares the PC, connects with the displayed token over the PC's own network address, receives a real frame, sends input and checks that the used token is refused. Unit tests cover wrong tokens, expiry, discovery and silence towards non-token holders. **Not yet tested: two different PCs on one network (Windows Firewall prompt, Wi-Fi client isolation).** |
 | The macOS `.dmg` is a universal build | The `mac` workflow builds the Intel + Apple-silicon binaries, checks each one with `lipo -archs` for both `x86_64` and `arm64`, and attaches the `.dmg` to the draft release (CI run 38467937154). Nothing was launched on a real Mac |
 | Joining with an invite | CI, Windows x64 and ARM64: the server prints an invite; a service host is set up from the invite alone (family mode, no pin, code or trust list) and a viewer started with `--invite` joins and connects to it; the installers do the same silently. CI, macOS: a Swift viewer joins with the invite and a Swift host in family mode lets it in. The invite string is also checked against a known value built outside both implementations |
 | Windows viewer appearance | Screenshots taken by CI on a real Windows x64 runner: [first run: paste the invite](screenshots/viewer-welcome.jpg), [device list](screenshots/viewer-devices.jpg), [live session](screenshots/viewer-session.jpg) (the session shows the runner's own desktop, so it repeats inside itself) |
