@@ -21,6 +21,8 @@ public partial class App : Application
     internal static string? InviteOnStart { get; private set; }
     /// <summary>--pair CODE: pair with the already configured server.</summary>
     internal static string? PairOnStart { get; private set; }
+    /// <summary>--show PageName: open the app on that page (any <c>Page</c> class in this assembly, by short name). Used by CI to start and photograph every screen.</summary>
+    internal static string? ShowOnStart { get; private set; }
 
     /// <summary>A GUI app that dies silently is undiagnosable; leave the reason where support (and CI) can read it.</summary>
     internal static void LogCrash(Exception? ex)
@@ -66,6 +68,7 @@ public partial class App : Application
         {
             if (argv[i] == "--pair") PairOnStart = argv[i + 1];
             if (argv[i] == "--invite") InviteOnStart = argv[i + 1];
+            if (argv[i] == "--show") ShowOnStart = argv[i + 1];
         }
         var main = new MainWindow();
         Main = main;

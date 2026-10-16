@@ -15,6 +15,9 @@ public sealed partial class MainWindow : Window
         App.ApplyTheme(this);
         Nav.SelectedItem = Nav.MenuItems[0];   // raises SelectionChanged, which shows the first page
         _ = HandleStartOptionsAsync();
+        if (App.ShowOnStart is { Length: > 0 } name
+            && typeof(MainWindow).Assembly.GetTypes().FirstOrDefault(t => t.Name == name && typeof(Page).IsAssignableFrom(t)) is { } pageType)
+            Pages.Navigate(pageType);
     }
 
     /// <summary>Shows a page by name: "home", "computers" or "settings".</summary>

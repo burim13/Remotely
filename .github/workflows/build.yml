@@ -96,6 +96,15 @@ jobs:
           [System.Drawing.Graphics]::FromImage($bmp).CopyFromScreen($b.Left, $b.Top, 0, 0, $bmp.Size)
           $bmp.Save("$PWD/winui-home-${{ matrix.rid }}.png")
           $p.Kill()
+      - name: Open every listed page and take a screenshot of each
+        shell: pwsh
+        run: ./tools/ci/show-pages.ps1 -Exe "out/app-${{ matrix.rid }}/Remotely.exe" -List tools/ci/pages.txt -Out "pages-${{ matrix.rid }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: "Remotely.App-pages-${{ matrix.rid }}"
+          path: "pages-${{ matrix.rid }}"
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         with:
           name: "Remotely.App-screenshot-${{ matrix.rid }}"
