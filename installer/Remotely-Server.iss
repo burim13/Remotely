@@ -61,9 +61,46 @@ begin
   AddressPage := CreateInputQueryPage(wpWelcome, 'How will your devices reach this server?',
     'This goes into the invite your devices use to join.',
     'At home, leave this empty: the invite uses this PC''s home-network address. To reach the server from outside your home, enter your public name or ' +
-    'address (for example myhome.example.com) and forward TCP port 8443 on your router to this PC. You can change it later with: Remotely.Server.exe set-address <name>');
+    'address (for example myhome.example.com) and forward TCP port 8443 on your router to this PC; docs\server-network-setup.md in the Remotely repository ' +
+    'lists the exact steps and how to test them with your phone. You can change the name later with: Remotely.Server.exe set-address <name>');
   AddressPage.Add('Name or address (optional):', False);
   AddressPage.Values[0] := ExpandConstant('{param:Address|}');
+end;
+
+// Same rule as the Server Manager's setup wizard: a host name or IP address, no spaces, no https:// in front.
+function IsPlausibleAddress(const S: String): Boolean;
+var
+  I: Integer;
+  C: Char;
+begin
+  Result := True;
+  if S = '' then Exit;
+  if (Length(S) > 253) or (Pos('://', S) > 0) then
+  begin
+    Result := False;
+    Exit;
+  end;
+  for I := 1 to Length(S) do
+  begin
+    C := S[I];
+    if not (((C >= 'a') and (C <= 'z')) or ((C >= 'A') and (C <= 'Z')) or ((C >= '0') and (C <= '9')) or
+            (C = '.') or (C = '-') or (C = ':') or (C = '[') or (C = ']')) then
+    begin
+      Result := False;
+      Exit;
+    end;
+  end;
+end;
+
+function NextButtonClick(CurPageID: Integer): Boolean;
+begin
+  Result := True;
+  if CurPageID = AddressPage.ID then
+    if not IsPlausibleAddress(Trim(AddressPage.Values[0])) then
+    begin
+      MsgBox('Type only a name such as myhome.example.com, or an IP address, with no spaces and without https:// in front. You can leave it empty.', mbError, MB_OK);
+      Result := False;
+    end;
 end;
 
 function AddressValue(Param: String): String;

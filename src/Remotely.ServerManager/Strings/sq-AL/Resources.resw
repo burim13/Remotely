@@ -10,4 +10,226 @@
   <data name="Nav_Devices" xml:space="preserve"><value>Pajisjet</value></data>
   <data name="Nav_Activity" xml:space="preserve"><value>Aktiviteti</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Cilësimet</value></data>
+  <!-- Setup_ strings: server setup wizard (agent A12). Albanian is machine-written and has not been read by a fluent speaker. -->
+  <data name="Setup_Title" xml:space="preserve"><value>Bëje serverin tim të arritshëm</value></data>
+  <data name="Setup_StepOf" xml:space="preserve"><value>Hapi {0} nga {1}: {2}</value></data>
+  <data name="Setup_Back" xml:space="preserve"><value>Prapa</value></data>
+  <data name="Setup_Next" xml:space="preserve"><value>Para</value></data>
+  <data name="Setup_Done" xml:space="preserve"><value>Mbaro</value></data>
+  <data name="Setup_Copy" xml:space="preserve"><value>Kopjo</value></data>
+  <data name="Setup_Step_Address" xml:space="preserve"><value>Adresa</value></data>
+  <data name="Setup_Step_Port" xml:space="preserve"><value>Porta dhe muri mbrojtës</value></data>
+  <data name="Setup_Step_Inside" xml:space="preserve"><value>Provë nga brenda</value></data>
+  <data name="Setup_Step_Router" xml:space="preserve"><value>Routeri</value></data>
+  <data name="Setup_Step_Outside" xml:space="preserve"><value>Provë nga jashtë</value></data>
+  <data name="Setup_Step_Certificate" xml:space="preserve"><value>Certifikata</value></data>
+  <data name="Setup_Address_Heading" xml:space="preserve"><value>Si do ta arrijnë pajisjet e tua këtë server?</value></data>
+  <data name="Setup_Address_Intro" xml:space="preserve"><value>Brenda rrjetit tënd në shtëpi ose zyrë, pajisjet përdorin adresën e rrjetit të këtij kompjuteri. Nga jashtë, ato kanë nevojë për emrin ose adresën tënde publike dhe një portë të përcjellë. Gjithçka këtu mbetet në pajisjet e tua.</value></data>
+  <data name="Setup_Address_LocalHeader" xml:space="preserve"><value>Adresa e rrjetit të këtij kompjuteri</value></data>
+  <data name="Setup_Address_Item" xml:space="preserve"><value>{0}  ({1})</value></data>
+  <data name="Setup_Address_NameHeader" xml:space="preserve"><value>Emri ose adresa publike (opsionale)</value></data>
+  <data name="Setup_Address_NamePlaceholder" xml:space="preserve"><value>shtepia-ime.example.com</value></data>
+  <data name="Setup_Address_NameHelp" xml:space="preserve"><value>Lëre bosh nëse e përdor serverin vetëm në shtëpi. Një emër nga një shërbim DNS dinamik (një emër falas që ndjek adresën e shtëpisë sate) është zgjedhja e zakonshme kur ofruesi i internetit e ndryshon adresën herë pas here. Remotely nuk kontakton asnjë shërbim të tillë për ty.</value></data>
+  <data name="Setup_Address_PortHeader" xml:space="preserve"><value>Porta (TCP)</value></data>
+  <data name="Setup_Address_PortHelp" xml:space="preserve"><value>8443 është parazgjedhja. Ndryshoje vetëm nëse diçka tjetër e përdor tashmë.</value></data>
+  <data name="Setup_Address_NoServerTitle" xml:space="preserve"><value>Serveri nuk iu përgjigj Menaxherit</value></data>
+  <data name="Setup_Address_NoServerBody" xml:space="preserve"><value>Mund t'i kalosh hapat me portën e parazgjedhur. Nise serverin për të parë cilësimet e tij dhe për t'i ruajtur këto zgjedhje.</value></data>
+  <data name="Setup_Address_NoneTitle" xml:space="preserve"><value>Nuk u gjet asnjë adresë rrjeti</value></data>
+  <data name="Setup_Address_NoneBody" xml:space="preserve"><value>Ky kompjuter nuk duket të jetë i lidhur me rrjetin. Lidhe me kabllo ose Wi-Fi dhe hape sërish këtë hap.</value></data>
+  <data name="Setup_Address_SavedTitle" xml:space="preserve"><value>U ruajt te cilësimet e serverit</value></data>
+  <data name="Setup_Address_SavedBody" xml:space="preserve"><value>Nëse e ndryshove portën, rinise serverin që të dëgjojë në portën e re.</value></data>
+  <data name="Setup_Address_NotSavedTitle" xml:space="preserve"><value>Nuk u ruajt te serveri</value></data>
+  <data name="Setup_Address_NotSavedBody" xml:space="preserve"><value>Menaxheri nuk arriti te cilësimet e serverit. Zgjedhjet e tua përdoren vetëm për kontrollet në këtë ndihmës. Nise serverin dhe ekzekuto sërish ndihmësin për t'i ruajtur.</value></data>
+  <data name="Setup_Port_Heading" xml:space="preserve"><value>A është porta e lirë dhe e hapur në murin mbrojtës të Windows?</value></data>
+  <data name="Setup_Port_Intro" xml:space="preserve"><value>Serveri dëgjon në portën TCP {0}. Ky kontroll shikon që asgjë tjetër nuk e përdor.</value></data>
+  <data name="Setup_Port_Check" xml:space="preserve"><value>Kontrollo sërish</value></data>
+  <data name="Setup_Port_Free" xml:space="preserve"><value>Porta {0} është e lirë</value></data>
+  <data name="Setup_Port_FreeBody" xml:space="preserve"><value>Asgjë nuk po dëgjon në të ende. Kjo është normale kur serveri është i ndalur.</value></data>
+  <data name="Setup_Port_Ours" xml:space="preserve"><value>Porta {0} përdoret nga serveri yt Remotely</value></data>
+  <data name="Setup_Port_OursBody" xml:space="preserve"><value>Një server me çelësin e pritur përgjigjet në të. Kjo është ajo që duhet të jetë aty.</value></data>
+  <data name="Setup_Port_Taken" xml:space="preserve"><value>Porta {0} është tashmë në përdorim</value></data>
+  <data name="Setup_Port_TakenBody" xml:space="preserve"><value>Një program tjetër po dëgjon në të. Zgjidh një portë tjetër te hapi i parë, ose mbylle atë program.</value></data>
+  <data name="Setup_Port_Denied" xml:space="preserve"><value>Windows nuk lejon përdorimin e portës {0}</value></data>
+  <data name="Setup_Port_DeniedBody" xml:space="preserve"><value>Porta mund të jetë e rezervuar nga sistemi. Zgjidh një portë tjetër te hapi i parë.</value></data>
+  <data name="Setup_Port_Unknown" xml:space="preserve"><value>Porta nuk u kontrollua dot</value></data>
+  <data name="Setup_Firewall_Heading" xml:space="preserve"><value>Muri mbrojtës i Windows</value></data>
+  <data name="Setup_Firewall_Intro" xml:space="preserve"><value>Muri mbrojtës i Windows bllokon lidhjet e ardhura nëse nuk i lejon një rregull. Shtimi i rregullit kërkon leje administratori, ndaj Windows do të të kërkojë konfirmim. Vetë Menaxheri vazhdon të punojë pa të drejta administratori.</value></data>
+  <data name="Setup_Firewall_Add" xml:space="preserve"><value>Lejo portën në murin mbrojtës të Windows</value></data>
+  <data name="Setup_Firewall_Present" xml:space="preserve"><value>Një rregull i murit mbrojtës lejon portën {0}</value></data>
+  <data name="Setup_Firewall_PresentBody" xml:space="preserve"><value>Rregulli quhet "Remotely Server".</value></data>
+  <data name="Setup_Firewall_OtherPort" xml:space="preserve"><value>Rregulli i murit mbrojtës është për një portë tjetër</value></data>
+  <data name="Setup_Firewall_OtherPortBody" xml:space="preserve"><value>Përdor butonin për ta zëvendësuar me një rregull për portën {0}.</value></data>
+  <data name="Setup_Firewall_Missing" xml:space="preserve"><value>Nuk u gjet rregull i murit mbrojtës</value></data>
+  <data name="Setup_Firewall_MissingBody" xml:space="preserve"><value>Pajisjet në rrjetin tënd nuk mund të lidhen derisa porta {0} të lejohet. Përdor butonin më poshtë.</value></data>
+  <data name="Setup_Firewall_Unknown" xml:space="preserve"><value>Menaxheri nuk e lexoi dot rregullin e murit mbrojtës</value></data>
+  <data name="Setup_Firewall_UnknownBody" xml:space="preserve"><value>Kjo mund të ndodhë në një Windows në gjuhë tjetër. Prova në hapin tjetër tregon nëse porta është vërtet e hapur.</value></data>
+  <data name="Setup_Firewall_Asking" xml:space="preserve"><value>Po pret lejen tënde</value></data>
+  <data name="Setup_Firewall_AskingBody" xml:space="preserve"><value>Windows të kërkon të konfirmosh ndryshimin.</value></data>
+  <data name="Setup_Firewall_Added" xml:space="preserve"><value>Porta {0} tani lejohet në murin mbrojtës të Windows</value></data>
+  <data name="Setup_Firewall_AddedBody" xml:space="preserve"><value>Rregulli quhet "Remotely Server".</value></data>
+  <data name="Setup_Firewall_Failed" xml:space="preserve"><value>Rregulli i murit mbrojtës nuk u shtua dot</value></data>
+  <data name="Setup_Inside_Heading" xml:space="preserve"><value>Provë nga brenda rrjetit tënd</value></data>
+  <data name="Setup_Inside_Intro" xml:space="preserve"><value>Ky kompjuter provon ta hapë serverin ashtu siç do ta bënte një pajisje tjetër në rrjetin tënd. Kontrollon gjithashtu që ajo që përgjigjet paraqet çelësin e serverit.</value></data>
+  <data name="Setup_Inside_Run" xml:space="preserve"><value>Nis provën</value></data>
+  <data name="Setup_Inside_Running" xml:space="preserve"><value>Po provohet</value></data>
+  <data name="Setup_Inside_Line" xml:space="preserve"><value>{0} porta {1}: {2}</value></data>
+  <data name="Setup_Inside_NameNote" xml:space="preserve"><value>Disa routerë nuk ia kthejnë brenda trafikun e vetë kompjuterit kur përdor emrin publik. Një dështim te rreshti i emrit këtu nuk provon që pajisjet e jashtme nuk lidhen; prova nga jashtë më vonë e provon.</value></data>
+  <data name="Setup_Inside_Works" xml:space="preserve"><value>Serveri përgjigjet në rrjetin tënd</value></data>
+  <data name="Setup_Inside_WorksBody" xml:space="preserve"><value>Pajisjet në të njëjtin rrjet mund të lidhen.</value></data>
+  <data name="Setup_Inside_Blocked" xml:space="preserve"><value>Serveri përgjigjet në këtë kompjuter por jo në adresën e tij të rrjetit</value></data>
+  <data name="Setup_Inside_BlockedBody" xml:space="preserve"><value>Më shumë gjasa e ka fajin një mur mbrojtës. Kthehu dhe lejo portën në murin mbrojtës të Windows. Nëse ka një program sigurie nga kompani tjetër, mund t'i duhet e njëjta gjë.</value></data>
+  <data name="Setup_Inside_Wrong" xml:space="preserve"><value>Diçka përgjigjet, por nuk është serveri yt Remotely</value></data>
+  <data name="Setup_Inside_WrongBody" xml:space="preserve"><value>Çelësi që paraqet nuk përputhet me çelësin e serverit. Një program tjetër mund ta përdorë portën, ose certifikata e serverit është zëvendësuar. Shiko hapin e certifikatës.</value></data>
+  <data name="Setup_Inside_Down" xml:space="preserve"><value>Serveri nuk përgjigjet në këtë kompjuter</value></data>
+  <data name="Setup_Inside_DownBody" xml:space="preserve"><value>Nise serverin (ose shërbimin e tij Windows) dhe kontrollo që përdor portën e zgjedhur te hapi i parë.</value></data>
+  <data name="Setup_Outcome_Reachable" xml:space="preserve"><value>përgjigjet</value></data>
+  <data name="Setup_Outcome_WrongServer" xml:space="preserve"><value>përgjigjet me një çelës tjetër</value></data>
+  <data name="Setup_Outcome_Refused" xml:space="preserve"><value>refuzoi (asgjë nuk dëgjon, ose një mur mbrojtës e refuzon)</value></data>
+  <data name="Setup_Outcome_TimedOut" xml:space="preserve"><value>pa përgjigje (një mur mbrojtës mund ta heqë)</value></data>
+  <data name="Setup_Outcome_NameNotFound" xml:space="preserve"><value>emri nuk u gjet</value></data>
+  <data name="Setup_Outcome_NotTls" xml:space="preserve"><value>përgjigjet, por jo si server Remotely</value></data>
+  <data name="Setup_Outcome_Failed" xml:space="preserve"><value>nuk u lidh dot</value></data>
+  <data name="Setup_Router_Heading" xml:space="preserve"><value>Përcille portën në routerin tënd</value></data>
+  <data name="Setup_Router_Intro" xml:space="preserve"><value>Routeri yt qëndron mes internetit dhe pajisjeve të tua. Nëse nuk i thua, ai hedh poshtë lidhjet që vijnë nga jashtë. Përcjellja e portës i thotë t'i kalojë lidhjet për këtë portë te ky kompjuter. Kapërce këtë hap nëse e përdor serverin vetëm në shtëpi.</value></data>
+  <data name="Setup_Router_ValuesHeading" xml:space="preserve"><value>Vlerat që do të shkruash</value></data>
+  <data name="Setup_Router_Protocol" xml:space="preserve"><value>Protokolli</value></data>
+  <data name="Setup_Router_ExternalPort" xml:space="preserve"><value>Porta e jashtme (WAN)</value></data>
+  <data name="Setup_Router_InternalAddress" xml:space="preserve"><value>Adresa e brendshme (LAN)</value></data>
+  <data name="Setup_Router_InternalPort" xml:space="preserve"><value>Porta e brendshme (LAN)</value></data>
+  <data name="Setup_Router_StepsHeading" xml:space="preserve"><value>Çfarë të bësh</value></data>
+  <data name="Setup_Router_NeedAddress" xml:space="preserve"><value>Zgjidh adresën e rrjetit të këtij kompjuteri te hapi i parë.</value></data>
+  <data name="Setup_Router_Step_Open" xml:space="preserve"><value>Hap faqen e cilësimeve të routerit në një shfletues. Adresa e tij zakonisht është e shkruar mbi router dhe shpesh është "default gateway" i këtij kompjuteri.</value></data>
+  <data name="Setup_Router_Step_OpenAt" xml:space="preserve"><value>Hap http://{0} në një shfletues dhe hyr në routerin tënd. Kjo është "default gateway" i këtij kompjuteri, që zakonisht është routeri. Etiketa ose manuali i routerit ka fjalëkalimin nëse nuk e ke ndryshuar.</value></data>
+  <data name="Setup_Router_Step_Find" xml:space="preserve"><value>Kërko një seksion me emrin "Port forwarding", "Virtual server", "NAT" ose "Applications and gaming". Emri varet nga marka.</value></data>
+  <data name="Setup_Router_Step_Values" xml:space="preserve"><value>Shto një rregull të ri me këto vlera: protokolli {0}, porta e jashtme {1}, përcille te {2}, porta e brendshme {3}.</value></data>
+  <data name="Setup_Router_Step_Reserve" xml:space="preserve"><value>Sigurohu që routeri t'i japë gjithmonë këtij kompjuteri adresën {0}. Kërko "DHCP reservation" ose "static lease". Pa këtë, routeri mund t'i japë një ditë një adresë tjetër dhe përcjellja do të ndalojë.</value></data>
+  <data name="Setup_Router_Step_Save" xml:space="preserve"><value>Ruaje rregullin. Disa routerë rinisen për ta zbatuar.</value></data>
+  <data name="Setup_Router_WanHeading" xml:space="preserve"><value>A mund të punojë përcjellja me lidhjen tënde të internetit?</value></data>
+  <data name="Setup_Router_WanIntro" xml:space="preserve"><value>Te faqja e gjendjes së routerit, gjej adresën e anës së tij të internetit (shpesh quhet WAN ose Internet IP). Shkruaje këtu. Nëse nuk është adresë publike, përcjellja vetëm në këtë router nuk mund të punojë.</value></data>
+  <data name="Setup_Router_WanBox" xml:space="preserve"><value>Adresa e routerit nga ana e internetit</value></data>
+  <data name="Setup_Router_WanCheck" xml:space="preserve"><value>Kontrollo këtë adresë</value></data>
+  <data name="Setup_Wan_Public" xml:space="preserve"><value>Kjo është adresë publike</value></data>
+  <data name="Setup_Wan_PublicBody" xml:space="preserve"><value>Përcjellja mund të punojë. Vetëm prova nga jashtë provon që punon.</value></data>
+  <data name="Setup_Wan_Cgnat" xml:space="preserve"><value>Ofruesi yt e ndan një adresë publike mes klientëve</value></data>
+  <data name="Setup_Wan_CgnatBody" xml:space="preserve"><value>Adresat që fillojnë nga 100.64 deri 100.127 e tregojnë këtë. Përcjellja e portës në routerin tënd nuk mund të punojë. Kërkoji ofruesit një adresë publike, ose ekzekuto serverin në një makinë që ka një.</value></data>
+  <data name="Setup_Wan_Behind" xml:space="preserve"><value>Kjo është adresë private: një router tjetër është përpara teje</value></data>
+  <data name="Setup_Wan_BehindBody" xml:space="preserve"><value>Për shembull një modem ose pajisje nga ofruesi. Përcjellja duhet vendosur edhe në atë pajisje, ose routeri yt duhet vënë në modalitet bridge.</value></data>
+  <data name="Setup_Wan_Invalid" xml:space="preserve"><value>Kjo nuk është adresë</value></data>
+  <data name="Setup_Wan_InvalidBody" xml:space="preserve"><value>Shkruaj katër numra të ndarë me pika, për shembull 203.0.113.5.</value></data>
+  <data name="Setup_Router_NotesHeading" xml:space="preserve"><value>Mirë është ta dish</value></data>
+  <data name="Setup_Router_Note_Wan" xml:space="preserve"><value>Adresa e shtëpisë sate zakonisht nuk është e fiksuar. Shënimi tjetër shpjegon si ta ndjekësh.</value></data>
+  <data name="Setup_Router_Note_Ddns" xml:space="preserve"><value>DNS dinamik: një emër që routeri yt ose një program i vogël e mban të drejtuar te adresa jote aktuale e shtëpisë. Shumë routerë e kanë të integruar; përndryshe kërko "dynamic DNS" te një ofrues që i beson. Përdore atë emër si emër publik te hapi i parë. Remotely nuk e konfiguron dhe nuk kontakton asnjë shërbim të tillë.</value></data>
+  <data name="Setup_Router_Note_Name" xml:space="preserve"><value>Pajisjeve do t'u thuhet të lidhen te {0}.</value></data>
+  <data name="Setup_Upnp_Heading" xml:space="preserve"><value>Opsionale: lëre routerin ta hapë portën automatikisht</value></data>
+  <data name="Setup_Upnp_Explain" xml:space="preserve"><value>Disa routerë e hapin një portë kur një program e kërkon (UPnP ose NAT-PMP). Është i fikur si parazgjedhje: routeri e hap portën pa e parë ti, dhe shumë routerë e bëjnë keq këtë. Nëse e ndez, ky dritare liston saktësisht çfarë u krijua. Remotely e heq kur e fik këtë ose kur serveri ndalon. Hapat manualë më sipër mbeten mënyra kryesore.</value></data>
+  <data name="Setup_Upnp_Toggle" xml:space="preserve"><value>Hapja automatike e portës</value></data>
+  <data name="Setup_Upnp_OnLabel" xml:space="preserve"><value>Ndezur</value></data>
+  <data name="Setup_Upnp_OffLabel" xml:space="preserve"><value>Fikur</value></data>
+  <data name="Setup_Upnp_Create" xml:space="preserve"><value>Kërkoji routerit ta hapë portën tani</value></data>
+  <data name="Setup_Upnp_NothingYet" xml:space="preserve"><value>Ndezur, asgjë e krijuar ende</value></data>
+  <data name="Setup_Upnp_NothingYetBody" xml:space="preserve"><value>Asgjë nuk dërgohet te routeri derisa të shtypësh butonin.</value></data>
+  <data name="Setup_Upnp_Asking" xml:space="preserve"><value>Po pyetet routeri</value></data>
+  <data name="Setup_Upnp_Done" xml:space="preserve"><value>Routeri e pranoi hartimin</value></data>
+  <data name="Setup_Upnp_DoneBody" xml:space="preserve"><value>Është i listuar më poshtë. Ndihmon vetëm nëse ana e internetit e routerit ka adresë publike; prova nga jashtë tregon nëse punon.</value></data>
+  <data name="Setup_Upnp_Failed" xml:space="preserve"><value>Routeri nuk e krijoi hartimin</value></data>
+  <data name="Setup_Upnp_None" xml:space="preserve"><value>Nuk është krijuar asnjë hartim.</value></data>
+  <data name="Setup_Upnp_Created" xml:space="preserve"><value>{0}: porta TCP {2} në anën e internetit të routerit ({5}) çon te {3}:{4}.</value></data>
+  <data name="Setup_Upnp_RemovedWhen" xml:space="preserve"><value>Hiqet kur e fik hapjen automatike ose kur serveri ndalon.</value></data>
+  <data name="Setup_Upnp_RemoveFailed" xml:space="preserve"><value>Routeri nuk e hoqi hartimin</value></data>
+  <data name="Setup_Upnp_RemoveFailedBody" xml:space="preserve"><value>Ende është i listuar më poshtë. Hiqe te cilësimet e vetë routerit.</value></data>
+  <data name="Setup_Upnp_Off" xml:space="preserve"><value>Hapja automatike e portës është e fikur.</value></data>
+  <data name="Setup_Upnp_NoRouter" xml:space="preserve"><value>Asnjë router nuk u përgjigj. Mund të mos e mbështesë, ose është i fikur te routeri.</value></data>
+  <data name="Setup_Upnp_NoAnswer" xml:space="preserve"><value>Routeri nuk iu përgjigj kërkesës.</value></data>
+  <data name="Setup_Upnp_Refused" xml:space="preserve"><value>Routeri e refuzoi kërkesën.</value></data>
+  <data name="Setup_Upnp_Conflict" xml:space="preserve"><value>Routeri e përcjell tashmë atë portë te një pajisje tjetër. Asgjë nuk u ndryshua.</value></data>
+  <data name="Setup_Upnp_NoAddress" xml:space="preserve"><value>Zgjidh së pari adresën e rrjetit të këtij kompjuteri.</value></data>
+  <data name="Setup_Outside_Heading" xml:space="preserve"><value>Provë nga jashtë, me telefonin tënd</value></data>
+  <data name="Setup_Outside_Intro" xml:space="preserve"><value>Kjo përdor vetëm telefonin tënd dhe serverin tënd. Serveri shfaq një faqe të vogël kontrolli dhe shënon kush e kërkoi. Asnjë faqe interneti ose shërbim i jashtëm nuk kontaktohet.</value></data>
+  <data name="Setup_Outside_Start" xml:space="preserve"><value>Nis provën</value></data>
+  <data name="Setup_Outside_StepsHeading" xml:space="preserve"><value>Në telefonin tënd</value></data>
+  <data name="Setup_Outside_Step1" xml:space="preserve"><value>Fike Wi-Fi-n, që telefoni të përdorë të dhënat mobile dhe të jetë jashtë rrjetit tënd.</value></data>
+  <data name="Setup_Outside_Step2" xml:space="preserve"><value>Hap shfletuesin e telefonit dhe shkruaj adresën e treguar më poshtë.</value></data>
+  <data name="Setup_Outside_Step3" xml:space="preserve"><value>Shfletuesi do të paralajmërojë që lidhja nuk është private. Kjo pritet: serveri përdor certifikatën e vet. Zgjidh të vazhdosh gjithsesi.</value></data>
+  <data name="Setup_Outside_Step4" xml:space="preserve"><value>Kthehu te kjo dritare. Rezultati shfaqet brenda pak çastesh.</value></data>
+  <data name="Setup_Outside_Address" xml:space="preserve"><value>Adresa për telefonin</value></data>
+  <data name="Setup_Outside_Waiting" xml:space="preserve"><value>Po pritet telefoni yt</value></data>
+  <data name="Setup_Outside_WaitingBody" xml:space="preserve"><value>Kjo pret deri në 3 minuta.</value></data>
+  <data name="Setup_Outside_Works" xml:space="preserve"><value>Serveri yt arrihet nga interneti</value></data>
+  <data name="Setup_Outside_WorksBody" xml:space="preserve"><value>Faqja e kontrollit u kërkua nga {0}, një adresë jashtë rrjetit tënd.</value></data>
+  <data name="Setup_Outside_Inside" xml:space="preserve"><value>Kërkesa erdhi nga brenda rrjetit tënd</value></data>
+  <data name="Setup_Outside_InsideBody" xml:space="preserve"><value>Telefoni mund të jetë ende në Wi-Fi. Fike Wi-Fi-n dhe hap adresën sërish; kjo dritare vazhdon të presë.</value></data>
+  <data name="Setup_Outside_Unclear" xml:space="preserve"><value>Mbërriti një kërkesë, por nuk është e qartë nga ku</value></data>
+  <data name="Setup_Outside_UnclearBody" xml:space="preserve"><value>Erdhi nga {0}, një adresë që nuk është qartë as brenda as jashtë.</value></data>
+  <data name="Setup_Outside_Nothing" xml:space="preserve"><value>Asgjë nuk arriti te serveri</value></data>
+  <data name="Setup_Outside_NothingBody" xml:space="preserve"><value>Kontrollo sipas këtij radhe: rregullin e përcjelljes së portës dhe adresën ku përcjell, rregullin e murit mbrojtës të Windows, që adresa e routerit nga ana e internetit të jetë publike, dhe që emri që shkrove të drejtohet te ajo. Pastaj provo sërish.</value></data>
+  <data name="Setup_Outside_NeedName" xml:space="preserve"><value>Shkruaj një emër publik ose adresën e routerit nga ana e internetit</value></data>
+  <data name="Setup_Outside_NeedNameBody" xml:space="preserve"><value>Shkruaj një emër publik te hapi i parë, ose adresën e routerit nga ana e internetit te hapi i routerit.</value></data>
+  <data name="Setup_Outside_Unavailable" xml:space="preserve"><value>Ky server nuk mund ta bëjë ende provën nga jashtë</value></data>
+  <data name="Setup_Outside_UnavailableBody" xml:space="preserve"><value>Ka nevojë për faqen e kontrollit të serverit, që kjo version i serverit nuk e ka. Në vend të kësaj, përdor një telefon me të dhëna mobile për ta hapur adresën e serverit me dorë.</value></data>
+  <data name="Setup_Cert_Heading" xml:space="preserve"><value>Certifikata e serverit</value></data>
+  <data name="Setup_Cert_Intro" xml:space="preserve"><value>Serveri provon kush është me një certifikatë që e ka bërë vetë. Pajisjet e tua nuk i besojnë një kompanie për këtë; ato mbajnë mend çelësin e serverit (pin-in) nga ftesa dhe refuzojnë çdo server me çelës tjetër.</value></data>
+  <data name="Setup_Cert_Pin" xml:space="preserve"><value>Pin (çelësi)</value></data>
+  <data name="Setup_Cert_PinHelp" xml:space="preserve"><value>Pin-i është ajo që kontrollojnë pajisjet. Mbetet i njëjtë kur certifikata rinovohet me të njëjtin çelës.</value></data>
+  <data name="Setup_Cert_Fingerprint" xml:space="preserve"><value>Shenja e gishtit (certifikata)</value></data>
+  <data name="Setup_Cert_FingerprintHelp" xml:space="preserve"><value>Shenja e gishtit është ajo që tregon një shfletues ose shikues certifikatash. Ndryshon sa herë që zëvendësohet vetë certifikata.</value></data>
+  <data name="Setup_Cert_Valid" xml:space="preserve"><value>E vlefshme</value></data>
+  <data name="Setup_Cert_ValidRange" xml:space="preserve"><value>{0} deri {1}</value></data>
+  <data name="Setup_Cert_Kind" xml:space="preserve"><value>Lloji</value></data>
+  <data name="Setup_Cert_SelfSigned" xml:space="preserve"><value>Bërë nga vetë serveri</value></data>
+  <data name="Setup_Cert_Issued" xml:space="preserve"><value>Lëshuar nga palë tjetër</value></data>
+  <data name="Setup_Cert_Ok" xml:space="preserve"><value>Certifikata është e vlefshme edhe për një kohë të gjatë</value></data>
+  <data name="Setup_Cert_Soon" xml:space="preserve"><value>Certifikata skadon së shpejti</value></data>
+  <data name="Setup_Cert_SoonBody" xml:space="preserve"><value>Rinovoje më poshtë. Rinovimi me të njëjtin çelës e mban pin-in, ndaj asnjë pajisje nuk ka nevojë për ftesë të re.</value></data>
+  <data name="Setup_Cert_Expired" xml:space="preserve"><value>Certifikata ka skaduar</value></data>
+  <data name="Setup_Cert_ExpiredBody" xml:space="preserve"><value>Rinovoje më poshtë dhe rinise serverin.</value></data>
+  <data name="Setup_Cert_NotYet" xml:space="preserve"><value>Certifikata nuk është ende e vlefshme</value></data>
+  <data name="Setup_Cert_NotRead" xml:space="preserve"><value>Menaxheri nuk e lexoi dot certifikatën</value></data>
+  <data name="Setup_Cert_NotReadBody" xml:space="preserve"><value>Serveri duhet të jetë duke punuar në këtë kompjuter me portën nga hapi i parë.</value></data>
+  <data name="Setup_Cert_TlsOff" xml:space="preserve"><value>Ky server punon pa TLS, ndaj nuk ka certifikatë</value></data>
+  <data name="Setup_Cert_RenewHeading" xml:space="preserve"><value>Rinovo certifikatën</value></data>
+  <data name="Setup_Cert_RenewIntro" xml:space="preserve"><value>Krijon një certifikatë të re me të njëjtin çelës, të vlefshme për dhjetë vjet. Skedari i vjetër ruhet si kopje rezervë. Rinise serverin pas kësaj që të përdorë certifikatën e re.</value></data>
+  <data name="Setup_Cert_Renew" xml:space="preserve"><value>Rinovo tani</value></data>
+  <data name="Setup_Cert_Renewed" xml:space="preserve"><value>Certifikata u rinovua</value></data>
+  <data name="Setup_Cert_RenewedBody" xml:space="preserve"><value>Pin-i nuk ndryshoi. Rinise serverin që ta përdorë.</value></data>
+  <data name="Setup_Cert_RenewFailed" xml:space="preserve"><value>Certifikata nuk u rinovua dot</value></data>
+  <data name="Setup_Cert_ImportHeading" xml:space="preserve"><value>Përdor certifikatën tënde (opsionale)</value></data>
+  <data name="Setup_Cert_ImportIntro" xml:space="preserve"><value>Nëse ke tashmë një certifikatë me çelësin privat në një skedar .pfx, serveri mund ta përdorë. Pajisjet e mbajnë çelësin, ndaj një çelës i ndryshëm do të thotë që çdo pajisje ka nevojë për ftesë të re.</value></data>
+  <data name="Setup_Cert_Choose" xml:space="preserve"><value>Zgjidh një skedar .pfx</value></data>
+  <data name="Setup_Cert_NoFile" xml:space="preserve"><value>Nuk është zgjedhur skedar</value></data>
+  <data name="Setup_Cert_ChooseFirst" xml:space="preserve"><value>Zgjidh së pari një skedar .pfx.</value></data>
+  <data name="Setup_Cert_Password" xml:space="preserve"><value>Fjalëkalimi i skedarit</value></data>
+  <data name="Setup_Cert_Check" xml:space="preserve"><value>Kontrollo skedarin</value></data>
+  <data name="Setup_Cert_ImportValid" xml:space="preserve"><value>Skedari mund të përdoret</value></data>
+  <data name="Setup_Cert_ImportOk" xml:space="preserve"><value>Subjekti {0}, i vlefshëm deri më {1}. Pin {2}. Shenja e gishtit {3}.</value></data>
+  <data name="Setup_Cert_PinChanges" xml:space="preserve"><value>Çelësi i tij është ndryshe nga çelësi aktual i serverit. Pas instalimit, çdo pajisje e çiftuar duhet të ftohet sërish.</value></data>
+  <data name="Setup_Cert_Install" xml:space="preserve"><value>Instalo te serveri</value></data>
+  <data name="Setup_Cert_Installed" xml:space="preserve"><value>Certifikata u instalua</value></data>
+  <data name="Setup_Cert_InstalledBody" xml:space="preserve"><value>E mëparshmja ruhet si skedar rezervë pranë saj. Rinise serverin për të përdorur të renë.</value></data>
+  <data name="Setup_Cert_InstallFailed" xml:space="preserve"><value>Certifikata nuk u instalua dot</value></data>
+  <data name="Setup_Pfx_NotAPfx" xml:space="preserve"><value>Ky nuk është skedar .pfx</value></data>
+  <data name="Setup_Pfx_NotAPfx_Help" xml:space="preserve"><value>Skedari nuk është paketë certifikate në formatin PKCS#12 (.pfx ose .p12), ose është dëmtuar.</value></data>
+  <data name="Setup_Pfx_WrongPassword" xml:space="preserve"><value>Fjalëkalimi është i gabuar</value></data>
+  <data name="Setup_Pfx_WrongPassword_Help" xml:space="preserve"><value>Skedari duket si .pfx por nuk u hap me këtë fjalëkalim. Fjalëkalimi mund të jetë i gabuar, ose skedari i dëmtuar.</value></data>
+  <data name="Setup_Pfx_NoPrivateKey" xml:space="preserve"><value>Skedari nuk ka çelës privat</value></data>
+  <data name="Setup_Pfx_NoPrivateKey_Help" xml:space="preserve"><value>Një server ka nevojë për çelësin privat që i përket certifikatës. Eksporto sërish certifikatën së bashku me çelësin privat.</value></data>
+  <data name="Setup_Pfx_Expired" xml:space="preserve"><value>Certifikata ka skaduar</value></data>
+  <data name="Setup_Pfx_Expired_Help" xml:space="preserve"><value>Merr një certifikatë të re, ose përdor certifikatën e vetë serverit.</value></data>
+  <data name="Setup_Pfx_NotYetValid" xml:space="preserve"><value>Certifikata nuk është ende e vlefshme</value></data>
+  <data name="Setup_Pfx_NotYetValid_Help" xml:space="preserve"><value>Data e fillimit është në të ardhmen. Kontrollo datën dhe orën e këtij kompjuteri, ose prit.</value></data>
+  <data name="Setup_Pfx_UnsupportedKey" xml:space="preserve"><value>Lloji i çelësit nuk mbështetet</value></data>
+  <data name="Setup_Pfx_UnsupportedKey_Help" xml:space="preserve"><value>Serveri mund të përdorë certifikata me çelës RSA ose ECDSA.</value></data>
+  <data name="Setup_Pfx_CannotRead" xml:space="preserve"><value>Skedari nuk u lexua dot</value></data>
+  <data name="Setup_Pfx_CannotWrite" xml:space="preserve"><value>Skedari i certifikatës së serverit nuk u shkrua dot</value></data>
+  <data name="Setup_Pfx_NoCurrent" xml:space="preserve"><value>Serveri nuk ka ende skedar certifikate të përdorshëm për rinovim</value></data>
+  <data name="Setup_Pfx_Warn_ExpiresSoon" xml:space="preserve"><value>Kjo certifikatë skadon brenda 60 ditëve.</value></data>
+  <data name="Setup_Pfx_Warn_NotForServers" xml:space="preserve"><value>Certifikata thotë se nuk është për serverë. Pajisjet kontrollojnë vetëm çelësin, ndaj mund të punojë prapë.</value></data>
+  <data name="Setup_Err_Unexpected" xml:space="preserve"><value>Diçka shkoi keq</value></data>
+  <data name="Setup_Err_NameTitle" xml:space="preserve"><value>Ky emër publik nuk mund të përdoret</value></data>
+  <data name="Setup_Err_NameHasScheme" xml:space="preserve"><value>Shkruaj vetëm emrin, pa https:// ose wss://.</value></data>
+  <data name="Setup_Err_NameInvalid" xml:space="preserve"><value>Përdor shkronja, shifra, pika dhe vizëza, për shembull shtepia.example.com, ose një adresë IP.</value></data>
+  <data name="Setup_Err_NamePort" xml:space="preserve"><value>Porta pas dy pikave duhet të jetë numër nga 1 deri 65535.</value></data>
+  <data name="Setup_Err_NameIpv6Brackets" xml:space="preserve"><value>Shkruaje adresën IPv6 në kllapa katrore, për shembull [2001:db8::1].</value></data>
+  <data name="Setup_Err_PortTitle" xml:space="preserve"><value>Kjo portë nuk mund të përdoret</value></data>
+  <data name="Setup_Err_PortInvalid" xml:space="preserve"><value>Një portë është numër nga 1 deri 65535.</value></data>
+  <data name="Setup_Err_FirewallFailed" xml:space="preserve"><value>Windows refuzoi ta ndryshojë murin mbrojtës.</value></data>
 </root>
