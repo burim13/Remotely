@@ -4,3 +4,5 @@ DevicesPage
 ActivityPage
 ServicePage
 ServerSettingsPage
+DiagnosticsPage
+NetworkTestPage

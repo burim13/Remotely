@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Remotely.Core.Admin;
 using Remotely.Core.ServerManager;
 using Remotely.ServerManager.Views;
+using Remotely.ServerManager.Views.Help;
 
 namespace Remotely.ServerManager;
 
@@ -30,6 +31,7 @@ public partial class App : Application
     /// <summary>A GUI app that dies silently is undiagnosable; leave the reason where support (and CI) can read it.</summary>
     internal static void LogCrash(Exception? ex)
     {
+        Views.Help.DiagnosticsHub.RecordCrash(ex);
         try
         {
             var dir = Path.Combine(Path.GetDirectoryName(ManagerSettings.DefaultPath)!, "logs");
@@ -184,6 +186,8 @@ internal static class Preflight
         () => new ActivityPage(),
         () => new ServicePage(),
         () => new ServerSettingsPage(),
+        () => new DiagnosticsPage(),
+        () => new NetworkTestPage(),
     ];
 
     public static bool Run(out Exception? failure)

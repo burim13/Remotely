@@ -41,6 +41,7 @@ public partial class App : Application
     /// <summary>A GUI app that dies silently is undiagnosable; leave the reason where support (and CI) can read it.</summary>
     internal static void LogCrash(Exception? ex)
     {
+        Views.Help.DiagnosticsHub.RecordCrash(ex);
         try
         {
             var dir = Path.Combine(ViewerSettings.Dir, "logs");
@@ -54,6 +55,7 @@ public partial class App : Application
     /// <summary>One line in logs/app-startup.log: what the shell decided at start-up (single instance, options, invite result). Read by --selftest-server when it fails.</summary>
     internal static void LogInfo(string text)
     {
+        Views.Help.DiagnosticsHub.Log.Info("startup", text);
         try
         {
             var dir = Path.Combine(ViewerSettings.Dir, "logs");

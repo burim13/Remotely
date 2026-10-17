@@ -12,3 +12,5 @@ SessionPreviewPage
 ConnectPage
 DiagnosisPage
 SharePage
+DiagnosticsPage
+NetworkTestPage

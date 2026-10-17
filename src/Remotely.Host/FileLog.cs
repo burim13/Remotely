@@ -1,22 +1,27 @@
+using Remotely.Core.Diagnostics;
+
 namespace Remotely.Host;
 
-/// <summary>Best-effort log: always the console, plus a daily file under %ProgramData%\Remotely\logs when that is writable.</summary>
+/// <summary>Best-effort log: always the console, plus rolling files (host-yyyyMMdd-NNN.log, secrets redacted) under the host's log folder when that is writable.</summary>
 internal sealed class FileLog(string prefix)
 {
-    private readonly object _gate = new();
+    private static readonly object Gate = new();
+    private static RollingFileLog? _files;
 
     public void Write(string message)
     {
-        var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{prefix}] {message}";
+        var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{prefix}] {Redactor.Shared.Apply(message)}";
         Console.WriteLine(line);
-        lock (_gate)
+        Files().Info(prefix, message);
+    }
+
+    private static RollingFileLog Files()
+    {
+        lock (Gate)
         {
-            try
-            {
-                Directory.CreateDirectory(HostPaths.LogDir);
-                File.AppendAllText(Path.Combine(HostPaths.LogDir, $"host-{DateTime.Now:yyyyMMdd}.log"), line + Environment.NewLine);
-            }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { /* console only */ }
+            if (_files is null || _files.Directory != HostPaths.LogDir)
+                _files = new RollingFileLog(HostPaths.LogDir, "host", Redactor.Shared, DiagnosticsSettings.Load(HostPaths.DataDir).LogLevel);
+            return _files;
         }
     }
 }

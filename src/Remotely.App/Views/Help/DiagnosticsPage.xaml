@@ -1,0 +1,23 @@
+<Page x:Class="Remotely.App.Views.Help.DiagnosticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="32,24" MaxWidth="760" HorizontalAlignment="Center" Spacing="16">
+            <TextBlock x:Name="TitleText" Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock x:Name="IntroText" TextWrapping="Wrap" Opacity="0.7" />
+            <ComboBox x:Name="LevelBox" MinWidth="280" />
+            <ToggleSwitch x:Name="DumpSwitch" />
+            <TextBlock x:Name="DumpNote" TextWrapping="Wrap" Opacity="0.7" />
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button x:Name="ExportButton" Style="{StaticResource AccentButtonStyle}" Click="OnExport" />
+                <Button x:Name="LogsButton" Click="OnOpenLogs" />
+                <Button x:Name="NetworkButton" Click="OnNetworkTest" />
+            </StackPanel>
+            <TextBlock x:Name="ExportNote" TextWrapping="Wrap" Opacity="0.7" />
+            <InfoBar x:Name="ResultBar" IsOpen="False" IsClosable="True" />
+            <TextBlock x:Name="CodesTitle" Style="{StaticResource SubtitleTextBlockStyle}" />
+            <TextBlock x:Name="CodesIntro" TextWrapping="Wrap" Opacity="0.7" />
+            <StackPanel x:Name="CodesList" Spacing="6" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

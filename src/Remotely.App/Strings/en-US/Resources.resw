@@ -275,4 +275,188 @@
   <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
   <data name="Home_NoNetwork" xml:space="preserve"><value>This PC is not connected to a network.</value></data>
   <data name="Home_ThisPc" xml:space="preserve"><value>Same-network connections. This PC: {0}</value></data>
+  <!-- A18: error catalogue -->
+  <data name="Diag_Err_1001_Title" xml:space="preserve"><value>The token is not valid</value></data>
+  <data name="Diag_Err_1001_Cause" xml:space="preserve"><value>The text typed as the token is empty, has the wrong length, or contains a character that tokens never contain (0, 1, I, O).</value></data>
+  <data name="Diag_Err_1001_Fix" xml:space="preserve"><value>A token has 12 letters and numbers, like K7P4-4NX2-QMH9. Type it as the other PC shows it now. Capital letters, dashes and spaces do not matter.</value></data>
+  <data name="Diag_Err_1002_Title" xml:space="preserve"><value>That is an IPv6 address</value></data>
+  <data name="Diag_Err_1002_Cause" xml:space="preserve"><value>Same-network connections use IPv4 addresses (like 192.168.1.20). An IPv6 address was typed.</value></data>
+  <data name="Diag_Err_1002_Fix" xml:space="preserve"><value>Type the IPv4 address shown on the other PC. If that PC has no IPv4 address, use a network that hands out IPv4 addresses.</value></data>
+  <data name="Diag_Err_1003_Title" xml:space="preserve"><value>The address is not valid</value></data>
+  <data name="Diag_Err_1003_Cause" xml:space="preserve"><value>The address box does not hold an IPv4 address such as 192.168.1.20, optionally followed by :port.</value></data>
+  <data name="Diag_Err_1003_Fix" xml:space="preserve"><value>Check for typing mistakes. Leave the box empty to let Remotely find the PC from the token.</value></data>
+  <data name="Diag_Err_1004_Title" xml:space="preserve"><value>This PC is not connected to a network</value></data>
+  <data name="Diag_Err_1004_Cause" xml:space="preserve"><value>No network adapter with a usable IPv4 address was found (no connection, or only a self-assigned 169.254 address).</value></data>
+  <data name="Diag_Err_1004_Fix" xml:space="preserve"><value>Connect to Wi-Fi or plug in a network cable. If you are connected, check that the router gives out addresses, then try again.</value></data>
+  <data name="Diag_Err_1005_Title" xml:space="preserve"><value>This PC has only an IPv6 address</value></data>
+  <data name="Diag_Err_1005_Cause" xml:space="preserve"><value>Same-network connections need IPv4, and this PC only has IPv6 addresses.</value></data>
+  <data name="Diag_Err_1005_Fix" xml:space="preserve"><value>Use a network that gives out IPv4 addresses, or turn IPv4 on for this network connection in Windows.</value></data>
+  <data name="Diag_Err_1006_Title" xml:space="preserve"><value>No PC answered the search</value></data>
+  <data name="Diag_Err_1006_Cause" xml:space="preserve"><value>Nobody on this network answered the search for the token. The other PC may not be sharing, may use another network, or the network may block broadcasts (guest Wi-Fi often does).</value></data>
+  <data name="Diag_Err_1006_Fix" xml:space="preserve"><value>Check that the other PC shows a token and that both PCs are on the same Wi-Fi or router. Allow Remotely in Windows Firewall on both PCs. If it still fails, type the other PC's address next to the token.</value></data>
+  <data name="Diag_Err_1007_Title" xml:space="preserve"><value>The PC could not be reached</value></data>
+  <data name="Diag_Err_1007_Cause" xml:space="preserve"><value>The PC was found (or its address typed) but a connection to it could not be opened: it is off, asleep, on another network, or a firewall blocks the port.</value></data>
+  <data name="Diag_Err_1007_Fix" xml:space="preserve"><value>Check that the other PC is on and sharing and on the same network. On that PC, check that the Windows Firewall rules "Remotely same-network (TCP)" and "(UDP)" exist and are enabled.</value></data>
+  <data name="Diag_Err_1008_Title" xml:space="preserve"><value>The other PC did not accept the token</value></data>
+  <data name="Diag_Err_1008_Cause" xml:space="preserve"><value>The token was already used, has expired (a token lasts 10 minutes), or was mistyped.</value></data>
+  <data name="Diag_Err_1008_Fix" xml:space="preserve"><value>Read the token the other PC shows now and type that one.</value></data>
+  <data name="Diag_Err_1009_Title" xml:space="preserve"><value>The token was tried too often</value></data>
+  <data name="Diag_Err_1009_Cause" xml:space="preserve"><value>Three wrong tries were made against this token, so the other PC replaced it.</value></data>
+  <data name="Diag_Err_1009_Fix" xml:space="preserve"><value>Read the new token on the other PC. If you did not make the wrong tries, someone else on the network did.</value></data>
+  <data name="Diag_Err_1010_Title" xml:space="preserve"><value>The saved PC did not accept this PC</value></data>
+  <data name="Diag_Err_1010_Cause" xml:space="preserve"><value>The PC at the saved address no longer lists this PC as allowed, is not sharing, or a different PC now has that address.</value></data>
+  <data name="Diag_Err_1010_Fix" xml:space="preserve"><value>Connect once with a token from that PC and allow this PC again when asked.</value></data>
+  <data name="Diag_Err_1011_Title" xml:space="preserve"><value>The other PC did not allow the connection</value></data>
+  <data name="Diag_Err_1011_Cause" xml:space="preserve"><value>The person at the other PC chose Deny, did not answer in time, or the PC closed the connection before answering.</value></data>
+  <data name="Diag_Err_1011_Fix" xml:space="preserve"><value>Ask the person to allow the connection when the prompt appears, then try again.</value></data>
+  <data name="Diag_Err_2001_Title" xml:space="preserve"><value>The other side did not speak Remotely correctly</value></data>
+  <data name="Diag_Err_2001_Cause" xml:space="preserve"><value>The program that answered sent data that is not a valid Remotely handshake: another program uses the port, or the versions are too different.</value></data>
+  <data name="Diag_Err_2001_Fix" xml:space="preserve"><value>Check that the other PC runs Remotely and update both PCs to the same version.</value></data>
+  <data name="Diag_Err_2002_Title" xml:space="preserve"><value>The device that answered is not the expected one</value></data>
+  <data name="Diag_Err_2002_Cause" xml:space="preserve"><value>The answer came from a different device than the one chosen, or the request was meant for another device or token.</value></data>
+  <data name="Diag_Err_2002_Fix" xml:space="preserve"><value>Check that you picked the right PC. If the PC was replaced or reset, add it again.</value></data>
+  <data name="Diag_Err_2003_Title" xml:space="preserve"><value>A signature did not check out</value></data>
+  <data name="Diag_Err_2003_Cause" xml:space="preserve"><value>The other side's signature is not valid for its key. Data was changed on the way, or the other side is not the device it claims to be.</value></data>
+  <data name="Diag_Err_2003_Fix" xml:space="preserve"><value>Do not continue on a network you do not trust. Try again; if it repeats, add the device again.</value></data>
+  <data name="Diag_Err_2004_Title" xml:space="preserve"><value>This device is not trusted by the other PC</value></data>
+  <data name="Diag_Err_2004_Cause" xml:space="preserve"><value>The PC you connect to does not have this device on its list of devices allowed to connect.</value></data>
+  <data name="Diag_Err_2004_Fix" xml:space="preserve"><value>On the other PC, allow this device, or pair this device with the same server.</value></data>
+  <data name="Diag_Err_3001_Title" xml:space="preserve"><value>This device is not paired with the server</value></data>
+  <data name="Diag_Err_3001_Cause" xml:space="preserve"><value>The server does not know this device yet, or it was removed from the server.</value></data>
+  <data name="Diag_Err_3001_Fix" xml:space="preserve"><value>Join with a new invite or pairing code from the server (Settings, or the Home page).</value></data>
+  <data name="Diag_Err_3002_Title" xml:space="preserve"><value>An unencrypted server connection was refused</value></data>
+  <data name="Diag_Err_3002_Cause" xml:space="preserve"><value>The server address starts with ws:// (no encryption). Remotely refuses that unless it was allowed on purpose.</value></data>
+  <data name="Diag_Err_3002_Fix" xml:space="preserve"><value>Use a server address that starts with wss:// and join again with a new invite from the server.</value></data>
+  <data name="Diag_Err_3003_Title" xml:space="preserve"><value>The server key is missing</value></data>
+  <data name="Diag_Err_3003_Cause" xml:space="preserve"><value>A secure (wss) server address needs the server's key fingerprint, which comes with the invite.</value></data>
+  <data name="Diag_Err_3003_Fix" xml:space="preserve"><value>Join again with a fresh invite from the server. Do not type the address by hand.</value></data>
+  <data name="Diag_Err_3004_Title" xml:space="preserve"><value>The server and this app are different versions</value></data>
+  <data name="Diag_Err_3004_Cause" xml:space="preserve"><value>The server speaks another protocol version than this app.</value></data>
+  <data name="Diag_Err_3004_Fix" xml:space="preserve"><value>Update Remotely on this PC and the server to the same version.</value></data>
+  <data name="Diag_Err_3005_Title" xml:space="preserve"><value>The server answered in an unexpected way</value></data>
+  <data name="Diag_Err_3005_Cause" xml:space="preserve"><value>The reply was not what this app expects, or the server closed the connection. The address may belong to another service, or a proxy or filter changed the traffic.</value></data>
+  <data name="Diag_Err_3005_Fix" xml:space="preserve"><value>Check the server address. Run the Network test. Restart the server from the Server Manager if it is yours.</value></data>
+  <data name="Diag_Err_3006_Title" xml:space="preserve"><value>The server refused the pairing code</value></data>
+  <data name="Diag_Err_3006_Cause" xml:space="preserve"><value>The code is wrong, was already used, or has expired (codes last 15 minutes by default).</value></data>
+  <data name="Diag_Err_3006_Fix" xml:space="preserve"><value>Make a new invite or pairing code on the server and use that one.</value></data>
+  <data name="Diag_Err_3007_Title" xml:space="preserve"><value>Too many attempts</value></data>
+  <data name="Diag_Err_3007_Cause" xml:space="preserve"><value>The server limits how often pairing, connecting and opening sessions may be tried from one address, and the limit was reached.</value></data>
+  <data name="Diag_Err_3007_Fix" xml:space="preserve"><value>Wait a minute, then try again.</value></data>
+  <data name="Diag_Err_3008_Title" xml:space="preserve"><value>The server has reached its device limit</value></data>
+  <data name="Diag_Err_3008_Cause" xml:space="preserve"><value>The server will not accept more devices than its limit.</value></data>
+  <data name="Diag_Err_3008_Fix" xml:space="preserve"><value>Remove devices that are no longer used in the Server Manager, or raise the limit in the server settings.</value></data>
+  <data name="Diag_Err_3009_Title" xml:space="preserve"><value>This device was blocked by the server</value></data>
+  <data name="Diag_Err_3009_Cause" xml:space="preserve"><value>The server administrator blocked this device. A new code does not undo that.</value></data>
+  <data name="Diag_Err_3009_Fix" xml:space="preserve"><value>Ask the administrator to unblock the device in the Server Manager.</value></data>
+  <data name="Diag_Err_3010_Title" xml:space="preserve"><value>That device is offline</value></data>
+  <data name="Diag_Err_3010_Cause" xml:space="preserve"><value>The device you want is not connected to the server right now (switched off, asleep, no internet, or its Remotely is not running).</value></data>
+  <data name="Diag_Err_3010_Fix" xml:space="preserve"><value>Turn the device on and wait until it shows as online, then try again.</value></data>
+  <data name="Diag_Err_3011_Title" xml:space="preserve"><value>That device cannot be connected to</value></data>
+  <data name="Diag_Err_3011_Cause" xml:space="preserve"><value>The server does not know the device, you chose this very PC, or that device does not accept connections.</value></data>
+  <data name="Diag_Err_3011_Fix" xml:space="preserve"><value>Choose another device from the list. A device that only controls others cannot be connected to.</value></data>
+  <data name="Diag_Err_3012_Title" xml:space="preserve"><value>The server could not be reached</value></data>
+  <data name="Diag_Err_3012_Cause" xml:space="preserve"><value>A connection to the server's address could not be opened: wrong address, no internet, the server is off, or a firewall or router blocks the port.</value></data>
+  <data name="Diag_Err_3012_Fix" xml:space="preserve"><value>Run the Network test. Check the address, that the server is running, and that its port is open in the server PC's firewall and forwarded in the router.</value></data>
+  <data name="Diag_Err_3013_Title" xml:space="preserve"><value>The server address is not valid</value></data>
+  <data name="Diag_Err_3013_Cause" xml:space="preserve"><value>The saved server address cannot be read as host and port.</value></data>
+  <data name="Diag_Err_3013_Fix" xml:space="preserve"><value>Use the form server.example.com:443 or wss://server.example.com. Better, join again with a new invite.</value></data>
+  <data name="Diag_Err_5001_Title" xml:space="preserve"><value>The file was declined</value></data>
+  <data name="Diag_Err_5001_Cause" xml:space="preserve"><value>The other side chose not to accept the file, or the owner of the PC denied the prompt.</value></data>
+  <data name="Diag_Err_5001_Fix" xml:space="preserve"><value>Ask the other person to accept, then send it again.</value></data>
+  <data name="Diag_Err_5002_Title" xml:space="preserve"><value>The file is too large</value></data>
+  <data name="Diag_Err_5002_Cause" xml:space="preserve"><value>The file or folder is larger than the limit set on the receiving side (a file may be up to 512 MB by default; a folder has a limit on its size and on its number of files).</value></data>
+  <data name="Diag_Err_5002_Fix" xml:space="preserve"><value>Split it or compress it, then send the parts.</value></data>
+  <data name="Diag_Err_5003_Title" xml:space="preserve"><value>The receive folder is full</value></data>
+  <data name="Diag_Err_5003_Cause" xml:space="preserve"><value>The receive folder has a size limit and this transfer would go over it.</value></data>
+  <data name="Diag_Err_5003_Fix" xml:space="preserve"><value>Delete old files from the receive folder, then send again.</value></data>
+  <data name="Diag_Err_5004_Title" xml:space="preserve"><value>There is not enough free space</value></data>
+  <data name="Diag_Err_5004_Cause" xml:space="preserve"><value>The disk that should store the file has no room left.</value></data>
+  <data name="Diag_Err_5004_Fix" xml:space="preserve"><value>Free some space on that disk and try again.</value></data>
+  <data name="Diag_Err_5005_Title" xml:space="preserve"><value>A file with that name already exists</value></data>
+  <data name="Diag_Err_5005_Cause" xml:space="preserve"><value>Remotely never overwrites a file, and the name is taken.</value></data>
+  <data name="Diag_Err_5005_Fix" xml:space="preserve"><value>Rename the file or remove the old one, then send again.</value></data>
+  <data name="Diag_Err_5006_Title" xml:space="preserve"><value>Access to the file or folder was denied</value></data>
+  <data name="Diag_Err_5006_Cause" xml:space="preserve"><value>Windows does not allow Remotely to read or write there.</value></data>
+  <data name="Diag_Err_5006_Fix" xml:space="preserve"><value>Pick a folder you own (for example Documents) or change its permissions.</value></data>
+  <data name="Diag_Err_5007_Title" xml:space="preserve"><value>The file arrived damaged</value></data>
+  <data name="Diag_Err_5007_Cause" xml:space="preserve"><value>The checksum of the received file does not match the one sent, so it was thrown away.</value></data>
+  <data name="Diag_Err_5007_Fix" xml:space="preserve"><value>Send the file again. If it repeats, check the network and the disks of both PCs.</value></data>
+  <data name="Diag_Err_5008_Title" xml:space="preserve"><value>The file or folder was not found</value></data>
+  <data name="Diag_Err_5008_Cause" xml:space="preserve"><value>It was moved, renamed or deleted before it could be transferred.</value></data>
+  <data name="Diag_Err_5008_Fix" xml:space="preserve"><value>Pick it again from its new place.</value></data>
+  <data name="Diag_Err_5010_Title" xml:space="preserve"><value>The file is in use by another program</value></data>
+  <data name="Diag_Err_5010_Cause" xml:space="preserve"><value>Another program has the file open so Windows does not let Remotely read or replace it, or too many transfers are running at once.</value></data>
+  <data name="Diag_Err_5010_Fix" xml:space="preserve"><value>Close the other program or wait a moment, then try again.</value></data>
+  <data name="Diag_Err_5011_Title" xml:space="preserve"><value>The transfer was not understood</value></data>
+  <data name="Diag_Err_5011_Cause" xml:space="preserve"><value>The two sides disagreed about the transfer, usually because of different versions.</value></data>
+  <data name="Diag_Err_5011_Fix" xml:space="preserve"><value>Update Remotely on both PCs and try again.</value></data>
+  <data name="Diag_Err_5012_Title" xml:space="preserve"><value>The folder was refused as unsafe</value></data>
+  <data name="Diag_Err_5012_Cause" xml:space="preserve"><value>The folder contains a path that points outside of it, an absolute path, too many files, expands to more than the allowed size, or arrived as a damaged zip file.</value></data>
+  <data name="Diag_Err_5012_Fix" xml:space="preserve"><value>Send the files from a new folder you made yourself.</value></data>
+  <data name="Diag_Err_5013_Title" xml:space="preserve"><value>The other side cannot do this</value></data>
+  <data name="Diag_Err_5013_Cause" xml:space="preserve"><value>The other PC does not share or accept files, or runs an older version that cannot handle this kind of transfer (such as folders).</value></data>
+  <data name="Diag_Err_5013_Fix" xml:space="preserve"><value>Update Remotely on the other PC and check that file sharing is on there.</value></data>
+  <data name="Diag_Err_5014_Title" xml:space="preserve"><value>The connection dropped during the transfer</value></data>
+  <data name="Diag_Err_5014_Cause" xml:space="preserve"><value>The network link broke before the transfer finished.</value></data>
+  <data name="Diag_Err_5014_Fix" xml:space="preserve"><value>Reconnect and send again.</value></data>
+  <data name="Diag_Err_5015_Title" xml:space="preserve"><value>The transfer failed</value></data>
+  <data name="Diag_Err_5015_Cause" xml:space="preserve"><value>Windows or the other PC reported a problem that has no code of its own. The message next to the code has the details.</value></data>
+  <data name="Diag_Err_5015_Fix" xml:space="preserve"><value>Read that message and try again. If it repeats, export diagnostics.</value></data>
+  <data name="Diag_Err_5016_Title" xml:space="preserve"><value>The file changed while it was being sent</value></data>
+  <data name="Diag_Err_5016_Cause" xml:space="preserve"><value>The file was modified during the transfer, so what arrived would be a mix of two versions.</value></data>
+  <data name="Diag_Err_5016_Fix" xml:space="preserve"><value>Wait until the program that writes the file has finished, then send again.</value></data>
+  <data name="Diag_Err_6001_Title" xml:space="preserve"><value>The invite is not valid</value></data>
+  <data name="Diag_Err_6001_Cause" xml:space="preserve"><value>The text is not a complete Remotely invite: it does not start with RMT1-, is cut short, has a typing mistake, or was made by a newer Remotely.</value></data>
+  <data name="Diag_Err_6001_Fix" xml:space="preserve"><value>Copy the whole invite again from "Remotely Server info" on your server (one long line). Update Remotely if the invite is from a newer version.</value></data>
+  <data name="Diag_Err_9001_Title" xml:space="preserve"><value>Something unexpected went wrong</value></data>
+  <data name="Diag_Err_9001_Cause" xml:space="preserve"><value>The program hit a problem that has no code of its own.</value></data>
+  <data name="Diag_Err_9001_Fix" xml:space="preserve"><value>Try again. If it repeats, open Help, Diagnostics, export diagnostics and report it with the details shown.</value></data>
+  <!-- A18: diagnostics pages. Placeholders {0} must stay. -->
+  <data name="Diag_Help_Nav" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Diag_Help_Title" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Diag_Help_Intro" xml:space="preserve"><value>When something does not work, this page helps you find out why. Nothing here is sent anywhere: the files stay on this PC until you share them yourself.</value></data>
+  <data name="Diag_LogLevel" xml:space="preserve"><value>Detail in the log</value></data>
+  <data name="Diag_Level_Debug" xml:space="preserve"><value>Everything (debug)</value></data>
+  <data name="Diag_Level_Info" xml:space="preserve"><value>Normal</value></data>
+  <data name="Diag_Level_Warning" xml:space="preserve"><value>Only warnings and errors</value></data>
+  <data name="Diag_Level_Error" xml:space="preserve"><value>Only errors</value></data>
+  <data name="Diag_CrashDumps" xml:space="preserve"><value>Save a crash dump when the program crashes</value></data>
+  <data name="Diag_CrashDumps_Note" xml:space="preserve"><value>Off by default. A dump holds the program's memory, which can include keys and tokens. It stays on this PC, only the newest 3 are kept, and the export never contains it.</value></data>
+  <data name="Diag_Export" xml:space="preserve"><value>Export diagnostics</value></data>
+  <data name="Diag_Export_Note" xml:space="preserve"><value>Makes a zip with versions, system, network adapters, firewall rules, service state, safe settings, the last log lines and the last crash. Tokens, invites, pairing codes, keys and crash dumps are left out. IP addresses and PC names are not removed, so read it before you share it.</value></data>
+  <data name="Diag_Export_Done" xml:space="preserve"><value>Saved: {0}</value></data>
+  <data name="Diag_Export_Failed" xml:space="preserve"><value>The export could not be saved: {0}</value></data>
+  <data name="Diag_OpenLogs" xml:space="preserve"><value>Open the log folder</value></data>
+  <data name="Diag_NetworkTest" xml:space="preserve"><value>Network test</value></data>
+  <data name="Diag_Codes_Title" xml:space="preserve"><value>Error codes</value></data>
+  <data name="Diag_Codes_Intro" xml:space="preserve"><value>An error with a code like RMT-1006 has a page that says what it means and what to do. The pages are in the docs/errors folder of the project.</value></data>
+  <data name="Diag_Net_Title" xml:space="preserve"><value>Network test</value></data>
+  <data name="Diag_Net_Intro" xml:space="preserve"><value>Checks this PC's network, looks for PCs that are sharing, and measures how long a connection to your server takes. It sends nothing but connection attempts and a search on the local network.</value></data>
+  <data name="Diag_Net_Run" xml:space="preserve"><value>Run the test</value></data>
+  <data name="Diag_Net_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Diag_Net_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Diag_Net_Peer" xml:space="preserve"><value>Address of the other PC (optional)</value></data>
+  <data name="Diag_Net_Label" xml:space="preserve"><value>Token of the other PC (optional)</value></data>
+  <data name="Diag_Net_Passed" xml:space="preserve"><value>No problem found</value></data>
+  <data name="Diag_Net_Failed" xml:space="preserve"><value>A problem was found</value></data>
+  <data name="Diag_Net_Cancelled" xml:space="preserve"><value>The test was cancelled.</value></data>
+  <data name="Diag_Net_TimedOut" xml:space="preserve"><value>The test took too long and was stopped.</value></data>
+  <data name="Diag_Net_Check_adapter" xml:space="preserve"><value>Network connection</value></data>
+  <data name="Diag_Net_Check_subnet" xml:space="preserve"><value>Same network</value></data>
+  <data name="Diag_Net_Check_discovery" xml:space="preserve"><value>Answer to the search</value></data>
+  <data name="Diag_Net_Check_port" xml:space="preserve"><value>Connection port</value></data>
+  <data name="Diag_Net_Check_server" xml:space="preserve"><value>Server</value></data>
+  <data name="Diag_Net_Latency" xml:space="preserve"><value>Average connection time: {0} ms</value></data>
+  <data name="Diag_Quality_Level_Unknown" xml:space="preserve"><value>Connection quality: measuring</value></data>
+  <data name="Diag_Quality_Level_Good" xml:space="preserve"><value>Connection: good</value></data>
+  <data name="Diag_Quality_Level_Fair" xml:space="preserve"><value>Connection: fair</value></data>
+  <data name="Diag_Quality_Level_Poor" xml:space="preserve"><value>Connection: poor</value></data>
+  <data name="Diag_Quality_Level_Lost" xml:space="preserve"><value>Connection: lost</value></data>
+  <data name="Diag_Quality_Reason_NoData" xml:space="preserve"><value>Nothing has been measured yet.</value></data>
+  <data name="Diag_Quality_Reason_Healthy" xml:space="preserve"><value>Fast and steady.</value></data>
+  <data name="Diag_Quality_Reason_SlowRoundTrip" xml:space="preserve"><value>Replies are slow.</value></data>
+  <data name="Diag_Quality_Reason_UnstableRoundTrip" xml:space="preserve"><value>Reply times jump around.</value></data>
+  <data name="Diag_Quality_Reason_FramesStalled" xml:space="preserve"><value>The picture stopped for a moment.</value></data>
+  <data name="Diag_Quality_Reason_NoReply" xml:space="preserve"><value>Nothing has been heard from the other PC for a few seconds.</value></data>
+  <data name="Diag_Quality_Reason_Reconnecting" xml:space="preserve"><value>Reconnecting.</value></data>
 </root>

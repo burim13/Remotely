@@ -734,7 +734,8 @@ public partial class ManagerLogicTests
             Assert.Equal(Placeholders(value), Placeholders(sq[key]));
         }
         Assert.All(en.Keys, k => Assert.True(used.Contains(k) || k.StartsWith("Kind_", StringComparison.Ordinal) || k.StartsWith("Result_", StringComparison.Ordinal)
-            || k.StartsWith("Setup_", StringComparison.Ordinal),   // the setup wizard (Setup/) has its own checks in NetworkSetupTests
+            || k.StartsWith("Setup_", StringComparison.Ordinal)   // the setup wizard (Setup/) has its own checks in NetworkSetupTests
+            || k.StartsWith("Diag_Err_", StringComparison.Ordinal) || k.StartsWith("Diag_Net_Check_", StringComparison.Ordinal),   // looked up by code and check id; DiagnosticsTests covers them
             "unused string key " + k));
     }
 
@@ -770,7 +771,7 @@ public partial class ManagerLogicTests
     public void Every_Manager_page_is_built_by_the_start_up_check_and_listed_for_the_screenshot_run()
     {
         var root = Path.Combine(RepoRoot(), "src", "Remotely.ServerManager", "Views");
-        var pages = Directory.EnumerateFiles(root, "*Page.xaml").Select(f => Path.GetFileNameWithoutExtension(f)).OrderBy(n => n, StringComparer.Ordinal).ToList();
+        var pages = Directory.EnumerateFiles(root, "*Page.xaml", SearchOption.AllDirectories).Select(f => Path.GetFileNameWithoutExtension(f)).OrderBy(n => n, StringComparer.Ordinal).ToList();
         Assert.NotEmpty(pages);
         var app = File.ReadAllText(Path.Combine(RepoRoot(), "src", "Remotely.ServerManager", "App.xaml.cs"));
         var listed = File.ReadAllLines(Path.Combine(RepoRoot(), "tools", "ci", "manager-pages.txt")).Select(l => l.Trim()).Where(l => l.Length > 0 && l[0] != '#').OrderBy(n => n, StringComparer.Ordinal).ToList();
