@@ -138,18 +138,30 @@ public partial class App : Application
             return;
         }
 
-        BuiltInPages.Register();
-        var main = new MainWindow();
-        Main = main;
-        _window = main;
-        if (Options.UsesSingleInstance) Tray = CreateTray();
+        try
+        {
+            BuiltInPages.Register();
+            var main = new MainWindow();
+            Main = main;
+            _window = main;
+            if (Options.UsesSingleInstance) Tray = CreateTray();
 
-        if (Options.Minimized && Tray is { IsAdded: true } && !MainWindow.NeedsOnboarding) { /* start in the tray */ }
-        else main.ShowInitially();
+            if (Options.Minimized && Tray is { IsAdded: true } && !MainWindow.NeedsOnboarding) { /* start in the tray */ }
+            else main.ShowInitially();
 
-        if (Settings.ShareOnStart && Options.UsesSingleInstance && Share.Start(_ => { }) is { } shareError) LogCrash(new InvalidOperationException(shareError));
-        _ = main.HandleOptionsAsync(Options);
+            if (Settings.ShareOnStart && Options.UsesSingleInstance && Share.Start(_ => { }) is { } shareError) LogCrash(new InvalidOperationException(shareError));
+            RunOptions(main, Options);
+        }
+        catch (Exception ex)
+        {
+            // A window that failed to build must not leave an invisible process behind (CI would call that "running").
+            LogCrash(ex);
+            Environment.Exit(2);
+        }
     }
+
+    private static void RunOptions(MainWindow main, AppOptions options) =>
+        _ = main.HandleOptionsAsync(options).ContinueWith(t => LogCrash(t.Exception), TaskContinuationOptions.OnlyOnFaulted);
 
     private static TrayIcon? CreateTray()
     {
@@ -198,7 +210,7 @@ public partial class App : Application
         Main?.DispatcherQueue.TryEnqueue(() =>
         {
             Main?.ShowAndFocus();
-            _ = Main?.HandleOptionsAsync(options);
+            if (Main is { } m) RunOptions(m, options);
         });
     }
 
