@@ -7,7 +7,7 @@ namespace Remotely.Core.Lan;
 public sealed class LanConnectException(string message) : Exception(message);
 
 /// <summary>Where a connection attempt is, for a progress display.</summary>
-public enum LanConnectStep { FindingPc, Reaching, Verifying }
+public enum LanConnectStep { FindingPc, Reaching, Verifying, WaitingForApproval }
 
 /// <summary>The PC that types the token: finds the other PC on the network from the token's label and opens the encrypted connection.</summary>
 public static class LanConnector

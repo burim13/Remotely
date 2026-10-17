@@ -80,6 +80,7 @@ public sealed partial class ViewerSession
                 if (_stats is not null) return _stats;
                 var stats = new SessionStats();
                 FrameReceived += f => stats.RecordFrame(f.Jpeg.Length);
+                if (LatestFrame is { } early) stats.RecordFrame(early.Jpeg.Length);   // a frame that arrived before the first read still counts
                 return _stats = stats;
             }
         }
