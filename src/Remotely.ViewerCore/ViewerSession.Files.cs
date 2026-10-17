@@ -683,6 +683,7 @@ public sealed class TransferClient : ITransferLink
             {
                 await SendAsync(TransferWire.EncodeOffset(TransferMessages.Start, id, receiver.Offset), ct).ConfigureAwait(false);
                 var stored = await AwaitAsync(p, ct, null).ConfigureAwait(false);
+                ct.ThrowIfCancellationRequested();   // cancelled just as it finished: the user asked for nothing to be kept, so the catch below removes the result
                 item.Finish(stored, Path.Combine(_downloadDirectory(), stored));
             }
             catch (OperationCanceledException) when (ct.IsCancellationRequested)
