@@ -1,0 +1,5 @@
+HomePage
+ComputersPage
+SettingsPage
+GalleryPage
+OnboardingPage

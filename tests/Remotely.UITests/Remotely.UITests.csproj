@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Windows-only UI test runner (agent A19). It is a console program, not an xunit project: the workflow runs it once per variant (theme, scaling, high contrast)
+    and it writes screenshots and a result list. It drives the apps through UI Automation (FlaUI.UIA3, MIT licence, the package ships net8.0-windows assets).
+    The pure image logic in Imaging/ has no Windows dependency and is also compiled into tests/Remotely.Tests, where it is unit-tested on Linux.
+    On Linux this project only compiles with -p:EnableWindowsTargeting=true; it cannot run there.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>Remotely.UITests</AssemblyName>
+    <RootNamespace>Remotely.UITests</RootNamespace>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FlaUI.UIA3" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

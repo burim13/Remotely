@@ -28,6 +28,8 @@
     <Compile Include="..\..\src\Remotely.UI\Controls\TokenFormat.cs" Link="Linked\TokenFormat.cs" />
     <!-- Agent A2: the app shell's UI-free logic (command line, window placement, navigation catalog, single instance) is compiled into the tests, since the WinUI app cannot be referenced from Linux. -->
     <Compile Include="..\..\src\Remotely.App\Shell\Core\*.cs" LinkBase="ShellCore" />
+    <!-- Agent A19: the pure image-diff logic of the Windows-only UI test project, so it is tested on Linux too. -->
+    <Compile Include="..\Remotely.UITests\Imaging\*.cs" LinkBase="UiImaging" />
   </ItemGroup>
 
   <ItemGroup>

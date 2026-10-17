@@ -1,0 +1,166 @@
+name: ui
+
+# Looks at the real WinUI apps on real Windows x64 and ARM64 machines: every page in dark, light, 150%, 200% and high contrast, the first-run and Home flows driven through
+# UI Automation, and a pixel comparison with the baselines in docs/screenshots/ui. The screenshots are committed to the orphan branch `ci-screenshots` so they can be read
+# through the GitHub contents API (the artifact download host is not reachable from every environment). See docs/ui-testing.md.
+on:
+  workflow_dispatch:
+    inputs:
+      update_baseline:
+        description: "Replace the baselines in docs/screenshots/ui with the screenshots of this run and commit them to this branch. Only for deliberate UI changes."
+        type: boolean
+        default: false
+      strict_content:
+        description: "Fail a page when its class name is not found in the UI Automation tree (otherwise only reported)."
+        type: boolean
+        default: false
+  push:
+    branches: [main, "claude/**"]
+    paths-ignore: ["docs/**", "**/*.md", "LICENSE", "mac/**", ".github/workflows/mac.yml", ".github/workflows/build.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ui-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ui:
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, rid: win-x64, platform: x64 }
+          - { os: windows-11-arm, rid: win-arm64, platform: ARM64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Publish the WinUI 3 app
+        shell: pwsh
+        run: |
+          dotnet publish src/Remotely.App -c Release -r ${{ matrix.rid }} -p:Platform=${{ matrix.platform }} -p:Version=0.4.0 -o out/app-${{ matrix.rid }}
+          if ($LASTEXITCODE -ne 0) { throw "publish failed" }
+      - name: Publish the Server Manager (WinUI 3)
+        shell: pwsh
+        run: |
+          dotnet publish src/Remotely.ServerManager -c Release -r ${{ matrix.rid }} -p:Platform=${{ matrix.platform }} -p:Version=0.4.0 -o out/manager-${{ matrix.rid }}
+          if ($LASTEXITCODE -ne 0) { throw "server manager publish failed" }
+      - name: Build the UI test runner
+        shell: pwsh
+        run: ./tools/ci/build-uitests.ps1
+      - name: Pages in every variant, UI Automation flows, comparison with the baselines
+        shell: pwsh
+        run: |
+          $args = @('-Rid', '${{ matrix.rid }}', '-App', 'out/app-${{ matrix.rid }}/Remotely.exe', '-Manager', 'out/manager-${{ matrix.rid }}/Remotely.ServerManager.exe', '-Out', 'ui-out')
+          if ('${{ inputs.update_baseline }}' -eq 'true') { $args += '-UpdateBaseline' }
+          if ('${{ inputs.strict_content }}' -eq 'true') { $args += '-StrictContent' }
+          ./tools/ci/run-ui.ps1 @args
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: "ui-screenshots-${{ matrix.rid }}"
+          path: "ui-out/${{ matrix.rid }}"
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always() && inputs.update_baseline
+        with:
+          name: "ui-baseline-${{ matrix.rid }}"
+          path: "docs/screenshots/ui/${{ matrix.rid }}"
+          if-no-files-found: warn
+
+  # Commits the screenshots of this run to the orphan branch `ci-screenshots` (folder per run, `latest/`, README.md index; the five newest runs are kept and the branch is
+  # rewritten as a single commit each time, so it cannot grow without bound). Runs even when the checks failed, because the pictures of a failure matter most.
+  publish:
+    needs: ui
+    if: always() && needs.ui.result != 'skipped' && (startsWith(github.ref, 'refs/heads/claude/') || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ui-screenshots-*
+          path: incoming
+      - name: Commit the screenshots to ci-screenshots
+        shell: bash
+        env:
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+          SHA: ${{ github.sha }}
+          REF_NAME: ${{ github.ref_name }}
+          UI_RESULT: ${{ needs.ui.result }}
+        run: |
+          set -euo pipefail
+          cp tools/ci/make-screenshot-index.sh /tmp/make-screenshot-index.sh
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          old=""
+          mkdir /tmp/keep
+          if git ls-remote --exit-code --heads origin ci-screenshots >/dev/null 2>&1; then
+            git fetch --depth=1 origin ci-screenshots
+            old=$(git rev-parse FETCH_HEAD)
+            git archive FETCH_HEAD | tar -x -C /tmp/keep
+          fi
+          git checkout --orphan ci-screenshots-new
+          git rm -rf . --quiet
+          git clean -fdxq -e incoming || true
+          cp -r /tmp/keep/. .
+          run="run-${RUN_ID}"
+          mkdir -p "runs/${run}"
+          for d in incoming/ui-screenshots-*; do
+            rid="${d#incoming/ui-screenshots-}"
+            mkdir -p "runs/${run}/${rid}"
+            cp -r "$d"/. "runs/${run}/${rid}/"
+          done
+          printf '{"run_id":%s,"run_number":%s,"commit":"%s","branch":"%s","ui_job_result":"%s"}\n' "$RUN_ID" "$RUN_NUMBER" "$SHA" "$REF_NAME" "$UI_RESULT" > "runs/${run}/run.json"
+          # keep the five newest runs
+          ls -1 runs | sort -t- -k2 -n | head -n -5 | while read -r old_run; do rm -rf "runs/${old_run}"; done
+          rm -rf latest
+          cp -r "runs/${run}" latest
+          bash /tmp/make-screenshot-index.sh > README.md
+          rm -rf incoming
+          git add -A
+          git commit -q -m "Screenshots of run ${RUN_ID} (${REF_NAME} ${SHA:0:7}, ui job: ${UI_RESULT})"
+          git push --force-with-lease="ci-screenshots:${old}" origin HEAD:refs/heads/ci-screenshots
+          echo "Screenshots are on the ci-screenshots branch: runs/${run} and latest/" >> "$GITHUB_STEP_SUMMARY"
+
+  # Only for a manual run with update_baseline: commits the new baselines to the branch the run was started on.
+  baselines:
+    needs: ui
+    if: github.event_name == 'workflow_dispatch' && inputs.update_baseline && needs.ui.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ui-baseline-*
+          path: incoming
+      - name: Commit the baselines
+        shell: bash
+        env:
+          RUN_ID: ${{ github.run_id }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          for d in incoming/ui-baseline-*; do
+            rid="${d#incoming/ui-baseline-}"
+            rm -rf "docs/screenshots/ui/${rid}"
+            mkdir -p "docs/screenshots/ui/${rid}"
+            cp -r "$d"/. "docs/screenshots/ui/${rid}/"
+          done
+          rm -rf incoming
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots/ui
+          git commit -q -m "UI baselines updated by run ${RUN_ID} (workflow_dispatch with update_baseline)" || { echo "baselines unchanged"; exit 0; }
+          git push origin "HEAD:refs/heads/${REF_NAME}"

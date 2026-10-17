@@ -1,0 +1,8 @@
+# The screenshot variants tools/ci/run-ui.ps1 goes through. Columns: name, theme (dark|light), scaling in percent, high contrast (on|off), page list, manager pages (yes|no).
+# A variant whose display setting the runner refuses is reported as skipped with the reason; it is never silently counted as passed.
+# Language variants (English and Albanian) are not here yet: the app has no language setting at the moment (no "Language" key in ViewerSettings).
+dark-100   dark   100  off  tools/ci/pages.txt       yes
+light-100  light  100  off  tools/ci/pages.txt       yes
+dark-150   dark   150  off  tools/ci/pages-core.txt  no
+dark-200   dark   200  off  tools/ci/pages-core.txt  no
+hc-100     light  100  on   tools/ci/pages-core.txt  no
