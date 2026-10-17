@@ -28,7 +28,10 @@ public static class HostMessages
     public const byte ShareFileEnd = 0x94;
     public const byte Error = 0xFF;
 
-    public const int ProtocolVersion = 1;
+    /// <summary>Newest protocol this build speaks. 1 = full-frame JPEG only; 2 = adds the hello extension (monitor list), tiled frames and cursor messages (docs/protocol.md).</summary>
+    public const int ProtocolVersion = 2;
+    /// <summary>The version byte every hello carries. Version 1 viewers (including the macOS app) reject any other value, so version 2 is announced in an extension after the capability byte instead.</summary>
+    public const int HelloWireVersion = 1;
     public const int MaxClipboardChars = 256 * 1024;
     public const int FileChunkBytes = 512 * 1024;
     public const long MaxFileBytes = 512L * 1024 * 1024;
@@ -75,10 +78,29 @@ public enum HostCapabilities : byte
     ResumableFiles = 128, // A8: transfers with offsets (resume)
 }
 
-public sealed record HelloInfo(int Version, HostCapabilities Capabilities)
+/// <summary>
+/// The host's introduction. Wire: 0x80, 1, capabilities; version 2 hosts append [2, monitor list] (see <see cref="FrameWire.EncodeMonitors"/>), which version 1 viewers ignore.
+/// <see cref="Version"/> is what the peer speaks: 1 when there is no extension.
+/// </summary>
+public sealed record HelloInfo(int Version, HostCapabilities Capabilities, IReadOnlyList<MonitorInfo>? Monitors = null)
 {
-    public byte[] Encode() => [HostMessages.Hello, (byte)Version, (byte)Capabilities];
+    public IReadOnlyList<MonitorInfo> MonitorList => Monitors ?? [];
 
-    public static HelloInfo? Decode(ReadOnlySpan<byte> message) =>
-        message.Length >= 3 && message[0] == HostMessages.Hello ? new HelloInfo(message[1], (HostCapabilities)message[2]) : null;
+    public byte[] Encode()
+    {
+        byte[] head = [HostMessages.Hello, HostMessages.HelloWireVersion, (byte)Capabilities];
+        return Version < 2 ? head : [.. head, (byte)Version, .. FrameWire.EncodeMonitors(MonitorList)];
+    }
+
+    public static HelloInfo? Decode(ReadOnlySpan<byte> message)
+    {
+        if (message.Length < 3 || message[0] != HostMessages.Hello) return null;
+        var caps = (HostCapabilities)message[2];
+        if (message.Length > 3 && message[3] >= 2)
+        {
+            try { return new HelloInfo(message[3], caps, FrameWire.DecodeMonitors(message[4..])); }
+            catch (FormatException) { /* a damaged extension is ignored: the host is still a version 1 host to us */ }
+        }
+        return new HelloInfo(message[1], caps);
+    }
 }
