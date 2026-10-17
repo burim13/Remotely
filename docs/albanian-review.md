@@ -12,7 +12,7 @@ reviewed any of these strings unless this document or the commit history says so
 
 ## Remotely (the app on every PC)
 
-446 strings.
+628 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -462,10 +462,192 @@ reviewed any of these strings unless this document or the commit history says so
 | `Settings_AddressBook_Failed` | The change could not be made. | Ndryshimi nuk mund të bëhej. | machine-written (git author Claude, 415e327) |  | |
 | `Settings_AddressBook_ImportDone` | Imported: {0} added, {1} updated, {2} skipped. | U importua: {0} të shtuar, {1} të përditësuar, {2} të anashkaluar. | machine-written (git author Claude, 415e327) |  | |
 | `Settings_AddressBook_ImportBad` | This is not a Remotely address book file, or it comes from a newer Remotely. Nothing was changed. | Ky nuk është skedar libri adresash i Remotely, ose vjen nga një Remotely më i ri. Asgjë nuk u ndryshua. | machine-written (git author Claude, 415e327) |  | |
+| `Diag_Err_1001_Title` | The token is not valid | Kodi nuk është i vlefshëm | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1001_Cause` | The text typed as the token is empty, has the wrong length, or contains a character that tokens never contain (0, 1, I, O). | Teksti i shkruar si kod është bosh, ka gjatësi të gabuar ose përmban një shenjë që kodet nuk e përmbajnë kurrë (0, 1, I, O). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1001_Fix` | A token has 12 letters and numbers, like K7P4-4NX2-QMH9. Type it as the other PC shows it now. Capital letters, dashes and spaces do not matter. | Një kod ka 12 shkronja e shifra, si K7P4-4NX2-QMH9. Shkruaje siç e shfaq tani kompjuteri tjetër. Shkronjat e mëdha, viza dhe hapësirat nuk kanë rëndësi. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1002_Title` | That is an IPv6 address | Kjo është adresë IPv6 | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1002_Cause` | Same-network connections use IPv4 addresses (like 192.168.1.20). An IPv6 address was typed. | Lidhjet në të njëjtin rrjet përdorin adresa IPv4 (si 192.168.1.20). U shkrua një adresë IPv6. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1002_Fix` | Type the IPv4 address shown on the other PC. If that PC has no IPv4 address, use a network that hands out IPv4 addresses. | Shkruaj adresën IPv4 që shfaq kompjuteri tjetër. Nëse ai nuk ka adresë IPv4, përdor një rrjet që jep adresa IPv4. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1003_Title` | The address is not valid | Adresa nuk është e vlefshme | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1003_Cause` | The address box does not hold an IPv4 address such as 192.168.1.20, optionally followed by :port. | Fusha e adresës nuk përmban adresë IPv4 si 192.168.1.20, opsionalisht e ndjekur nga :porta. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1003_Fix` | Check for typing mistakes. Leave the box empty to let Remotely find the PC from the token. | Kontrollo për gabime shkrimi. Lëre fushën bosh që Remotely ta gjejë kompjuterin nga kodi. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1004_Title` | This PC is not connected to a network | Ky kompjuter nuk është i lidhur me rrjet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1004_Cause` | No network adapter with a usable IPv4 address was found (no connection, or only a self-assigned 169.254 address). | Nuk u gjet asnjë përshtatës rrjeti me adresë IPv4 të përdorshme (pa lidhje, ose vetëm adresë 169.254 e vetë-caktuar). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1004_Fix` | Connect to Wi-Fi or plug in a network cable. If you are connected, check that the router gives out addresses, then try again. | Lidhu me Wi-Fi ose vendos kabllon e rrjetit. Nëse je i lidhur, kontrollo që router-i jep adresa dhe provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1005_Title` | This PC has only an IPv6 address | Ky kompjuter ka vetëm adresë IPv6 | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1005_Cause` | Same-network connections need IPv4, and this PC only has IPv6 addresses. | Lidhjet në të njëjtin rrjet kërkojnë IPv4 dhe ky kompjuter ka vetëm adresa IPv6. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1005_Fix` | Use a network that gives out IPv4 addresses, or turn IPv4 on for this network connection in Windows. | Përdor një rrjet që jep adresa IPv4 ose aktivizo IPv4 për këtë lidhje rrjeti në Windows. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1006_Title` | No PC answered the search | Asnjë kompjuter nuk iu përgjigj kërkimit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1006_Cause` | Nobody on this network answered the search for the token. The other PC may not be sharing, may use another network, or the network may block broadcasts (guest Wi-Fi often does). | Askush në këtë rrjet nuk iu përgjigj kërkimit për kodin. Kompjuteri tjetër mund të mos jetë duke ndarë, të jetë në rrjet tjetër ose rrjeti të bllokojë transmetimet (shpesh Wi-Fi për mysafirë). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1006_Fix` | Check that the other PC shows a token and that both PCs are on the same Wi-Fi or router. Allow Remotely in Windows Firewall on both PCs. If it still fails, type the other PC's address next to the token. | Kontrollo që kompjuteri tjetër shfaq një kod dhe që të dy janë në të njëjtin Wi-Fi ose router. Lejo Remotely në Windows Firewall në të dy. Nëse prapë dështon, shkruaj adresën e kompjuterit tjetër pranë kodit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1007_Title` | The PC could not be reached | Kompjuteri nuk u arrit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1007_Cause` | The PC was found (or its address typed) but a connection to it could not be opened: it is off, asleep, on another network, or a firewall blocks the port. | Kompjuteri u gjet (ose u shkrua adresa) por nuk u hap dot lidhje me të: është i fikur, në gjumë, në rrjet tjetër ose një firewall e bllokon portën. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1007_Fix` | Check that the other PC is on and sharing and on the same network. On that PC, check that the Windows Firewall rules "Remotely same-network (TCP)" and "(UDP)" exist and are enabled. | Kontrollo që kompjuteri tjetër është i ndezur, po ndan dhe është në të njëjtin rrjet. Aty kontrollo që rregullat e Windows Firewall "Remotely same-network (TCP)" dhe "(UDP)" ekzistojnë dhe janë aktive. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1008_Title` | The other PC did not accept the token | Kompjuteri tjetër nuk e pranoi kodin | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1008_Cause` | The token was already used, has expired (a token lasts 10 minutes), or was mistyped. | Kodi është përdorur tashmë, ka skaduar (një kod zgjat 10 minuta) ose është shkruar gabim. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1008_Fix` | Read the token the other PC shows now and type that one. | Lexo kodin që shfaq tani kompjuteri tjetër dhe shkruaj atë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1009_Title` | The token was tried too often | Kodi është provuar shumë herë | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1009_Cause` | Three wrong tries were made against this token, so the other PC replaced it. | U bënë tre prova të gabuara me këtë kod, ndaj kompjuteri tjetër e zëvendësoi. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1009_Fix` | Read the new token on the other PC. If you did not make the wrong tries, someone else on the network did. | Lexo kodin e ri në kompjuterin tjetër. Nëse nuk i bëre ti provat e gabuara, i bëri dikush tjetër në rrjet. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1010_Title` | The saved PC did not accept this PC | Kompjuteri i ruajtur nuk e pranoi këtë kompjuter | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1010_Cause` | The PC at the saved address no longer lists this PC as allowed, is not sharing, or a different PC now has that address. | Kompjuteri në adresën e ruajtur nuk e ka më këtë kompjuter në listën e lejuar, nuk po ndan ose adresa i përket tani një kompjuteri tjetër. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1010_Fix` | Connect once with a token from that PC and allow this PC again when asked. | Lidhu një herë me kodin e atij kompjuteri dhe lejo përsëri këtë kompjuter kur të pyetesh. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1011_Title` | The other PC did not allow the connection | Kompjuteri tjetër nuk lejoi lidhjen | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1011_Cause` | The person at the other PC chose Deny, did not answer in time, or the PC closed the connection before answering. | Personi te kompjuteri tjetër zgjodhi Refuzo, nuk u përgjigj në kohë ose kompjuteri e mbylli lidhjen para përgjigjes. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1011_Fix` | Ask the person to allow the connection when the prompt appears, then try again. | Kërkoji personit ta lejojë lidhjen kur shfaqet pyetja, pastaj provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2001_Title` | The other side did not speak Remotely correctly | Pala tjetër nuk foli saktë Remotely | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2001_Cause` | The program that answered sent data that is not a valid Remotely handshake: another program uses the port, or the versions are too different. | Programi që u përgjigj dërgoi të dhëna që nuk janë një shtrëngim duarsh i vlefshëm Remotely: porta përdoret nga program tjetër ose versionet janë shumë të ndryshme. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2001_Fix` | Check that the other PC runs Remotely and update both PCs to the same version. | Kontrollo që kompjuteri tjetër përdor Remotely dhe përditëso të dy në të njëjtin version. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2002_Title` | The device that answered is not the expected one | Pajisja që u përgjigj nuk është ajo e pritur | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2002_Cause` | The answer came from a different device than the one chosen, or the request was meant for another device or token. | Përgjigjja erdhi nga pajisje tjetër nga ajo e zgjedhur ose kërkesa ishte për pajisje a kod tjetër. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2002_Fix` | Check that you picked the right PC. If the PC was replaced or reset, add it again. | Kontrollo që zgjodhe kompjuterin e duhur. Nëse kompjuteri u zëvendësua ose u rivendos, shtoje përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2003_Title` | A signature did not check out | Një nënshkrim nuk u verifikua | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2003_Cause` | The other side's signature is not valid for its key. Data was changed on the way, or the other side is not the device it claims to be. | Nënshkrimi i palës tjetër nuk është i vlefshëm për çelësin e saj. Të dhënat u ndryshuan gjatë rrugës ose pala tjetër nuk është pajisja që pretendon. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2003_Fix` | Do not continue on a network you do not trust. Try again; if it repeats, add the device again. | Mos vazhdo në rrjet që nuk e beson. Provo përsëri; nëse përsëritet, shtoje pajisjen përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2004_Title` | This device is not trusted by the other PC | Kjo pajisje nuk besohet nga kompjuteri tjetër | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2004_Cause` | The PC you connect to does not have this device on its list of devices allowed to connect. | Kompjuteri me të cilin lidhesh nuk e ka këtë pajisje në listën e pajisjeve të lejuara. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_2004_Fix` | On the other PC, allow this device, or pair this device with the same server. | Në kompjuterin tjetër lejo këtë pajisje ose çiftoje këtë pajisje me të njëjtin server. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3001_Title` | This device is not paired with the server | Kjo pajisje nuk është çiftuar me serverin | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3001_Cause` | The server does not know this device yet, or it was removed from the server. | Serveri nuk e njeh ende këtë pajisje ose ajo u hoq nga serveri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3001_Fix` | Join with a new invite or pairing code from the server (Settings, or the Home page). | Bashkohu me një ftesë ose kod çiftimi të ri nga serveri (Cilësimet ose faqja Kryesore). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3002_Title` | An unencrypted server connection was refused | Lidhja e pashifruar me serverin u refuzua | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3002_Cause` | The server address starts with ws:// (no encryption). Remotely refuses that unless it was allowed on purpose. | Adresa e serverit fillon me ws:// (pa shifrim). Remotely e refuzon këtë nëse nuk është lejuar qëllimisht. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3002_Fix` | Use a server address that starts with wss:// and join again with a new invite from the server. | Përdor adresë serveri që fillon me wss:// dhe bashkohu përsëri me ftesë të re nga serveri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3003_Title` | The server key is missing | Çelësi i serverit mungon | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3003_Cause` | A secure (wss) server address needs the server's key fingerprint, which comes with the invite. | Një adresë serveri e sigurt (wss) kërkon shenjën e çelësit të serverit, që vjen me ftesën. Nuk është ruajtur në këtë kompjuter. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3003_Fix` | Join again with a fresh invite from the server. Do not type the address by hand. | Bashkohu përsëri me ftesë të re nga serveri. Mos e shkruaj adresën me dorë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3004_Title` | The server and this app are different versions | Serveri dhe ky aplikacion janë versione të ndryshme | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3004_Cause` | The server speaks another protocol version than this app. | Serveri flet version tjetër të protokollit nga ky aplikacion. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3004_Fix` | Update Remotely on this PC and the server to the same version. | Përditëso Remotely në këtë kompjuter dhe në server në të njëjtin version. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3005_Title` | The server answered in an unexpected way | Serveri u përgjigj në mënyrë të papritur | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3005_Cause` | The reply was not what this app expects, or the server closed the connection. The address may belong to another service, or a proxy or filter changed the traffic. | Përgjigjja nuk ishte ajo që pret aplikacioni ose serveri e mbylli lidhjen. Adresa mund t'i përkasë shërbimi tjetër ose një proxy a filtër e ndryshoi trafikun. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3005_Fix` | Check the server address. Run the Network test. Restart the server from the Server Manager if it is yours. | Kontrollo adresën e serverit. Ekzekuto Testin e rrjetit. Rinis serverin nga Menaxheri i serverit nëse është i yti. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3006_Title` | The server refused the pairing code | Serveri refuzoi kodin e çiftimit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3006_Cause` | The code is wrong, was already used, or has expired (codes last 15 minutes by default). | Kodi është i gabuar, është përdorur tashmë ose ka skaduar (kodet zgjasin 15 minuta si parazgjedhje). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3006_Fix` | Make a new invite or pairing code on the server and use that one. | Krijo ftesë ose kod çiftimi të ri në server dhe përdor atë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3007_Title` | Too many attempts | Shumë përpjekje | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3007_Cause` | The server limits how often pairing, connecting and opening sessions may be tried from one address, and the limit was reached. | Serveri kufizon sa shpesh mund të provohet çiftimi, lidhja dhe hapja e seancave nga një adresë, dhe kufiri u arrit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3007_Fix` | Wait a minute, then try again. | Prit një minutë dhe provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3008_Title` | The server has reached its device limit | Serveri ka arritur kufirin e pajisjeve | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3008_Cause` | The server will not accept more devices than its limit. | Serveri nuk pranon më shumë pajisje se kufiri i tij. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3008_Fix` | Remove devices that are no longer used in the Server Manager, or raise the limit in the server settings. | Hiq pajisjet që nuk përdoren më te Menaxheri i serverit ose rrit kufirin te cilësimet e serverit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3009_Title` | This device was blocked by the server | Kjo pajisje u bllokua nga serveri | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3009_Cause` | The server administrator blocked this device. A new code does not undo that. | Administratori i serverit e bllokoi këtë pajisje. Një kod i ri nuk e heq bllokimin. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3009_Fix` | Ask the administrator to unblock the device in the Server Manager. | Kërkoji administratorit ta zhbllokojë pajisjen te Menaxheri i serverit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3010_Title` | That device is offline | Ajo pajisje është jashtë linje | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3010_Cause` | The device you want is not connected to the server right now (switched off, asleep, no internet, or its Remotely is not running). | Pajisja që dëshiron nuk është e lidhur me serverin tani (e fikur, në gjumë, pa internet ose Remotely nuk po funksionon). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3010_Fix` | Turn the device on and wait until it shows as online, then try again. | Ndiz pajisjen dhe prit të shfaqet në linjë, pastaj provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3011_Title` | That device cannot be connected to | Me atë pajisje nuk mund të lidhesh | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3011_Cause` | The server does not know the device, you chose this very PC, or that device does not accept connections. | Serveri nuk e njeh pajisjen, zgjodhe këtë kompjuter ose ajo pajisje nuk pranon lidhje. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3011_Fix` | Choose another device from the list. A device that only controls others cannot be connected to. | Zgjidh pajisje tjetër nga lista. Një pajisje që vetëm kontrollon të tjerat nuk mund të lidhet. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3012_Title` | The server could not be reached | Serveri nuk u arrit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3012_Cause` | A connection to the server's address could not be opened: wrong address, no internet, the server is off, or a firewall or router blocks the port. | Nuk u hap dot lidhje me adresën e serverit: adresë e gabuar, pa internet, serveri i fikur ose firewall-i a router-i bllokon portën. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3012_Fix` | Run the Network test. Check the address, that the server is running, and that its port is open in the server PC's firewall and forwarded in the router. | Ekzekuto Testin e rrjetit. Kontrollo adresën, që serveri po funksionon dhe që porta është e hapur në firewall-in e kompjuterit të serverit dhe e përcjellë në router. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3013_Title` | The server address is not valid | Adresa e serverit nuk është e vlefshme | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3013_Cause` | The saved server address cannot be read as host and port. | Adresa e ruajtur e serverit nuk mund të lexohet si host dhe portë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3013_Fix` | Use the form server.example.com:443 or wss://server.example.com. Better, join again with a new invite. | Përdor formën server.example.com:443 ose wss://server.example.com. Më mirë, bashkohu përsëri me ftesë të re. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5001_Title` | The file was declined | Skedari u refuzua | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5001_Cause` | The other side chose not to accept the file, or the owner of the PC denied the prompt. | Pala tjetër zgjodhi të mos e pranojë skedarin ose zotëruesi i kompjuterit e refuzoi pyetjen. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5001_Fix` | Ask the other person to accept, then send it again. | Kërkoji personit tjetër ta pranojë dhe dërgoje përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5002_Title` | The file is too large | Skedari është shumë i madh | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5002_Cause` | The file or folder is larger than the limit set on the receiving side (a file may be up to 512 MB by default; a folder has a limit on its size and on its number of files). | Skedari është më i madh se kufiri për një transferim (512 MB). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5002_Fix` | Split it or compress it, then send the parts. | Ndaje ose ngjeshe skedarin dhe dërgo pjesët. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5003_Title` | The receive folder is full | Dosja e pranimit është plot | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5003_Cause` | The receive folder has a size limit and this transfer would go over it. | Dosja që pranon skedarë arriti kuotën e saj. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5003_Fix` | Delete old files from the receive folder, then send again. | Fshi skedarët e vjetër nga dosja e pranimit dhe dërgo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5004_Title` | There is not enough free space | Nuk ka hapësirë të mjaftueshme | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5004_Cause` | The disk that should store the file has no room left. | Disku që duhet ta ruajë skedarin nuk ka më vend. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5004_Fix` | Free some space on that disk and try again. | Liro hapësirë në atë disk dhe provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5005_Title` | A file with that name already exists | Ekziston një skedar me atë emër | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5005_Cause` | Remotely never overwrites a file, and the name is taken. | Remotely nuk mbishkruan kurrë një skedar dhe emri është i zënë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5005_Fix` | Rename the file or remove the old one, then send again. | Riemëro skedarin ose hiq të vjetrin dhe dërgo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5006_Title` | Access to the file or folder was denied | Qasja në skedar ose dosje u refuzua | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5006_Cause` | Windows does not allow Remotely to read or write there. | Windows nuk e lejon Remotely të lexojë ose shkruajë aty. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5006_Fix` | Pick a folder you own (for example Documents) or change its permissions. | Zgjidh një dosje të tuat (p.sh. Documents) ose ndrysho lejet e saj. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5007_Title` | The file arrived damaged | Skedari mbërriti i dëmtuar | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5007_Cause` | The checksum of the received file does not match the one sent, so it was thrown away. | Shuma kontrolluese e skedarit të marrë nuk përputhet me të dërguarën, ndaj u hodh. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5007_Fix` | Send the file again. If it repeats, check the network and the disks of both PCs. | Dërgo skedarin përsëri. Nëse përsëritet, kontrollo rrjetin dhe disqet e të dy kompjuterëve. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5008_Title` | The file or folder was not found | Skedari ose dosja nuk u gjet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5008_Cause` | It was moved, renamed or deleted before it could be transferred. | U zhvendos, u riemërua ose u fshi para se të transferohej. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5008_Fix` | Pick it again from its new place. | Zgjidhe përsëri nga vendi i ri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5010_Title` | The file is in use by another program | Skedari është në përdorim nga program tjetër | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5010_Cause` | Another program has the file open so Windows does not let Remotely read or replace it, or too many transfers are running at once. | Një program tjetër e ka skedarin të hapur dhe Windows nuk e lejon Remotely ta lexojë ose zëvendësojë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5010_Fix` | Close the other program or wait a moment, then try again. | Mbyll programin tjetër dhe provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5011_Title` | The transfer was not understood | Transferimi nuk u kuptua | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5011_Cause` | The two sides disagreed about the transfer, usually because of different versions. | Të dy palët nuk u morën vesh për transferimin, zakonisht nga versione të ndryshme. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5011_Fix` | Update Remotely on both PCs and try again. | Përditëso Remotely në të dy kompjuterët dhe provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5012_Title` | The folder was refused as unsafe | Dosja u refuzua si e pasigurt | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5012_Cause` | The folder contains a path that points outside of it, an absolute path, too many files, expands to more than the allowed size, or arrived as a damaged zip file. | Një emër brenda dosjes do të ishte shkruar jashtë dosjes së pranimit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5012_Fix` | Send the files from a new folder you made yourself. | Dërgo skedarët në një dosje të re që e krijove vetë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5013_Title` | The other side cannot do this | Pala tjetër nuk mund ta bëjë këtë | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5013_Cause` | The other PC does not share or accept files, or runs an older version that cannot handle this kind of transfer (such as folders). | Kompjuteri tjetër ka version që nuk e mbështet këtë lloj transferimi. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5013_Fix` | Update Remotely on the other PC and check that file sharing is on there. | Përditëso Remotely në kompjuterin tjetër. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5014_Title` | The connection dropped during the transfer | Lidhja u ndërpre gjatë transferimit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5014_Cause` | The network link broke before the transfer finished. | Lidhja e rrjetit u prish para përfundimit të transferimit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5014_Fix` | Reconnect and send again. | Lidhu përsëri dhe dërgo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5015_Title` | The transfer failed | Transferimi dështoi | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5015_Cause` | Windows or the other PC reported a problem that has no code of its own. The message next to the code has the details. | Windows ose kompjuteri tjetër raportoi një problem pa kod të veçantë. Mesazhi pranë kodit ka detajet. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5015_Fix` | Read that message and try again. If it repeats, export diagnostics. | Lexo atë mesazh dhe provo përsëri. Nëse përsëritet, eksporto diagnostikën. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5016_Title` | The file changed while it was being sent | Skedari ndryshoi gjatë dërgimit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5016_Cause` | The file was modified during the transfer, so what arrived would be a mix of two versions. | Skedari u modifikua gjatë transferimit, ndaj ajo që mbërriti do të ishte përzierje e dy versioneve. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_5016_Fix` | Wait until the program that writes the file has finished, then send again. | Prit sa të mbarojë programi që e shkruan skedarin dhe dërgo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6001_Title` | The invite is not valid | Ftesa nuk është e vlefshme | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6001_Cause` | The text is not a complete Remotely invite: it does not start with RMT1-, is cut short, has a typing mistake, or was made by a newer Remotely. | Teksti nuk është ftesë e plotë Remotely: nuk fillon me RMT1-, është e prerë, ka gabim shkrimi ose është bërë nga Remotely më i ri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6001_Fix` | Copy the whole invite again from "Remotely Server info" on your server (one long line). Update Remotely if the invite is from a newer version. | Kopjo përsëri të gjithë ftesën nga "Remotely Server info" në serverin tënd (një rresht i gjatë). Përditëso Remotely nëse ftesa është nga version më i ri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_9001_Title` | Something unexpected went wrong | Ndodhi diçka e papritur | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_9001_Cause` | The program hit a problem that has no code of its own. | Programi hasi një problem që nuk ka kod të veçantë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_9001_Fix` | Try again. If it repeats, open Help, Diagnostics, export diagnostics and report it with the details shown. | Provo përsëri. Nëse përsëritet, hap Ndihma, Diagnostika, eksporto diagnostikën dhe raportoje me detajet e shfaqura. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Help_Nav` | Diagnostics | Diagnostika | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Help_Title` | Diagnostics | Diagnostika | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Help_Intro` | When something does not work, this page helps you find out why. Nothing here is sent anywhere: the files stay on this PC until you share them yourself. | Kur diçka nuk funksionon, kjo faqe të ndihmon të gjesh pse. Asgjë këtu nuk dërgohet askund: skedarët mbeten në këtë kompjuter derisa i ndan vetë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_LogLevel` | Detail in the log | Detajet në ditar | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Debug` | Everything (debug) | Gjithçka (debug) | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Info` | Normal | Normale | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Warning` | Only warnings and errors | Vetëm paralajmërime dhe gabime | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Error` | Only errors | Vetëm gabime | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_CrashDumps` | Save a crash dump when the program crashes | Ruaj një dump kur programi prishet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_CrashDumps_Note` | Off by default. A dump holds the program's memory, which can include keys and tokens. It stays on this PC, only the newest 3 are kept, and the export never contains it. | Çaktivizuar si parazgjedhje. Një dump përmban kujtesën e programit, e cila mund të ketë çelësa dhe kode. Mbetet në këtë kompjuter, ruhen vetëm 3 më të rejat dhe eksporti nuk e përfshin kurrë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export` | Export diagnostics | Eksporto diagnostikën | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export_Note` | Makes a zip with versions, system, network adapters, firewall rules, service state, safe settings, the last log lines and the last crash. Tokens, invites, pairing codes, keys and crash dumps are left out. IP addresses and PC names are not removed, so read it before you share it. | Krijon një zip me versionet, sistemin, përshtatësit e rrjetit, rregullat e firewall-it, gjendjen e shërbimit, cilësimet e sigurta, rreshtat e fundit të ditarit dhe prishjen e fundit. Kodet, ftesat, kodet e çiftimit, çelësat dhe dump-et lihen jashtë. Adresat IP dhe emrat e kompjuterëve nuk hiqen, ndaj lexoje para se ta ndash. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export_Done` | Saved: {0} | U ruajt: {0} | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export_Failed` | The export could not be saved: {0} | Eksporti nuk mund të ruhej: {0} | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_OpenLogs` | Open the log folder | Hap dosjen e ditarit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_NetworkTest` | Network test | Testi i rrjetit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Codes_Title` | Error codes | Kodet e gabimeve | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Codes_Intro` | An error with a code like RMT-1006 has a page that says what it means and what to do. The pages are in the docs/errors folder of the project. | Një gabim me kod si RMT-1006 ka një faqe që thotë çfarë do të thotë dhe çfarë të bësh. Faqet janë në dosjen docs/errors të projektit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Title` | Network test | Testi i rrjetit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Intro` | Checks this PC's network, looks for PCs that are sharing, and measures how long a connection to your server takes. It sends nothing but connection attempts and a search on the local network. | Kontrollon rrjetin e këtij kompjuteri, kërkon kompjuterë që po ndajnë dhe mat sa zgjat një lidhje me serverin tënd. Dërgon vetëm përpjekje lidhjeje dhe një kërkim në rrjetin lokal. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Run` | Run the test | Nis testin | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Cancel` | Cancel | Anulo | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Back` | Back | Kthehu | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Peer` | Address of the other PC (optional) | Adresa e kompjuterit tjetër (opsionale) | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Label` | Token of the other PC (optional) | Kodi i kompjuterit tjetër (opsional) | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Passed` | No problem found | Nuk u gjet asnjë problem | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Failed` | A problem was found | U gjet një problem | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Cancelled` | The test was cancelled. | Testi u anulua. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_TimedOut` | The test took too long and was stopped. | Testi zgjati shumë dhe u ndal. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_adapter` | Network connection | Lidhja e rrjetit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_subnet` | Same network | I njëjti rrjet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_discovery` | Answer to the search | Përgjigjja ndaj kërkimit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_port` | Connection port | Porta e lidhjes | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_server` | Server | Serveri | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Latency` | Average connection time: {0} ms | Koha mesatare e lidhjes: {0} ms | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Level_Unknown` | Connection quality: measuring | Cilësia e lidhjes: po matet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Level_Good` | Connection: good | Lidhja: e mirë | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Level_Fair` | Connection: fair | Lidhja: e mesme | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Level_Poor` | Connection: poor | Lidhja: e dobët | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Level_Lost` | Connection: lost | Lidhja: e humbur | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Reason_NoData` | Nothing has been measured yet. | Ende nuk është matur asgjë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Reason_Healthy` | Fast and steady. | E shpejtë dhe e qëndrueshme. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Reason_SlowRoundTrip` | Replies are slow. | Përgjigjet janë të ngadalta. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Reason_UnstableRoundTrip` | Reply times jump around. | Kohët e përgjigjes luhaten shumë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Reason_FramesStalled` | The picture stopped for a moment. | Pamja u ndal për një moment. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Reason_NoReply` | Nothing has been heard from the other PC for a few seconds. | Nuk është dëgjuar asgjë nga kompjuteri tjetër për disa sekonda. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Quality_Reason_Reconnecting` | Reconnecting. | Po lidhet përsëri. | machine-written (git author Claude, bfe04de) |  | |
 
 ## Remotely Server Manager
 
-427 strings.
+513 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -896,6 +1078,92 @@ reviewed any of these strings unless this document or the commit history says so
 | `Backup_Restored` | The backup was restored and the service started. | Kopja rezervë u rikthye dhe shërbimi u nis. | machine-written (git author Claude, 938803e) |  | |
 | `Setup_Nav` | Make reachable | Bëje të arritshëm | machine-written (git author Claude, e6a89c4) |  | |
 | `Setup_Err_Cancelled` | You declined the Windows permission prompt, so nothing was changed. | E refuzove kërkesën e lejes së Windows, ndaj asgjë nuk u ndryshua. | machine-written (git author Claude, e6a89c4) |  | |
+| `Diag_Err_1004_Title` | This PC is not connected to a network | Ky kompjuter nuk është i lidhur me rrjet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1004_Cause` | No network adapter with a usable IPv4 address was found (no connection, or only a self-assigned 169.254 address). | Nuk u gjet asnjë përshtatës rrjeti me adresë IPv4 të përdorshme (pa lidhje, ose vetëm adresë 169.254 e vetë-caktuar). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1004_Fix` | Connect to Wi-Fi or plug in a network cable. If you are connected, check that the router gives out addresses, then try again. | Lidhu me Wi-Fi ose vendos kabllon e rrjetit. Nëse je i lidhur, kontrollo që router-i jep adresa dhe provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1005_Title` | This PC has only an IPv6 address | Ky kompjuter ka vetëm adresë IPv6 | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1005_Cause` | Same-network connections need IPv4, and this PC only has IPv6 addresses. | Lidhjet në të njëjtin rrjet kërkojnë IPv4 dhe ky kompjuter ka vetëm adresa IPv6. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1005_Fix` | Use a network that gives out IPv4 addresses, or turn IPv4 on for this network connection in Windows. | Përdor një rrjet që jep adresa IPv4 ose aktivizo IPv4 për këtë lidhje rrjeti në Windows. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1006_Title` | No PC answered the search | Asnjë kompjuter nuk iu përgjigj kërkimit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1006_Cause` | Nobody on this network answered the search for the token. The other PC may not be sharing, may use another network, or the network may block broadcasts (guest Wi-Fi often does). | Askush në këtë rrjet nuk iu përgjigj kërkimit për kodin. Kompjuteri tjetër mund të mos jetë duke ndarë, të jetë në rrjet tjetër ose rrjeti të bllokojë transmetimet (shpesh Wi-Fi për mysafirë). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1006_Fix` | Check that the other PC shows a token and that both PCs are on the same Wi-Fi or router. Allow Remotely in Windows Firewall on both PCs. If it still fails, type the other PC's address next to the token. | Kontrollo që kompjuteri tjetër shfaq një kod dhe që të dy janë në të njëjtin Wi-Fi ose router. Lejo Remotely në Windows Firewall në të dy. Nëse prapë dështon, shkruaj adresën e kompjuterit tjetër pranë kodit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1007_Title` | The PC could not be reached | Kompjuteri nuk u arrit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1007_Cause` | The PC was found (or its address typed) but a connection to it could not be opened: it is off, asleep, on another network, or a firewall blocks the port. | Kompjuteri u gjet (ose u shkrua adresa) por nuk u hap dot lidhje me të: është i fikur, në gjumë, në rrjet tjetër ose një firewall e bllokon portën. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_1007_Fix` | Check that the other PC is on and sharing and on the same network. On that PC, check that the Windows Firewall rules "Remotely same-network (TCP)" and "(UDP)" exist and are enabled. | Kontrollo që kompjuteri tjetër është i ndezur, po ndan dhe është në të njëjtin rrjet. Aty kontrollo që rregullat e Windows Firewall "Remotely same-network (TCP)" dhe "(UDP)" ekzistojnë dhe janë aktive. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3012_Title` | The server could not be reached | Serveri nuk u arrit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3012_Cause` | A connection to the server's address could not be opened: wrong address, no internet, the server is off, or a firewall or router blocks the port. | Nuk u hap dot lidhje me adresën e serverit: adresë e gabuar, pa internet, serveri i fikur ose firewall-i a router-i bllokon portën. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3012_Fix` | Run the Network test. Check the address, that the server is running, and that its port is open in the server PC's firewall and forwarded in the router. | Ekzekuto Testin e rrjetit. Kontrollo adresën, që serveri po funksionon dhe që porta është e hapur në firewall-in e kompjuterit të serverit dhe e përcjellë në router. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3013_Title` | The server address is not valid | Adresa e serverit nuk është e vlefshme | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3013_Cause` | The saved server address cannot be read as host and port. | Adresa e ruajtur e serverit nuk mund të lexohet si host dhe portë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_3013_Fix` | Use the form server.example.com:443 or wss://server.example.com. Better, join again with a new invite. | Përdor formën server.example.com:443 ose wss://server.example.com. Më mirë, bashkohu përsëri me ftesë të re. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4001_Title` | The admin token cannot be read | Shenja e administratorit nuk lexohet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4001_Cause` | The Manager reads a token file in the server's data folder to talk to the server, and Windows did not let it. | Menaxheri lexon një skedar shenje në dosjen e të dhënave të serverit për të folur me serverin, dhe Windows nuk e lejoi. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4001_Fix` | Run the Server Manager as administrator on the server PC. | Ekzekuto Menaxherin e serverit si administrator në kompjuterin e serverit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4002_Title` | The server's admin port cannot be reached | Porta e administrimit të serverit nuk arrihet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4002_Cause` | The admin port is open on this PC only while the server runs. | Porta e administrimit është e hapur vetëm në këtë kompjuter dhe vetëm sa punon serveri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4002_Fix` | Start the server on the Service page, then try again. Run the Manager on the same PC as the server. | Nise serverin te faqja Shërbimi dhe provo përsëri. Ekzekuto Menaxherin në të njëjtin kompjuter me serverin. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4003_Title` | The server refused the request | Serveri e refuzoi kërkesën | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4003_Cause` | The server answered with an error for this action (for example an unknown device, or a value that is not allowed). | Serveri u përgjigj me gabim për këtë veprim (për shembull pajisje e panjohur ose vlerë e palejuar). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_4003_Fix` | Read the message next to the code. If it does not help, export diagnostics and look at the server log. | Lexo mesazhin pranë kodit. Nëse nuk ndihmon, eksporto diagnostikën dhe shiko ditarin e serverit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6002_Title` | That public name cannot be used | Ai emër publik nuk mund të përdoret | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6002_Cause` | The optional public name or address has a scheme (https://), spaces, a bad port, or an IPv6 address without square brackets. | Emri ose adresa publike opsionale ka skemë (https://), hapësira, portë të gabuar ose adresë IPv6 pa kllapa katrore. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6002_Fix` | Type only a name such as myhome.example.com or an IP address, optionally with :port. You can leave it empty. | Shkruaj vetëm një emër si myhome.example.com ose një adresë IP, opsionalisht me :porta. Mund ta lësh bosh. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6003_Title` | Windows refused to change the firewall | Windows refuzoi të ndryshojë firewall-in | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6003_Cause` | Adding or removing the firewall rule "Remotely Server" failed, usually because the Manager was not allowed to run as administrator. | Shtimi ose heqja e rregullit "Remotely Server" dështoi, zakonisht sepse Menaxheri nuk u lejua të ekzekutohet si administrator. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_6003_Fix` | Accept the administrator prompt (UAC) when it appears, or add an inbound TCP rule for the server port yourself in Windows Defender Firewall. | Prano pyetjen e administratorit (UAC) kur shfaqet ose shto vetë një rregull hyrës TCP për portën e serverit në Windows Defender Firewall. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7001_Title` | A service action failed | Një veprim i shërbimit dështoi | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7001_Cause` | The administrator helper ran, but Windows or the server program reported an error for the step (start, stop, install, restore). | Ndihmësi i administratorit u ekzekutua, por Windows ose programi i serverit raportoi gabim në hap (nise, ndale, instalo, rikthe). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7001_Fix` | Read manager-helper.log in the server's data folder (C:\ProgramData\Remotely Server). Check that no other program holds the server's files, then try again. | Hap ditarin e ndihmësit të shfaqur te faqja Shërbimi. Kontrollo që asnjë program tjetër nuk i mban skedarët e serverit dhe provo përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7002_Title` | The helper was started wrongly | Ndihmësi u nis gabim | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7002_Cause` | The elevated helper got a command it does not know or a missing argument. | Ndihmësi me të drejta u thirr me komandë që nuk e njeh ose pa argument. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7002_Fix` | This is a bug in the Manager. Export diagnostics and report it. | Ky është gabim në Menaxher. Eksporto diagnostikën dhe raportoje. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7003_Title` | Remotely.Server.exe was not found | Remotely.Server.exe nuk u gjet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7003_Cause` | The helper looks for the server program in fixed places and found none. | Ndihmësi e kërkon programin e serverit në vende të caktuara dhe nuk gjeti asnjë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7003_Fix` | Install the server with the Remotely Server installer, or keep Remotely.Server.exe next to the Manager. | Instalo serverin me instaluesin Remotely Server ose mbaje Remotely.Server.exe pranë Menaxherit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7004_Title` | Administrator rights are needed | Nevojiten të drejta administratori | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7004_Cause` | The action changes services or the firewall and has to run as administrator. | Veprimi ndryshon shërbimet ose firewall-in dhe duhet të ekzekutohet si administrator. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7004_Fix` | Choose the action again and accept the administrator prompt (UAC). | Zgjidhe veprimin përsëri dhe prano pyetjen e administratorit (UAC). | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7005_Title` | The administrator prompt was declined | Pyetja e administratorit u refuzua | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7005_Cause` | Windows reported that the user cancelled the administrator (UAC) prompt, so nothing was changed. | Windows raportoi që përdoruesi e anuloi pyetjen e administratorit (UAC), ndaj asgjë nuk u ndryshua. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_7005_Fix` | Try again and choose Yes in the prompt. | Provo përsëri dhe zgjidh Po në pyetje. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_9001_Title` | Something unexpected went wrong | Ndodhi diçka e papritur | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_9001_Cause` | The program hit a problem that has no code of its own. | Programi hasi një problem që nuk ka kod të veçantë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Err_9001_Fix` | Try again. If it repeats, open Help, Diagnostics, export diagnostics and report it with the details shown. | Provo përsëri. Nëse përsëritet, hap Ndihma, Diagnostika, eksporto diagnostikën dhe raportoje me detajet e shfaqura. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Help_Nav` | Diagnostics | Diagnostika | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Help_Title` | Diagnostics | Diagnostika | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Help_Intro` | When something does not work, this page helps you find out why. Nothing here is sent anywhere: the files stay on this PC until you share them yourself. | Kur diçka nuk funksionon, kjo faqe të ndihmon të gjesh pse. Asgjë këtu nuk dërgohet askund: skedarët mbeten në këtë kompjuter derisa i ndan vetë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_LogLevel` | Detail in the log | Detajet në ditar | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Debug` | Everything (debug) | Gjithçka (debug) | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Info` | Normal | Normale | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Warning` | Only warnings and errors | Vetëm paralajmërime dhe gabime | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Level_Error` | Only errors | Vetëm gabime | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_CrashDumps` | Save a crash dump when the program crashes | Ruaj një dump kur programi prishet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_CrashDumps_Note` | Off by default. A dump holds the program's memory, which can include keys and tokens. It stays on this PC, only the newest 3 are kept, and the export never contains it. | Çaktivizuar si parazgjedhje. Një dump përmban kujtesën e programit, e cila mund të ketë çelësa dhe kode. Mbetet në këtë kompjuter, ruhen vetëm 3 më të rejat dhe eksporti nuk e përfshin kurrë. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export` | Export diagnostics | Eksporto diagnostikën | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export_Note` | Makes a zip with versions, system, network adapters, firewall rules, service state, safe settings, the last log lines and the last crash. Tokens, invites, pairing codes, keys and crash dumps are left out. IP addresses and PC names are not removed, so read it before you share it. | Krijon një zip me versionet, sistemin, përshtatësit e rrjetit, rregullat e firewall-it, gjendjen e shërbimit, cilësimet e sigurta, rreshtat e fundit të ditarit dhe prishjen e fundit. Kodet, ftesat, kodet e çiftimit, çelësat dhe dump-et lihen jashtë. Adresat IP dhe emrat e kompjuterëve nuk hiqen, ndaj lexoje para se ta ndash. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export_Done` | Saved: {0} | U ruajt: {0} | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Export_Failed` | The export could not be saved: {0} | Eksporti nuk mund të ruhej: {0} | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_OpenLogs` | Open the log folder | Hap dosjen e ditarit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_NetworkTest` | Network test | Testi i rrjetit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Codes_Title` | Error codes | Kodet e gabimeve | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Codes_Intro` | An error with a code like RMT-1006 has a page that says what it means and what to do. The pages are in the docs/errors folder of the project. | Një gabim me kod si RMT-1006 ka një faqe që thotë çfarë do të thotë dhe çfarë të bësh. Faqet janë në dosjen docs/errors të projektit. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Title` | Network test | Testi i rrjetit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Intro` | Checks this PC's network, looks for PCs that are sharing, and measures how long a connection to your server takes. It sends nothing but connection attempts and a search on the local network. | Kontrollon rrjetin e këtij kompjuteri, kërkon kompjuterë që po ndajnë dhe mat sa zgjat një lidhje me serverin tënd. Dërgon vetëm përpjekje lidhjeje dhe një kërkim në rrjetin lokal. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Run` | Run the test | Nis testin | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Cancel` | Cancel | Anulo | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Back` | Back | Kthehu | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Peer` | Address of the other PC (optional) | Adresa e kompjuterit tjetër (opsionale) | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Label` | Token of the other PC (optional) | Kodi i kompjuterit tjetër (opsional) | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Passed` | No problem found | Nuk u gjet asnjë problem | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Failed` | A problem was found | U gjet një problem | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Cancelled` | The test was cancelled. | Testi u anulua. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_TimedOut` | The test took too long and was stopped. | Testi zgjati shumë dhe u ndal. | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_adapter` | Network connection | Lidhja e rrjetit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_subnet` | Same network | I njëjti rrjet | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_discovery` | Answer to the search | Përgjigjja ndaj kërkimit | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_port` | Connection port | Porta e lidhjes | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Check_server` | Server | Serveri | machine-written (git author Claude, bfe04de) |  | |
+| `Diag_Net_Latency` | Average connection time: {0} ms | Koha mesatare e lidhjes: {0} ms | machine-written (git author Claude, bfe04de) |  | |
 
 ## Notes for the reviewer
 
@@ -903,4 +1171,4 @@ reviewed any of these strings unless this document or the commit history says so
 - Forms of address: the strings use the polite plural (`ju`, `tuaj`). Confirm that this is the register you want for an app.
 - Units in `Duration_*` (`h`, `min`, `s`) are left as in English.
 
-Counts at generation time: 873 machine-written, 0 with another git author, 0 uncommitted.
+Counts at generation time: 1141 machine-written, 0 with another git author, 0 uncommitted.

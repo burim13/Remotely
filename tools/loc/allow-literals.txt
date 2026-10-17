@@ -37,3 +37,4 @@ src/Remotely.ServerManager/Setup/ElevatedSetupActions.cs | Bad pipe name. | inte
 src/Remotely.App/Shell/ShowVerifier.cs | * | CI result lines for --show (LOADED/FAILED with a developer reason), written to a file, not shown to people
 
 src/Remotely.App/App.xaml.cs | * | start-up code: the only literals are developer reasons written to the --show result file and the crash log (CI), never shown in the UI
+src/Remotely.ServerManager/Views/Help/DiagnosticsHub.cs | Remotely Server Manager | product name written into the exported diagnostics bundle header, not shown in the UI

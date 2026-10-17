@@ -432,4 +432,90 @@
   <data name="Backup_Restored" xml:space="preserve"><value>[Ţĥé ḃåçķüṕ ŵåš ŕéšţöŕéď åñď ţĥé šéŕṽîçé šţåŕţéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
   <data name="Setup_Nav" xml:space="preserve"><value>[Ḿåķé ŕéåçĥåḃĺé ‹ĺöŕéḿ îṕš›]</value></data>
   <data name="Setup_Err_Cancelled" xml:space="preserve"><value>[Ýöü ďéçĺîñéď ţĥé Ŵîñďöŵš ṕéŕḿîššîöñ ṕŕöḿṕţ, šö ñöţĥîñĝ ŵåš çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
+  <data name="Diag_Err_1004_Title" xml:space="preserve"><value>[Ţĥîš ṔÇ îš ñöţ çöññéçţéď ţö å ñéţŵöŕķ ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Diag_Err_1004_Cause" xml:space="preserve"><value>[Ñö ñéţŵöŕķ åďåṕţéŕ ŵîţĥ å üšåḃĺé ÎṔṽ4 åďďŕéšš ŵåš ḟöüñď (ñö çöññéçţîöñ, öŕ öñĺý å šéĺḟ-åššîĝñéď 169.254 åďďŕéšš). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšç›]</value></data>
+  <data name="Diag_Err_1004_Fix" xml:space="preserve"><value>[Çöññéçţ ţö Ŵî-Ḟî öŕ ṕĺüĝ îñ å ñéţŵöŕķ çåḃĺé. Îḟ ýöü åŕé çöññéçţéď, çĥéçķ ţĥåţ ţĥé ŕöüţéŕ ĝîṽéš öüţ åďďŕéššéš, ţĥéñ ţŕý åĝåîñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ›]</value></data>
+  <data name="Diag_Err_1005_Title" xml:space="preserve"><value>[Ţĥîš ṔÇ ĥåš öñĺý åñ ÎṔṽ6 åďďŕéšš ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Diag_Err_1005_Cause" xml:space="preserve"><value>[Šåḿé-ñéţŵöŕķ çöññéçţîöñš ñééď ÎṔṽ4, åñď ţĥîš ṔÇ öñĺý ĥåš ÎṔṽ6 åďďŕéššéš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çö›]</value></data>
+  <data name="Diag_Err_1005_Fix" xml:space="preserve"><value>[Üšé å ñéţŵöŕķ ţĥåţ ĝîṽéš öüţ ÎṔṽ4 åďďŕéššéš, öŕ ţüŕñ ÎṔṽ4 öñ ḟöŕ ţĥîš ñéţŵöŕķ çöññéçţîöñ îñ Ŵîñďöŵš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ å›]</value></data>
+  <data name="Diag_Err_1006_Title" xml:space="preserve"><value>[Ñö ṔÇ åñšŵéŕéď ţĥé šéåŕçĥ ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Diag_Err_1006_Cause" xml:space="preserve"><value>[Ñöḃöďý öñ ţĥîš ñéţŵöŕķ åñšŵéŕéď ţĥé šéåŕçĥ ḟöŕ ţĥé ţöķéñ. Ţĥé öţĥéŕ ṔÇ ḿåý ñöţ ḃé šĥåŕîñĝ, ḿåý üšé åñöţĥéŕ ñéţŵöŕķ, öŕ ţĥé ñéţŵöŕķ ḿåý ḃĺöçķ ḃŕöåďçåšţš (ĝüéšţ Ŵî-Ḟî öḟţéñ ďöéš). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţ›]</value></data>
+  <data name="Diag_Err_1006_Fix" xml:space="preserve"><value>[Çĥéçķ ţĥåţ ţĥé öţĥéŕ ṔÇ šĥöŵš å ţöķéñ åñď ţĥåţ ḃöţĥ ṔÇš åŕé öñ ţĥé šåḿé Ŵî-Ḟî öŕ ŕöüţéŕ. Åĺĺöŵ Ŕéḿöţéĺý îñ Ŵîñďöŵš Ḟîŕéŵåĺĺ öñ ḃöţĥ ṔÇš. Îḟ îţ šţîĺĺ ḟåîĺš, ţýṕé ţĥé öţĥéŕ ṔÇ'š åďďŕéšš ñéẋţ ţö ţĥé ţöķéñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçî›]</value></data>
+  <data name="Diag_Err_1007_Title" xml:space="preserve"><value>[Ţĥé ṔÇ çöüĺď ñöţ ḃé ŕéåçĥéď ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Diag_Err_1007_Cause" xml:space="preserve"><value>[Ţĥé ṔÇ ŵåš ḟöüñď (öŕ îţš åďďŕéšš ţýṕéď) ḃüţ å çöññéçţîöñ ţö îţ çöüĺď ñöţ ḃé öṕéñéď: îţ îš öḟḟ, åšĺééṕ, öñ åñöţĥéŕ ñéţŵöŕķ, öŕ å ḟîŕéŵåĺĺ ḃĺöçķš ţĥé ṕöŕţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö›]</value></data>
+  <data name="Diag_Err_1007_Fix" xml:space="preserve"><value>[Çĥéçķ ţĥåţ ţĥé öţĥéŕ ṔÇ îš öñ åñď šĥåŕîñĝ åñď öñ ţĥé šåḿé ñéţŵöŕķ. Öñ ţĥåţ ṔÇ, çĥéçķ ţĥåţ ţĥé Ŵîñďöŵš Ḟîŕéŵåĺĺ ŕüĺéš "Ŕéḿöţéĺý šåḿé-ñéţŵöŕķ (ŢÇṔ)" åñď "(ÜĎṔ)" éẋîšţ åñď åŕé éñåḃĺéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿ›]</value></data>
+  <data name="Diag_Err_3012_Title" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ çöüĺď ñöţ ḃé ŕéåçĥéď ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Diag_Err_3012_Cause" xml:space="preserve"><value>[Å çöññéçţîöñ ţö ţĥé šéŕṽéŕ'š åďďŕéšš çöüĺď ñöţ ḃé öṕéñéď: ŵŕöñĝ åďďŕéšš, ñö îñţéŕñéţ, ţĥé šéŕṽéŕ îš öḟḟ, öŕ å ḟîŕéŵåĺĺ öŕ ŕöüţéŕ ḃĺöçķš ţĥé ṕöŕţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď›]</value></data>
+  <data name="Diag_Err_3012_Fix" xml:space="preserve"><value>[Ŕüñ ţĥé Ñéţŵöŕķ ţéšţ. Çĥéçķ ţĥé åďďŕéšš, ţĥåţ ţĥé šéŕṽéŕ îš ŕüññîñĝ, åñď ţĥåţ îţš ṕöŕţ îš öṕéñ îñ ţĥé šéŕṽéŕ ṔÇ'š ḟîŕéŵåĺĺ åñď ḟöŕŵåŕďéď îñ ţĥé ŕöüţéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö›]</value></data>
+  <data name="Diag_Err_3013_Title" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ åďďŕéšš îš ñöţ ṽåĺîď ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Diag_Err_3013_Cause" xml:space="preserve"><value>[Ţĥé šåṽéď šéŕṽéŕ åďďŕéšš çåññöţ ḃé ŕéåď åš ĥöšţ åñď ṕöŕţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ å›]</value></data>
+  <data name="Diag_Err_3013_Fix" xml:space="preserve"><value>[Üšé ţĥé ḟöŕḿ šéŕṽéŕ.éẋåḿṕĺé.çöḿ:443 öŕ ŵšš://šéŕṽéŕ.éẋåḿṕĺé.çöḿ. Ḃéţţéŕ, ĵöîñ åĝåîñ ŵîţĥ å ñéŵ îñṽîţé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åď›]</value></data>
+  <data name="Diag_Err_4001_Title" xml:space="preserve"><value>[Ţĥé åďḿîñ ţöķéñ çåññöţ ḃé ŕéåď ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Diag_Err_4001_Cause" xml:space="preserve"><value>[Ţĥé Ḿåñåĝéŕ ŕéåďš å ţöķéñ ḟîĺé îñ ţĥé šéŕṽéŕ'š ďåţå ḟöĺďéŕ ţö ţåĺķ ţö ţĥé šéŕṽéŕ, åñď Ŵîñďöŵš ďîď ñöţ ĺéţ îţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕî›]</value></data>
+  <data name="Diag_Err_4001_Fix" xml:space="preserve"><value>[Ŕüñ ţĥé Šéŕṽéŕ Ḿåñåĝéŕ åš åďḿîñîšţŕåţöŕ öñ ţĥé šéŕṽéŕ ṔÇ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ å›]</value></data>
+  <data name="Diag_Err_4002_Title" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ'š åďḿîñ ṕöŕţ çåññöţ ḃé ŕéåçĥéď ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Diag_Err_4002_Cause" xml:space="preserve"><value>[Ţĥé åďḿîñ ṕöŕţ îš öṕéñ öñ ţĥîš ṔÇ öñĺý ŵĥîĺé ţĥé šéŕṽéŕ ŕüñš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿé›]</value></data>
+  <data name="Diag_Err_4002_Fix" xml:space="preserve"><value>[Šţåŕţ ţĥé šéŕṽéŕ öñ ţĥé Šéŕṽîçé ṕåĝé, ţĥéñ ţŕý åĝåîñ. Ŕüñ ţĥé Ḿåñåĝéŕ öñ ţĥé šåḿé ṔÇ åš ţĥé šéŕṽéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ å›]</value></data>
+  <data name="Diag_Err_4003_Title" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ ŕéḟüšéď ţĥé ŕéqüéšţ ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Diag_Err_4003_Cause" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ åñšŵéŕéď ŵîţĥ åñ éŕŕöŕ ḟöŕ ţĥîš åçţîöñ (ḟöŕ éẋåḿṕĺé åñ üñķñöŵñ ďéṽîçé, öŕ å ṽåĺüé ţĥåţ îš ñöţ åĺĺöŵéď). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšç›]</value></data>
+  <data name="Diag_Err_4003_Fix" xml:space="preserve"><value>[Ŕéåď ţĥé ḿéššåĝé ñéẋţ ţö ţĥé çöďé. Îḟ îţ ďöéš ñöţ ĥéĺṕ, éẋṕöŕţ ďîåĝñöšţîçš åñď ĺööķ åţ ţĥé šéŕṽéŕ ĺöĝ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åď›]</value></data>
+  <data name="Diag_Err_6002_Title" xml:space="preserve"><value>[Ţĥåţ ṕüḃĺîç ñåḿé çåññöţ ḃé üšéď ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Diag_Err_6002_Cause" xml:space="preserve"><value>[Ţĥé öṕţîöñåĺ ṕüḃĺîç ñåḿé öŕ åďďŕéšš ĥåš å šçĥéḿé (ĥţţṕš://), šṕåçéš, å ḃåď ṕöŕţ, öŕ åñ ÎṔṽ6 åďďŕéšš ŵîţĥöüţ šqüåŕé ḃŕåçķéţš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ›]</value></data>
+  <data name="Diag_Err_6002_Fix" xml:space="preserve"><value>[Ţýṕé öñĺý å ñåḿé šüçĥ åš ḿýĥöḿé.éẋåḿṕĺé.çöḿ öŕ åñ ÎṔ åďďŕéšš, öṕţîöñåĺĺý ŵîţĥ :ṕöŕţ. Ýöü çåñ ĺéåṽé îţ éḿṕţý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕî›]</value></data>
+  <data name="Diag_Err_6003_Title" xml:space="preserve"><value>[Ŵîñďöŵš ŕéḟüšéď ţö çĥåñĝé ţĥé ḟîŕéŵåĺĺ ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Diag_Err_6003_Cause" xml:space="preserve"><value>[Åďďîñĝ öŕ ŕéḿöṽîñĝ ţĥé ḟîŕéŵåĺĺ ŕüĺé "Ŕéḿöţéĺý Šéŕṽéŕ" ḟåîĺéď, üšüåĺĺý ḃéçåüšé ţĥé Ḿåñåĝéŕ ŵåš ñöţ åĺĺöŵéď ţö ŕüñ åš åďḿîñîšţŕåţöŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺî›]</value></data>
+  <data name="Diag_Err_6003_Fix" xml:space="preserve"><value>[Åççéṕţ ţĥé åďḿîñîšţŕåţöŕ ṕŕöḿṕţ (ÜÅÇ) ŵĥéñ îţ åṕṕéåŕš, öŕ åďď åñ îñḃöüñď ŢÇṔ ŕüĺé ḟöŕ ţĥé šéŕṽéŕ ṕöŕţ ýöüŕšéĺḟ îñ Ŵîñďöŵš Ďéḟéñďéŕ Ḟîŕéŵåĺĺ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ š›]</value></data>
+  <data name="Diag_Err_7001_Title" xml:space="preserve"><value>[Å šéŕṽîçé åçţîöñ ḟåîĺéď ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Diag_Err_7001_Cause" xml:space="preserve"><value>[Ţĥé åďḿîñîšţŕåţöŕ ĥéĺṕéŕ ŕåñ, ḃüţ Ŵîñďöŵš öŕ ţĥé šéŕṽéŕ ṕŕöĝŕåḿ ŕéṕöŕţéď åñ éŕŕöŕ ḟöŕ ţĥé šţéṕ (šţåŕţ, šţöṕ, îñšţåĺĺ, ŕéšţöŕé). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ é›]</value></data>
+  <data name="Diag_Err_7001_Fix" xml:space="preserve"><value>[Ŕéåď ḿåñåĝéŕ-ĥéĺṕéŕ.ĺöĝ îñ ţĥé šéŕṽéŕ'š ďåţå ḟöĺďéŕ (Ç:\ṔŕöĝŕåḿĎåţå\Ŕéḿöţéĺý Šéŕṽéŕ). Çĥéçķ ţĥåţ ñö öţĥéŕ ṕŕöĝŕåḿ ĥöĺďš ţĥé šéŕṽéŕ'š ḟîĺéš, ţĥéñ ţŕý åĝåîñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö›]</value></data>
+  <data name="Diag_Err_7002_Title" xml:space="preserve"><value>[Ţĥé ĥéĺṕéŕ ŵåš šţåŕţéď ŵŕöñĝĺý ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Diag_Err_7002_Cause" xml:space="preserve"><value>[Ţĥé éĺéṽåţéď ĥéĺṕéŕ ĝöţ å çöḿḿåñď îţ ďöéš ñöţ ķñöŵ öŕ å ḿîššîñĝ åŕĝüḿéñţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñ›]</value></data>
+  <data name="Diag_Err_7002_Fix" xml:space="preserve"><value>[Ţĥîš îš å ḃüĝ îñ ţĥé Ḿåñåĝéŕ. Éẋṕöŕţ ďîåĝñöšţîçš åñď ŕéṕöŕţ îţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
+  <data name="Diag_Err_7003_Title" xml:space="preserve"><value>[Ŕéḿöţéĺý.Šéŕṽéŕ.éẋé ŵåš ñöţ ḟöüñď ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Diag_Err_7003_Cause" xml:space="preserve"><value>[Ţĥé ĥéĺṕéŕ ĺööķš ḟöŕ ţĥé šéŕṽéŕ ṕŕöĝŕåḿ îñ ḟîẋéď ṕĺåçéš åñď ḟöüñď ñöñé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çö›]</value></data>
+  <data name="Diag_Err_7003_Fix" xml:space="preserve"><value>[Îñšţåĺĺ ţĥé šéŕṽéŕ ŵîţĥ ţĥé Ŕéḿöţéĺý Šéŕṽéŕ îñšţåĺĺéŕ, öŕ ķééṕ Ŕéḿöţéĺý.Šéŕṽéŕ.éẋé ñéẋţ ţö ţĥé Ḿåñåĝéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďî›]</value></data>
+  <data name="Diag_Err_7004_Title" xml:space="preserve"><value>[Åďḿîñîšţŕåţöŕ ŕîĝĥţš åŕé ñééďéď ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Diag_Err_7004_Cause" xml:space="preserve"><value>[Ţĥé åçţîöñ çĥåñĝéš šéŕṽîçéš öŕ ţĥé ḟîŕéŵåĺĺ åñď ĥåš ţö ŕüñ åš åďḿîñîšţŕåţöŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñš›]</value></data>
+  <data name="Diag_Err_7004_Fix" xml:space="preserve"><value>[Çĥööšé ţĥé åçţîöñ åĝåîñ åñď åççéṕţ ţĥé åďḿîñîšţŕåţöŕ ṕŕöḿṕţ (ÜÅÇ). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
+  <data name="Diag_Err_7005_Title" xml:space="preserve"><value>[Ţĥé åďḿîñîšţŕåţöŕ ṕŕöḿṕţ ŵåš ďéçĺîñéď ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Diag_Err_7005_Cause" xml:space="preserve"><value>[Ŵîñďöŵš ŕéṕöŕţéď ţĥåţ ţĥé üšéŕ çåñçéĺĺéď ţĥé åďḿîñîšţŕåţöŕ (ÜÅÇ) ṕŕöḿṕţ, šö ñöţĥîñĝ ŵåš çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ›]</value></data>
+  <data name="Diag_Err_7005_Fix" xml:space="preserve"><value>[Ţŕý åĝåîñ åñď çĥööšé Ýéš îñ ţĥé ṕŕöḿṕţ. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Diag_Err_9001_Title" xml:space="preserve"><value>[Šöḿéţĥîñĝ üñéẋṕéçţéď ŵéñţ ŵŕöñĝ ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Diag_Err_9001_Cause" xml:space="preserve"><value>[Ţĥé ṕŕöĝŕåḿ ĥîţ å ṕŕöḃĺéḿ ţĥåţ ĥåš ñö çöďé öḟ îţš öŵñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Diag_Err_9001_Fix" xml:space="preserve"><value>[Ţŕý åĝåîñ. Îḟ îţ ŕéṕéåţš, öṕéñ Ĥéĺṕ, Ďîåĝñöšţîçš, éẋṕöŕţ ďîåĝñöšţîçš åñď ŕéṕöŕţ îţ ŵîţĥ ţĥé ďéţåîĺš šĥöŵñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕ›]</value></data>
+  <data name="Diag_Help_Nav" xml:space="preserve"><value>[Ďîåĝñöšţîçš ‹ĺöŕéḿ î›]</value></data>
+  <data name="Diag_Help_Title" xml:space="preserve"><value>[Ďîåĝñöšţîçš ‹ĺöŕéḿ î›]</value></data>
+  <data name="Diag_Help_Intro" xml:space="preserve"><value>[Ŵĥéñ šöḿéţĥîñĝ ďöéš ñöţ ŵöŕķ, ţĥîš ṕåĝé ĥéĺṕš ýöü ḟîñď öüţ ŵĥý. Ñöţĥîñĝ ĥéŕé îš šéñţ åñýŵĥéŕé: ţĥé ḟîĺéš šţåý öñ ţĥîš ṔÇ üñţîĺ ýöü šĥåŕé ţĥéḿ ýöüŕšéĺḟ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö›]</value></data>
+  <data name="Diag_LogLevel" xml:space="preserve"><value>[Ďéţåîĺ îñ ţĥé ĺöĝ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Diag_Level_Debug" xml:space="preserve"><value>[Éṽéŕýţĥîñĝ (ďéḃüĝ) ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Diag_Level_Info" xml:space="preserve"><value>[Ñöŕḿåĺ ‹ĺöŕéḿ›]</value></data>
+  <data name="Diag_Level_Warning" xml:space="preserve"><value>[Öñĺý ŵåŕñîñĝš åñď éŕŕöŕš ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Diag_Level_Error" xml:space="preserve"><value>[Öñĺý éŕŕöŕš ‹ĺöŕéḿ î›]</value></data>
+  <data name="Diag_CrashDumps" xml:space="preserve"><value>[Šåṽé å çŕåšĥ ďüḿṕ ŵĥéñ ţĥé ṕŕöĝŕåḿ çŕåšĥéš ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Diag_CrashDumps_Note" xml:space="preserve"><value>[Öḟḟ ḃý ďéḟåüĺţ. Å ďüḿṕ ĥöĺďš ţĥé ṕŕöĝŕåḿ'š ḿéḿöŕý, ŵĥîçĥ çåñ îñçĺüďé ķéýš åñď ţöķéñš. Îţ šţåýš öñ ţĥîš ṔÇ, öñĺý ţĥé ñéŵéšţ 3 åŕé ķéṕţ, åñď ţĥé éẋṕöŕţ ñéṽéŕ çöñţåîñš îţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿö›]</value></data>
+  <data name="Diag_Export" xml:space="preserve"><value>[Éẋṕöŕţ ďîåĝñöšţîçš ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Diag_Export_Note" xml:space="preserve"><value>[Ḿåķéš å žîṕ ŵîţĥ ṽéŕšîöñš, šýšţéḿ, ñéţŵöŕķ åďåṕţéŕš, ḟîŕéŵåĺĺ ŕüĺéš, šéŕṽîçé šţåţé, šåḟé šéţţîñĝš, ţĥé ĺåšţ ĺöĝ ĺîñéš åñď ţĥé ĺåšţ çŕåšĥ. Ţöķéñš, îñṽîţéš, ṕåîŕîñĝ çöďéš, ķéýš åñď çŕåšĥ ďüḿṕš åŕé ĺéḟţ öüţ. ÎṔ åďďŕéššéš åñď ṔÇ ñåḿéš åŕé ñöţ ŕéḿöṽéď, šö ŕéåď îţ ḃéḟöŕé ýöü šĥåŕé îţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé éţ ďöĺöŕé ḿåĝñ›]</value></data>
+  <data name="Diag_Export_Done" xml:space="preserve"><value>[Šåṽéď: {0} ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Diag_Export_Failed" xml:space="preserve"><value>[Ţĥé éẋṕöŕţ çöüĺď ñöţ ḃé šåṽéď: {0} ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Diag_OpenLogs" xml:space="preserve"><value>[Öṕéñ ţĥé ĺöĝ ḟöĺďéŕ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Diag_NetworkTest" xml:space="preserve"><value>[Ñéţŵöŕķ ţéšţ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Diag_Codes_Title" xml:space="preserve"><value>[Éŕŕöŕ çöďéš ‹ĺöŕéḿ î›]</value></data>
+  <data name="Diag_Codes_Intro" xml:space="preserve"><value>[Åñ éŕŕöŕ ŵîţĥ å çöďé ĺîķé ŔḾŢ-1006 ĥåš å ṕåĝé ţĥåţ šåýš ŵĥåţ îţ ḿéåñš åñď ŵĥåţ ţö ďö. Ţĥé ṕåĝéš åŕé îñ ţĥé ďöçš/éŕŕöŕš ḟöĺďéŕ öḟ ţĥé ṕŕöĵéçţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šé›]</value></data>
+  <data name="Diag_Net_Title" xml:space="preserve"><value>[Ñéţŵöŕķ ţéšţ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Diag_Net_Intro" xml:space="preserve"><value>[Çĥéçķš ţĥîš ṔÇ'š ñéţŵöŕķ, ĺööķš ḟöŕ ṔÇš ţĥåţ åŕé šĥåŕîñĝ, åñď ḿéåšüŕéš ĥöŵ ĺöñĝ å çöññéçţîöñ ţö ýöüŕ šéŕṽéŕ ţåķéš. Îţ šéñďš ñöţĥîñĝ ḃüţ çöññéçţîöñ åţţéḿṕţš åñď å šéåŕçĥ öñ ţĥé ĺöçåĺ ñéţŵöŕķ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ›]</value></data>
+  <data name="Diag_Net_Run" xml:space="preserve"><value>[Ŕüñ ţĥé ţéšţ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Diag_Net_Cancel" xml:space="preserve"><value>[Çåñçéĺ ‹ĺöŕéḿ›]</value></data>
+  <data name="Diag_Net_Back" xml:space="preserve"><value>[Ḃåçķ ‹ĺöŕé›]</value></data>
+  <data name="Diag_Net_Peer" xml:space="preserve"><value>[Åďďŕéšš öḟ ţĥé öţĥéŕ ṔÇ (öṕţîöñåĺ) ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Diag_Net_Label" xml:space="preserve"><value>[Ţöķéñ öḟ ţĥé öţĥéŕ ṔÇ (öṕţîöñåĺ) ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Diag_Net_Passed" xml:space="preserve"><value>[Ñö ṕŕöḃĺéḿ ḟöüñď ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Diag_Net_Failed" xml:space="preserve"><value>[Å ṕŕöḃĺéḿ ŵåš ḟöüñď ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Diag_Net_Cancelled" xml:space="preserve"><value>[Ţĥé ţéšţ ŵåš çåñçéĺĺéď. ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Diag_Net_TimedOut" xml:space="preserve"><value>[Ţĥé ţéšţ ţööķ ţöö ĺöñĝ åñď ŵåš šţöṕṕéď. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Diag_Net_Check_adapter" xml:space="preserve"><value>[Ñéţŵöŕķ çöññéçţîöñ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Diag_Net_Check_subnet" xml:space="preserve"><value>[Šåḿé ñéţŵöŕķ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Diag_Net_Check_discovery" xml:space="preserve"><value>[Åñšŵéŕ ţö ţĥé šéåŕçĥ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Diag_Net_Check_port" xml:space="preserve"><value>[Çöññéçţîöñ ṕöŕţ ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Diag_Net_Check_server" xml:space="preserve"><value>[Šéŕṽéŕ ‹ĺöŕéḿ›]</value></data>
+  <data name="Diag_Net_Latency" xml:space="preserve"><value>[Åṽéŕåĝé çöññéçţîöñ ţîḿé: {0} ḿš ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
 </root>

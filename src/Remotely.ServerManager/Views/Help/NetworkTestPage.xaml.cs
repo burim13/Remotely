@@ -63,7 +63,7 @@ public sealed partial class NetworkTestPage : Page
             }
             catch (Exception ex) when (ex is ServerAdminException or ServerUnavailableException)
             {
-                DiagnosticsHub.Log.Warning("networktest", "The server's status could not be read: " + ErrorCatalogue.Describe(ex).Code);
+                DiagnosticsHub.Log.Warning("networktest", "status-unreadable " + ErrorCatalogue.Describe(ex).Code);
             }
             var label = new string((_label.Text ?? "").Where(char.IsLetterOrDigit).ToArray());
             var report = await new NetworkTest(new SystemDiagnosisEnvironment()).RunAsync(
