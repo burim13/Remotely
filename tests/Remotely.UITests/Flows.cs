@@ -140,9 +140,7 @@ internal sealed class Flows(string exe, string outDir, string maskedDir, Strings
                 Thread.Sleep(250);
                 var nodes = Tree();
                 var image = Capture.Window(_hwnd);
-                var frame = Capture.FrameOf(_hwnd);
-                var masks = nodes.Where(n => n.Name.Length > 0 && !n.Rect.IsEmpty && (TokenPattern.IsMatch(n.Name) || Regex.IsMatch(n.Name, @"\b\d{1,3}(\.\d{1,3}){3}\b|\b[0-9a-fA-F]{24,}\b|\d{1,2}:\d{2}|\d+ ?s\b|Changes in")))
-                    .Select(n => Rectangle.Inflate(new Rectangle(n.Rect.X - frame.X, n.Rect.Y - frame.Y, n.Rect.Width, n.Rect.Height), 2, 2)).ToList();
+                var masks = Masking.For(nodes, Capture.FrameOf(_hwnd), image.Width, image.Height);
                 var file = $"flow-{Slug(name)}-{++_shot:00}-{Slug(label)}.png";
                 Capture.Save(image.DownscaleToWidth(Capture.MaxWidth), Path.Combine(owner.OutDir, file));
                 Capture.Save(Capture.Mask(image, masks).DownscaleToWidth(Capture.MaxWidth), Path.Combine(owner.MaskedDir, file));

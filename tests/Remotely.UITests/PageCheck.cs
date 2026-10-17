@@ -15,11 +15,6 @@ internal sealed class PageCheck(AppKind kind, string exe, string outDir, string 
 {
     private static readonly string[] CaptionNames = ["Minimize", "Maximize", "Restore", "Close", "System", "Remotely", "Remotely Server Manager"];
 
-    /// <summary>Text that differs from run to run (addresses, ids, tokens, dates, the machine name) and is painted over in the copy compared with baselines.</summary>
-    private static readonly Regex Dynamic = new(
-        @"\b\d{1,3}(\.\d{1,3}){3}\b|\b[0-9a-fA-F]{24,}\b|\b[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}\b|\b\d{1,2}[/.]\d{1,2}[/.]\d{2,4}\b|\b\d{1,2}:\d{2}(:\d{2})?\b|" + "Version \\d|Remotely \\d+\\.\\d+",
-        RegexOptions.Compiled);
-
     public List<Outcome> Run(IEnumerable<string> pages)
     {
         var results = new List<Outcome>();
@@ -102,12 +97,10 @@ internal sealed class PageCheck(AppKind kind, string exe, string outDir, string 
             var image = Capture.Window(hwnd);
             var (rendered, colours) = Capture.LooksRendered(image);
             if (!rendered) problems.Add($"the screenshot looks blank ({colours} distinct colours)");
-            var frame = Capture.FrameOf(hwnd);
-            var masks = nodes.Where(n => n.Name.Length > 0 && Dynamic.IsMatch(n.Name) && !n.Rect.IsEmpty)
-                .Select(n => Rectangle.Inflate(new Rectangle(n.Rect.X - frame.X, n.Rect.Y - frame.Y, n.Rect.Width, n.Rect.Height), 2, 2)).ToList();
+            var masks = Masking.For(nodes, Capture.FrameOf(hwnd), image.Width, image.Height);
             Capture.Save(image.DownscaleToWidth(Capture.MaxWidth), Path.Combine(folder, page + ".png"));
             Capture.Save(Capture.Mask(image, masks).DownscaleToWidth(Capture.MaxWidth), Path.Combine(maskedDir, page + ".png"));
-            shot = $"{image.Width}x{image.Height}px, {masks.Count} dynamic text region(s) masked in the baseline copy";
+            shot = $"{image.Width}x{image.Height}px, {masks.Count - 4} dynamic region(s) masked in the baseline copy";
         }
         var named = nodes.Count(n => n.Name.Length > 0);
         var detail = $"window dpi {dpi} ({dpi * 100 / 96}%), {nodes.Count} UIA elements ({named} named), {contentNote}; {shot}";
