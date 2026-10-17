@@ -11,3 +11,4 @@ OnboardingDonePage
 SessionPreviewPage
 ConnectPage
 DiagnosisPage
+SharePage

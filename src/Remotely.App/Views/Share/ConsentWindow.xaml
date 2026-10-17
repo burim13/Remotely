@@ -1,0 +1,23 @@
+<Window x:Class="Remotely.App.Views.Share.ConsentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Remotely">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="24" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="TitleText" FontSize="22" FontWeight="SemiBold" TextWrapping="Wrap" />
+        <TextBlock x:Name="BodyText" Grid.Row="1" TextWrapping="Wrap" />
+        <TextBlock x:Name="NoteText" Grid.Row="2" Opacity="0.7" TextWrapping="Wrap" />
+        <TextBlock x:Name="CountdownText" Grid.Row="3" Opacity="0.7" VerticalAlignment="Bottom" TextWrapping="Wrap" />
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+            <Button x:Name="OnceButton" Click="OnOnce" />
+            <Button x:Name="AlwaysButton" Click="OnAlways" />
+            <Button x:Name="DenyButton" Style="{StaticResource AccentButtonStyle}" Click="OnDeny" />
+        </StackPanel>
+    </Grid>
+</Window>

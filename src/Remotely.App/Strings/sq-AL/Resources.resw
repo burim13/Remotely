@@ -191,4 +191,86 @@
   <data name="Diag_Step_Subnet" xml:space="preserve"><value>I njëjti rrjet</value></data>
   <data name="Diag_Step_Discovery" xml:space="preserve"><value>Përgjigjja nga kompjuteri tjetër</value></data>
   <data name="Diag_Step_Port" xml:space="preserve"><value>Porta e lidhjes</value></data>
+  <!-- A3: Share this PC (host experience). Albanian below is machine-written and must be read by a fluent speaker before release. -->
+  <data name="Share_Title" xml:space="preserve"><value>Ndaje këtë kompjuter</value></data>
+  <data name="Share_Intro" xml:space="preserve"><value>Aktivizoje, pastaj shkruaj kodin (tokenin) në kompjuterin nga i cili dëshiron të kontrollosh.</value></data>
+  <data name="Share_Switch_On" xml:space="preserve"><value>Duke ndarë</value></data>
+  <data name="Share_Switch_Off" xml:space="preserve"><value>Pa ndarë</value></data>
+  <data name="Share_Token_Label" xml:space="preserve"><value>Kodi (token)</value></data>
+  <data name="Share_Copy" xml:space="preserve"><value>Kopjo</value></data>
+  <data name="Share_Copied" xml:space="preserve"><value>U kopjua</value></data>
+  <data name="Share_NewToken" xml:space="preserve"><value>Kod i ri</value></data>
+  <data name="Share_ExpiresIn" xml:space="preserve"><value>Vlen një herë. Ndryshon pas {0}.</value></data>
+  <data name="Share_Refreshing" xml:space="preserve"><value>Po merret një kod i ri…</value></data>
+  <data name="Share_NoNetwork" xml:space="preserve"><value>Ky kompjuter nuk është i lidhur me rrjet.</value></data>
+  <data name="Share_Addresses" xml:space="preserve"><value>Adresat e këtij kompjuteri në rrjet</value></data>
+  <data name="Share_Qr_Header" xml:space="preserve"><value>Shfaq kodin QR për telefon</value></data>
+  <data name="Share_Qr_Help" xml:space="preserve"><value>Skanoje me kamerën e telefonit për ta marrë kodin si tekst, pastaj shkruaje në kompjuterin tjetër.</value></data>
+  <data name="Share_Qr_Name" xml:space="preserve"><value>Kod QR për kodin {0}</value></data>
+  <data name="Share_Ask_Label" xml:space="preserve"><value>Më pyet para se dikush të lidhet</value></data>
+  <data name="Share_Ask_Help" xml:space="preserve"><value>Një kompjuter që nuk është në listën e kompjuterëve të kujtuar duhet miratuar këtu më parë.</value></data>
+  <data name="Share_Ask_OffWarning" xml:space="preserve"><value>Pa pyetje, kushdo në këtë rrjet që e mëson kodin mund të lidhet pa miratimin tënd.</value></data>
+  <data name="Share_Remembered_Label" xml:space="preserve"><value>Lejo kompjuterët e kujtuar të lidhen përsëri pa kod</value></data>
+  <data name="Share_Error_Listen" xml:space="preserve"><value>Remotely nuk mundi të fillojë dëgjimin në këtë rrjet: {0}</value></data>
+  <data name="Switch_On" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Switch_Off" xml:space="preserve"><value>Joaktiv</value></data>
+  <data name="Share_State_Off" xml:space="preserve"><value>Nuk po ndahet. Askush nuk mund të lidhet me këtë kompjuter.</value></data>
+  <data name="Share_State_Ready" xml:space="preserve"><value>Gati. Një kompjuter tjetër në këtë rrjet mund të lidhet me kodin më poshtë.</value></data>
+  <data name="Share_State_Connecting" xml:space="preserve"><value>Një kompjuter po lidhet…</value></data>
+  <data name="Share_State_AwaitingConsent" xml:space="preserve"><value>Pret përgjigjen tënde: {0} dëshiron të lidhet.</value></data>
+  <data name="Share_State_InSession" xml:space="preserve"><value>{0} është i lidhur dhe mund ta shohë e ta kontrollojë këtë kompjuter.</value></data>
+  <data name="Share_State_InSessionPaused" xml:space="preserve"><value>{0} është i lidhur dhe mund vetëm të shohë. Kontrolli është pezulluar.</value></data>
+  <data name="Share_State_Error" xml:space="preserve"><value>Ndarja nuk funksionon: {0}</value></data>
+  <data name="Banner_Title" xml:space="preserve"><value>Ekrani yt po ndahet</value></data>
+  <data name="Banner_Stop" xml:space="preserve"><value>Ndale ndarjen</value></data>
+  <data name="Banner_Who" xml:space="preserve"><value>{0} ({1}) është i lidhur</value></data>
+  <data name="Banner_Since" xml:space="preserve"><value>I lidhur nga {0} ({1})</value></data>
+  <data name="Banner_Pause" xml:space="preserve"><value>Pezullo kontrollin</value></data>
+  <data name="Banner_Resume" xml:space="preserve"><value>Vazhdo kontrollin</value></data>
+  <data name="Banner_PausedNote" xml:space="preserve"><value>Kontrolli është pezulluar: ai mund vetëm të shohë.</value></data>
+  <data name="Banner_ViewerNotice" xml:space="preserve"><value>Personi te kompjuteri tjetër e pezulloi kontrollin. Tani mund vetëm të shikoni.</value></data>
+  <data name="Consent_Title" xml:space="preserve"><value>Të lejohet ky kompjuter të lidhet?</value></data>
+  <data name="Consent_Body" xml:space="preserve"><value>{0} ({1}) e di kodin tënd dhe dëshiron ta shohë e ta kontrollojë këtë kompjuter.</value></data>
+  <data name="Consent_AlwaysHelp" xml:space="preserve"><value>"Lejo gjithmonë" e ruan çelësin e këtij kompjuteri që të lidhet përsëri pa kod. Mund ta heqësh nga lista në çdo kohë.</value></data>
+  <data name="Consent_NoRemember" xml:space="preserve"><value>Ky kompjuter përdor një version më të vjetër të aplikacionit, prandaj nuk mund të kujtohet.</value></data>
+  <data name="Consent_Once" xml:space="preserve"><value>Lejo një herë</value></data>
+  <data name="Consent_Always" xml:space="preserve"><value>Lejo gjithmonë këtë kompjuter</value></data>
+  <data name="Consent_Deny" xml:space="preserve"><value>Refuzo</value></data>
+  <data name="Consent_Countdown" xml:space="preserve"><value>Pa përgjigje brenda {0} s, lidhja refuzohet.</value></data>
+  <data name="Toast_Question_Title" xml:space="preserve"><value>{0} dëshiron të lidhet</value></data>
+  <data name="Toast_Question_Body" xml:space="preserve"><value>Lejoje ose refuzoje në dritaren e Remotely. Adresa: {1}.</value></data>
+  <data name="Toast_Connected_Title" xml:space="preserve"><value>{0} u lidh</value></data>
+  <data name="Toast_Connected_Body" xml:space="preserve"><value>Mund ta shohë e ta kontrollojë këtë kompjuter. Hap Remotely për të ndaluar ndarjen.</value></data>
+  <data name="Toast_Left_Title" xml:space="preserve"><value>{0} u shkëput</value></data>
+  <data name="Toast_Left_Body" xml:space="preserve"><value>Ndarja vazhdon me një kod të ri.</value></data>
+  <data name="Toast_Stopped_Body" xml:space="preserve"><value>Seanca përfundoi.</value></data>
+  <data name="Toast_Refused_Title" xml:space="preserve"><value>Lidhja u bllokua</value></data>
+  <data name="Toast_Refused_Body" xml:space="preserve"><value>{0} ({1}) nuk u la të hynte.</value></data>
+  <data name="Remembered_Title" xml:space="preserve"><value>Kompjuterët e kujtuar</value></data>
+  <data name="Remembered_Help" xml:space="preserve"><value>Këta kompjuterë mund të lidhen pa kod sa kohë ndarja është aktive. Hiqe një për ta ndaluar.</value></data>
+  <data name="Remembered_Empty" xml:space="preserve"><value>Ende nuk ka kompjuterë të kujtuar. Zgjidh "Lejo gjithmonë këtë kompjuter" kur një kompjuter lidhet.</value></data>
+  <data name="Remembered_RemoveAll" xml:space="preserve"><value>Hiqi të gjithë</value></data>
+  <data name="Remembered_Remove" xml:space="preserve"><value>Hiqe</value></data>
+  <data name="Remembered_RemoveName" xml:space="preserve"><value>Hiq {0}</value></data>
+  <data name="Remembered_LastSeen" xml:space="preserve"><value>Lidhja e fundit {0}</value></data>
+  <data name="Remembered_NeverSeen" xml:space="preserve"><value>Ende pa u lidhur</value></data>
+  <data name="History_Title" xml:space="preserve"><value>Historiku i seancave</value></data>
+  <data name="History_Empty" xml:space="preserve"><value>Askush nuk është lidhur ende.</value></data>
+  <data name="History_Clear" xml:space="preserve"><value>Pastro historikun</value></data>
+  <data name="History_Who" xml:space="preserve"><value>{0} ({1})</value></data>
+  <data name="History_Outcome_AllowedRemembered" xml:space="preserve"><value>lejuar si kompjuter i kujtuar</value></data>
+  <data name="History_Outcome_AllowedWithoutAsking" xml:space="preserve"><value>lejuar pa pyetur</value></data>
+  <data name="History_Outcome_AllowedOnce" xml:space="preserve"><value>lejuar një herë</value></data>
+  <data name="History_Outcome_AllowedAlways" xml:space="preserve"><value>lejuar gjithmonë</value></data>
+  <data name="History_Outcome_Denied" xml:space="preserve"><value>refuzuar</value></data>
+  <data name="History_Outcome_TimedOut" xml:space="preserve"><value>pa përgjigje (refuzuar)</value></data>
+  <data name="History_Via_Token" xml:space="preserve"><value>me kod</value></data>
+  <data name="History_Via_Remembered" xml:space="preserve"><value>pa kod</value></data>
+  <data name="History_Reason_StoppedByHost" xml:space="preserve"><value>e ndale ti</value></data>
+  <data name="History_Reason_SharingStopped" xml:space="preserve"><value>ndarja u çaktivizua</value></data>
+  <data name="History_Reason_ControllerLeft" xml:space="preserve"><value>kompjuteri tjetër u largua</value></data>
+  <data name="History_Reason_AppClosed" xml:space="preserve"><value>aplikacioni u mbyll</value></data>
+  <data name="Duration_HoursMinutes" xml:space="preserve"><value>{0} h {1} min</value></data>
+  <data name="Duration_Minutes" xml:space="preserve"><value>{0} min</value></data>
+  <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
 </root>

@@ -1,0 +1,58 @@
+<UserControl x:Class="Remotely.App.Views.Share.ShareCard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Padding="24" CornerRadius="8" BorderThickness="1"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+        <StackPanel Spacing="14">
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="TitleText" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
+                <ToggleSwitch x:Name="ShareSwitch" Grid.Column="1" Toggled="OnShareToggled" AutomationProperties.AutomationId="ShareSwitch" />
+            </Grid>
+            <TextBlock x:Name="IntroText" TextWrapping="Wrap" Opacity="0.7" />
+            <TextBlock x:Name="StateText" TextWrapping="Wrap" FontWeight="SemiBold" AutomationProperties.LiveSetting="Polite" />
+
+            <StackPanel x:Name="TokenPanel" Spacing="10" Visibility="Collapsed">
+                <TextBlock x:Name="TokenLabel" Opacity="0.7" />
+                <Grid ColumnSpacing="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="TokenText" FontFamily="Cascadia Mono, Consolas" FontSize="38" FontWeight="SemiBold"
+                               IsTextSelectionEnabled="True" VerticalAlignment="Center" TextWrapping="NoWrap" />
+                    <Grid Grid.Column="1" Width="44" Height="44" VerticalAlignment="Center">
+                        <ProgressRing x:Name="ExpiryRing" IsIndeterminate="False" Minimum="0" Maximum="100" Value="100" Width="44" Height="44" />
+                    </Grid>
+                </Grid>
+                <TextBlock x:Name="TokenInfo" Opacity="0.7" TextWrapping="Wrap" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="CopyButton" Click="OnCopyToken" />
+                    <Button x:Name="NewTokenButton" Click="OnNewToken" />
+                </StackPanel>
+
+                <Expander x:Name="QrExpander" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Expanding="OnQrExpanding">
+                    <StackPanel Spacing="8">
+                        <TextBlock x:Name="QrHelp" TextWrapping="Wrap" Opacity="0.7" />
+                        <Border Background="White" Padding="8" CornerRadius="4" HorizontalAlignment="Left">
+                            <Canvas x:Name="QrCanvas" AutomationProperties.AccessibilityView="Raw" />
+                        </Border>
+                    </StackPanel>
+                </Expander>
+
+                <TextBlock x:Name="AddressLabel" Opacity="0.7" />
+                <TextBlock x:Name="AddressText" IsTextSelectionEnabled="True" TextWrapping="Wrap" FontFamily="Cascadia Mono, Consolas" />
+            </StackPanel>
+
+            <InfoBar x:Name="NoticeBar" IsOpen="False" IsClosable="True" />
+
+            <ToggleSwitch x:Name="AskSwitch" Toggled="OnAskToggled" />
+            <TextBlock x:Name="AskHelp" TextWrapping="Wrap" Opacity="0.7" Margin="0,-8,0,0" />
+            <ToggleSwitch x:Name="RememberedSwitch" Toggled="OnRememberedToggled" />
+        </StackPanel>
+    </Border>
+</UserControl>
