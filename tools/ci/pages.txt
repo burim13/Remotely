@@ -8,3 +8,4 @@ OnboardingNamePage
 OnboardingSharePage
 OnboardingServerPage
 OnboardingDonePage
+SessionPreviewPage

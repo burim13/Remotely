@@ -1,0 +1,59 @@
+<UserControl x:Class="Remotely.App.SessionToolbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border x:Name="Bar" CornerRadius="8" Padding="4,2" BorderThickness="1"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            PointerEntered="OnBarPointerEntered" PointerExited="OnBarPointerExited">
+        <Grid ColumnSpacing="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="HostLabel" VerticalAlignment="Center" Margin="10,0,6,0" FontWeight="SemiBold"
+                       MaxWidth="220" TextTrimming="CharacterEllipsis" />
+            <CommandBar x:Name="Commands" Grid.Column="1" DefaultLabelPosition="Collapsed" Background="Transparent"
+                        IsOpen="False" HorizontalAlignment="Left">
+                <AppBarButton x:Name="MonitorButton">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE7F4;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="MonitorMenu" />
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:Name="ScaleButton" Icon="Zoom">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="ScaleMenu">
+                            <RadioMenuFlyoutItem x:Name="FitItem" GroupName="SessionScale" Click="OnScaleItem" />
+                            <RadioMenuFlyoutItem x:Name="ActualItem" GroupName="SessionScale" Click="OnScaleItem" />
+                            <RadioMenuFlyoutItem x:Name="FillItem" GroupName="SessionScale" Click="OnScaleItem" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarToggleButton x:Name="FullScreenButton" Icon="FullScreen" Click="OnFullScreen" />
+                <AppBarToggleButton x:Name="StatsButton" Click="OnStats">
+                    <AppBarToggleButton.Icon>
+                        <FontIcon Glyph="&#xE946;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" />
+                    </AppBarToggleButton.Icon>
+                </AppBarToggleButton>
+                <AppBarSeparator />
+                <AppBarToggleButton x:Name="KeyboardButton" Icon="Keyboard" Click="OnKeyboard" />
+                <AppBarToggleButton x:Name="ViewOnlyButton" Icon="View" Click="OnViewOnly" />
+                <AppBarButton x:Name="SasButton" Icon="Permissions" Click="OnSas" />
+                <AppBarToggleButton x:Name="ClipboardButton" Icon="Paste" Click="OnClipboard" />
+                <AppBarButton x:Name="FilesButton" Icon="Folder">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="FilesMenu">
+                            <MenuFlyoutItem x:Name="SendFileItem" Click="OnSendFile" />
+                            <MenuFlyoutItem x:Name="GetFileItem" Click="OnGetFile" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarSeparator />
+                <AppBarToggleButton x:Name="PinButton" Icon="Pin" Click="OnPin" />
+                <AppBarButton x:Name="EndButton" Icon="Cancel" Click="OnEnd" />
+            </CommandBar>
+        </Grid>
+    </Border>
+</UserControl>

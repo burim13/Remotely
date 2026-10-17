@@ -99,4 +99,58 @@
   <data name="Onboarding_Done_NoServer" xml:space="preserve"><value>Ende pa server.</value></data>
   <data name="Onboarding_Done_StartWithWindows" xml:space="preserve"><value>Nise Remotely kur hyj në Windows</value></data>
   <data name="Onboarding_Done_CloseToTray" xml:space="preserve"><value>Mbaje Remotely të hapur në tabelën e njoftimeve kur e mbyll dritaren</value></data>
+  <!-- Remote session window (agent A5). Albanian strings below were machine-written by an AI assistant and have not been checked by a native speaker. -->
+  <data name="Session_WindowTitle" xml:space="preserve"><value>Remotely – {0}</value></data>
+  <data name="Session_Monitor" xml:space="preserve"><value>Monitori</value></data>
+  <data name="Session_AllMonitors" xml:space="preserve"><value>Të gjithë monitorët</value></data>
+  <data name="Session_MonitorN" xml:space="preserve"><value>Monitori {0}</value></data>
+  <data name="Session_Scale" xml:space="preserve"><value>Shkallëzimi</value></data>
+  <data name="Session_ScaleFit" xml:space="preserve"><value>Përshtate në dritare</value></data>
+  <data name="Session_ScaleActual" xml:space="preserve"><value>Madhësia reale (100%)</value></data>
+  <data name="Session_ScaleFill" xml:space="preserve"><value>Mbushe dritaren</value></data>
+  <data name="Session_FullScreen" xml:space="preserve"><value>Ekran i plotë</value></data>
+  <data name="Session_Stats" xml:space="preserve"><value>Statistikat e seancës</value></data>
+  <data name="Session_KeyboardCapture" xml:space="preserve"><value>Dërgo tastierën te kompjuteri tjetër</value></data>
+  <data name="Session_ViewOnly" xml:space="preserve"><value>Vetëm shikim</value></data>
+  <data name="Session_Sas" xml:space="preserve"><value>Dërgo Ctrl+Alt+Del</value></data>
+  <data name="Session_Clipboard" xml:space="preserve"><value>Ndaj kujtesën e kopjimit</value></data>
+  <data name="Session_Files" xml:space="preserve"><value>Skedarët</value></data>
+  <data name="Session_SendFile" xml:space="preserve"><value>Dërgo një skedar…</value></data>
+  <data name="Session_GetFile" xml:space="preserve"><value>Merr një skedar…</value></data>
+  <data name="Session_PinToolbar" xml:space="preserve"><value>Mbaje shiritin e veglave të dukshëm</value></data>
+  <data name="Session_End" xml:space="preserve"><value>Mbyll seancën</value></data>
+  <data name="Session_Badge_Remote" xml:space="preserve"><value>Tastiera: kompjuteri tjetër</value></data>
+  <data name="Session_Badge_Local" xml:space="preserve"><value>Tastiera: ky kompjuter</value></data>
+  <data name="Session_Badge_ViewOnly" xml:space="preserve"><value>Vetëm shikim</value></data>
+  <data name="Session_ConnectedControl" xml:space="preserve"><value>U lidh. Tastiera dhe miu juaj kontrollojnë kompjuterin tjetër kur kjo dritare ka fokusin.</value></data>
+  <data name="Session_ConnectedViewOnly" xml:space="preserve"><value>U lidh vetëm për shikim.</value></data>
+  <data name="Session_Stats_Fps" xml:space="preserve"><value>Kuadro: {0} në sekondë</value></data>
+  <data name="Session_Stats_Bandwidth" xml:space="preserve"><value>Gjerësia e brezit: {0}</value></data>
+  <data name="Session_Stats_Latency" xml:space="preserve"><value>Vonesa: {0}</value></data>
+  <data name="Session_Stats_NotMeasured" xml:space="preserve"><value>nuk matet</value></data>
+  <data name="Session_Stats_Codec" xml:space="preserve"><value>Kodeku: {0}</value></data>
+  <data name="Session_Stats_Resolution" xml:space="preserve"><value>Ekrani i largët: {0} × {1}</value></data>
+  <data name="Session_ZoomNotice" xml:space="preserve"><value>Zmadhimi {0}%</value></data>
+  <data name="Session_SasSent" xml:space="preserve"><value>U dërgua Ctrl+Alt+Del.</value></data>
+  <data name="Session_OtherPcError" xml:space="preserve"><value>Kompjuteri tjetër: {0}</value></data>
+  <data name="Session_Disconnected" xml:space="preserve"><value>U shkëput</value></data>
+  <data name="Session_ConnectionLost" xml:space="preserve"><value>Lidhja u ndërpre</value></data>
+  <data name="Session_EndedByOther" xml:space="preserve"><value>Kompjuteri tjetër e mbylli seancën.</value></data>
+  <data name="Session_Countdown" xml:space="preserve"><value>Rilidhje pas {0} s (përpjekja {1} nga {2})</value></data>
+  <data name="Session_Reconnecting" xml:space="preserve"><value>Po rilidhet…</value></data>
+  <data name="Session_Reconnected" xml:space="preserve"><value>U rilidh.</value></data>
+  <data name="Session_ReconnectFailed" xml:space="preserve"><value>Nuk u rilidh dot</value></data>
+  <data name="Session_RetryNow" xml:space="preserve"><value>Rilidhu tani</value></data>
+  <data name="Session_Close" xml:space="preserve"><value>Mbyll</value></data>
+  <data name="Session_Cancel" xml:space="preserve"><value>Anulo</value></data>
+  <data name="Session_Sending" xml:space="preserve"><value>Po dërgohet {0}…</value></data>
+  <data name="Session_SendingProgress" xml:space="preserve"><value>Po dërgohet {0}… {1}</value></data>
+  <data name="Session_Sent" xml:space="preserve"><value>{0} u dërgua te kompjuteri tjetër.</value></data>
+  <data name="Session_SendFailed" xml:space="preserve"><value>Skedari nuk u dërgua dot: {0}</value></data>
+  <data name="Session_ShareEmpty" xml:space="preserve"><value>{0} nuk ka asgjë në dosjen e ndarë. Vendosni skedarë te Documents\Remotely\Share në atë kompjuter për t'i vënë në dispozicion.</value></data>
+  <data name="Session_FilesOn" xml:space="preserve"><value>Skedarët në {0}</value></data>
+  <data name="Session_GetFileButton" xml:space="preserve"><value>Merr skedarin</value></data>
+  <data name="Session_Downloading" xml:space="preserve"><value>Po shkarkohet {0}…</value></data>
+  <data name="Session_Saved" xml:space="preserve"><value>U ruajt te {0}</value></data>
+  <data name="Session_DownloadFailed" xml:space="preserve"><value>Shkarkimi dështoi: {0}</value></data>
 </root>

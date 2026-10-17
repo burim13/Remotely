@@ -1,0 +1,21 @@
+<Page x:Class="Remotely.App.SessionPreviewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Remotely.App">
+    <!-- Hosts the session toolbar and the overlays over a still picture, so CI can start and photograph them without a live session. -->
+    <Grid Background="Black">
+        <local:RemoteScreen x:Name="Screen" />
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12,72,0,0" Padding="10,6" CornerRadius="6"
+                Background="#CC000000" IsHitTestVisible="False">
+            <TextBlock x:Name="StatsText" Foreground="White" FontFamily="Consolas" FontSize="12" />
+        </Border>
+        <Border HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12" Padding="10,4" CornerRadius="12"
+                Background="#99000000" IsHitTestVisible="False">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Ellipse x:Name="KeyboardDot" Width="8" Height="8" VerticalAlignment="Center" />
+                <TextBlock x:Name="KeyboardText" Foreground="White" FontSize="12" />
+            </StackPanel>
+        </Border>
+        <local:SessionToolbar x:Name="Toolbar" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,8,16,0" />
+    </Grid>
+</Page>
