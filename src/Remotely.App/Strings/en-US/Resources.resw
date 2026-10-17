@@ -157,7 +157,7 @@
   <data name="Connect_Title" xml:space="preserve"><value>Connect to a PC</value></data>
   <data name="Connect_Intro" xml:space="preserve"><value>Type the token that the other PC is showing.</value></data>
   <data name="Connect_TokenName" xml:space="preserve"><value>Token to connect with</value></data>
-  <data name="Connect_Button" xml:space="preserve"><value>Connect</value></data>
+  <data name="Connect_Button" xml:space="preserve"><value>Connect!</value></data>
   <data name="Connect_Cancel" xml:space="preserve"><value>Cancel</value></data>
   <data name="Connect_Cancelled" xml:space="preserve"><value>Cancelled.</value></data>
   <data name="Connect_StepFinding" xml:space="preserve"><value>Looking for the PC on this network…</value></data>
