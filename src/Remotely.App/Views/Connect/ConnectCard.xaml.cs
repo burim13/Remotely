@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Remotely.Core.Lan;
+using Remotely.Core.Lan.Consent;
 using Remotely.UI.Localization;
 using Remotely.ViewerCore;
 
@@ -15,8 +16,6 @@ namespace Remotely.App.Views.Connect;
 /// </summary>
 public sealed partial class ConnectCard : UserControl
 {
-    private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(30);
-
     private readonly IRecentPcs _recent = new JsonRecentPcs(Path.Combine(ViewerSettings.Dir, "recent-pcs.json"));
     private readonly Button _diagnoseButton = new() { Visibility = Visibility.Collapsed };
     private CancellationTokenSource? _connectCts;
@@ -153,10 +152,19 @@ public sealed partial class ConnectCard : UserControl
             text.Children.Add(new TextBlock { Text = string.IsNullOrEmpty(pc.Name) ? pc.Address : pc.Name });
             text.Children.Add(new TextBlock { Text = pc.Address + "  ·  " + string.Format(Loc.Get("Connect_RecentUsed"), pc.LastUsedUtc.ToLocalTime().ToString("g")), Opacity = 0.7, FontSize = 12 });
             row.Children.Add(text);
+            var buttons = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
+            if (!string.IsNullOrEmpty(pc.HostDeviceId))
+            {
+                var reconnect = new Button { Content = Loc.Get("Connect_Reconnect"), Tag = pc, Style = (Style)Application.Current.Resources["AccentButtonStyle"] };
+                ToolTipService.SetToolTip(reconnect, Loc.Get("Connect_ReconnectTip"));
+                reconnect.Click += OnReconnect;
+                buttons.Children.Add(reconnect);
+            }
             var remove = new Button { Content = Loc.Get("Connect_RecentRemove"), Tag = pc.Address };
             remove.Click += (s, _) => { _recent.Remove((string)((Button)s).Tag); ShowRecent(); };
-            Grid.SetColumn(remove, 1);
-            row.Children.Add(remove);
+            buttons.Children.Add(remove);
+            Grid.SetColumn(buttons, 1);
+            row.Children.Add(buttons);
             RecentList.Items.Add(row);
         }
     }
@@ -179,14 +187,36 @@ public sealed partial class ConnectCard : UserControl
 
     private async void OnConnect(object sender, RoutedEventArgs e)
     {
-        if (_connectCts is not null) return;
-        ConnectBar.IsOpen = false;
-        var cts = _connectCts = new CancellationTokenSource(ConnectTimeout);
-        _userCancelled = false;
-        SetBusy(true);
         var typed = TokenBox.Text;
         var address = NullIfBlank(AddressBox.Text);
+        var known = TokenHints.MatchNearby(typed, _nearby);
         var feedback = TokenHints.Check(typed);
+        await RunAsync((ct, progress) => LanControllerFlow.ConnectWithTokenAsync(typed, Environment.MachineName, address, Identity(), ct, progress, known), canDiagnose: feedback.IsComplete);
+    }
+
+    private async void OnReconnect(object sender, RoutedEventArgs e)
+    {
+        if ((sender as FrameworkElement)?.Tag is not RecentPc pc) return;
+        var identity = Identity();
+        if (identity is null) return;
+        await RunAsync((ct, _) => LanControllerFlow.ResumeAsync(pc, identity, ct), canDiagnose: true);
+    }
+
+    /// <summary>This PC's device key (the one the server mode uses). Null if it cannot be read: the token flow then works like the first release, and the other PC can only allow once.</summary>
+    private static Remotely.Core.Crypto.DeviceIdentity? Identity()
+    {
+        try { return App.Connection.Identity; }
+        catch (Exception ex) when (ex is NullReferenceException or InvalidOperationException) { return null; }
+    }
+
+    private async Task RunAsync(Func<CancellationToken, IProgress<LanConnectStep>, Task<ControllerConnection>> connect, bool canDiagnose)
+    {
+        if (_connectCts is not null) return;
+        ConnectBar.IsOpen = false;
+        // No overall timeout here: the flow limits the connection stage (30 s) and the wait for the other person's decision (60 s) separately.
+        var cts = _connectCts = new CancellationTokenSource();
+        _userCancelled = false;
+        SetBusy(true);
         var progress = new Progress<LanConnectStep>(step =>
         {
             if (!ReferenceEquals(_connectCts, cts)) return;
@@ -194,25 +224,39 @@ public sealed partial class ConnectCard : UserControl
             {
                 LanConnectStep.FindingPc => "Connect_StepFinding",
                 LanConnectStep.Reaching => "Connect_StepReaching",
+                LanConnectStep.WaitingForApproval => "Connect_StepWaiting",
                 _ => "Connect_StepVerifying",
             });
         });
         try
         {
-            var found = await LanConnector.ConnectAsync(typed, Environment.MachineName, address, cts.Token, knownPc: TokenHints.MatchNearby(typed, _nearby), progress: progress);
+            var found = await connect(cts.Token, progress);
             ViewerSession session;
             try { session = await ViewerSession.OpenAsync(found.Channel, found.HostName, cts.Token); }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
+                found.Channel.Dispose();
                 throw new LanConnectException(string.Format(Loc.Get("Connect_SessionFailed"), ex.Message));
             }
             var shownName = string.IsNullOrEmpty(found.HostName) ? found.Endpoint.Address.ToString() : found.HostName;
-            _recent.Record(found.HostName, found.Endpoint.ToString());
+            var hostId = found.Resumed ? RememberedId(found.Endpoint) : found.Remembered ? found.Host?.DeviceId : null;
+            _recent.Record(found.HostName, found.Endpoint.ToString(), hostId);
             TokenBox.Text = "";
             ShowRecent();
-            new SessionWindow(session, shownName).Activate();
+            var self = Identity();
+            var recent = new RecentPc(found.HostName, found.Endpoint.ToString(), DateTimeOffset.UtcNow, hostId);
+            // A token works once, so only a PC that remembers this one can be reopened if the connection drops.
+            Func<CancellationToken, Task<ViewerSession>>? reopen = hostId is not null && self is not null
+                ? async ct =>
+                {
+                    var again = await LanControllerFlow.ResumeAsync(recent, self, ct);
+                    return await ViewerSession.OpenAsync(again.Channel, shownName, ct);
+                }
+                : null;
+            new SessionWindow(session, shownName, reopen).Activate();
         }
-        catch (LanConnectException ex) { ShowError(ex.Message, canDiagnose: feedback.IsComplete); }
+        catch (ConsentDeniedException) { ShowError(Loc.Get("Connect_Denied"), canDiagnose: false); }
+        catch (LanConnectException ex) { ShowError(ex.Message, canDiagnose); }
         catch (OperationCanceledException)
         {
             if (_userCancelled) StatusText.Text = Loc.Get("Connect_Cancelled");
@@ -225,6 +269,9 @@ public sealed partial class ConnectCard : UserControl
             SetBusy(false, keepStatus: _userCancelled);
         }
     }
+
+    private string? RememberedId(System.Net.IPEndPoint endpoint) =>
+        _recent.List().FirstOrDefault(p => string.Equals(p.Address, endpoint.ToString(), StringComparison.OrdinalIgnoreCase))?.HostDeviceId;
 
     private void SetBusy(bool busy, bool keepStatus = false)
     {

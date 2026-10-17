@@ -272,4 +272,9 @@
   <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
   <data name="Home_NoNetwork" xml:space="preserve"><value>This PC is not connected to a network.</value></data>
   <data name="Home_ThisPc" xml:space="preserve"><value>Same-network connections. This PC: {0}</value></data>
+  <!-- A4 integration -->
+  <data name="Connect_StepWaiting" xml:space="preserve"><value>Waiting for approval on the other PC. Ask the person there to choose Allow once or Always allow.</value></data>
+  <data name="Connect_Denied" xml:space="preserve"><value>The other PC did not allow this connection. The person there chose Deny, or nobody answered in time. Nothing was shown or controlled.</value></data>
+  <data name="Connect_Reconnect" xml:space="preserve"><value>Reconnect</value></data>
+  <data name="Connect_ReconnectTip" xml:space="preserve"><value>This PC remembers you, so no token is needed.</value></data>
 </root>
