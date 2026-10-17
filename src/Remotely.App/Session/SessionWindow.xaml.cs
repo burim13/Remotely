@@ -1,38 +1,43 @@
 using System.Globalization;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml.Controls;
+using Remotely.App.Session.Files;
+using Remotely.App.Session.Input;
 using Remotely.HostCore;
 using Remotely.UI.Localization;
 using Remotely.ViewerCore;
 using Remotely.ViewerCore.Mapping;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage.Streams;
 
 namespace Remotely.App;
 
 /// <summary>
-/// The window that shows another PC. Frames arrive on a background thread; only the newest one is decoded and shown.
+/// The window that shows another PC. Frames arrive on a background thread and are painted in order (tiles must not be dropped; a backlog is replaced by a request for a complete picture).
 /// <paramref name="reconnect"/> opens a fresh session to the same PC (it needs the connection parameters, which only the caller has); when it is
-/// null a dropped session just shows "Disconnected". <paramref name="monitors"/> is the host's monitor list (default: one "all monitors" entry).
+/// null a dropped session just shows "Disconnected". <paramref name="monitors"/> overrides the monitor list; by default it comes from the host's hello.
 /// </summary>
 public sealed partial class SessionWindow : Window
 {
     private static readonly TimeSpan ToolbarHideDelay = TimeSpan.FromSeconds(2.5);
+    private const int MaxQueuedFrames = 128;
 
     private readonly DispatcherQueue _ui = DispatcherQueue.GetForCurrentThread();
     private readonly Func<CancellationToken, Task<ViewerSession>>? _reconnect;
-    private readonly IMonitorSource _monitors;
+    private readonly IMonitorSource? _monitorOverride;
     private readonly string _hostName;
     private readonly object _gate = new();
+    private readonly List<FrameInfo> _frames = [];
+    private readonly FrameCompositor _compositor = new();
+    private readonly TransferQueue _transfers = new();
     private readonly DispatcherTimer _hideTimer = new() { Interval = ToolbarHideDelay };
     private readonly DispatcherTimer _statsTimer = new() { Interval = TimeSpan.FromMilliseconds(500) };
     private readonly DispatcherTimer _noticeTimer = new() { Interval = TimeSpan.FromSeconds(5) };
     private readonly DispatcherTimer _countdownTimer = new() { Interval = TimeSpan.FromMilliseconds(250) };
     private ViewerSession _session;
-    private FrameInfo? _pending;
+    private IMonitorSource _monitors = new AllMonitorsSource();
+    private SessionMonitorSource? _ownedMonitors;
     private bool _renderQueued;
     private bool _closing;
     private bool _clipboardOn;
@@ -40,6 +45,7 @@ public sealed partial class SessionWindow : Window
     private bool _pinned;
     private string? _lastClipboard;
     private double _shownZoom = 1;
+    private int _framesShown;
 
     private CancellationTokenSource? _reconnectCts;
     private bool _reconnecting;
@@ -53,12 +59,13 @@ public sealed partial class SessionWindow : Window
         _session = session;
         _hostName = hostName;
         _reconnect = reconnect;
-        _monitors = monitors ?? new AllMonitorsSource();
+        _monitorOverride = monitors;
         InitializeComponent();
         Title = string.Format(Loc.Get("Session_WindowTitle"), hostName);
         AppWindow.Resize(new Windows.Graphics.SizeInt32(1280, 800));
         App.ApplyTheme(this);
-        LoadTexts();
+        RetryButton.Content = Loc.Get("Session_RetryNow");
+        CloseButton.Content = Loc.Get("Session_Close");
 
         Screen.Input = e => _session.SendInput(e);
         Screen.FocusLost = () => _session.ReleaseAllInput();
@@ -67,14 +74,16 @@ public sealed partial class SessionWindow : Window
         Root.SizeChanged += (_, e) => Toolbar.MaxWidth = Math.Max(240, e.NewSize.Width - 32);
         Root.PointerMoved += (_, e) => { if (e.GetCurrentPoint(Root).Position.Y < 8) ShowToolbar(); };
 
+        Transfers.Bind(_transfers);
+        Transfers.WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(this);
+        Transfers.ReceiveFolderChanged += folder => _session.DownloadDirectory = folder;
+
         WireToolbar();
         _hideTimer.Tick += (_, _) => OnHideTick();
         _statsTimer.Tick += (_, _) => UpdateStats();
         _noticeTimer.Tick += (_, _) => { _noticeTimer.Stop(); NoticeBar.Visibility = Visibility.Collapsed; };
         _countdownTimer.Tick += (_, _) => OnCountdownTick();
 
-        _monitors.Changed += OnMonitorsChanged;
-        ApplyMonitors();
         _clipboardOn = App.Settings.SyncClipboard && session.HasClipboard;
         Attach(session);
         ShowNotice(Loc.Get(session.CanControl ? "Session_ConnectedControl" : "Session_ConnectedViewOnly"));
@@ -86,20 +95,25 @@ public sealed partial class SessionWindow : Window
             _closing = true;
             Clipboard.ContentChanged -= OnLocalClipboardChanged;
             _monitors.Changed -= OnMonitorsChanged;
+            _ownedMonitors?.Dispose();
             _hideTimer.Stop();
             _statsTimer.Stop();
             _noticeTimer.Stop();
             _countdownTimer.Stop();
             _reconnectCts?.Cancel();
+            _transfers.Dispose();
+            Screen.ReleaseKeys();
             await _session.DisposeAsync();
         };
     }
 
-    private void LoadTexts()
-    {
-        RetryButton.Content = Loc.Get("Session_RetryNow");
-        CloseButton.Content = Loc.Get("Session_Close");
-    }
+    // ---- hooks for the session self-test (the same objects the user works with) ----
+
+    internal RemoteScreen RemoteView => Screen;
+    internal TransfersPanel TransfersView => Transfers;
+    internal bool TransfersVisible => TransfersHost.Visibility == Visibility.Visible;
+    internal int FramesShown => Volatile.Read(ref _framesShown);
+    internal void SetTransfersVisible(bool on) { TransfersHost.Visibility = on ? Visibility.Visible : Visibility.Collapsed; Toolbar.SetFiles(on); }
 
     // ---- session wiring ----
 
@@ -108,12 +122,36 @@ public sealed partial class SessionWindow : Window
         _ = s.ReceivedStats;   // starts counting frames now
         s.FrameReceived += info => { if (ReferenceEquals(s, _session)) OnFrame(info); };
         s.ClipboardReceived += text => _ui.TryEnqueue(() => { if (ReferenceEquals(s, _session)) OnHostClipboard(text); });
+        s.RichClipboardReceived += bundle => _ui.TryEnqueue(async () => { if (ReferenceEquals(s, _session)) await OnHostRichClipboardAsync(bundle); });
         s.HostError += error => _ui.TryEnqueue(() => { if (ReferenceEquals(s, _session)) ShowNotice(string.Format(Loc.Get("Session_OtherPcError"), error)); });
         s.Closed += reason => _ui.TryEnqueue(() => OnSessionClosed(s, reason));
+        s.CursorShapeReceived += shape => _ui.TryEnqueue(() => { if (ReferenceEquals(s, _session)) Screen.AddCursorShape(shape); });
+        s.CursorMoved += state => _ui.TryEnqueue(() => { if (ReferenceEquals(s, _session)) Screen.SetCursorState(state); });
+        s.HostKeyboardLayoutChanged += layout => _ui.TryEnqueue(() => { if (ReferenceEquals(s, _session)) Screen.ConfigureKeyboard(KeyboardModeSetting.Auto, layout, s.SupportsExtendedInput); });
+
+        _monitors.Changed -= OnMonitorsChanged;
+        _ownedMonitors?.Dispose();
+        _ownedMonitors = _monitorOverride is null ? new SessionMonitorSource(s) : null;
+        _monitors = _monitorOverride ?? _ownedMonitors!;
+        _monitors.Changed += OnMonitorsChanged;
+        ApplyMonitors();
+
         Toolbar.Configure(_hostName, s.CanControl, s.CanSendSecureAttention, s.HasClipboard, s.HasFiles);
         Toolbar.SetClipboard(_clipboardOn);
         Toolbar.SetConnected(true);
+        Screen.ExtendedInput = s.SupportsExtendedInput;
+        Screen.ConfigureKeyboard(KeyboardModeSetting.Auto, s.HostKeyboardLayout, s.SupportsExtendedInput);
         ApplyControlState();
+
+        Transfers.Settings.ApplyTo(s);
+        Transfers.ListRemoteFiles = ct => s.FileLink.ListAsync(ct);
+        Transfers.CanTransfer = s.HasFiles && s.CanControl;
+        _transfers.Attach(s.FileLink);
+
+        ConfigureClipboard(s);
+        if (s.SupportsTiledFrames) _ = s.EnableTiledFramesAsync();
+        _ = s.QueryHostKeyboardLayoutAsync();
+        if (s.LatestFrame is { } early) OnFrame(early);   // the first picture can arrive before this window subscribed
     }
 
     private void ApplyControlState()
@@ -138,15 +176,20 @@ public sealed partial class SessionWindow : Window
             StatsPanel.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
             if (on) { UpdateStats(); _statsTimer.Start(); } else _statsTimer.Stop();
         };
+        Toolbar.FilesChanged += on => SetTransfersVisible(on);
         Toolbar.KeyboardCaptureChanged += on => { Screen.CaptureKeyboard = on; ApplyControlState(); Screen.Focus(FocusState.Programmatic); };
         Toolbar.ViewOnlyChanged += on =>
         {
             _viewOnly = on;
-            if (on) _session.ReleaseAllInput();   // nothing may stay pressed on the other PC once this window stops controlling it
+            if (on) Screen.ReleaseKeys();   // nothing may stay pressed on the other PC once this window stops controlling it
             ApplyControlState();
             Screen.Focus(FocusState.Programmatic);
         };
-        Toolbar.ClipboardChanged += on => _clipboardOn = on;
+        Toolbar.ClipboardChanged += on =>
+        {
+            _clipboardOn = on;
+            ConfigureClipboard(_session);
+        };
         Toolbar.PinnedChanged += on => { _pinned = on; ShowToolbar(); };
         Toolbar.SecureAttentionClicked += async () =>
         {
@@ -154,8 +197,6 @@ public sealed partial class SessionWindow : Window
             ShowNotice(Loc.Get("Session_SasSent"));
             Screen.Focus(FocusState.Programmatic);
         };
-        Toolbar.SendFileClicked += () => OnUploadRequested();
-        Toolbar.GetFileClicked += () => OnDownloadRequested();
         Toolbar.EndClicked += () => Close();
         Toolbar.PointerStateChanged += () =>
         {
@@ -188,9 +229,9 @@ public sealed partial class SessionWindow : Window
     {
         var selected = _monitors.Selected;
         Toolbar.SetMonitors(_monitors.Monitors, selected);
-        var real = _monitors.Monitors.Where(m => !m.IsAll).Select(m => m.Bounds).ToList();
-        if (selected.IsAll || selected.Bounds.IsEmpty) Screen.SetMonitor(null, null);
-        else Screen.SetMonitor(selected.Bounds, PixelRect.Union(real));
+        var desktop = PixelRect.Union(_monitors.Monitors.Where(m => !m.IsAll).Select(m => m.Bounds));
+        var shown = selected.IsAll || selected.Bounds.IsEmpty ? (PixelRect?)null : selected.Bounds;
+        Screen.SetMonitor(shown, desktop.IsEmpty ? null : desktop);
     }
 
     private async Task ChooseMonitorAsync(MonitorEntry entry)
@@ -219,33 +260,52 @@ public sealed partial class SessionWindow : Window
 
     // ---- stats overlay ----
 
-    private void UpdateStats() => StatsText.Text = SessionStatsText.Format(_session.ReceivedStats.Snapshot(), Screen.FrameWidth, Screen.FrameHeight);
+    private void UpdateStats() =>
+        StatsText.Text = SessionStatsText.Format(_session.ReceivedStats.Snapshot(), _session.Stats, Screen.FrameWidth, Screen.FrameHeight);
 
     // ---- frames ----
 
     private void OnFrame(FrameInfo info)
     {
+        var overflow = false;
+        bool start;
         lock (_gate)
         {
-            _pending = info;   // a slow UI only ever shows the newest frame
-            if (_renderQueued) return;
+            if (info.Tiles is null) _frames.Clear();   // a complete picture makes everything before it irrelevant
+            if (_frames.Count >= MaxQueuedFrames)
+            {
+                _frames.Clear();   // dropping tiles would corrupt the picture, so start over from a complete one
+                overflow = true;
+            }
+            else _frames.Add(info);
+            start = !_renderQueued;
             _renderQueued = true;
         }
+        if (overflow) _ = _session.RequestKeyFrameAsync();
+        if (!start) return;
         _ui.TryEnqueue(async () =>
         {
-            FrameInfo? frame;
-            lock (_gate) { frame = _pending; _pending = null; _renderQueued = false; }
-            if (frame is null || _closing) return;
-            try
+            while (true)
             {
-                using var stream = new InMemoryRandomAccessStream();
-                await stream.WriteAsync(frame.Jpeg.AsBuffer());
-                stream.Seek(0);
-                var image = new BitmapImage();
-                await image.SetSourceAsync(stream);
-                Screen.SetFrame(image, frame.Width, frame.Height);
+                List<FrameInfo> batch;
+                lock (_gate)
+                {
+                    if (_frames.Count == 0 || _closing) { _frames.Clear(); _renderQueued = false; return; }
+                    batch = [.. _frames];
+                    _frames.Clear();
+                }
+                foreach (var frame in batch)
+                {
+                    try
+                    {
+                        var result = await _compositor.ApplyAsync(frame);
+                        if (result == CompositeResult.NeedKeyFrame) { _ = _session.RequestKeyFrameAsync(); break; }
+                        if (result == CompositeResult.NewBitmap) Screen.SetFrame(_compositor.Source!, _compositor.Width, _compositor.Height);
+                        Interlocked.Increment(ref _framesShown);
+                    }
+                    catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or System.Runtime.InteropServices.COMException) { /* skip a frame that cannot be decoded */ }
+                }
             }
-            catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or System.Runtime.InteropServices.COMException) { /* skip a frame that cannot be decoded */ }
         });
     }
 
@@ -362,17 +422,53 @@ public sealed partial class SessionWindow : Window
 
     // ---- clipboard ----
 
+    /// <summary>Asks the host to offer (or stop offering) its rich clipboard, and sets what to do with large transfers.</summary>
+    private void ConfigureClipboard(ViewerSession s)
+    {
+        if (!s.HasRichClipboard) return;
+        s.RichClipboard.ConfirmReceive = info => ConfirmAsync(string.Format(Loc.Get("Session_ClipConfirmReceive"), TransferFormat.Size(info.TotalBytes)));
+        s.RichClipboard.ConfirmSend = bundle => ConfirmAsync(string.Format(Loc.Get("Session_ClipConfirmSend"), TransferFormat.Size(bundle.TotalBytes)));
+        _ = s.SubscribeRichClipboardAsync(_clipboardOn);
+    }
+
+    private Task<bool> ConfirmAsync(string question)
+    {
+        var answer = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        if (!_ui.TryEnqueue(async () =>
+        {
+            try
+            {
+                var dialog = new ContentDialog
+                {
+                    XamlRoot = Root.XamlRoot, Title = Loc.Get("Session_ClipConfirmTitle"), Content = new TextBlock { Text = question, TextWrapping = TextWrapping.Wrap },
+                    PrimaryButtonText = Loc.Get("Session_ClipAllow"), CloseButtonText = Loc.Get("Session_ClipDeny"), DefaultButton = ContentDialogButton.Close,
+                };
+                answer.TrySetResult(await dialog.ShowAsync() == ContentDialogResult.Primary);
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException) { answer.TrySetResult(false); }
+        })) answer.TrySetResult(false);
+        return answer.Task;
+    }
+
     private async void OnLocalClipboardChanged(object? sender, object e)
     {
-        if (!_clipboardOn || _closing || !_session.HasClipboard || !Screen.CanControl) return;
+        var s = _session;
+        if (!_clipboardOn || _closing || !s.HasClipboard || !Screen.CanControl) return;
+        if (ClipboardBridge.IsOwnChange()) return;   // our own write of what the other PC sent
         try
         {
+            if (s.HasRichClipboard && await ClipboardBridge.ReadAsync(s.RichClipboard.Limits) is { HasRich: true } bundle)
+            {
+                var outcome = await s.SendRichClipboardAsync(bundle);
+                if (outcome.Status is ClipSendStatus.Refused or ClipSendStatus.Failed) ShowNotice(outcome.Message ?? Loc.Get("Session_ClipNotSent"));
+                return;
+            }
             var view = Clipboard.GetContent();
             if (!view.Contains(StandardDataFormats.Text)) return;
             var text = await view.GetTextAsync();
             if (string.IsNullOrEmpty(text) || text == _lastClipboard) return;
             _lastClipboard = text;
-            await _session.SendClipboardAsync(text);
+            await s.SendClipboardAsync(text);
         }
         catch (Exception ex) when (ex is System.Runtime.InteropServices.COMException or InvalidOperationException) { /* another app holds the clipboard right now */ }
     }
@@ -384,5 +480,12 @@ public sealed partial class SessionWindow : Window
         var data = new DataPackage();
         data.SetText(text);
         try { Clipboard.SetContent(data); } catch (System.Runtime.InteropServices.COMException) { }
+    }
+
+    private async Task OnHostRichClipboardAsync(ClipBundle bundle)
+    {
+        if (!_clipboardOn) return;
+        try { await ClipboardBridge.ApplyAsync(bundle); }
+        catch (Exception ex) when (ex is System.Runtime.InteropServices.COMException or IOException or UnauthorizedAccessException or InvalidOperationException) { ShowNotice(Loc.Get("Session_ClipNotApplied")); }
     }
 }

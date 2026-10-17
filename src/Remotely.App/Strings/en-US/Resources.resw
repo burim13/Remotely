@@ -115,8 +115,6 @@
   <data name="Session_Sas" xml:space="preserve"><value>Send Ctrl+Alt+Del</value></data>
   <data name="Session_Clipboard" xml:space="preserve"><value>Share clipboard</value></data>
   <data name="Session_Files" xml:space="preserve"><value>Files</value></data>
-  <data name="Session_SendFile" xml:space="preserve"><value>Send a file…</value></data>
-  <data name="Session_GetFile" xml:space="preserve"><value>Get a file…</value></data>
   <data name="Session_PinToolbar" xml:space="preserve"><value>Keep the toolbar visible</value></data>
   <data name="Session_End" xml:space="preserve"><value>End session</value></data>
   <data name="Session_Badge_Remote" xml:space="preserve"><value>Keyboard: other PC</value></data>
@@ -133,6 +131,16 @@
   <data name="Session_ZoomNotice" xml:space="preserve"><value>Zoom {0}%</value></data>
   <data name="Session_SasSent" xml:space="preserve"><value>Sent Ctrl+Alt+Del.</value></data>
   <data name="Session_OtherPcError" xml:space="preserve"><value>Other PC: {0}</value></data>
+  <data name="Session_Stats_CodecTiles" xml:space="preserve"><value>JPEG tiles</value></data>
+  <data name="Session_Stats_Quality" xml:space="preserve"><value>JPEG quality: {0}</value></data>
+  <data name="Session_Stats_HostTime" xml:space="preserve"><value>Host: capture {0} ms, encode {1} ms</value></data>
+  <data name="Session_ClipConfirmTitle" xml:space="preserve"><value>Large clipboard</value></data>
+  <data name="Session_ClipConfirmReceive" xml:space="preserve"><value>The other PC wants to put {0} on this PC's clipboard. Allow it?</value></data>
+  <data name="Session_ClipConfirmSend" xml:space="preserve"><value>Send {0} of clipboard content to the other PC?</value></data>
+  <data name="Session_ClipAllow" xml:space="preserve"><value>Allow</value></data>
+  <data name="Session_ClipDeny" xml:space="preserve"><value>Do not allow</value></data>
+  <data name="Session_ClipNotSent" xml:space="preserve"><value>The clipboard was not sent.</value></data>
+  <data name="Session_ClipNotApplied" xml:space="preserve"><value>Could not copy the other PC's clipboard here.</value></data>
   <data name="Session_Disconnected" xml:space="preserve"><value>Disconnected</value></data>
   <data name="Session_ConnectionLost" xml:space="preserve"><value>Connection lost</value></data>
   <data name="Session_EndedByOther" xml:space="preserve"><value>The other PC ended the session.</value></data>
@@ -142,17 +150,6 @@
   <data name="Session_ReconnectFailed" xml:space="preserve"><value>Could not reconnect</value></data>
   <data name="Session_RetryNow" xml:space="preserve"><value>Reconnect now</value></data>
   <data name="Session_Close" xml:space="preserve"><value>Close</value></data>
-  <data name="Session_Cancel" xml:space="preserve"><value>Cancel</value></data>
-  <data name="Session_Sending" xml:space="preserve"><value>Sending {0}…</value></data>
-  <data name="Session_SendingProgress" xml:space="preserve"><value>Sending {0}… {1}</value></data>
-  <data name="Session_Sent" xml:space="preserve"><value>Sent {0} to the other PC.</value></data>
-  <data name="Session_SendFailed" xml:space="preserve"><value>Could not send the file: {0}</value></data>
-  <data name="Session_ShareEmpty" xml:space="preserve"><value>{0} has nothing in its shared folder. Put files in Documents\Remotely\Share on that PC to make them available.</value></data>
-  <data name="Session_FilesOn" xml:space="preserve"><value>Files on {0}</value></data>
-  <data name="Session_GetFileButton" xml:space="preserve"><value>Get file</value></data>
-  <data name="Session_Downloading" xml:space="preserve"><value>Downloading {0}…</value></data>
-  <data name="Session_Saved" xml:space="preserve"><value>Saved to {0}</value></data>
-  <data name="Session_DownloadFailed" xml:space="preserve"><value>Download failed: {0}</value></data>
   <!-- A4 Connect. Messages produced by Remotely.Core (token hints, connection check results) are English only for now. -->
   <data name="Connect_Title" xml:space="preserve"><value>Connect to a PC</value></data>
   <data name="Connect_Intro" xml:space="preserve"><value>Type the token that the other PC is showing.</value></data>
