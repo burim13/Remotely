@@ -51,6 +51,35 @@ public partial class App : Application
         catch (UnauthorizedAccessException) { }
     }
 
+    /// <summary>One line in logs/app-startup.log: what the shell decided at start-up (single instance, options, invite result). Read by --selftest-server when it fails.</summary>
+    internal static void LogInfo(string text)
+    {
+        try
+        {
+            var dir = Path.Combine(ViewerSettings.Dir, "logs");
+            Directory.CreateDirectory(dir);
+            File.AppendAllText(Path.Combine(dir, "app-startup.log"), DateTime.Now.ToString("HH:mm:ss.fff") + "  [" + Environment.ProcessId + "] " + text + Environment.NewLine);
+        }
+        catch (IOException) { }
+        catch (UnauthorizedAccessException) { }
+    }
+
+    internal static string ReadLogs()
+    {
+        var text = new System.Text.StringBuilder();
+        foreach (var name in new[] { "app-startup.log", "app-crash.log" })
+        {
+            try
+            {
+                var path = Path.Combine(ViewerSettings.Dir, "logs", name);
+                if (File.Exists(path)) text.AppendLine("--- " + name).AppendLine(string.Join(Environment.NewLine, File.ReadLines(path).TakeLast(40)));
+            }
+            catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
+        }
+        return text.ToString();
+    }
+
     /// <summary>Applies the saved theme choice ("system", "dark" or "light") to a window's content.</summary>
     internal static void ApplyTheme(Window window)
     {
@@ -71,6 +100,7 @@ public partial class App : Application
     {
         var argv = Environment.GetCommandLineArgs().Skip(1).ToArray();
         Options = AppOptions.Parse(argv);
+        LogInfo($"start: args=[{string.Join(" ", argv.Select(a => a.Length > 12 ? a[..12] + "..." : a))}] singleInstance={Options.UsesSingleInstance}");
         foreach (var problem in Options.Problems) LogCrash(new ArgumentException("Command line: " + problem));
 
         if (Options.UsesSingleInstance && !await ClaimSingleInstanceAsync(argv))
@@ -144,12 +174,14 @@ public partial class App : Application
             var instance = SingleInstance.Acquire(name);
             if (instance.IsPrimary)
             {
+                LogInfo("single instance: this process is the first one");
                 instance.Listen(OnForwarded);
                 _single = instance;
                 return true;
             }
             var forwarded = await instance.ForwardAsync(argv, TimeSpan.FromMilliseconds(800), pid => AllowSetForegroundWindow(pid));
             instance.Dispose();
+            LogInfo("single instance: another copy owns the name; forwarded=" + forwarded);
             if (forwarded) return false;
             await Task.Delay(150);
         }

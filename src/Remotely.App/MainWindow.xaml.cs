@@ -249,6 +249,7 @@ public sealed partial class MainWindow : Window
         if (options.Invite is { Length: > 0 } invite)
         {
             var (ok, message) = await Join.WithInviteAsync(invite);
+            App.LogInfo("invite: ok=" + ok + (ok ? "" : " " + message));
             if (!ok) { await App.Services.ShowErrorAsync(Loc.Get("Invite_Failed_Title"), message); return; }
             if (OnboardingActive) EndOnboarding();
             Show("computers");
