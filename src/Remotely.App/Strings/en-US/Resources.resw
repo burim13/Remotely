@@ -273,4 +273,6 @@
   <data name="Duration_HoursMinutes" xml:space="preserve"><value>{0} h {1} min</value></data>
   <data name="Duration_Minutes" xml:space="preserve"><value>{0} min</value></data>
   <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
+  <data name="Home_NoNetwork" xml:space="preserve"><value>This PC is not connected to a network.</value></data>
+  <data name="Home_ThisPc" xml:space="preserve"><value>Same-network connections. This PC: {0}</value></data>
 </root>

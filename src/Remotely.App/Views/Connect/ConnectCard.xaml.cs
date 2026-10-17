@@ -27,6 +27,9 @@ public sealed partial class ConnectCard : UserControl
     /// <summary>Raised when the person asks why a connection failed. Arguments: the address typed (or null) and the token's 4-character label (or null).</summary>
     public event Action<string?, string?>? DiagnoseRequested;
 
+    /// <summary>Puts a token into the box (used by <c>--connect-token</c> and by deep links).</summary>
+    public void SetToken(string token) => TokenBox.Text = token;
+
     public ConnectCard()
     {
         InitializeComponent();

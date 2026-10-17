@@ -97,7 +97,7 @@ public sealed partial class ComputersPage : Page
             var client = await App.Connection.EnsureAsync();
             var session = await ViewerSession.OpenAsync(client, App.Connection.Identity, device.DeviceId);
             Bar.IsOpen = false;
-            new SessionWindow(session, device.Name).Activate();
+            new SessionWindow(session, device.Name, async ct => await ViewerSession.OpenAsync(await App.Connection.EnsureAsync(ct), App.Connection.Identity, device.DeviceId, ct)).Activate();
         }
         catch (Exception ex) when (ex is CoordinatorException or HandshakeException or IOException or TimeoutException or System.Net.WebSockets.WebSocketException or HttpRequestException or OperationCanceledException)
         {

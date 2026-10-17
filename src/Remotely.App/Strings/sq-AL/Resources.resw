@@ -273,4 +273,6 @@
   <data name="Duration_HoursMinutes" xml:space="preserve"><value>{0} h {1} min</value></data>
   <data name="Duration_Minutes" xml:space="preserve"><value>{0} min</value></data>
   <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
+  <data name="Home_NoNetwork" xml:space="preserve"><value>Ky kompjuter nuk është i lidhur me rrjet.</value></data>
+  <data name="Home_ThisPc" xml:space="preserve"><value>Lidhje në të njëjtin rrjet. Ky kompjuter: {0}</value></data>
 </root>

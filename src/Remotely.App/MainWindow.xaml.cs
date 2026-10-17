@@ -272,7 +272,7 @@ public sealed partial class MainWindow : Window
         {
             if (OnboardingActive) EndOnboarding();
             Show("home");
-            if ((Pages.Content as FrameworkElement)?.FindName("TokenBox") is TextBox box) box.Text = token;
+            if (Pages.Content is HomePage home) home.SetToken(token);
         }
     }
 
