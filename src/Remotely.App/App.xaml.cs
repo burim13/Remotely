@@ -127,6 +127,7 @@ public partial class App : Application
         catch (IOException) { }
         catch (UnauthorizedAccessException) { }
 
+        if (Options.SelfTestServiceResultPath is { } serviceFile) { Environment.Exit(await Views.Unattended.UnattendedSelfTest.RunAsync(serviceFile, Options.SelfTestServiceDesktop)); return; }
         if (Options.SelfTestSessionResultPath is { } sessionFile) { Environment.Exit(await SessionSelfTest.RunAsync(sessionFile)); return; }
         if (Options.SelfTestResultPath is { } lanFile) { Environment.Exit(await SelfTest.RunAsync(lanFile)); return; }
         if (Options.SelfTestShareResultPath is { } shareFile) { Environment.Exit(await Views.Share.ShareSelfTests.RunAsync(shareFile)); return; }

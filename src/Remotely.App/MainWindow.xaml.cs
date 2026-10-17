@@ -63,6 +63,7 @@ public sealed partial class MainWindow : Window
         Closed += OnClosed;
         Root.Loaded += (_, _) => IsReady = true;
         App.ApplyTheme(this);
+        if (App.Options.Show is null && !App.Options.IsSelfTest) Views.Unattended.UnattendedController.Instance.EnsureBackground(Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread());   // answers consent questions from the service even with the page closed
 
         ShowVerifier.Attach(Pages);
         if (NeedsOnboarding) StartOnboarding();

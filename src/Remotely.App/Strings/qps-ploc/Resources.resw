@@ -633,4 +633,91 @@
   <data name="Diag_Quality_Reason_FramesStalled" xml:space="preserve"><value>[Ţĥé ṕîçţüŕé šţöṕṕéď ḟöŕ å ḿöḿéñţ. ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
   <data name="Diag_Quality_Reason_NoReply" xml:space="preserve"><value>[Ñöţĥîñĝ ĥåš ḃééñ ĥéåŕď ḟŕöḿ ţĥé öţĥéŕ ṔÇ ḟöŕ å ḟéŵ šéçöñďš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
   <data name="Diag_Quality_Reason_Reconnecting" xml:space="preserve"><value>[Ŕéçöññéçţîñĝ. ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Unattended_Nav" xml:space="preserve"><value>[Üñåţţéñďéď åççéšš ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Unattended_Title" xml:space="preserve"><value>[Üñåţţéñďéď åççéšš ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Unattended_Intro" xml:space="preserve"><value>[Ĺéţš ţĥîš ṔÇ ḃé ŕéåçĥéď ŵĥîĺé ñöḃöďý îš šîĝñéď îñ, ŵĥîĺé îţ îš ĺöçķéď, åñď ŵĥéñ Ŵîñďöŵš åšķš ḟöŕ åďḿîñîšţŕåţöŕ ṕéŕḿîššîöñ. Ţĥîš ñééďš ţĥé Ŕéḿöţéĺý šéŕṽîçé: å ṕŕöĝŕåḿ ţĥåţ Ŵîñďöŵš šţåŕţš ŵîţĥ ţĥé ṔÇ åñď ţĥåţ ŕüñš ŵîţĥ ţĥé ĥîĝĥéšţ ŕîĝĥţš Ŵîñďöŵš ĝîṽéš å ṕŕöĝŕåḿ (ţĥé ŠÝŠŢÉḾ åççöüñţ). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé éţ ďöĺöŕé ḿåĝñå›]</value></data>
+  <data name="Unattended_Live_Title" xml:space="preserve"><value>[Ŕîĝĥţ ñöŵ ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Unattended_Switch_On" xml:space="preserve"><value>[Öñ ‹ĺöŕ›]</value></data>
+  <data name="Unattended_Switch_Off" xml:space="preserve"><value>[Öḟḟ ‹ĺöŕ›]</value></data>
+  <data name="Unattended_Copy" xml:space="preserve"><value>[Çöṕý ‹ĺöŕé›]</value></data>
+  <data name="Unattended_Copied" xml:space="preserve"><value>[Çöṕîéď ‹ĺöŕéḿ›]</value></data>
+  <data name="Unattended_NewToken" xml:space="preserve"><value>[Ñéŵ ţöķéñ ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Unattended_Service_Title" xml:space="preserve"><value>[Ŕéḿöţéĺý šéŕṽîçé ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Unattended_Service_Help" xml:space="preserve"><value>[Ţĥé šéŕṽîçé šţåŕţš ŵîţĥ Ŵîñďöŵš åñď ķééṕš ŵöŕķîñĝ åḟţéŕ ýöü šîĝñ öüţ. Îñšţåĺĺîñĝ, šţåŕţîñĝ, šţöṕṕîñĝ åñď ŕéḿöṽîñĝ îţ ñééďš åñ åďḿîñîšţŕåţöŕ: Ŵîñďöŵš åšķš öñçé ḟöŕ éåçĥ çĺîçķ, åñď ñöţĥîñĝ îš ţŕîéď åĝåîñ îḟ ýöü šåý ñö. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ›]</value></data>
+  <data name="Unattended_State_NotInstalled" xml:space="preserve"><value>[Ñöţ îñšţåĺĺéď ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Unattended_State_Stopped" xml:space="preserve"><value>[Îñšţåĺĺéď, šţöṕṕéď ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Unattended_State_Starting" xml:space="preserve"><value>[Šţåŕţîñĝ… ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Unattended_State_Running" xml:space="preserve"><value>[Îñšţåĺĺéď åñď ŕüññîñĝ ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Unattended_State_Stopping" xml:space="preserve"><value>[Šţöṕṕîñĝ… ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Unattended_State_Paused" xml:space="preserve"><value>[Ṕåüšéď ‹ĺöŕéḿ›]</value></data>
+  <data name="Unattended_State_Unknown" xml:space="preserve"><value>[Šţåţé üñķñöŵñ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Unattended_Install" xml:space="preserve"><value>[Îñšţåĺĺ ţĥé šéŕṽîçé ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Unattended_Start" xml:space="preserve"><value>[Šţåŕţ ‹ĺöŕéḿ›]</value></data>
+  <data name="Unattended_Stop" xml:space="preserve"><value>[Šţöṕ ‹ĺöŕé›]</value></data>
+  <data name="Unattended_Uninstall" xml:space="preserve"><value>[Ŕéḿöṽé ţĥé šéŕṽîçé ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Unattended_Uninstall_Title" xml:space="preserve"><value>[Ŕéḿöṽé ţĥé Ŕéḿöţéĺý šéŕṽîçé? ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Unattended_Uninstall_Body" xml:space="preserve"><value>[Ŕéḿöţéĺý çåñ ţĥéñ ñö ĺöñĝéŕ ḃé ŕéåçĥéď åţ ţĥé ĺöçķ šçŕééñ öŕ ŵĥîĺé ñöḃöďý îš šîĝñéď îñ. Ýöüŕ šéţţîñĝš, ķéýš åñď ĺöĝš åŕé ķéṕţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ é›]</value></data>
+  <data name="Unattended_Uninstall_Accept" xml:space="preserve"><value>[Ŕéḿöṽé ‹ĺöŕéḿ›]</value></data>
+  <data name="Unattended_Uninstall_Cancel" xml:space="preserve"><value>[Ķééṕ îţ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Unattended_Recovery" xml:space="preserve"><value>[Îḟ ţĥé šéŕṽîçé šţöṕš ḃéçåüšé öḟ åñ éŕŕöŕ, Ŵîñďöŵš îš ţöĺď ţö šţåŕţ îţ åĝåîñ åḟţéŕ 5 šéçöñďš. Ţĥé îñšţåĺĺéŕ šéţš ţĥîš; ţĥîš ṕåĝé ďöéš ñöţ ŕéåď îţ ḃåçķ ḟŕöḿ Ŵîñďöŵš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüš›]</value></data>
+  <data name="Unattended_Action_Done" xml:space="preserve"><value>[Ďöñé. ‹ĺöŕéḿ›]</value></data>
+  <data name="Unattended_Action_Cancelled" xml:space="preserve"><value>[Ýöü çĺöšéď ţĥé åďḿîñîšţŕåţöŕ ṕŕöḿṕţ, šö ñöţĥîñĝ ŵåš çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Unattended_Action_Failed" xml:space="preserve"><value>[Ţĥé çĥåñĝé ďîď ñöţ ŵöŕķ. Ñöţĥîñĝ éĺšé ŵåš ţŕîéď. Ţĥé šéŕṽîçé ĺöĝ îš îñ Ç:\ṔŕöĝŕåḿĎåţå\Ŕéḿöţéĺý\ĺöĝš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ å›]</value></data>
+  <data name="Unattended_Action_NotFound" xml:space="preserve"><value>[Ŕéḿöţéĺý.Ĥöšţ.éẋé ŵåš ñöţ ḟöüñď ñéẋţ ţö ţĥé åṕṕ, šö ţĥé šéŕṽîçé çåññöţ ḃé ḿåñåĝéď ḟŕöḿ ĥéŕé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţü›]</value></data>
+  <data name="Unattended_Action_NotTrusted" xml:space="preserve"><value>[Ŕéḿöţéĺý.Ĥöšţ.éẋé îš ñöţ îñ ţĥé Ṕŕöĝŕåḿ Ḟîĺéš ḟöĺďéŕ. Ḟöŕ šåḟéţý ţĥîš åṕṕ åšķš ḟöŕ åďḿîñîšţŕåţöŕ ŕîĝĥţš öñĺý ḟöŕ ţĥé çöṕý îñšţåĺĺéď ţĥéŕé. Îñšţåĺĺ Ŕéḿöţéĺý ḟöŕ åĺĺ üšéŕš ŵîţĥ ţĥé îñšţåĺĺéŕ ţö ḿåñåĝé ţĥé šéŕṽîçé ḟŕöḿ ĥéŕé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ ü›]</value></data>
+  <data name="Unattended_Action_Busy" xml:space="preserve"><value>[Åñöţĥéŕ çĥåñĝé îš šţîĺĺ ŕüññîñĝ. ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Unattended_Action_Unknown" xml:space="preserve"><value>[Ţĥé çĥåñĝé ŕåñ, ḃüţ Ŵîñďöŵš ďîď ñöţ ţéĺĺ ţĥîš åṕṕ ĥöŵ îţ éñďéď. Ţĥé šţåţé åḃöṽé šĥöŵš ŵĥåţ îţ îš ñöŵ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åď›]</value></data>
+  <data name="Unattended_Line_NotInstalled" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš ñöţ îñšţåĺĺéď. Ŕéḿöţéĺý öñĺý ŵöŕķš ŵĥîĺé ýöü åŕé šîĝñéď îñ åñď çåññöţ šĥöŵ ţĥé ĺöçķ šçŕééñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕ›]</value></data>
+  <data name="Unattended_Line_Stopped" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš îñšţåĺĺéď ḃüţ šţöṕṕéď, šö ţĥé ĺöçķ šçŕééñ çåññöţ ḃé ŕéåçĥéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñ›]</value></data>
+  <data name="Unattended_Line_Starting" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš šţåŕţîñĝ… ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Unattended_Line_Stopping" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš šţöṕṕîñĝ… ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Unattended_Line_Paused" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš ṕåüšéď. ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Unattended_Line_Unknown" xml:space="preserve"><value>[Ŵîñďöŵš ďîď ñöţ šåý ŵĥåţ šţåţé ţĥé šéŕṽîçé îš îñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Unattended_Line_LinkUnreachable" xml:space="preserve"><value>[Ţĥé šéŕṽîçé ŕüñš, ḃüţ ţĥîš åṕṕ çåññöţ ţåĺķ ţö îţ ýéţ. Îţ ḿåý šţîĺĺ ḃé šţåŕţîñĝ, öŕ ñöḃöďý ḿåý ḃé šîĝñéď îñ åţ ţĥé ṔÇ'š öŵñ šçŕééñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺ›]</value></data>
+  <data name="Unattended_Line_LinkDenied" xml:space="preserve"><value>[Ţĥé šéŕṽîçé ŕüñš, ḃüţ Ŵîñďöŵš ŕéḟüšéď ţĥîš åṕṕ'š çöññéçţîöñ ţö îţ. Öñĺý ţĥé üšéŕ šîĝñéď îñ åţ ţĥé ṔÇ'š öŵñ šçŕééñ ḿåý üšé îţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ›]</value></data>
+  <data name="Unattended_Line_LinkUntrusted" xml:space="preserve"><value>[Šöḿéţĥîñĝ öţĥéŕ ţĥåñ ţĥé Ŕéḿöţéĺý šéŕṽîçé îš üšîñĝ ţĥé šéŕṽîçé'š çöññéçţîöñ ñåḿé, šö ţĥîš åṕṕ ďöéš ñöţ ţŕüšţ îţ. Ŕéšţåŕţ ţĥé šéŕṽîçé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ›]</value></data>
+  <data name="Unattended_Line_LinkBad" xml:space="preserve"><value>[Ţĥé šéŕṽîçé šéñţ åñ åñšŵéŕ ţĥîš åṕṕ ďöéš ñöţ üñďéŕšţåñď. Ţĥé åṕṕ åñď ţĥé šéŕṽîçé ḿåý ḃé ďîḟḟéŕéñţ ṽéŕšîöñš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕ›]</value></data>
+  <data name="Unattended_Line_Asking" xml:space="preserve"><value>[Ŵåîţîñĝ ḟöŕ ýöüŕ åñšŵéŕ: {0} ŵåñţš ţö çöññéçţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ š›]</value></data>
+  <data name="Unattended_Line_SessionLock" xml:space="preserve"><value>[{0} îš çöññéçţéď åñď îš ĺööķîñĝ åţ ţĥé ĺöçķ öŕ šîĝñ-îñ šçŕééñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿé›]</value></data>
+  <data name="Unattended_Line_SessionDesktop" xml:space="preserve"><value>[{0} îš çöññéçţéď åñď šééš ýöüŕ ďéšķţöṕ. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Unattended_Line_Session" xml:space="preserve"><value>[{0} îš çöññéçţéď. ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Unattended_Line_ViewingLock" xml:space="preserve"><value>[Å ṽîéŵéŕ îš ĺööķîñĝ åţ ţĥé ĺöçķ öŕ šîĝñ-îñ šçŕééñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Unattended_Line_ViewingDesktop" xml:space="preserve"><value>[Å ṽîéŵéŕ îš ĺööķîñĝ åţ ýöüŕ ďéšķţöṕ. ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Unattended_Line_Listening" xml:space="preserve"><value>[Ŵåîţîñĝ ḟöŕ å ţöķéñ. Ţĥé šéŕṽîçé îš šĥåŕîñĝ ţĥîš ṔÇ öñ ýöüŕ ñéţŵöŕķ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ ç›]</value></data>
+  <data name="Unattended_Line_NoHelper" xml:space="preserve"><value>[Ţĥé šéŕṽîçé ŕüñš, ḃüţ îţš šçŕééñ ĥéĺṕéŕ îš ñöţ çöññéçţéď ýéţ, šö îţ çåññöţ çåṕţüŕé ţĥé šçŕééñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ›]</value></data>
+  <data name="Unattended_Line_Ready" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš ŕüññîñĝ åñď ŕéåďý ḟöŕ ţĥé ĺöçķ šçŕééñ åñď åďḿîñîšţŕåţöŕ ṕŕöḿṕţš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšé›]</value></data>
+  <data name="Unattended_Lock_Title" xml:space="preserve"><value>[Ĺöçķ šçŕééñ åñď åďḿîñîšţŕåţöŕ ṕŕöḿṕţš ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Unattended_Lock_Body1" xml:space="preserve"><value>[Ŕéḿöţéĺý îñ å šîĝñéď-îñ ŵîñďöŵ çåññöţ šéé ţĥé Ŵîñďöŵš ĺöçķ šçŕééñ, ţĥé šîĝñ-îñ šçŕééñ öŕ ţĥé ďîḿḿéď šçŕééñ Ŵîñďöŵš šĥöŵš ḟöŕ åďḿîñîšţŕåţöŕ (ÜÅÇ) ṕŕöḿṕţš. Ţĥöšé ḃéĺöñĝ ţö Ŵîñďöŵš îţšéĺḟ. Ţĥé šéŕṽîçé çåñ: îţ ŕüñš åš ŠÝŠŢÉḾ åñď ĺööķš åţ ŵĥîçĥéṽéŕ šçŕééñ îš ŕéçéîṽîñĝ îñṕüţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé éţ ďöĺöŕé›]</value></data>
+  <data name="Unattended_Lock_Body2" xml:space="preserve"><value>[Ŵîţĥ ţĥé šéŕṽîçé ŕüññîñĝ, å çöññéçţîöñ ţĥŕöüĝĥ ýöüŕ šéŕṽéŕ šĥöŵš ţĥéšé šçŕééñš. Å šåḿé-ñéţŵöŕķ çöññéçţîöñ ŵîţĥ å ţöķéñ ďöéš ţöö, ŵĥéñ ýöü šĥåŕé ţĥŕöüĝĥ ţĥé šéŕṽîçé (ḃéĺöŵ). Šĥåŕîñĝ ḟŕöḿ ţĥé åṕṕ åĺöñé ďöéš ñöţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîď›]</value></data>
+  <data name="Unattended_Lock_Body3" xml:space="preserve"><value>[Ñöţ ýéţ šĥöŵñ ţö ŵöŕķ öñ å ŕéåĺ ṔÇ: ţýṕîñĝ å ṕåššŵöŕď öŕ ṔÎÑ öñ ţĥé šîĝñ-îñ šçŕééñ, åñď çĺîçķîñĝ åñ åďḿîñîšţŕåţöŕ ṕŕöḿṕţ. Ḟîñĝéŕṕŕîñţ, ḟåçé åñď šéçüŕîţý-ķéý šîĝñ-îñ ñééď ţĥé ṕéŕšöñ åţ ţĥé ṔÇ åñď çåññöţ ḃé ďöñé ḟŕöḿ åñöţĥéŕ ṔÇ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ›]</value></data>
+  <data name="Unattended_Lan_Title" xml:space="preserve"><value>[Šåḿé-ñéţŵöŕķ šĥåŕîñĝ ţĥŕöüĝĥ ţĥé šéŕṽîçé ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Unattended_Lan_Help" xml:space="preserve"><value>[Ĺéţš åñöţĥéŕ ṔÇ öñ ýöüŕ ñéţŵöŕķ çöññéçţ ŵîţĥ å öñé-ţîḿé ţöķéñ åñď ŕéåçĥ ţĥé ĺöçķ šçŕééñ. Ţĥé šéŕṽîçé ḿåķéš ţĥé ţöķéñ åñď šĥöŵš îţ ĥéŕé ţĥŕöüĝĥ å ṕŕîṽåţé çöññéçţîöñ ţĥåţ öñĺý ţĥé üšéŕ šîĝñéď îñ åţ ţĥîš ṔÇ çåñ üšé. Ţüŕñîñĝ îţ öñ šţöṕš "Šĥåŕé ţĥîš ṔÇ" öñ ţĥé šţåŕţ ṕåĝé, ḃéçåüšé ţĥé ţŵö çåññöţ ĺîšţéñ åţ öñçé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé éţ ďöĺöŕé ḿåĝñå åĺîqüå ĺö›]</value></data>
+  <data name="Unattended_Lan_NeedsService" xml:space="preserve"><value>[Åṽåîĺåḃĺé ŵĥéñ ţĥé šéŕṽîçé îš ŕüññîñĝ. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Unattended_Lan_Allow_Label" xml:space="preserve"><value>[Åĺĺöŵ šĥåŕîñĝ ţĥŕöüĝĥ ţĥé šéŕṽîçé (ñééďš åñ åďḿîñîšţŕåţöŕ) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Unattended_Lan_Allow_Help" xml:space="preserve"><value>[Åñ åďḿîñîšţŕåţöŕ åĺĺöŵš ţĥîš öñçé. Îţ åĺšö öṕéñš ţĥé Ŵîñďöŵš Ḟîŕéŵåĺĺ ḟöŕ ţĥé šéŕṽîçé öñ ṕŕîṽåţé åñď ďöḿåîñ ñéţŵöŕķš öñĺý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ›]</value></data>
+  <data name="Unattended_Lan_Share_Label" xml:space="preserve"><value>[Šĥåŕé ţĥîš ṔÇ ţĥŕöüĝĥ ţĥé šéŕṽîçé ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Unattended_Lan_On" xml:space="preserve"><value>[Šĥåŕîñĝ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Unattended_Lan_Off" xml:space="preserve"><value>[Ñöţ šĥåŕîñĝ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Unattended_Lan_Token" xml:space="preserve"><value>[Ţöķéñ ‹ĺöŕéḿ›]</value></data>
+  <data name="Unattended_Lan_Expires" xml:space="preserve"><value>[Ŵöŕķš öñçé. Çĥåñĝéš îñ {0}. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Unattended_Lan_Connected" xml:space="preserve"><value>[{0} ({1}) îš çöññéçţéď. ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Unattended_Lan_Disconnect" xml:space="preserve"><value>[Ďîšçöññéçţ ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Unattended_Ask_Label" xml:space="preserve"><value>[Åšķ ḿé ḃéḟöŕé šöḿéöñé çöññéçţš (ñééďš åñ åďḿîñîšţŕåţöŕ) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Unattended_Ask_Help" xml:space="preserve"><value>[Ţĥé qüéšţîöñ åṕṕéåŕš îñ ţĥîš åṕṕ. Îḟ ţĥé åṕṕ îš çĺöšéď, ýöü åŕé ñöţ åţ ţĥé ṔÇ, öŕ ţĥé ṔÇ îš ĺöçķéď, å ṔÇ ŵîţĥ ţĥé ţöķéñ îš ţüŕñéď åŵåý. Ţüŕñ ţĥîš öḟḟ ţö ĺéţ å ṔÇ ţĥåţ ķñöŵš ţĥé ţöķéñ îñ ŵîţĥöüţ åšķîñĝ. Å ṔÇ ḿüšţ üšé å ţöķéñ éṽéŕý ţîḿé ţĥŕöüĝĥ ţĥé šéŕṽîçé; ŕéḿéḿḃéŕéď ṔÇš åŕé ñöţ üšéď ĥéŕé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé éţ ďöĺöŕé ḿåĝñå åĺ›]</value></data>
+  <data name="Unattended_Err_NotAllowed" xml:space="preserve"><value>[Åñ åďḿîñîšţŕåţöŕ ĥåš ñöţ åĺĺöŵéď šĥåŕîñĝ ţĥŕöüĝĥ ţĥé šéŕṽîçé ýéţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
+  <data name="Unattended_Err_ListenFailed" xml:space="preserve"><value>[Ţĥé šéŕṽîçé çöüĺď ñöţ šţåŕţ ĺîšţéñîñĝ öñ ţĥîš ñéţŵöŕķ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Unattended_Err_NotListening" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš ñöţ šĥåŕîñĝ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Unattended_Err_Unreachable" xml:space="preserve"><value>[Ţĥé šéŕṽîçé çöüĺď ñöţ ḃé ŕéåçĥéď. ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Unattended_Err_Internal" xml:space="preserve"><value>[Ţĥé šéŕṽîçé ŕéṕöŕţéď åñ îñţéŕñåĺ éŕŕöŕ. Šéé îţš ĺöĝ îñ Ç:\ṔŕöĝŕåḿĎåţå\Ŕéḿöţéĺý\ĺöĝš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţ›]</value></data>
+  <data name="Unattended_Sas_Title" xml:space="preserve"><value>[Šéñď Çţŕĺ+Åĺţ+Ďéĺ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Unattended_Sas_Help" xml:space="preserve"><value>[Ŵîñďöŵš ĺéţš å šéŕṽîçé ṕŕéšš Çţŕĺ+Åĺţ+Ďéĺ öñĺý ŵĥéñ å ṕöĺîçý ("Ďîšåḃĺé öŕ éñåḃĺé šöḟţŵåŕé Šéçüŕé Åţţéñţîöñ Šéqüéñçé") åĺĺöŵš îţ. Šöḿé ṔÇš ñééď Çţŕĺ+Åĺţ+Ďéĺ ḃéḟöŕé ţĥé ṕåššŵöŕď ḃöẋ åṕṕéåŕš. Šŵîţçĥîñĝ ţĥîš öñ šéţš ţĥåţ ṕöĺîçý ţö "Šéŕṽîçéš" öñ ţĥîš ṔÇ; šŵîţçĥîñĝ îţ öḟḟ ŕéḿöṽéš ţĥé šéţţîñĝ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé éţ ďöĺöŕé ḿåĝñå å›]</value></data>
+  <data name="Unattended_Sas_Switch" xml:space="preserve"><value>[Ĺéţ ţĥé šéŕṽîçé šéñď Çţŕĺ+Åĺţ+Ďéĺ (ñééďš åñ åďḿîñîšţŕåţöŕ) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Unattended_Sas_State_On" xml:space="preserve"><value>[Åĺĺöŵéď: ţĥé Çţŕĺ+Åĺţ+Ďéĺ ḃüţţöñ îñ å šéššîöñ ŵöŕķš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Unattended_Sas_State_Off" xml:space="preserve"><value>[Ñöţ åĺĺöŵéď: ţĥé Çţŕĺ+Åĺţ+Ďéĺ ḃüţţöñ îñ å šéššîöñ ŵîĺĺ ñöţ ŵöŕķ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
+  <data name="Unattended_Sas_State_Unknown" xml:space="preserve"><value>[Ŵîñďöŵš ďîď ñöţ šåý ŵĥåţ ţĥé ṕöĺîçý îš. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Unattended_Awake_Title" xml:space="preserve"><value>[Šţåý åŵåķé ŵĥîĺé îñ üšé ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Unattended_Awake_Help" xml:space="preserve"><value>[Ŵĥîĺé šöḿéöñé îš ṽîéŵîñĝ ţĥîš ṔÇ (ţĥŕöüĝĥ ýöüŕ šéŕṽéŕ öŕ ŵîţĥ å ţöķéñ), ţĥé šéŕṽîçé åšķš Ŵîñďöŵš ñöţ ţö šĺééṕ åñď ţö ķééṕ ţĥé šçŕééñ öñ. Îţ ĺéţš ĝö 30 šéçöñďš åḟţéŕ ţĥé ĺåšţ ṕîçţüŕé ŵåš šéñţ. Çĥåñĝîñĝ ţĥîš ñééďš åñ åďḿîñîšţŕåţöŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺ›]</value></data>
+  <data name="Unattended_Awake_Switch" xml:space="preserve"><value>[Ķééṕ ţĥîš ṔÇ åŵåķé ŵĥîĺé šöḿéöñé îš ṽîéŵîñĝ îţ (ñééďš åñ åďḿîñîšţŕåţöŕ) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çö›]</value></data>
+  <data name="Unattended_Awake_Held" xml:space="preserve"><value>[Ŵîñďöŵš îš ḃéîñĝ ķéṕţ åŵåķé ŕîĝĥţ ñöŵ. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Unattended_Awake_Idle" xml:space="preserve"><value>[Ñöḃöďý îš ṽîéŵîñĝ ţĥîš ṔÇ, šö Ŵîñďöŵš ḿåý šĺééṕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
 </root>

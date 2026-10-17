@@ -12,7 +12,7 @@ reviewed any of these strings unless this document or the commit history says so
 
 ## Remotely (the app on every PC)
 
-628 strings.
+715 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -644,6 +644,93 @@ reviewed any of these strings unless this document or the commit history says so
 | `Diag_Quality_Reason_FramesStalled` | The picture stopped for a moment. | Pamja u ndal për një moment. | machine-written (git author Claude, bfe04de) |  | |
 | `Diag_Quality_Reason_NoReply` | Nothing has been heard from the other PC for a few seconds. | Nuk është dëgjuar asgjë nga kompjuteri tjetër për disa sekonda. | machine-written (git author Claude, bfe04de) |  | |
 | `Diag_Quality_Reason_Reconnecting` | Reconnecting. | Po lidhet përsëri. | machine-written (git author Claude, bfe04de) |  | |
+| `Unattended_Nav` | Unattended access | Qasje pa praninë e njeriut | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Title` | Unattended access | Qasje pa praninë e njeriut | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Intro` | Lets this PC be reached while nobody is signed in, while it is locked, and when Windows asks for administrator permission. This needs the Remotely service: a program that Windows starts with the PC and that runs with the highest rights Windows gives a program (the SYSTEM account). | Lejon që ky kompjuter të arrihet kur askush nuk është i kyçur, kur është i bllokuar dhe kur Windows kërkon leje administratori. Për këtë duhet shërbimi Remotely: një program që Windows e nis bashkë me kompjuterin dhe që punon me të drejtat më të larta që Windows i jep një programi (llogaria SYSTEM). | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Live_Title` | Right now | Tani | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Switch_On` | On | Aktiv | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Switch_Off` | Off | Joaktiv | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Copy` | Copy | Kopjo | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Copied` | Copied | U kopjua | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_NewToken` | New token | Kod i ri | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Service_Title` | Remotely service | Shërbimi Remotely | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Service_Help` | The service starts with Windows and keeps working after you sign out. Installing, starting, stopping and removing it needs an administrator: Windows asks once for each click, and nothing is tried again if you say no. | Shërbimi niset bashkë me Windows dhe vazhdon të punojë pasi të dalësh nga llogaria. Instalimi, nisja, ndalimi dhe heqja e tij kërkojnë administrator: Windows pyet një herë për çdo klikim dhe nuk provohet përsëri nëse thua jo. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_State_NotInstalled` | Not installed | Nuk është instaluar | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_State_Stopped` | Installed, stopped | I instaluar, i ndalur | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_State_Starting` | Starting… | Po niset… | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_State_Running` | Installed and running | I instaluar dhe po punon | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_State_Stopping` | Stopping… | Po ndalet… | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_State_Paused` | Paused | I pezulluar | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_State_Unknown` | State unknown | Gjendja e panjohur | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Install` | Install the service | Instalo shërbimin | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Start` | Start | Nise | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Stop` | Stop | Ndale | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Uninstall` | Remove the service | Hiq shërbimin | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Uninstall_Title` | Remove the Remotely service? | Të hiqet shërbimi Remotely? | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Uninstall_Body` | Remotely can then no longer be reached at the lock screen or while nobody is signed in. Your settings, keys and logs are kept. | Pas kësaj Remotely nuk do të arrihet më në ekranin e bllokimit ose kur askush nuk është i kyçur. Cilësimet, çelësat dhe ditarët ruhen. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Uninstall_Accept` | Remove | Hiqe | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Uninstall_Cancel` | Keep it | Mbaje | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Recovery` | If the service stops because of an error, Windows is told to start it again after 5 seconds. The installer sets this; this page does not read it back from Windows. | Nëse shërbimi ndalet për shkak të një gabimi, Windows ka urdhër ta nisë përsëri pas 5 sekondash. Këtë e cakton instaluesi; kjo faqe nuk e lexon nga Windows. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Action_Done` | Done. | U krye. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Action_Cancelled` | You closed the administrator prompt, so nothing was changed. | E mbylle dritaren e administratorit, ndaj asgjë nuk u ndryshua. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Action_Failed` | The change did not work. Nothing else was tried. The service log is in C:\ProgramData\Remotely\logs. | Ndryshimi nuk funksionoi. Nuk u provua asgjë tjetër. Ditari i shërbimit është te C:\ProgramData\Remotely\logs. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Action_NotFound` | Remotely.Host.exe was not found next to the app, so the service cannot be managed from here. | Remotely.Host.exe nuk u gjet pranë aplikacionit, ndaj shërbimi nuk mund të menaxhohet që këtu. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Action_NotTrusted` | Remotely.Host.exe is not in the Program Files folder. For safety this app asks for administrator rights only for the copy installed there. Install Remotely for all users with the installer to manage the service from here. | Remotely.Host.exe nuk është në dosjen Program Files. Për siguri ky aplikacion kërkon të drejta administratori vetëm për kopjen e instaluar atje. Instalo Remotely për të gjithë përdoruesit me instaluesin për ta menaxhuar shërbimin që këtu. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Action_Busy` | Another change is still running. | Një ndryshim tjetër është ende duke u kryer. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Action_Unknown` | The change ran, but Windows did not tell this app how it ended. The state above shows what it is now. | Ndryshimi u ekzekutua, por Windows nuk i tha këtij aplikacioni si përfundoi. Gjendja më sipër tregon se si është tani. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_NotInstalled` | The service is not installed. Remotely only works while you are signed in and cannot show the lock screen. | Shërbimi nuk është instaluar. Remotely punon vetëm kur je i kyçur dhe nuk mund të tregojë ekranin e bllokimit. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Stopped` | The service is installed but stopped, so the lock screen cannot be reached. | Shërbimi është i instaluar por i ndalur, ndaj ekrani i bllokimit nuk arrihet. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Starting` | The service is starting… | Shërbimi po niset… | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Stopping` | The service is stopping… | Shërbimi po ndalet… | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Paused` | The service is paused. | Shërbimi është i pezulluar. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Unknown` | Windows did not say what state the service is in. | Windows nuk tha në çfarë gjendjeje është shërbimi. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_LinkUnreachable` | The service runs, but this app cannot talk to it yet. It may still be starting, or nobody may be signed in at the PC's own screen. | Shërbimi punon, por ky aplikacion nuk mund të komunikojë ende me të. Mund të jetë ende duke u nisur, ose askush nuk është i kyçur në ekranin e vetë kompjuterit. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_LinkDenied` | The service runs, but Windows refused this app's connection to it. Only the user signed in at the PC's own screen may use it. | Shërbimi punon, por Windows e refuzoi lidhjen e këtij aplikacioni me të. Vetëm përdoruesi i kyçur në ekranin e vetë kompjuterit mund ta përdorë. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_LinkUntrusted` | Something other than the Remotely service is using the service's connection name, so this app does not trust it. Restart the service. | Diçka tjetër përveç shërbimit Remotely po përdor emrin e lidhjes së shërbimit, ndaj ky aplikacion nuk i beson. Rinise shërbimin. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_LinkBad` | The service sent an answer this app does not understand. The app and the service may be different versions. | Shërbimi dërgoi një përgjigje që ky aplikacion nuk e kupton. Aplikacioni dhe shërbimi mund të jenë versione të ndryshme. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Asking` | Waiting for your answer: {0} wants to connect. | Po pres përgjigjen tënde: {0} dëshiron të lidhet. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_SessionLock` | {0} is connected and is looking at the lock or sign-in screen. | {0} është i lidhur dhe po shikon ekranin e bllokimit ose të hyrjes. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_SessionDesktop` | {0} is connected and sees your desktop. | {0} është i lidhur dhe e sheh desktopin tënd. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Session` | {0} is connected. | {0} është i lidhur. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_ViewingLock` | A viewer is looking at the lock or sign-in screen. | Një shikues po shikon ekranin e bllokimit ose të hyrjes. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_ViewingDesktop` | A viewer is looking at your desktop. | Një shikues po shikon desktopin tënd. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Listening` | Waiting for a token. The service is sharing this PC on your network. | Po pres një kod. Shërbimi po e ndan këtë kompjuter në rrjetin tënd. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_NoHelper` | The service runs, but its screen helper is not connected yet, so it cannot capture the screen. | Shërbimi punon, por ndihmësi i tij i ekranit nuk është lidhur ende, ndaj nuk mund ta kapë ekranin. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Line_Ready` | The service is running and ready for the lock screen and administrator prompts. | Shërbimi po punon dhe është gati për ekranin e bllokimit dhe dritaret e administratorit. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lock_Title` | Lock screen and administrator prompts | Ekrani i bllokimit dhe dritaret e administratorit | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lock_Body1` | Remotely in a signed-in window cannot see the Windows lock screen, the sign-in screen or the dimmed screen Windows shows for administrator (UAC) prompts. Those belong to Windows itself. The service can: it runs as SYSTEM and looks at whichever screen is receiving input. | Remotely në një dritare të kyçur nuk i sheh ekranin e bllokimit të Windows, ekranin e hyrjes ose ekranin e errësuar që Windows e shfaq për dritaret e administratorit (UAC). Ato i përkasin vetë Windows. Shërbimi mundet: ai punon si SYSTEM dhe shikon cilindo ekran që po merr hyrje. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lock_Body2` | With the service running, a connection through your server shows these screens. A same-network connection with a token does too, when you share through the service (below). Sharing from the app alone does not. | Me shërbimin në punë, një lidhje përmes serverit tënd i tregon këto ekrane. Edhe një lidhje në të njëjtin rrjet me kod i tregon, kur ndan përmes shërbimit (më poshtë). Ndarja vetëm nga aplikacioni nuk i tregon. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lock_Body3` | Not yet shown to work on a real PC: typing a password or PIN on the sign-in screen, and clicking an administrator prompt. Fingerprint, face and security-key sign-in need the person at the PC and cannot be done from another PC. | Ende nuk është treguar që punon në një kompjuter të vërtetë: shkrimi i fjalëkalimit ose PIN-it në ekranin e hyrjes dhe klikimi i një dritareje administratori. Hyrja me gjurmë gishti, fytyrë ose çelës sigurie kërkon personin te kompjuteri dhe nuk bëhet nga një kompjuter tjetër. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Title` | Same-network sharing through the service | Ndarja në të njëjtin rrjet përmes shërbimit | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Help` | Lets another PC on your network connect with a one-time token and reach the lock screen. The service makes the token and shows it here through a private connection that only the user signed in at this PC can use. Turning it on stops "Share this PC" on the start page, because the two cannot listen at once. | Lejon një kompjuter tjetër në rrjetin tënd të lidhet me një kod njëpërdorimsh dhe të arrijë ekranin e bllokimit. Shërbimi e krijon kodin dhe e shfaq këtu përmes një lidhjeje private që mund ta përdorë vetëm përdoruesi i kyçur në këtë kompjuter. Aktivizimi i tij ndalon "Ndaj këtë kompjuter" në faqen e fillimit, sepse të dy nuk mund të dëgjojnë njëkohësisht. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_NeedsService` | Available when the service is running. | Në dispozicion kur shërbimi është në punë. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Allow_Label` | Allow sharing through the service (needs an administrator) | Lejo ndarjen përmes shërbimit (kërkon administrator) | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Allow_Help` | An administrator allows this once. It also opens the Windows Firewall for the service on private and domain networks only. | Një administrator e lejon një herë. Gjithashtu hap murin e zjarrit të Windows për shërbimin vetëm në rrjetet private dhe të domenit. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Share_Label` | Share this PC through the service | Ndaj këtë kompjuter përmes shërbimit | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_On` | Sharing | Po ndan | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Off` | Not sharing | Nuk ndan | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Token` | Token | Kodi | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Expires` | Works once. Changes in {0}. | Punon një herë. Ndryshon pas {0}. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Connected` | {0} ({1}) is connected. | {0} ({1}) është i lidhur. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Lan_Disconnect` | Disconnect | Shkëpute | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Ask_Label` | Ask me before someone connects (needs an administrator) | Më pyet para se dikush të lidhet (kërkon administrator) | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Ask_Help` | The question appears in this app. If the app is closed, you are not at the PC, or the PC is locked, a PC with the token is turned away. Turn this off to let a PC that knows the token in without asking. A PC must use a token every time through the service; remembered PCs are not used here. | Pyetja shfaqet në këtë aplikacion. Nëse aplikacioni është i mbyllur, nuk je te kompjuteri ose kompjuteri është i bllokuar, një kompjuter me kod refuzohet. Çaktivizoje për të lejuar pa pyetur një kompjuter që e di kodin. Përmes shërbimit çdo kompjuter duhet të përdorë kod çdo herë; kompjuterët e kujtuar nuk përdoren këtu. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Err_NotAllowed` | An administrator has not allowed sharing through the service yet. | Një administrator nuk e ka lejuar ende ndarjen përmes shërbimit. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Err_ListenFailed` | The service could not start listening on this network. | Shërbimi nuk mundi të fillojë të dëgjojë në këtë rrjet. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Err_NotListening` | The service is not sharing. | Shërbimi nuk po ndan. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Err_Unreachable` | The service could not be reached. | Shërbimi nuk u arrit. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Err_Internal` | The service reported an internal error. See its log in C:\ProgramData\Remotely\logs. | Shërbimi raportoi një gabim të brendshëm. Shiko ditarin te C:\ProgramData\Remotely\logs. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Sas_Title` | Send Ctrl+Alt+Del | Dërgo Ctrl+Alt+Del | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Sas_Help` | Windows lets a service press Ctrl+Alt+Del only when a policy ("Disable or enable software Secure Attention Sequence") allows it. Some PCs need Ctrl+Alt+Del before the password box appears. Switching this on sets that policy to "Services" on this PC; switching it off removes the setting. | Windows e lejon një shërbim të shtypë Ctrl+Alt+Del vetëm kur një politikë ("Disable or enable software Secure Attention Sequence") e lejon. Disa kompjuterë kërkojnë Ctrl+Alt+Del para se të shfaqet kutia e fjalëkalimit. Aktivizimi e vendos atë politikë në "Services" në këtë kompjuter; çaktivizimi e heq cilësimin. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Sas_Switch` | Let the service send Ctrl+Alt+Del (needs an administrator) | Lejo shërbimin të dërgojë Ctrl+Alt+Del (kërkon administrator) | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Sas_State_On` | Allowed: the Ctrl+Alt+Del button in a session works. | Lejuar: butoni Ctrl+Alt+Del në një seancë punon. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Sas_State_Off` | Not allowed: the Ctrl+Alt+Del button in a session will not work. | Nuk lejohet: butoni Ctrl+Alt+Del në një seancë nuk do të punojë. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Sas_State_Unknown` | Windows did not say what the policy is. | Windows nuk tha cila është politika. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Awake_Title` | Stay awake while in use | Mbaje zgjuar gjatë përdorimit | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Awake_Help` | While someone is viewing this PC (through your server or with a token), the service asks Windows not to sleep and to keep the screen on. It lets go 30 seconds after the last picture was sent. Changing this needs an administrator. | Sa kohë dikush po shikon këtë kompjuter (përmes serverit tënd ose me kod), shërbimi i kërkon Windows të mos fiket dhe ta mbajë ekranin ndezur. E lë 30 sekonda pas figurës së fundit të dërguar. Ndryshimi kërkon administrator. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Awake_Switch` | Keep this PC awake while someone is viewing it (needs an administrator) | Mbaje këtë kompjuter zgjuar kur dikush e shikon (kërkon administrator) | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Awake_Held` | Windows is being kept awake right now. | Windows po mbahet zgjuar tani. | machine-written (git author Claude, 58b312b) |  | |
+| `Unattended_Awake_Idle` | Nobody is viewing this PC, so Windows may sleep. | Askush nuk po e shikon këtë kompjuter, ndaj Windows mund të fiket. | machine-written (git author Claude, 58b312b) |  | |
 
 ## Remotely Server Manager
 
@@ -1171,4 +1258,4 @@ reviewed any of these strings unless this document or the commit history says so
 - Forms of address: the strings use the polite plural (`ju`, `tuaj`). Confirm that this is the register you want for an app.
 - Units in `Duration_*` (`h`, `min`, `s`) are left as in English.
 
-Counts at generation time: 1141 machine-written, 0 with another git author, 0 uncommitted.
+Counts at generation time: 1228 machine-written, 0 with another git author, 0 uncommitted.

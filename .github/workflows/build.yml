@@ -285,6 +285,18 @@ jobs:
           Check "app server path: list, connect, frame and input through the server" ((Test-Path "$PWD\selftest-server.txt") -and ((Get-Content "$PWD\selftest-server.txt" -TotalCount 1) -eq 'PASS'))
           Check "the service host saw the app connect" ($null -ne (Get-Content "C:\ProgramData\Remotely\logs\*.log" | Select-String "Viewer $($uiId.Substring(0,4))-$($uiId.Substring(4,4))"))
 
+          # ---------- SHARING THROUGH THE SERVICE (token sessions that can reach the lock screen) ----------
+          Write-Host "`n===== TOKEN SESSION THROUGH THE SERVICE ====="
+          & $hostExe unattended lan on
+          & $hostExe unattended ask off          # a headless runner cannot answer a question
+          $o = & $hostExe unattended pipe status; $o
+          Check "pipe: the signed-in user reaches the service" (($o -join "`n") -match 'ok: True')
+          Check "sharing through the service is allowed" (($o -join "`n") -match 'lan-allowed: True')
+          $t = Start-Process $appExe -ArgumentList '--selftest-service', "$PWD\selftest-service.txt" -PassThru
+          if (-not $t.WaitForExit(120000)) { $t.Kill() }
+          if (Test-Path "$PWD\selftest-service.txt") { Get-Content "$PWD\selftest-service.txt" }
+          Check "token session through the service: frame received" ((Test-Path "$PWD\selftest-service.txt") -and ((Get-Content "$PWD\selftest-service.txt" -TotalCount 1) -eq 'PASS'))
+
           # ---------- THE LOCK SCREEN ----------
           Write-Host "`n===== LOCK SCREEN ====="
           Start-Process rundll32.exe -ArgumentList 'user32.dll,LockWorkStation'
@@ -328,6 +340,7 @@ jobs:
             frames-sas
             ui-*.jpg
             selftest-server.txt
+            selftest-service.txt
             diag-user.jpg
             server.out
             server.err

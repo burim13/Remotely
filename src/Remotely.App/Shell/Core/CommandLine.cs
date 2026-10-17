@@ -13,6 +13,7 @@ namespace Remotely.App.Shell;
 ///   --instance-name NAME     test only: single-instance name to use instead of the per-user default
 ///   --selftest FILE          share this PC, connect to it, write PASS or FAIL to FILE, exit (CI)
 ///   --selftest-server FILE HOSTID   the same through the configured server (CI)
+///   --selftest-service FILE [DESKTOP]   share through the Windows service and check the frame (and the desktop, for example Winlogon when locked) (CI)
 ///   --selftest-session FILE  open a real session window against an in-process fake host and check frame, input and transfers panel (CI)
 ///   --selftest-share FILE    host-side checks of Share this PC: consent, remembered PCs, banner, pause (CI)
 /// An option that needs a value and does not get one is reported in <see cref="Problems"/> and ignored; unknown options are ignored and reported.
@@ -32,11 +33,13 @@ public sealed record AppOptions
     public string? UiaScanPagesPath { get; init; }
     public string? SelfTestServerResultPath { get; init; }
     public string? SelfTestShareResultPath { get; init; }
+    public string? SelfTestServiceResultPath { get; init; }
+    public string? SelfTestServiceDesktop { get; init; }
     public string? SelfTestServerHostPrefix { get; init; }
     public string? SelfTestSessionResultPath { get; init; }
     public IReadOnlyList<string> Problems { get; init; } = [];
 
-    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null || SelfTestSessionResultPath is not null || SelfTestShareResultPath is not null || SelfTestShellResultPath is not null;
+    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null || SelfTestSessionResultPath is not null || SelfTestShareResultPath is not null || SelfTestShellResultPath is not null || SelfTestServiceResultPath is not null;
 
     /// <summary>Self-tests and --show are test and CI launches: they never join or forward to a running instance.</summary>
     public bool UsesSingleInstance => !IsSelfTest && Show is null && UiaScanResultPath is null;
@@ -85,6 +88,14 @@ public sealed record AppOptions
                         var pages = Value(2);
                         o = o with { UiaScanResultPath = result, UiaScanPagesPath = pages };
                         i += pages is null ? 1 : 2;
+                    }
+                    else problems.Add($"{name} needs a result file");
+                    break;
+                case "--selftest-service":
+                    if (Value(1) is { } serviceFile)
+                    {
+                        o = o with { SelfTestServiceResultPath = serviceFile, SelfTestServiceDesktop = Value(2) };
+                        i += Value(2) is null ? 1 : 2;
                     }
                     else problems.Add($"{name} needs a result file");
                     break;
