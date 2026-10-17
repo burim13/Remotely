@@ -78,7 +78,7 @@ internal static class ShareSelfTests
             Require(hostKey.DeviceId == share.Identity.DeviceId, "the host proved the device key it will use later");
             await using (var session = await ViewerSession.OpenAsync(allowed.Channel, "selftest", cts.Token))
             {
-                await WaitForFrameAsync(session, cts.Token);
+                await WaitForFrameAsync(session, cts.Token, log, () => HostState(share));
                 log("Frame received in the allowed session.");
                 await WaitAsync(() => share.State.Current.State == ShareState.InSession, "state InSession");
                 if (ui is not null)
@@ -103,7 +103,7 @@ internal static class ShareSelfTests
             var endpointIp = new System.Net.IPEndPoint(System.Net.IPAddress.Parse(address), host.TcpPort);
             await using (var again = await ViewerSession.OpenAsync(await LanResume.ConnectAsync(endpointIp, controller, share.Identity.DeviceId, cts.Token), "selftest", cts.Token))
             {
-                await WaitForFrameAsync(again, cts.Token);
+                await WaitForFrameAsync(again, cts.Token, log, () => HostState(share));
                 log("Remembered PC reconnected without a token and received a frame.");
             }
             await WaitAsync(() => !host.IsConnected, "host free after the second session");
@@ -134,17 +134,23 @@ internal static class ShareSelfTests
     /// The host sends a frame only when the screen changed, and the first one can arrive before this code has subscribed. So a small mouse move is sent every second until a frame
     /// is seen (the cursor is part of the captured picture), instead of waiting for a frame that may already have gone by.
     /// </summary>
-    private static async Task WaitForFrameAsync(ViewerSession session, CancellationToken ct)
+    private static async Task WaitForFrameAsync(ViewerSession session, CancellationToken ct, Action<string> log, Func<string> hostState)
     {
         var frame = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        session.FrameReceived += _ => frame.TrySetResult(true);
+        var frames = 0;
+        session.FrameReceived += _ => { Interlocked.Increment(ref frames); frame.TrySetResult(true); };
+        session.HostError += e => log("Host error text: " + e);
         for (var i = 0; i < 30 && !frame.Task.IsCompleted; i++)
         {
             session.SendInput(Remotely.HostCore.InputEvent.Move((ushort)(20000 + i * 300), 20000));
             await Task.WhenAny(frame.Task, Task.Delay(1000, ct));
+            if (i is 2 or 9 or 19 && !frame.Task.IsCompleted) log($"Still no frame after {i + 1} s. Host: {hostState()}. ShareService instances created in this process: {ShareService.InstancesCreated}.");
         }
-        if (!frame.Task.IsCompleted) throw new TimeoutException("No frame arrived in the session.");
+        if (!frame.Task.IsCompleted) throw new TimeoutException($"No frame arrived in the session. Host: {hostState()}.");
     }
+
+    private static string HostState(ShareService share) =>
+        $"state={share.State.Current.State}, connected={share.Host?.IsConnected}, paused={share.Host?.ControlPaused}, capture={share.CaptureSummary}";
 
     private static void Require(bool condition, string what)
     {

@@ -103,7 +103,7 @@ public sealed class LanHost : IAsyncDisposable
     /// <summary>A sentence for the person at this PC, for example that the token was replaced after wrong tries.</summary>
     public event Action<string>? Notice;
 
-    private LanTokenState NewState() => new(LanToken.Create(), DateTimeOffset.UtcNow + _options.TokenLifetime);
+    private LanTokenState NewState() => new(LanToken.Create(), DateTimeOffset.UtcNow + _options.TokenLifetime, _options.MaxFailures);
 
     public void Start()
     {
@@ -123,7 +123,7 @@ public sealed class LanHost : IAsyncDisposable
         catch (SocketException ex) { _log("Discovery is unavailable (" + ex.Message + "). The other PC can still connect by this PC's address."); }
         _acceptLoop = Task.Run(AcceptLoopAsync);
         _expiryLoop = Task.Run(ExpiryLoopAsync);
-        _log($"Sharing on port {TcpPort}. Token {CurrentToken.Display}.");
+        _log($"Sharing on port {TcpPort}. A token is on offer (not logged).");
     }
 
     /// <summary>Shows a fresh token now (the person asked for one).</summary>
@@ -132,7 +132,9 @@ public sealed class LanHost : IAsyncDisposable
     private void Rotate(string? notice)
     {
         var next = NewState();   // stretches the secret: do it outside the lock
-        lock (_gate) _state = next;
+        LanTokenState old;
+        lock (_gate) { old = _state; _state = next; }
+        old.Clear();   // the old stretched key is overwritten as soon as the token is replaced
         if (notice is not null) Notice?.Invoke(notice);
         TokenChanged?.Invoke();
     }

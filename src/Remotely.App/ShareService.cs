@@ -22,6 +22,8 @@ public sealed class ShareService : IAsyncDisposable
     private DeviceIdentity? _identity;
     private LanHost? _host;
     private ShareUiHost? _ui;
+    private DesktopCapturer? _capturer;
+    private static int _instances;
 
     public ShareService() : this(null) { }
 
@@ -30,6 +32,9 @@ public sealed class ShareService : IAsyncDisposable
     {
         _dataDirectory = dataDirectory ?? ViewerSettings.Dir;
         Coordinator = new ShareCoordinator(_dataDirectory, PromptAsync);
+        Interlocked.Increment(ref _instances);
+        // The tray menu and other shell parts listen to this to refresh their share state.
+        Coordinator.State.Changed += _ => { try { App.Services.RaiseShareStateChanged(); } catch (Exception ex) when (ex is not OutOfMemoryException) { App.LogCrash(ex); } };
     }
 
     public ShareCoordinator Coordinator { get; }
@@ -37,6 +42,12 @@ public sealed class ShareService : IAsyncDisposable
     public LanHost? Host => _host;
     public bool IsSharing => _host is not null;
     public ShareUiHost? Ui => _ui;
+
+    /// <summary>Diagnostics only: how many ShareService objects this process has made (the self-test makes more than one).</summary>
+    public static int InstancesCreated => Volatile.Read(ref _instances);
+
+    /// <summary>Diagnostics only: which capture object this service uses and whether it is the current one.</summary>
+    public string CaptureSummary => _capturer is null ? "none" : $"{nameof(DesktopCapturer)}#{System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(_capturer)} on desktop thread #{System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(_desktop)} (service #{System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this)})";
 
     /// <summary>Replaces the question shown to the person (self-tests answer it without a screen). Null means the normal question window.</summary>
     public Func<ConsentRequest, CancellationToken, Task<ConsentDecision>>? PromptOverride { get; set; }
@@ -80,7 +91,10 @@ public sealed class ShareService : IAsyncDisposable
         // Started from a screen (the UI thread): make sure the question window, banner and toasts exist, so an unknown PC can be asked about.
         if (_ui is null && !IsHeadlessSelfTest && DispatcherQueue.GetForCurrentThread() is { } queue) AttachUi(queue);
         var received = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "Remotely");
-        var services = new HostServices(new DesktopCapturer(_desktop, log))
+        _capturer?.Dispose();
+        _capturer = new DesktopCapturer(_desktop, log);
+        log($"Capture: {CaptureSummary}.");
+        var services = new HostServices(_capturer)
         {
             Input = new InputInjector(_desktop),
             Clipboard = new ClipboardAccess(),
@@ -111,6 +125,8 @@ public sealed class ShareService : IAsyncDisposable
         if (host is null) return;
         Coordinator.Detach();
         await host.DisposeAsync();
+        _capturer?.Dispose();   // releases screen-duplication resources so a later service in this process starts clean
+        _capturer = null;
     }
 
     /// <summary>The banner's "Stop sharing": disconnects the other PC and turns sharing off.</summary>

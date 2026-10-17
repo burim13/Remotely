@@ -10,6 +10,7 @@ namespace Remotely.App.Shell;
 ///   --selftest FILE          share this PC, connect to it, write PASS or FAIL to FILE, exit (CI)
 ///   --selftest-server FILE HOSTID   the same through the configured server (CI)
 ///   --selftest-session FILE  open a real session window against an in-process fake host and check frame, input and transfers panel (CI)
+///   --selftest-share FILE    host-side checks of Share this PC: consent, remembered PCs, banner, pause (CI)
 /// An option that needs a value and does not get one is reported in <see cref="Problems"/> and ignored; unknown options are ignored and reported.
 /// </summary>
 public sealed record AppOptions
@@ -21,11 +22,12 @@ public sealed record AppOptions
     public bool Minimized { get; init; }
     public string? SelfTestResultPath { get; init; }
     public string? SelfTestServerResultPath { get; init; }
+    public string? SelfTestShareResultPath { get; init; }
     public string? SelfTestServerHostPrefix { get; init; }
     public string? SelfTestSessionResultPath { get; init; }
     public IReadOnlyList<string> Problems { get; init; } = [];
 
-    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null || SelfTestSessionResultPath is not null;
+    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null || SelfTestSessionResultPath is not null || SelfTestShareResultPath is not null;
 
     /// <summary>Self-tests and --show are test and CI launches: they never join or forward to a running instance.</summary>
     public bool UsesSingleInstance => !IsSelfTest && Show is null;
@@ -48,7 +50,7 @@ public sealed record AppOptions
                 case "--minimized":
                     o = o with { Minimized = true };
                     break;
-                case "--invite" or "--pair" or "--connect-token" or "--show" or "--selftest" or "--selftest-session":
+                case "--invite" or "--pair" or "--connect-token" or "--show" or "--selftest" or "--selftest-session" or "--selftest-share":
                     if (Value(1) is { Length: > 0 } v)
                     {
                         o = key switch
@@ -58,6 +60,7 @@ public sealed record AppOptions
                             "--connect-token" => o with { ConnectToken = v.Trim() },
                             "--show" => o with { Show = v.Trim() },
                             "--selftest-session" => o with { SelfTestSessionResultPath = v },
+                            "--selftest-share" => o with { SelfTestShareResultPath = v },
                             _ => o with { SelfTestResultPath = v },
                         };
                         i++;
