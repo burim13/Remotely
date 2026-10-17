@@ -21,7 +21,7 @@ internal sealed class ScreenCapturer(Action<string>? log) : IDisposable
     private byte[]? _gdi;
     private long _version;
     private DateTime _dxgiRetryAt = DateTime.MinValue;
-    private string? _lastPath;
+    private string? _lastPath, _lastLegacyPath;
     private string? _lastDxgiFailure;
 
     public string? LastPath => _lastPath;
@@ -77,8 +77,9 @@ internal sealed class ScreenCapturer(Action<string>? log) : IDisposable
 
     private void Note(string path, string detail)
     {
-        if (path == _lastPath) return;
-        _lastPath = path;
+        var legacy = path.EndsWith("full-frame", StringComparison.Ordinal);
+        if (path == (legacy ? _lastLegacyPath : _lastPath)) return;
+        if (legacy) _lastLegacyPath = path; else _lastPath = path;
         log?.Invoke($"Capture path: {path} ({detail}).");
     }
 
