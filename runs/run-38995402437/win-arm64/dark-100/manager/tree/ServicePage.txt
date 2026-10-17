@@ -1,0 +1,64 @@
+Window name="Remotely Server Manager" id="" class="WinUIDesktopWin32WindowClass" rect=130,130,1100x780
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=138,161,1084x741
+    Pane name="" id="" class="InputSiteWindowClass" rect=138,161,1084x741
+      StatusBar name="" id="ElevatedBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=138,161,1084x76
+        Text name="" id="IconBackground" class="TextBlock" rect=155,178,16x16
+        Text name="Warning icon" id="StandardIcon" class="TextBlock" rect=155,178,16x16
+        Text name="The Manager is running as administrator" id="Title" class="TextBlock" rect=185,176,259x19
+        Text name="That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally." id="Message" class="TextBlock" rect=185,199,879x19
+        Button name="Close" id="CloseButton" class="Button" rect=1178,167,38x38
+          Text name="" id="" class="TextBlock" rect=1190,178,14x16
+      Custom name="" id="Nav" class="" rect=138,237,1084x665
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=142,243,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=138,237,230x665
+          Image name="" id="" class="Image" rect=190,249,28x28
+          Text name="Remotely Server Manager" id="PaneTitle" class="TextBlock" rect=228,252,140x22
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=138,285,230x569
+            Group name="" id="MenuItemsHost" class="" rect=142,287,222x196
+              ListItem name="Dashboard" id="NavDashboard" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=142,287,222x36
+                Text name="" id="" class="TextBlock" rect=154,297,16x16
+                Text name="Dashboard" id="" class="TextBlock" rect=186,297,68x17
+              ListItem name="Invite a device" id="NavInvite" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=142,327,222x36
+                Text name="" id="" class="TextBlock" rect=154,337,16x16
+                Text name="Invite a device" id="" class="TextBlock" rect=186,337,89x17
+              ListItem name="Devices" id="NavDevices" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=142,367,222x36
+                Text name="" id="" class="TextBlock" rect=154,377,16x16
+                Text name="Devices" id="" class="TextBlock" rect=186,377,47x17
+              ListItem name="Activity" id="NavActivity" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=142,407,222x36
+                Text name="" id="" class="TextBlock" rect=154,417,16x16
+                Text name="Activity" id="" class="TextBlock" rect=186,417,46x17
+              ListItem name="Service" id="NavService" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=142,447,222x36
+                Text name="" id="" class="TextBlock" rect=154,457,16x16
+                Text name="Service" id="" class="TextBlock" rect=186,457,44x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=138,858,230x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=142,860,222x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=142,860,222x36
+                Text name="Settings" id="" class="TextBlock" rect=186,870,50x17
+        Pane name="" id="" class="ScrollViewer" rect=369,238,853x664
+          Text name="Service" id="" class="TextBlock" rect=401,262,789x38
+          StatusBar name="" id="" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Text name="The service is running" id="" class="TextBlock" rect=452,353,197x27
+          Text name="The server answers." id="" class="TextBlock" rect=452,382,197x19
+          Button name="Start" id="" class="Button" rect=422,415,55x30
+            Text name="Start" id="" class="TextBlock" rect=435,421,29x17
+          Button name="Stop" id="" class="Button" rect=485,415,55x30
+            Text name="Stop" id="" class="TextBlock" rect=498,421,29x17
+          Button name="Restart" id="" class="Button" rect=548,415,69x30
+            Text name="Restart" id="" class="TextBlock" rect=561,421,43x17
+          Button name="Install" id="" class="Button" rect=625,415,63x30
+            Text name="Install" id="" class="TextBlock" rect=638,421,37x17
+          Button name="Uninstall" id="" class="Button" rect=696,415,80x30
+            Text name="Uninstall" id="" class="TextBlock" rect=709,421,54x17
+          ProgressBar name="" id="" class="Microsoft.UI.Xaml.Controls.ProgressRing" rect=784,418,24x24
+            Image name="" id="LottiePlayer" class="Microsoft.UI.Xaml.Controls.AnimatedVisualPlayer" rect=784,418,24x24
+          Text name="Windows will ask for permission" id="" class="TextBlock" rect=422,503,747x19
+          Text name="The Manager never runs as administrator. To install, stop or restore the service it starts a small elevated helper, and Windows asks you each time." id="" class="TextBlock" rect=422,528,747x38
+          Text name="Uninstalling removes the service and its firewall rule but keeps your devices and key in the data folder." id="" class="TextBlock" rect=422,572,747x19
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=154,133,1068x28
+    MenuBar name="System" id="SystemMenuBar" class="" rect=138,138,22x22
+      MenuItem name="System" id="" class="" rect=138,138,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=1083,131,47x30
+    Button name="Maximize" id="Maximize-Restore" class="" rect=1130,131,46x30
+    Button name="Close" id="Close" class="" rect=1176,131,47x30

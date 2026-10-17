@@ -1,0 +1,72 @@
+### Screenshot comparison with the baselines
+
+0 unchanged, 0 drifted, 0 new (no baseline), 66 baseline image(s) without a screenshot
+
+| Image | Result |
+|---|---|
+| dark-100/ComputersPage.png | baseline has no matching screenshot in this run |
+| dark-100/ConnectPage.png | baseline has no matching screenshot in this run |
+| dark-100/DiagnosisPage.png | baseline has no matching screenshot in this run |
+| dark-100/GalleryPage.png | baseline has no matching screenshot in this run |
+| dark-100/HomePage.png | baseline has no matching screenshot in this run |
+| dark-100/OnboardingDonePage.png | baseline has no matching screenshot in this run |
+| dark-100/OnboardingNamePage.png | baseline has no matching screenshot in this run |
+| dark-100/OnboardingPage.png | baseline has no matching screenshot in this run |
+| dark-100/OnboardingServerPage.png | baseline has no matching screenshot in this run |
+| dark-100/OnboardingSharePage.png | baseline has no matching screenshot in this run |
+| dark-100/SessionPreviewPage.png | baseline has no matching screenshot in this run |
+| dark-100/SettingsPage.png | baseline has no matching screenshot in this run |
+| dark-100/SharePage.png | baseline has no matching screenshot in this run |
+| dark-100/TransfersPage.png | baseline has no matching screenshot in this run |
+| dark-150/ComputersPage.png | baseline has no matching screenshot in this run |
+| dark-150/GalleryPage.png | baseline has no matching screenshot in this run |
+| dark-150/HomePage.png | baseline has no matching screenshot in this run |
+| dark-150/OnboardingPage.png | baseline has no matching screenshot in this run |
+| dark-150/SettingsPage.png | baseline has no matching screenshot in this run |
+| dark-175/ComputersPage.png | baseline has no matching screenshot in this run |
+| dark-175/GalleryPage.png | baseline has no matching screenshot in this run |
+| dark-175/HomePage.png | baseline has no matching screenshot in this run |
+| dark-175/OnboardingPage.png | baseline has no matching screenshot in this run |
+| dark-175/SettingsPage.png | baseline has no matching screenshot in this run |
+| flows/flow-first-run-onboarding-01-step1-name.png | baseline has no matching screenshot in this run |
+| flows/flow-first-run-onboarding-02-step2-share.png | baseline has no matching screenshot in this run |
+| flows/flow-first-run-onboarding-03-step3-server.png | baseline has no matching screenshot in this run |
+| flows/flow-first-run-onboarding-04-step4-done.png | baseline has no matching screenshot in this run |
+| flows/flow-first-run-onboarding-05-after-finish.png | baseline has no matching screenshot in this run |
+| flows/flow-home-wrong-token-share-this-pc-settings-01-home.png | baseline has no matching screenshot in this run |
+| flows/flow-home-wrong-token-share-this-pc-settings-02-token-incomplete.png | baseline has no matching screenshot in this run |
+| flows/flow-home-wrong-token-share-this-pc-settings-03-wrong-token-error.png | baseline has no matching screenshot in this run |
+| flows/flow-home-wrong-token-share-this-pc-settings-04-sharing-on.png | baseline has no matching screenshot in this run |
+| flows/flow-home-wrong-token-share-this-pc-settings-05-sharing-off.png | baseline has no matching screenshot in this run |
+| flows/flow-home-wrong-token-share-this-pc-settings-06-settings.png | baseline has no matching screenshot in this run |
+| hc-100/ComputersPage.png | baseline has no matching screenshot in this run |
+| hc-100/GalleryPage.png | baseline has no matching screenshot in this run |
+| hc-100/HomePage.png | baseline has no matching screenshot in this run |
+| hc-100/OnboardingPage.png | baseline has no matching screenshot in this run |
+| hc-100/SettingsPage.png | baseline has no matching screenshot in this run |
+| light-100/ComputersPage.png | baseline has no matching screenshot in this run |
+| light-100/ConnectPage.png | baseline has no matching screenshot in this run |
+| light-100/DiagnosisPage.png | baseline has no matching screenshot in this run |
+| light-100/GalleryPage.png | baseline has no matching screenshot in this run |
+| light-100/HomePage.png | baseline has no matching screenshot in this run |
+| light-100/OnboardingDonePage.png | baseline has no matching screenshot in this run |
+| light-100/OnboardingNamePage.png | baseline has no matching screenshot in this run |
+| light-100/OnboardingPage.png | baseline has no matching screenshot in this run |
+| light-100/OnboardingServerPage.png | baseline has no matching screenshot in this run |
+| light-100/OnboardingSharePage.png | baseline has no matching screenshot in this run |
+| light-100/SessionPreviewPage.png | baseline has no matching screenshot in this run |
+| light-100/SettingsPage.png | baseline has no matching screenshot in this run |
+| light-100/SharePage.png | baseline has no matching screenshot in this run |
+| light-100/TransfersPage.png | baseline has no matching screenshot in this run |
+| dark-100/manager/ActivityPage.png | baseline has no matching screenshot in this run |
+| dark-100/manager/DashboardPage.png | baseline has no matching screenshot in this run |
+| dark-100/manager/DevicesPage.png | baseline has no matching screenshot in this run |
+| dark-100/manager/InvitePage.png | baseline has no matching screenshot in this run |
+| dark-100/manager/ServerSettingsPage.png | baseline has no matching screenshot in this run |
+| dark-100/manager/ServicePage.png | baseline has no matching screenshot in this run |
+| light-100/manager/ActivityPage.png | baseline has no matching screenshot in this run |
+| light-100/manager/DashboardPage.png | baseline has no matching screenshot in this run |
+| light-100/manager/DevicesPage.png | baseline has no matching screenshot in this run |
+| light-100/manager/InvitePage.png | baseline has no matching screenshot in this run |
+| light-100/manager/ServerSettingsPage.png | baseline has no matching screenshot in this run |
+| light-100/manager/ServicePage.png | baseline has no matching screenshot in this run |

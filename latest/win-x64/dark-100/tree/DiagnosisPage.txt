@@ -1,0 +1,60 @@
+Window name="Remotely" id="" class="WinUIDesktopWin32WindowClass" rect=20,20,1100x760
+  Pane name="Non Client Input Sink Window" id="" class="InputNonClientPointerSource" rect=28,20,1084x32
+  Pane name="AppWindow Custom Title Bar" id="" class="ReunionWindowingCaptionControls" rect=974,20,138x32
+    Button name="Minimize" id="Minimize" class="" rect=974,20,46x32
+    Button name="Maximize" id="Maximize" class="" rect=1020,20,46x32
+    Button name="Close" id="Close" class="" rect=1066,20,46x32
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=28,21,1084x751
+    Pane name="" id="" class="InputSiteWindowClass" rect=28,21,1084x751
+      Image name="" id="" class="Image" rect=40,29,16x16
+      Text name="Remotely" id="TitleText" class="TextBlock" rect=64,29,51x16
+      Custom name="" id="Nav" class="" rect=28,53,1084x719
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=32,59,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=28,53,220x719
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=28,97,220x627
+            Group name="" id="MenuItemsHost" class="" rect=32,99,212x76
+              ListItem name="This network" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,99,212x36
+                Text name="" id="" class="TextBlock" rect=44,109,16x16
+                Text name="This network" id="" class="TextBlock" rect=76,109,79x17
+              ListItem name="My computers" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,139,212x36
+                Text name="" id="" class="TextBlock" rect=44,149,16x16
+                Text name="My computers" id="" class="TextBlock" rect=76,149,89x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=28,728,220x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=32,730,212x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,730,212x36
+                Text name="Settings" id="" class="TextBlock" rect=76,740,50x17
+        Pane name="" id="" class="ScrollViewer" rect=249,54,863x718
+          Text name="Connection check" id="TitleText" class="TextBlock" rect=332,78,696x38
+          Text name="Checks this PC's network and the other PC, one step at a time, and says which step fails." id="IntroText" class="TextBlock" rect=332,132,696x19
+          Button name="Check again" id="RunButton" class="Button" rect=332,167,99x30
+            Text name="Check again" id="" class="TextBlock" rect=344,173,75x17
+          Button name="Back" id="BackButton" class="Button" rect=443,167,53x30
+            Text name="Back" id="" class="TextBlock" rect=455,173,29x17
+          ProgressBar name="" id="Busy" class="Microsoft.UI.Xaml.Controls.ProgressRing" rect=508,170,24x24
+            Image name="" id="LottiePlayer" class="Microsoft.UI.Xaml.Controls.AnimatedVisualPlayer" rect=508,170,24x24
+          StatusBar name="" id="SummaryBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=332,213,696x113
+            Text name="" id="IconBackground" class="TextBlock" rect=349,230,16x16
+            Text name="Warning icon" id="StandardIcon" class="TextBlock" rect=349,230,16x16
+            Text name="A problem was found" id="Title" class="TextBlock" rect=379,228,137x19
+            Text name="No PC that is sharing did not answer the search on this network. Check that the other PC is showing a token, that Windows Firewall there allows Remotely (UDP port 47811), and that the Wi-Fi does not isolate devices from each other (common on guest networks and some public Wi-Fi)." id="Message" class="TextBlock" rect=379,251,626x56
+          Text name="" id="" class="TextBlock" rect=332,345,16x16
+          Text name="Network connection" id="" class="TextBlock" rect=360,342,668x19
+          Text name="This PC is on the network as 10.1.0.10 (Ethernet 3), 172.21.208.1 (vEthernet (nat))." id="" class="TextBlock" rect=360,361,668x19
+          Text name="" id="" class="TextBlock" rect=332,393,16x16
+          Text name="Same network" id="" class="TextBlock" rect=360,390,668x19
+          Text name="No address was typed, so there is nothing to compare. The token's label is searched for on every network connection of this PC." id="" class="TextBlock" rect=360,409,668x38
+          Text name="" id="" class="TextBlock" rect=332,460,16x16
+          Text name="Answer from the other PC" id="" class="TextBlock" rect=360,457,668x19
+          Text name="No PC that is sharing did not answer the search on this network. Check that the other PC is showing a token, that Windows Firewall there allows Remotely (UDP port 47811), and that the Wi-Fi does not isolate devices from each other (common on guest networks and some public Wi-Fi)." id="" class="TextBlock" rect=360,476,668x56
+          Text name="" id="" class="TextBlock" rect=332,545,16x16
+          Text name="Connection port" id="" class="TextBlock" rect=360,542,668x19
+          Text name="Not checked, because an earlier step failed." id="" class="TextBlock" rect=360,561,668x19
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+      StatusBar name="" id="ToastBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=- offscreen
+    MenuBar name="System" id="SystemMenuBar" class="" rect=28,28,22x22
+      MenuItem name="System" id="" class="" rect=28,28,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=- offscreen
+    Button name="Maximize" id="Maximize-Restore" class="" rect=- offscreen
+    Button name="Close" id="Close" class="" rect=- offscreen

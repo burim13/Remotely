@@ -1,0 +1,48 @@
+Window name="Remotely" id="" class="WinUIDesktopWin32WindowClass" rect=20,20,1650x980
+  Pane name="Non Client Input Sink Window" id="" class="InputNonClientPointerSource" rect=31,20,1628x48
+  Pane name="AppWindow Custom Title Bar" id="" class="ReunionWindowingCaptionControls" rect=1452,20,207x48
+    Button name="Minimize" id="Minimize" class="" rect=1452,20,69x48
+    Button name="Maximize" id="Maximize" class="" rect=1521,20,69x48
+    Button name="Close" id="Close" class="" rect=1590,20,69x48
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=31,21,1628x968
+    Pane name="" id="" class="InputSiteWindowClass" rect=31,21,1628x968
+      Image name="" id="" class="Image" rect=49,33,24x24
+      Text name="Remotely" id="TitleText" class="TextBlock" rect=85,33,77x24
+      Custom name="" id="Nav" class="" rect=31,69,1628x920
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=37,78,60x54
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=31,69,330x920
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=32,136,328x781
+            Group name="" id="MenuItemsHost" class="" rect=38,139,316x114
+              ListItem name="This network" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=38,139,316x54
+                Text name="" id="" class="TextBlock" rect=56,154,24x24
+                Text name="This network" id="" class="TextBlock" rect=104,153,118x26
+              ListItem name="My computers" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=38,199,316x54
+                Text name="" id="" class="TextBlock" rect=56,214,24x24
+                Text name="My computers" id="" class="TextBlock" rect=104,213,134x26
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=32,923,328x60
+            Group name="" id="FooterMenuItemsHost" class="" rect=38,926,316x54
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=38,926,316x54
+                Text name="Settings" id="" class="TextBlock" rect=104,939,75x26
+        Text name="Step 1 of 4" id="StepText" class="TextBlock" rect=579,95,864x28
+        ProgressBar name="" id="Progress" class="Microsoft.UI.Xaml.Controls.ProgressBar" rect=579,135,864x4
+        Pane name="" id="" class="ScrollViewer" rect=363,139,1295x747
+          Text name="Name this PC" id="Heading" class="TextBlock" rect=594,176,864x55
+          Text name="This is how this PC appears to the people and devices you connect with. You can change it later in Settings." id="Body" class="TextBlock" rect=594,256,864x56
+          Edit name="PC name" id="NameBox" class="TextBox" rect=594,336,864x87
+            Edit name="PC name" id="" class="" rect=594,336,864x87
+            Text name="PC name" id="" class="TextBlock" rect=594,336,83x26
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=596,376,861x45
+          StatusBar name="" id="Bar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+        Button name="Skip setup" id="SkipButton" class="Button" rect=1146,906,134x47
+          Text name="Skip setup" id="" class="TextBlock" rect=1166,916,97x26
+        Button name="Next" id="NextButton" class="Button" rect=1299,906,144x47
+          Text name="Next" id="" class="TextBlock" rect=1349,916,43x26
+      StatusBar name="" id="ToastBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=- offscreen
+    MenuBar name="System" id="SystemMenuBar" class="" rect=31,31,33x33
+      MenuItem name="System" id="" class="" rect=31,31,33x33
+    Button name="Minimize" id="Minimize-Restore" class="" rect=- offscreen
+    Button name="Maximize" id="Maximize-Restore" class="" rect=- offscreen
+    Button name="Close" id="Close" class="" rect=- offscreen

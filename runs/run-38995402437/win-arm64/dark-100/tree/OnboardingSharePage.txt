@@ -1,0 +1,43 @@
+Window name="Remotely" id="" class="WinUIDesktopWin32WindowClass" rect=20,20,1100x760
+  Pane name="Non Client Input Sink Window" id="" class="InputNonClientPointerSource" rect=28,20,1084x32
+  Pane name="AppWindow Custom Title Bar" id="" class="ReunionWindowingCaptionControls" rect=974,20,138x32
+    Button name="Minimize" id="Minimize" class="" rect=974,20,46x32
+    Button name="Maximize" id="Maximize" class="" rect=1020,20,46x32
+    Button name="Close" id="Close" class="" rect=1066,20,46x32
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=28,21,1084x751
+    Pane name="" id="" class="InputSiteWindowClass" rect=28,21,1084x751
+      Image name="" id="" class="Image" rect=40,29,16x16
+      Text name="Remotely" id="TitleText" class="TextBlock" rect=64,29,51x16
+      Custom name="" id="Nav" class="" rect=28,53,1084x719
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=32,59,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=28,53,220x719
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=28,97,220x627
+            Group name="" id="MenuItemsHost" class="" rect=32,99,212x76
+              ListItem name="This network" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,99,212x36
+                Text name="" id="" class="TextBlock" rect=44,109,16x16
+                Text name="This network" id="" class="TextBlock" rect=76,109,79x17
+              ListItem name="My computers" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,139,212x36
+                Text name="" id="" class="TextBlock" rect=44,149,16x16
+                Text name="My computers" id="" class="TextBlock" rect=76,149,89x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=28,728,220x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=32,730,212x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,730,212x36
+                Text name="Settings" id="" class="TextBlock" rect=76,740,50x17
+        Pane name="" id="" class="ScrollViewer" rect=249,54,863x718
+          Text name="Share this PC on your network?" id="Heading" class="TextBlock" rect=401,78,576x38
+          Text name="If you turn this on, someone on the same network who has a one-time code from you can see and control this screen. Nothing is shared until a code is entered, and each code works once. You can switch sharing off at any time." id="Body" class="TextBlock" rect=401,132,576x56
+          Button name="Share this PC on my network" id="ShareSwitch" class="ToggleSwitch" rect=401,204,178x61
+            Text name="Share this PC on my network" id="" class="TextBlock" rect=401,204,178x17
+            Text name="Off" id="" class="TextBlock" rect=453,237,20x17
+            Text name="On" id="" class="TextBlock" rect=453,237,19x17
+            Thumb name="" id="SwitchThumb" class="Thumb" rect=401,225,72x40
+          StatusBar name="" id="Bar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+      StatusBar name="" id="ToastBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=- offscreen
+    MenuBar name="System" id="SystemMenuBar" class="" rect=28,28,22x22
+      MenuItem name="System" id="" class="" rect=28,28,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=- offscreen
+    Button name="Maximize" id="Maximize-Restore" class="" rect=- offscreen
+    Button name="Close" id="Close" class="" rect=- offscreen

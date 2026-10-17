@@ -1,0 +1,281 @@
+Window name="Remotely" id="" class="WinUIDesktopWin32WindowClass" rect=20,20,1860x980
+  Pane name="Non Client Input Sink Window" id="" class="InputNonClientPointerSource" rect=32,20,1836x56
+  Pane name="AppWindow Custom Title Bar" id="" class="ReunionWindowingCaptionControls" rect=1661,20,207x48
+    Button name="Minimize" id="Minimize" class="" rect=1661,20,69x48
+    Button name="Maximize" id="Maximize" class="" rect=1730,20,69x48
+    Button name="Close" id="Close" class="" rect=1799,20,69x48
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=32,21,1836x967
+    Pane name="" id="" class="InputSiteWindowClass" rect=32,21,1836x967
+      Image name="" id="" class="Image" rect=53,35,28x28
+      Text name="Remotely" id="TitleText" class="TextBlock" rect=94,35,89x28
+      Custom name="" id="Nav" class="" rect=32,77,1836x911
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=39,88,70x63
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=32,77,385x911
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=32,155,385x749
+            Group name="" id="MenuItemsHost" class="" rect=39,159,371x133
+              ListItem name="This network" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=39,159,371x63
+                Text name="" id="" class="TextBlock" rect=59,176,28x28
+                Text name="This network" id="" class="TextBlock" rect=116,176,138x30
+              ListItem name="My computers" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=39,229,371x63
+                Text name="" id="" class="TextBlock" rect=59,246,28x27
+                Text name="My computers" id="" class="TextBlock" rect=116,246,156x29
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=32,911,385x69
+            Group name="" id="FooterMenuItemsHost" class="" rect=39,914,371x63
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=39,914,371x63
+                Text name="Settings" id="" class="TextBlock" rect=116,930,88x30
+        Pane name="" id="" class="ScrollViewer" rect=419,79,1449x909
+          Text name="Dark theme" id="ThemeName" class="TextBlock" rect=461,121,640x28
+          Text name="Page title" id="TitleText" class="TextBlock" rect=537,177,423x66
+          Text name="One line saying what this page is for" id="SubtitleText" class="TextBlock" rect=537,250,423x33
+          Button name="Action" id="" class="Button" rect=989,203,112x52
+            Text name="Action" id="" class="TextBlock" rect=1010,214,70x30
+          Text name="Type ramp" id="TitleText" class="TextBlock" rect=461,338,640x47
+          Text name="IBM Plex Sans, Segoe UI as fallback" id="DescriptionText" class="TextBlock" rect=461,393,640x33
+          Text name="Display 40" id="" class="TextBlock" rect=461,454,640x94
+          Text name="Title 28" id="" class="TextBlock" rect=461,555,640x66
+          Text name="Subtitle 20" id="" class="TextBlock" rect=461,628,640x47
+          Text name="Body 14: the quick brown fox jumps over the lazy dog" id="" class="TextBlock" rect=461,682,640x33
+          Text name="Body strong 14" id="" class="TextBlock" rect=461,722,640x33
+          Text name="Secondary text 14" id="" class="TextBlock" rect=461,762,640x33
+          Text name="Caption 12" id="" class="TextBlock" rect=461,802,640x28
+          Text name="K7P4-4NX2-QMH9" id="" class="TextBlock" rect=461,837,640x33
+          Text name="Colour" id="TitleText" class="TextBlock" rect=461,912,640x46
+          Text name="Card" id="" class="TextBlock" rect=- offscreen
+          Text name="Raised" id="" class="TextBlock" rect=- offscreen
+          Text name="Field" id="" class="TextBlock" rect=- offscreen
+          Text name="Accent" id="" class="TextBlock" rect=- offscreen
+          Text name="Offline dot" id="" class="TextBlock" rect=- offscreen
+          Text name="Connected" id="" class="TextBlock" rect=- offscreen
+          Text name="Info" id="" class="TextBlock" rect=- offscreen
+          Text name="Warning" id="" class="TextBlock" rect=- offscreen
+          Text name="Error" id="" class="TextBlock" rect=- offscreen
+          Text name="Neutral" id="" class="TextBlock" rect=- offscreen
+          Text name="Status pills" id="TitleText" class="TextBlock" rect=- offscreen
+          Group name="Offline" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Offline" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Connected" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Connected" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Waiting" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Waiting" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Not secure" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Not secure" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Failed" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Failed" id="Label" class="TextBlock" rect=- offscreen
+          Text name="Banners" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Information" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Something worth knowing, next to where it matters." id="MessageText" class="TextBlock" rect=- offscreen
+          Text name="Done" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="The change was saved." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Banner_Dismiss" id="DismissButton" class="Button" rect=- offscreen
+          Text name="Careful" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="This PC will accept connections until you stop sharing." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Stop sharing" id="" class="Button" rect=- offscreen
+            Text name="Stop sharing" id="" class="TextBlock" rect=- offscreen
+          Text name="That did not work" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="The other PC did not answer. Check that both PCs are on the same network." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Banner_Dismiss" id="DismissButton" class="Button" rect=- offscreen
+          Text name="A plain note without a title." id="MessageText" class="TextBlock" rect=- offscreen
+          Text name="Cards" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Card" id="" class="TextBlock" rect=- offscreen
+          Text name="The default panel." id="" class="TextBlock" rect=- offscreen
+          Text name="Raised card" id="" class="TextBlock" rect=- offscreen
+          Text name="For a card on a card." id="" class="TextBlock" rect=- offscreen
+          Text name="Device tiles" id="TitleText" class="TextBlock" rect=- offscreen
+          Button name="Office desktop, 192.168.1.20, Online" id="Tile" class="Button" rect=- offscreen
+            Text name="Office desktop" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="192.168.1.20" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Online" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Online" id="Label" class="TextBlock" rect=- offscreen
+          Button name="Laptop, Last seen yesterday, Offline" id="Tile" class="Button" rect=- offscreen
+            Text name="Laptop" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="Last seen yesterday" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Offline" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Offline" id="Label" class="TextBlock" rect=- offscreen
+          Button name="Reception PC, Needs approval on that PC, Waiting" id="Tile" class="Button" rect=- offscreen
+            Text name="Reception PC" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="Needs approval on that PC" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Waiting" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Waiting" id="Label" class="TextBlock" rect=- offscreen
+          Button name="Server room, Connection refused, Failed" id="Tile" class="Button" rect=- offscreen
+            Text name="Server room" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="Connection refused" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Failed" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Failed" id="Label" class="TextBlock" rect=- offscreen
+          Text name="Token box" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Token" id="HeaderText" class="TextBlock" rect=- offscreen
+          Edit name="Token 1/3" id="G0" class="TextBox" rect=- offscreen
+            Edit name="Token 1/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S0" class="TextBlock" rect=- offscreen
+          Edit name="Token 2/3" id="G1" class="TextBox" rect=- offscreen
+            Edit name="Token 2/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S1" class="TextBlock" rect=- offscreen
+          Edit name="Token 3/3" id="G2" class="TextBox" rect=- offscreen
+            Edit name="Token 3/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="Token (filled)" id="HeaderText" class="TextBlock" rect=- offscreen
+          Edit name="Token (filled) 1/3" id="G0" class="TextBox" rect=- offscreen
+            Edit name="Token (filled) 1/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S0" class="TextBlock" rect=- offscreen
+          Edit name="Token (filled) 2/3" id="G1" class="TextBox" rect=- offscreen
+            Edit name="Token (filled) 2/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S1" class="TextBlock" rect=- offscreen
+          Edit name="Token (filled) 3/3" id="G2" class="TextBox" rect=- offscreen
+            Edit name="Token (filled) 3/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="Token (invalid)" id="HeaderText" class="TextBlock" rect=- offscreen
+          Edit name="Token (invalid) 1/3" id="G0" class="TextBox" rect=- offscreen
+            Edit name="Token (invalid) 1/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S0" class="TextBlock" rect=- offscreen
+          Edit name="Token (invalid) 2/3" id="G1" class="TextBox" rect=- offscreen
+            Edit name="Token (invalid) 2/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S1" class="TextBlock" rect=- offscreen
+          Edit name="Token (invalid) 3/3" id="G2" class="TextBox" rect=- offscreen
+            Edit name="Token (invalid) 3/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="A token has 12 letters and numbers." id="ErrorText" class="TextBlock" rect=- offscreen
+          Text name="Empty state" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="No computers yet" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Add a PC you want to reach from here." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Add a computer" id="" class="Button" rect=- offscreen
+            Text name="Add a computer" id="" class="TextBlock" rect=- offscreen
+          Text name="Icons" id="TitleText" class="TextBlock" rect=- offscreen
+          Group name="" id="IconGrid" class="" rect=- offscreen
+          Text name="Spacing and radius" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Light theme" id="ThemeName" class="TextBlock" rect=1185,121,641x28
+          Text name="Page title" id="TitleText" class="TextBlock" rect=1262,177,424x66
+          Text name="One line saying what this page is for" id="SubtitleText" class="TextBlock" rect=1262,250,424x33
+          Button name="Action" id="" class="Button" rect=1714,203,112x52
+            Text name="Action" id="" class="TextBlock" rect=1735,214,70x30
+          Text name="Type ramp" id="TitleText" class="TextBlock" rect=1185,338,641x47
+          Text name="IBM Plex Sans, Segoe UI as fallback" id="DescriptionText" class="TextBlock" rect=1185,393,641x33
+          Text name="Display 40" id="" class="TextBlock" rect=1185,454,641x94
+          Text name="Title 28" id="" class="TextBlock" rect=1185,555,641x66
+          Text name="Subtitle 20" id="" class="TextBlock" rect=1185,628,641x47
+          Text name="Body 14: the quick brown fox jumps over the lazy dog" id="" class="TextBlock" rect=1185,682,641x33
+          Text name="Body strong 14" id="" class="TextBlock" rect=1185,722,641x33
+          Text name="Secondary text 14" id="" class="TextBlock" rect=1185,762,641x33
+          Text name="Caption 12" id="" class="TextBlock" rect=1185,802,641x28
+          Text name="K7P4-4NX2-QMH9" id="" class="TextBlock" rect=1185,837,641x33
+          Text name="Colour" id="TitleText" class="TextBlock" rect=1185,912,641x46
+          Text name="Card" id="" class="TextBlock" rect=- offscreen
+          Text name="Raised" id="" class="TextBlock" rect=- offscreen
+          Text name="Field" id="" class="TextBlock" rect=- offscreen
+          Text name="Accent" id="" class="TextBlock" rect=- offscreen
+          Text name="Offline dot" id="" class="TextBlock" rect=- offscreen
+          Text name="Connected" id="" class="TextBlock" rect=- offscreen
+          Text name="Info" id="" class="TextBlock" rect=- offscreen
+          Text name="Warning" id="" class="TextBlock" rect=- offscreen
+          Text name="Error" id="" class="TextBlock" rect=- offscreen
+          Text name="Neutral" id="" class="TextBlock" rect=- offscreen
+          Text name="Status pills" id="TitleText" class="TextBlock" rect=- offscreen
+          Group name="Offline" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Offline" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Connected" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Connected" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Waiting" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Waiting" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Not secure" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Not secure" id="Label" class="TextBlock" rect=- offscreen
+          Group name="Failed" id="" class="NamedContainerAutomationPeer" rect=- offscreen
+            Text name="Failed" id="Label" class="TextBlock" rect=- offscreen
+          Text name="Banners" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Information" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Something worth knowing, next to where it matters." id="MessageText" class="TextBlock" rect=- offscreen
+          Text name="Done" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="The change was saved." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Banner_Dismiss" id="DismissButton" class="Button" rect=- offscreen
+          Text name="Careful" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="This PC will accept connections until you stop sharing." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Stop sharing" id="" class="Button" rect=- offscreen
+            Text name="Stop sharing" id="" class="TextBlock" rect=- offscreen
+          Text name="That did not work" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="The other PC did not answer. Check that both PCs are on the same network." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Banner_Dismiss" id="DismissButton" class="Button" rect=- offscreen
+          Text name="A plain note without a title." id="MessageText" class="TextBlock" rect=- offscreen
+          Text name="Cards" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Card" id="" class="TextBlock" rect=- offscreen
+          Text name="The default panel." id="" class="TextBlock" rect=- offscreen
+          Text name="Raised card" id="" class="TextBlock" rect=- offscreen
+          Text name="For a card on a card." id="" class="TextBlock" rect=- offscreen
+          Text name="Device tiles" id="TitleText" class="TextBlock" rect=- offscreen
+          Button name="Office desktop, 192.168.1.20, Online" id="Tile" class="Button" rect=- offscreen
+            Text name="Office desktop" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="192.168.1.20" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Online" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Online" id="Label" class="TextBlock" rect=- offscreen
+          Button name="Laptop, Last seen yesterday, Offline" id="Tile" class="Button" rect=- offscreen
+            Text name="Laptop" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="Last seen yesterday" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Offline" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Offline" id="Label" class="TextBlock" rect=- offscreen
+          Button name="Reception PC, Needs approval on that PC, Waiting" id="Tile" class="Button" rect=- offscreen
+            Text name="Reception PC" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="Needs approval on that PC" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Waiting" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Waiting" id="Label" class="TextBlock" rect=- offscreen
+          Button name="Server room, Connection refused, Failed" id="Tile" class="Button" rect=- offscreen
+            Text name="Server room" id="NameText" class="TextBlock" rect=- offscreen
+            Text name="Connection refused" id="DetailText" class="TextBlock" rect=- offscreen
+            Group name="Failed" id="Pill" class="NamedContainerAutomationPeer" rect=- offscreen
+              Text name="Failed" id="Label" class="TextBlock" rect=- offscreen
+          Text name="Token box" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Token" id="HeaderText" class="TextBlock" rect=- offscreen
+          Edit name="Token 1/3" id="G0" class="TextBox" rect=- offscreen
+            Edit name="Token 1/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S0" class="TextBlock" rect=- offscreen
+          Edit name="Token 2/3" id="G1" class="TextBox" rect=- offscreen
+            Edit name="Token 2/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S1" class="TextBlock" rect=- offscreen
+          Edit name="Token 3/3" id="G2" class="TextBox" rect=- offscreen
+            Edit name="Token 3/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="Token (filled)" id="HeaderText" class="TextBlock" rect=- offscreen
+          Edit name="Token (filled) 1/3" id="G0" class="TextBox" rect=- offscreen
+            Edit name="Token (filled) 1/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S0" class="TextBlock" rect=- offscreen
+          Edit name="Token (filled) 2/3" id="G1" class="TextBox" rect=- offscreen
+            Edit name="Token (filled) 2/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S1" class="TextBlock" rect=- offscreen
+          Edit name="Token (filled) 3/3" id="G2" class="TextBox" rect=- offscreen
+            Edit name="Token (filled) 3/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="Token (invalid)" id="HeaderText" class="TextBlock" rect=- offscreen
+          Edit name="Token (invalid) 1/3" id="G0" class="TextBox" rect=- offscreen
+            Edit name="Token (invalid) 1/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S0" class="TextBlock" rect=- offscreen
+          Edit name="Token (invalid) 2/3" id="G1" class="TextBox" rect=- offscreen
+            Edit name="Token (invalid) 2/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="-" id="S1" class="TextBlock" rect=- offscreen
+          Edit name="Token (invalid) 3/3" id="G2" class="TextBox" rect=- offscreen
+            Edit name="Token (invalid) 3/3" id="" class="" rect=- offscreen
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=- offscreen
+          Text name="A token has 12 letters and numbers." id="ErrorText" class="TextBlock" rect=- offscreen
+          Text name="Empty state" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="No computers yet" id="TitleText" class="TextBlock" rect=- offscreen
+          Text name="Add a PC you want to reach from here." id="MessageText" class="TextBlock" rect=- offscreen
+          Button name="Add a computer" id="" class="Button" rect=- offscreen
+            Text name="Add a computer" id="" class="TextBlock" rect=- offscreen
+          Text name="Icons" id="TitleText" class="TextBlock" rect=- offscreen
+          Group name="" id="IconGrid" class="" rect=- offscreen
+          Text name="Spacing and radius" id="TitleText" class="TextBlock" rect=- offscreen
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+      StatusBar name="" id="ToastBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=- offscreen
+    MenuBar name="System" id="SystemMenuBar" class="" rect=32,32,39x39
+      MenuItem name="System" id="" class="" rect=32,32,39x39
+    Button name="Minimize" id="Minimize-Restore" class="" rect=- offscreen
+    Button name="Maximize" id="Maximize-Restore" class="" rect=- offscreen
+    Button name="Close" id="Close" class="" rect=- offscreen

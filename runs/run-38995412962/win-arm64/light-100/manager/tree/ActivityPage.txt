@@ -1,0 +1,95 @@
+Window name="Remotely Server Manager" id="" class="WinUIDesktopWin32WindowClass" rect=234,234,1100x780
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=242,265,1084x741
+    Pane name="" id="" class="InputSiteWindowClass" rect=242,265,1084x741
+      StatusBar name="" id="ElevatedBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=242,265,1084x76
+        Text name="" id="IconBackground" class="TextBlock" rect=259,282,16x16
+        Text name="Warning icon" id="StandardIcon" class="TextBlock" rect=259,282,16x16
+        Text name="The Manager is running as administrator" id="Title" class="TextBlock" rect=289,280,259x19
+        Text name="That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally." id="Message" class="TextBlock" rect=289,303,879x19
+        Button name="Close" id="CloseButton" class="Button" rect=1282,271,38x38
+          Text name="" id="" class="TextBlock" rect=1294,282,14x16
+      Custom name="" id="Nav" class="" rect=242,341,1084x665
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=246,347,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=242,341,230x665
+          Image name="" id="" class="Image" rect=294,353,28x28
+          Text name="Remotely Server Manager" id="PaneTitle" class="TextBlock" rect=332,356,140x22
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=242,389,230x569
+            Group name="" id="MenuItemsHost" class="" rect=246,391,222x196
+              ListItem name="Dashboard" id="NavDashboard" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,391,222x36
+                Text name="" id="" class="TextBlock" rect=258,401,16x16
+                Text name="Dashboard" id="" class="TextBlock" rect=290,401,68x17
+              ListItem name="Invite a device" id="NavInvite" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,431,222x36
+                Text name="" id="" class="TextBlock" rect=258,441,16x16
+                Text name="Invite a device" id="" class="TextBlock" rect=290,441,89x17
+              ListItem name="Devices" id="NavDevices" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,471,222x36
+                Text name="" id="" class="TextBlock" rect=258,481,16x16
+                Text name="Devices" id="" class="TextBlock" rect=290,481,47x17
+              ListItem name="Activity" id="NavActivity" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,511,222x36
+                Text name="" id="" class="TextBlock" rect=258,521,16x16
+                Text name="Activity" id="" class="TextBlock" rect=290,521,46x17
+              ListItem name="Service" id="NavService" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,551,222x36
+                Text name="" id="" class="TextBlock" rect=258,561,16x16
+                Text name="Service" id="" class="TextBlock" rect=290,561,44x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=242,962,230x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=246,964,222x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,964,222x36
+                Text name="Settings" id="" class="TextBlock" rect=290,974,50x17
+        Pane name="" id="" class="ScrollViewer" rect=473,342,853x664
+          Text name="Activity" id="" class="TextBlock" rect=505,366,789x38
+          StatusBar name="" id="" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Edit name="Search the activity" id="" class="TextBox" rect=505,436,789x32
+            Edit name="Search the activity" id="" class="" rect=505,436,789x32
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=506,437,787x30
+            Text name="Search the activity" id="PlaceholderTextContentPresenter" class="TextBlock" rect=506,437,787x30
+          ComboBox name="Type" id="" class="ComboBox" rect=501,480,158x40
+          ComboBox name="Result" id="" class="ComboBox" rect=659,480,158x40
+          ComboBox name="Period" id="" class="ComboBox" rect=817,480,158x40
+          Button name="Refresh" id="" class="Button" rect=979,485,72x30
+            Text name="Refresh" id="" class="TextBlock" rect=992,491,46x17
+          Button name="Export CSV" id="" class="Button" rect=1059,485,95x30
+            Text name="Export CSV" id="" class="TextBlock" rect=1072,491,69x17
+          Text name="Showing 9 of 9 entries" id="" class="TextBlock" rect=505,532,789x19
+          Text name="10/16/2026 7:19 PM" id="" class="TextBlock" rect=526,592,150x19
+          Text name="Pairing" id="" class="TextBlock" rect=688,592,120x19
+          Text name="New phone (never connected)  ·  invite" id="" class="TextBlock" rect=820,592,341x19
+          Text name="OK" id="" class="TextBlock" rect=1173,592,100x19
+          Text name="10/16/2026 6:20 PM" id="" class="TextBlock" rect=526,623,150x19
+          Text name="Disconnection" id="" class="TextBlock" rect=688,623,120x19
+          Text name="Burim's laptop  →  Office NUC  ·  ended by viewer" id="" class="TextBlock" rect=820,623,341x19
+          Text name="OK" id="" class="TextBlock" rect=1173,623,100x19
+          Text name="10/16/2026 5:39 PM" id="" class="TextBlock" rect=526,654,150x19
+          Text name="Connection" id="" class="TextBlock" rect=688,654,120x19
+          Text name="Burim's laptop  →  Office NUC" id="" class="TextBlock" rect=820,654,341x19
+          Text name="OK" id="" class="TextBlock" rect=1173,654,100x19
+          Text name="10/16/2026 4:39 PM" id="" class="TextBlock" rect=526,685,150x38
+          Text name="Connection" id="" class="TextBlock" rect=688,685,120x38
+          Text name="Mum's desktop  →  Living room PC  ·  viewer is not trusted by the host" id="" class="TextBlock" rect=820,685,341x38
+          Text name="Refused" id="" class="TextBlock" rect=1173,685,100x38
+          Text name="10/16/2026 2:39 PM" id="" class="TextBlock" rect=526,735,150x19
+          Text name="Connection" id="" class="TextBlock" rect=688,735,120x19
+          Text name="Burim's laptop  →  Living room PC" id="" class="TextBlock" rect=820,735,341x19
+          Text name="OK" id="" class="TextBlock" rect=1173,735,100x19
+          Text name="10/15/2026 7:39 PM" id="" class="TextBlock" rect=526,766,150x19
+          Text name="Pairing" id="" class="TextBlock" rect=688,766,120x19
+          Text name="Garage mini PC  ·  invite" id="" class="TextBlock" rect=820,766,341x19
+          Text name="OK" id="" class="TextBlock" rect=1173,766,100x19
+          Text name="10/14/2026 7:39 PM" id="" class="TextBlock" rect=526,797,150x19
+          Text name="Connection" id="" class="TextBlock" rect=688,797,120x19
+          Text name="Old tablet  →  Living room PC  ·  device is blocked" id="" class="TextBlock" rect=820,797,341x19
+          Text name="Refused" id="" class="TextBlock" rect=1173,797,100x19
+          Text name="10/12/2026 7:39 PM" id="" class="TextBlock" rect=526,828,150x19
+          Text name="Pairing" id="" class="TextBlock" rect=688,828,120x19
+          Text name="Office NUC  ·  pairing code" id="" class="TextBlock" rect=820,828,341x19
+          Text name="OK" id="" class="TextBlock" rect=1173,828,100x19
+          Text name="10/11/2026 7:39 PM" id="" class="TextBlock" rect=526,859,150x19
+          Text name="Pairing" id="" class="TextBlock" rect=688,859,120x19
+          Text name="Old tablet  ·  wrong code" id="" class="TextBlock" rect=820,859,341x19
+          Text name="Failed" id="" class="TextBlock" rect=1173,859,100x19
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=258,237,1068x28
+    MenuBar name="System" id="SystemMenuBar" class="" rect=242,242,22x22
+      MenuItem name="System" id="" class="" rect=242,242,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=1187,235,47x30
+    Button name="Maximize" id="Maximize-Restore" class="" rect=1234,235,46x30
+    Button name="Close" id="Close" class="" rect=1280,235,47x30

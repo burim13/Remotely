@@ -1,0 +1,132 @@
+Window name="Remotely Server Manager" id="" class="WinUIDesktopWin32WindowClass" rect=78,78,1100x780
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=86,109,1084x741
+    Pane name="" id="" class="InputSiteWindowClass" rect=86,109,1084x741
+      StatusBar name="" id="ElevatedBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=86,109,1084x76
+        Text name="" id="IconBackground" class="TextBlock" rect=103,126,16x16
+        Text name="Warning icon" id="StandardIcon" class="TextBlock" rect=103,126,16x16
+        Text name="The Manager is running as administrator" id="Title" class="TextBlock" rect=133,124,259x19
+        Text name="That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally." id="Message" class="TextBlock" rect=133,147,879x19
+        Button name="Close" id="CloseButton" class="Button" rect=1126,115,38x38
+          Text name="" id="" class="TextBlock" rect=1138,126,14x16
+      Custom name="" id="Nav" class="" rect=86,185,1084x665
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=90,191,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=86,185,230x665
+          Image name="" id="" class="Image" rect=138,197,28x28
+          Text name="Remotely Server Manager" id="PaneTitle" class="TextBlock" rect=176,200,140x22
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=86,233,230x569
+            Group name="" id="MenuItemsHost" class="" rect=90,235,222x196
+              ListItem name="Dashboard" id="NavDashboard" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,235,222x36
+                Text name="" id="" class="TextBlock" rect=102,245,16x16
+                Text name="Dashboard" id="" class="TextBlock" rect=134,245,68x17
+              ListItem name="Invite a device" id="NavInvite" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,275,222x36
+                Text name="" id="" class="TextBlock" rect=102,285,16x16
+                Text name="Invite a device" id="" class="TextBlock" rect=134,285,89x17
+              ListItem name="Devices" id="NavDevices" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,315,222x36
+                Text name="" id="" class="TextBlock" rect=102,325,16x16
+                Text name="Devices" id="" class="TextBlock" rect=134,325,47x17
+              ListItem name="Activity" id="NavActivity" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,355,222x36
+                Text name="" id="" class="TextBlock" rect=102,365,16x16
+                Text name="Activity" id="" class="TextBlock" rect=134,365,46x17
+              ListItem name="Service" id="NavService" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,395,222x36
+                Text name="" id="" class="TextBlock" rect=102,405,16x16
+                Text name="Service" id="" class="TextBlock" rect=134,405,44x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=86,806,230x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=90,808,222x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,808,222x36
+                Text name="Settings" id="" class="TextBlock" rect=134,818,50x17
+        Pane name="" id="" class="ScrollViewer" rect=317,186,853x664
+          Text name="Devices" id="" class="TextBlock" rect=349,210,789x38
+          StatusBar name="" id="" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Edit name="Search by name or id" id="" class="TextBox" rect=349,280,551x32
+            Edit name="Search by name or id" id="" class="" rect=349,280,551x32
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=350,281,549x30
+            Text name="Search by name or id" id="PlaceholderTextContentPresenter" class="TextBlock" rect=350,281,549x30
+          ComboBox name="State" id="" class="ComboBox" rect=904,276,158x40
+          Button name="Refresh" id="" class="Button" rect=1066,281,72x30
+            Text name="Refresh" id="" class="TextBlock" rect=1079,287,46x17
+          Text name="Showing 7 of 7 devices" id="" class="TextBlock" rect=349,328,789x19
+          Text name="Burim's laptop" id="" class="TextBlock" rect=394,384,403x19
+          Text name="Online  ·  can be shared  ·  paired 9/7/2026 3:14 AM" id="" class="TextBlock" rect=394,405,403x19
+          Text name="id 4bf5122f…" id="" class="TextBlock" rect=394,426,403x14
+          Button name="History" id="" class="Button" rect=811,397,70x30
+            Text name="History" id="" class="TextBlock" rect=824,403,44x17
+          Button name="Rename" id="" class="Button" rect=889,397,76x30
+            Text name="Rename" id="" class="TextBlock" rect=902,403,50x17
+          Button name="Block" id="" class="Button" rect=973,397,60x30
+            Text name="Block" id="" class="TextBlock" rect=986,403,34x17
+          Button name="Remove" id="" class="Button" rect=1041,397,76x30
+            Text name="Remove" id="" class="TextBlock" rect=1054,403,50x17
+          Text name="Living room PC" id="" class="TextBlock" rect=394,490,403x19
+          Text name="Online  ·  can be shared  ·  paired 9/14/2026 3:14 AM" id="" class="TextBlock" rect=394,511,403x19
+          Text name="id dbc1b4c9…" id="" class="TextBlock" rect=394,532,403x14
+          Button name="History" id="" class="Button" rect=811,503,70x30
+            Text name="History" id="" class="TextBlock" rect=824,509,44x17
+          Button name="Rename" id="" class="Button" rect=889,503,76x30
+            Text name="Rename" id="" class="TextBlock" rect=902,509,50x17
+          Button name="Block" id="" class="Button" rect=973,503,60x30
+            Text name="Block" id="" class="TextBlock" rect=986,509,34x17
+          Button name="Remove" id="" class="Button" rect=1041,503,76x30
+            Text name="Remove" id="" class="TextBlock" rect=1054,509,50x17
+          Text name="Office NUC" id="" class="TextBlock" rect=394,596,403x19
+          Text name="Online  ·  can be shared  ·  paired 10/5/2026 3:14 AM" id="" class="TextBlock" rect=394,617,403x19
+          Text name="id e52d9c50…" id="" class="TextBlock" rect=394,638,403x14
+          Button name="History" id="" class="Button" rect=811,609,70x30
+            Text name="History" id="" class="TextBlock" rect=824,615,44x17
+          Button name="Rename" id="" class="Button" rect=889,609,76x30
+            Text name="Rename" id="" class="TextBlock" rect=902,615,50x17
+          Button name="Block" id="" class="Button" rect=973,609,60x30
+            Text name="Block" id="" class="TextBlock" rect=986,615,34x17
+          Button name="Remove" id="" class="Button" rect=1041,609,76x30
+            Text name="Remove" id="" class="TextBlock" rect=1054,615,50x17
+          Text name="Garage mini PC" id="" class="TextBlock" rect=394,702,403x19
+          Text name="Seen 2 days ago  ·  can be shared  ·  paired 10/8/2026 3:14 AM" id="" class="TextBlock" rect=394,723,403x19
+          Text name="id e77b9a9a…" id="" class="TextBlock" rect=394,744,403x14
+          Button name="History" id="" class="Button" rect=811,715,70x30
+            Text name="History" id="" class="TextBlock" rect=824,721,44x17
+          Button name="Rename" id="" class="Button" rect=889,715,76x30
+            Text name="Rename" id="" class="TextBlock" rect=902,721,50x17
+          Button name="Block" id="" class="Button" rect=973,715,60x30
+            Text name="Block" id="" class="TextBlock" rect=986,721,34x17
+          Button name="Remove" id="" class="Button" rect=1041,715,76x30
+            Text name="Remove" id="" class="TextBlock" rect=1054,721,50x17
+          Text name="Mum's desktop" id="" class="TextBlock" rect=394,808,403x19
+          Text name="Seen 3 h ago  ·  can be shared  ·  paired 9/27/2026 3:14 AM" id="" class="TextBlock" rect=394,829,403x19
+          Text name="id 084fed08…" id="" class="TextBlock" rect=- offscreen
+          Button name="History" id="" class="Button" rect=811,821,70x29
+            Text name="History" id="" class="TextBlock" rect=824,827,44x17
+          Button name="Rename" id="" class="Button" rect=889,821,76x29
+            Text name="Rename" id="" class="TextBlock" rect=902,827,50x17
+          Button name="Block" id="" class="Button" rect=973,821,60x29
+            Text name="Block" id="" class="TextBlock" rect=986,827,34x17
+          Button name="Remove" id="" class="Button" rect=1041,821,76x29
+            Text name="Remove" id="" class="TextBlock" rect=1054,827,50x17
+          Text name="New phone (never connected)" id="" class="TextBlock" rect=- offscreen
+          Text name="Never seen  ·  viewer only  ·  paired 10/17/2026 2:54 AM" id="" class="TextBlock" rect=- offscreen
+          Text name="id ca358758…" id="" class="TextBlock" rect=- offscreen
+          Button name="History" id="" class="Button" rect=- offscreen
+            Text name="History" id="" class="TextBlock" rect=- offscreen
+          Button name="Rename" id="" class="Button" rect=- offscreen
+            Text name="Rename" id="" class="TextBlock" rect=- offscreen
+          Button name="Block" id="" class="Button" rect=- offscreen
+            Text name="Block" id="" class="TextBlock" rect=- offscreen
+          Button name="Remove" id="" class="Button" rect=- offscreen
+            Text name="Remove" id="" class="TextBlock" rect=- offscreen
+          Text name="Old tablet" id="" class="TextBlock" rect=- offscreen
+          Text name="Blocked  ·  viewer only  ·  paired 8/18/2026 3:14 AM" id="" class="TextBlock" rect=- offscreen
+          Text name="id 67586e98…" id="" class="TextBlock" rect=- offscreen
+          Button name="History" id="" class="Button" rect=- offscreen
+            Text name="History" id="" class="TextBlock" rect=- offscreen
+          Button name="Rename" id="" class="Button" rect=- offscreen
+            Text name="Rename" id="" class="TextBlock" rect=- offscreen
+          Button name="Unblock" id="" class="Button" rect=- offscreen
+            Text name="Unblock" id="" class="TextBlock" rect=- offscreen
+          Button name="Remove" id="" class="Button" rect=- offscreen
+            Text name="Remove" id="" class="TextBlock" rect=- offscreen
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=102,81,1068x28
+    MenuBar name="System" id="SystemMenuBar" class="" rect=86,86,22x22
+      MenuItem name="System" id="" class="" rect=86,86,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=1031,79,47x30
+    Button name="Maximize" id="Maximize-Restore" class="" rect=1078,79,46x30
+    Button name="Close" id="Close" class="" rect=1124,79,47x30

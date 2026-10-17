@@ -1,0 +1,66 @@
+Window name="Remotely" id="" class="WinUIDesktopWin32WindowClass" rect=20,20,1860x980
+  Pane name="Non Client Input Sink Window" id="" class="InputNonClientPointerSource" rect=32,20,1836x56
+  Pane name="AppWindow Custom Title Bar" id="" class="ReunionWindowingCaptionControls" rect=1661,20,207x48
+    Button name="Minimize" id="Minimize" class="" rect=1661,20,69x48
+    Button name="Maximize" id="Maximize" class="" rect=1730,20,69x48
+    Button name="Close" id="Close" class="" rect=1799,20,69x48
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=32,21,1836x967
+    Pane name="" id="" class="InputSiteWindowClass" rect=32,21,1836x967
+      Image name="" id="" class="Image" rect=53,35,28x28
+      Text name="Remotely" id="TitleText" class="TextBlock" rect=95,35,89x28
+      Custom name="" id="Nav" class="" rect=32,77,1836x911
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=39,88,70x63
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=32,77,385x911
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=32,154,384x749
+            Group name="" id="MenuItemsHost" class="" rect=39,158,370x133
+              ListItem name="This network" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=39,158,370x63
+                Text name="" id="" class="TextBlock" rect=60,176,28x28
+                Text name="This network" id="" class="TextBlock" rect=116,174,138x30
+              ListItem name="My computers" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=39,228,370x63
+                Text name="" id="" class="TextBlock" rect=60,246,28x28
+                Text name="My computers" id="" class="TextBlock" rect=116,244,156x30
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=32,910,384x70
+            Group name="" id="FooterMenuItemsHost" class="" rect=39,914,370x63
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=39,914,370x63
+                Text name="Settings" id="" class="TextBlock" rect=116,930,88x30
+        Pane name="" id="" class="ScrollViewer" rect=419,79,1449x909
+          Text name="Settings" id="" class="TextBlock" rect=671,121,945x66
+          Edit name="This PC's name" id="DeviceName" class="TextBox" rect=671,215,945x100
+            Edit name="This PC's name" id="" class="" rect=671,215,945x100
+            Text name="This PC's name" id="" class="TextBlock" rect=671,215,162x30
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=673,261,941x52
+          ComboBox name="Appearance" id="Theme" class="ComboBox" rect=664,343,363x112
+          Button name="Share the clipboard during a session On" id="SyncClipboard" class="ToggleSwitch" rect=671,476,392x108
+            Text name="Share the clipboard during a session" id="" class="TextBlock" rect=671,476,392x30
+            Text name="Off" id="" class="TextBlock" rect=762,534,34x30
+            Text name="On" id="" class="TextBlock" rect=762,534,33x30
+            Thumb name="" id="SwitchThumb" class="Thumb" rect=671,513,125x71
+          Text name="Your server" id="" class="TextBlock" rect=671,633,945x47
+          Text name="No server yet. Connections on this network do not need one." id="ServerState" class="TextBlock" rect=671,708,945x33
+          Edit name="Invite" id="Invite" class="TextBox" rect=671,769,945x100
+            Edit name="Invite" id="" class="" rect=671,769,945x100
+            Text name="Invite from your server" id="" class="TextBlock" rect=671,769,245x30
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=673,814,941x52
+            Text name="RMT1-…  (leave empty to keep the current server)" id="PlaceholderTextContentPresenter" class="TextBlock" rect=673,814,941x52
+          Button name="Set up by hand instead" id="" class="Microsoft.UI.Xaml.Controls.Expander" rect=671,897,945x84
+            Text name="Set up by hand instead" id="" class="TextBlock" rect=701,924,249x29
+          Button name="Save" id="SaveButton" class="Button" rect=- offscreen
+            Text name="Save" id="" class="TextBlock" rect=- offscreen
+          ProgressBar name="" id="Busy" class="Microsoft.UI.Xaml.Controls.ProgressRing" rect=- offscreen
+            Image name="" id="LottiePlayer" class="Microsoft.UI.Xaml.Controls.AnimatedVisualPlayer" rect=- offscreen
+          StatusBar name="" id="Bar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Text name="This device" id="" class="TextBlock" rect=- offscreen
+          Text name="A PC you reach through your server must trust this id. The installer does that for you." id="" class="TextBlock" rect=- offscreen
+          Text name="aeaf05c4ab4a70dfb1cd8f7ab30e028a65cc458ea7c16a23b789874c997396f5" id="IdText" class="TextBlock" rect=- offscreen
+          Button name="Copy" id="" class="Button" rect=- offscreen
+            Text name="Copy" id="" class="TextBlock" rect=- offscreen
+          Text name="Remotely 0.4.0" id="VersionText" class="TextBlock" rect=- offscreen
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+      StatusBar name="" id="ToastBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=- offscreen
+    MenuBar name="System" id="SystemMenuBar" class="" rect=32,32,39x39
+      MenuItem name="System" id="" class="" rect=32,32,39x39
+    Button name="Minimize" id="Minimize-Restore" class="" rect=- offscreen
+    Button name="Maximize" id="Maximize-Restore" class="" rect=- offscreen
+    Button name="Close" id="Close" class="" rect=- offscreen

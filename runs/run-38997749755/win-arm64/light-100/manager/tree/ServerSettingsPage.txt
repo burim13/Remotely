@@ -1,0 +1,106 @@
+Window name="Remotely Server Manager" id="" class="WinUIDesktopWin32WindowClass" rect=234,234,1100x780
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=242,265,1084x741
+    Pane name="" id="" class="InputSiteWindowClass" rect=242,265,1084x741
+      StatusBar name="" id="ElevatedBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=242,265,1084x76
+        Text name="" id="IconBackground" class="TextBlock" rect=259,282,16x16
+        Text name="Warning icon" id="StandardIcon" class="TextBlock" rect=259,282,16x16
+        Text name="The Manager is running as administrator" id="Title" class="TextBlock" rect=289,280,259x19
+        Text name="That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally." id="Message" class="TextBlock" rect=289,303,879x19
+        Button name="Close" id="CloseButton" class="Button" rect=1282,271,38x38
+          Text name="" id="" class="TextBlock" rect=1294,282,14x16
+      Custom name="" id="Nav" class="" rect=242,341,1084x931
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=246,347,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=242,341,230x665
+          Image name="" id="" class="Image" rect=294,353,28x28
+          Text name="Remotely Server Manager" id="PaneTitle" class="TextBlock" rect=332,356,140x22
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=242,389,230x569
+            Group name="" id="MenuItemsHost" class="" rect=246,391,222x196
+              ListItem name="Dashboard" id="NavDashboard" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,391,222x36
+                Text name="" id="" class="TextBlock" rect=258,401,16x16
+                Text name="Dashboard" id="" class="TextBlock" rect=290,401,68x17
+              ListItem name="Invite a device" id="NavInvite" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,431,222x36
+                Text name="" id="" class="TextBlock" rect=258,441,16x16
+                Text name="Invite a device" id="" class="TextBlock" rect=290,441,89x17
+              ListItem name="Devices" id="NavDevices" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,471,222x36
+                Text name="" id="" class="TextBlock" rect=258,481,16x16
+                Text name="Devices" id="" class="TextBlock" rect=290,481,47x17
+              ListItem name="Activity" id="NavActivity" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,511,222x36
+                Text name="" id="" class="TextBlock" rect=258,521,16x16
+                Text name="Activity" id="" class="TextBlock" rect=290,521,46x17
+              ListItem name="Service" id="NavService" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,551,222x36
+                Text name="" id="" class="TextBlock" rect=258,561,16x16
+                Text name="Service" id="" class="TextBlock" rect=290,561,44x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=242,962,230x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=246,964,222x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=246,964,222x36
+                Text name="Settings" id="" class="TextBlock" rect=290,974,50x17
+        Pane name="" id="" class="ScrollViewer" rect=473,342,853x930
+          Text name="Settings" id="" class="TextBlock" rect=505,366,789x38
+          StatusBar name="" id="" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Text name="Server" id="" class="TextBlock" rect=526,457,747x19
+          Text name="The server stores these settings itself. Changes to the address, port or TLS may need a service restart." id="" class="TextBlock" rect=526,488,747x19
+          Edit name="Address devices are told to use" id="" class="TextBox" rect=526,519,747x57
+            Edit name="Address devices are told to use" id="" class="" rect=526,519,747x57
+            Text name="Address devices are told to use" id="" class="TextBlock" rect=526,519,193x17
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=527,545,713x30
+            Button name="Delete" id="DeleteButton" class="Button" rect=1241,548,28x24
+              Text name="" id="GlyphElement" class="TextBlock" rect=1249,554,12x12
+          Spinner name="Port" id="" class="Microsoft.UI.Xaml.Controls.NumberBox" rect=526,588,747x59
+            Text name="Port" id="" class="TextBlock" rect=526,588,26x19
+            Edit name="Port Minimum1 Maximum65535" id="InputBox" class="TextBox" rect=526,615,747x32
+              Edit name="Port Minimum1 Maximum65535" id="" class="" rect=526,615,747x32
+              Pane name="" id="ContentElement" class="ScrollViewer" rect=527,616,745x30
+          Spinner name="Maximum devices" id="" class="Microsoft.UI.Xaml.Controls.NumberBox" rect=526,659,747x59
+            Text name="Maximum devices" id="" class="TextBlock" rect=526,659,111x19
+            Edit name="Maximum devices Minimum1 Maximum100000" id="InputBox" class="TextBox" rect=526,686,747x32
+              Edit name="Maximum devices Minimum1 Maximum100000" id="" class="" rect=526,686,747x32
+              Pane name="" id="ContentElement" class="ScrollViewer" rect=527,687,725x30
+              Text name="" id="PopupIndicator" class="TextBlock" rect=1253,696,12x12
+          Spinner name="Maximum sessions per device" id="" class="Microsoft.UI.Xaml.Controls.NumberBox" rect=526,730,747x59
+            Text name="Maximum sessions per device" id="" class="TextBlock" rect=526,730,184x19
+            Edit name="Maximum sessions per device Minimum1 Maximum1000" id="InputBox" class="TextBox" rect=526,757,747x32
+              Edit name="Maximum sessions per device Minimum1 Maximum1000" id="" class="" rect=526,757,747x32
+              Pane name="" id="ContentElement" class="ScrollViewer" rect=527,758,725x30
+              Text name="" id="PopupIndicator" class="TextBlock" rect=1253,767,12x12
+          Button name="Require TLS" id="" class="ToggleSwitch" rect=526,801,73x61
+            Text name="Require TLS" id="" class="TextBlock" rect=526,801,73x17
+            Text name="Off" id="" class="TextBlock" rect=578,834,20x17
+            Text name="On" id="" class="TextBlock" rect=578,834,19x17
+            Thumb name="" id="SwitchThumb" class="Thumb" rect=526,822,72x40
+          Button name="Save" id="" class="Button" rect=526,874,55x30
+            Text name="Save" id="" class="TextBlock" rect=539,880,29x17
+          Text name="This Manager" id="" class="TextBlock" rect=526,962,747x19
+          Button name="Start the Manager when I sign in to Windows" id="" class="ToggleSwitch" rect=526,993,278x13
+            Text name="Start the Manager when I sign in to Windows" id="" class="TextBlock" rect=526,993,278x13
+            Text name="Off" id="" class="TextBlock" rect=- offscreen
+            Text name="On" id="" class="TextBlock" rect=- offscreen
+            Thumb name="" id="SwitchThumb" class="Thumb" rect=- offscreen
+          Button name="Closing the window keeps the Manager in the notification area" id="" class="ToggleSwitch" rect=- offscreen
+            Text name="Closing the window keeps the Manager in the notification area" id="" class="TextBlock" rect=- offscreen
+            Text name="Off" id="" class="TextBlock" rect=- offscreen
+            Text name="On" id="" class="TextBlock" rect=- offscreen
+            Thumb name="" id="SwitchThumb" class="Thumb" rect=- offscreen
+          Button name="Notify me when a new device pairs" id="" class="ToggleSwitch" rect=- offscreen
+            Text name="Notify me when a new device pairs" id="" class="TextBlock" rect=- offscreen
+            Text name="Off" id="" class="TextBlock" rect=- offscreen
+            Text name="On" id="" class="TextBlock" rect=- offscreen
+            Thumb name="" id="SwitchThumb" class="Thumb" rect=- offscreen
+          ComboBox name="Appearance" id="" class="ComboBox" rect=526,1240,200x32
+          Text name="Backup and restore" id="" class="TextBlock" rect=- offscreen
+          Text name="Saves a copy of the server's data into a folder you choose. Keep it somewhere safe: it may contain the server's private key." id="" class="TextBlock" rect=- offscreen
+          Button name="Create backup…" id="" class="Button" rect=- offscreen
+            Text name="Create backup…" id="" class="TextBlock" rect=- offscreen
+          Button name="Restore from a file…" id="" class="Button" rect=- offscreen
+            Text name="Restore from a file…" id="" class="TextBlock" rect=- offscreen
+          Button name="Restore from a folder…" id="" class="Button" rect=- offscreen
+            Text name="Restore from a folder…" id="" class="TextBlock" rect=- offscreen
+          Text name="Restoring accepts a .zip file or a folder. It stops the service, replaces the server's data and starts it again. The data it replaces is kept in a before-restore folder." id="" class="TextBlock" rect=- offscreen
+          Text name="Remotely Server Manager 0.4.0" id="" class="TextBlock" rect=- offscreen
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=258,237,1068x28
+    MenuBar name="System" id="SystemMenuBar" class="" rect=242,242,22x22
+      MenuItem name="System" id="" class="" rect=242,242,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=1187,235,47x30
+    Button name="Maximize" id="Maximize-Restore" class="" rect=1234,235,46x30
+    Button name="Close" id="Close" class="" rect=1280,235,47x30

@@ -1,0 +1,79 @@
+Window name="Remotely Server Manager" id="" class="WinUIDesktopWin32WindowClass" rect=78,78,1100x780
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=86,109,1084x741
+    Pane name="" id="" class="InputSiteWindowClass" rect=86,109,1084x741
+      StatusBar name="" id="ElevatedBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=86,109,1084x76
+        Text name="" id="IconBackground" class="TextBlock" rect=103,126,16x16
+        Text name="Warning icon" id="StandardIcon" class="TextBlock" rect=103,126,16x16
+        Text name="The Manager is running as administrator" id="Title" class="TextBlock" rect=133,124,259x19
+        Text name="That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally." id="Message" class="TextBlock" rect=133,147,879x19
+        Button name="Close" id="CloseButton" class="Button" rect=1126,115,38x38
+          Text name="" id="" class="TextBlock" rect=1138,126,14x16
+      Custom name="" id="Nav" class="" rect=86,185,1084x665
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=90,191,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=86,185,230x665
+          Image name="" id="" class="Image" rect=138,197,28x28
+          Text name="Remotely Server Manager" id="PaneTitle" class="TextBlock" rect=176,200,140x22
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=86,233,230x569
+            Group name="" id="MenuItemsHost" class="" rect=90,235,222x196
+              ListItem name="Dashboard" id="NavDashboard" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,235,222x36
+                Text name="" id="" class="TextBlock" rect=102,245,16x16
+                Text name="Dashboard" id="" class="TextBlock" rect=134,245,68x17
+              ListItem name="Invite a device" id="NavInvite" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,275,222x36
+                Text name="" id="" class="TextBlock" rect=102,285,16x16
+                Text name="Invite a device" id="" class="TextBlock" rect=134,285,89x17
+              ListItem name="Devices" id="NavDevices" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,315,222x36
+                Text name="" id="" class="TextBlock" rect=102,325,16x16
+                Text name="Devices" id="" class="TextBlock" rect=134,325,47x17
+              ListItem name="Activity" id="NavActivity" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,355,222x36
+                Text name="" id="" class="TextBlock" rect=102,365,16x16
+                Text name="Activity" id="" class="TextBlock" rect=134,365,46x17
+              ListItem name="Service" id="NavService" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,395,222x36
+                Text name="" id="" class="TextBlock" rect=102,405,16x16
+                Text name="Service" id="" class="TextBlock" rect=134,405,44x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=86,806,230x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=90,808,222x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=90,808,222x36
+                Text name="Settings" id="" class="TextBlock" rect=134,818,50x17
+        Pane name="" id="" class="ScrollViewer" rect=317,186,853x664
+          Text name="Dashboard" id="" class="TextBlock" rect=349,210,789x38
+          StatusBar name="" id="" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Text name="The server is running" id="" class="TextBlock" rect=400,301,496x27
+          Text name="Version 1.0.0 (fake), started 10/15/2026 2:09 PM" id="" class="TextBlock" rect=400,330,496x19
+          Button name="Refresh" id="" class="Button" rect=910,310,72x30
+            Text name="Refresh" id="" class="TextBlock" rect=923,316,46x17
+          Button name="Copy server info" id="" class="Button" rect=990,310,127x30
+            Text name="Copy server info" id="" class="TextBlock" rect=1003,316,101x17
+          Text name="Devices online" id="" class="TextBlock" rect=370,407,347x16
+          Text name="3" id="" class="TextBlock" rect=370,427,347x38
+          Text name="of 7 paired" id="" class="TextBlock" rect=370,469,347x19
+          Text name="Active sessions" id="" class="TextBlock" rect=771,407,346x16
+          Text name="1" id="" class="TextBlock" rect=771,427,346x38
+          Text name="Address and port" id="" class="TextBlock" rect=370,542,347x16
+          Text name="192.168.1.50:8443" id="" class="TextBlock" rect=370,562,347x27
+          Text name="TLS on" id="" class="TextBlock" rect=370,593,347x19
+          Text name="Certificate expires" id="" class="TextBlock" rect=771,542,346x16
+          Text name="10/15/2027" id="" class="TextBlock" rect=771,562,346x27
+          Text name="Valid" id="" class="TextBlock" rect=771,593,346x19
+          Text name="Reachability from this PC" id="" class="TextBlock" rect=370,670,747x19
+          Text name="Not checked (sample data)." id="" class="TextBlock" rect=370,695,747x19
+          Text name="Access from the internet is not tested here. That needs a test from outside your network, for example with your phone." id="" class="TextBlock" rect=370,720,747x19
+          Text name="Server key pin" id="" class="TextBlock" rect=370,797,747x19
+          Text name="Every device checks the server against this SHA-256 fingerprint. It is not a secret." id="" class="TextBlock" rect=370,822,747x19
+          Text name="e3411e89584cc29534e669f1f94b3fd7b40abe129b0df653ab771638bda41aad" id="" class="TextBlock" rect=370,847,747x3
+          Button name="Copy pin" id="" class="Button" rect=- offscreen
+            Text name="Copy pin" id="" class="TextBlock" rect=- offscreen
+          Text name="Recent activity" id="" class="TextBlock" rect=- offscreen
+          Text name="10/16/2026 8:01 PM   Pairing   New phone (never connected)   OK" id="" class="TextBlock" rect=- offscreen
+          Text name="10/16/2026 7:02 PM   Disconnection   Burim's laptop   OK" id="" class="TextBlock" rect=- offscreen
+          Text name="10/16/2026 6:21 PM   Connection   Burim's laptop   OK" id="" class="TextBlock" rect=- offscreen
+          Text name="10/16/2026 5:21 PM   Connection   Mum's desktop   Refused" id="" class="TextBlock" rect=- offscreen
+          Text name="10/16/2026 3:21 PM   Connection   Burim's laptop   OK" id="" class="TextBlock" rect=- offscreen
+          Text name="10/15/2026 8:21 PM   Pairing   Garage mini PC   OK" id="" class="TextBlock" rect=- offscreen
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=102,81,1068x28
+    MenuBar name="System" id="SystemMenuBar" class="" rect=86,86,22x22
+      MenuItem name="System" id="" class="" rect=86,86,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=1031,79,47x30
+    Button name="Maximize" id="Maximize-Restore" class="" rect=1078,79,46x30
+    Button name="Close" id="Close" class="" rect=1124,79,47x30

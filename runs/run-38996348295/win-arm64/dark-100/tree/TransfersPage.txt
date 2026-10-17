@@ -1,0 +1,88 @@
+Window name="Remotely" id="" class="WinUIDesktopWin32WindowClass" rect=20,20,1100x760
+  Pane name="Non Client Input Sink Window" id="" class="InputNonClientPointerSource" rect=28,20,1084x32
+  Pane name="AppWindow Custom Title Bar" id="" class="ReunionWindowingCaptionControls" rect=974,20,138x32
+    Button name="Minimize" id="Minimize" class="" rect=974,20,46x32
+    Button name="Maximize" id="Maximize" class="" rect=1020,20,46x32
+    Button name="Close" id="Close" class="" rect=1066,20,46x32
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=28,21,1084x751
+    Pane name="" id="" class="InputSiteWindowClass" rect=28,21,1084x751
+      Image name="" id="" class="Image" rect=40,29,16x16
+      Text name="Remotely" id="TitleText" class="TextBlock" rect=64,29,51x16
+      Custom name="" id="Nav" class="" rect=28,53,1084x719
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=32,59,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=28,53,220x719
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=28,97,220x627
+            Group name="" id="MenuItemsHost" class="" rect=32,99,212x76
+              ListItem name="This network" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,99,212x36
+                Text name="" id="" class="TextBlock" rect=44,109,16x16
+                Text name="This network" id="" class="TextBlock" rect=76,109,79x17
+              ListItem name="My computers" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,139,212x36
+                Text name="" id="" class="TextBlock" rect=44,149,16x16
+                Text name="My computers" id="" class="TextBlock" rect=76,149,89x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=28,728,220x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=32,730,212x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=32,730,212x36
+                Text name="Settings" id="" class="TextBlock" rect=76,740,50x17
+        Text name="Files" id="TitleText" class="TextBlock" rect=394,94,101x27
+        Text name="4 active, 2 finished" id="SummaryText" class="TextBlock" rect=394,121,101x16
+        Button name="" id="SendFilesButton" class="Button" rect=503,101,116x30
+          Text name="" id="" class="TextBlock" rect=515,109,14x14
+          Text name="Send files…" id="SendFilesText" class="TextBlock" rect=537,107,70x17
+        Button name="" id="SendFolderButton" class="Button" rect=627,101,128x30
+          Text name="" id="" class="TextBlock" rect=639,109,14x14
+          Text name="Send folder…" id="SendFolderText" class="TextBlock" rect=661,107,82x17
+        Button name="" id="GetButton" class="Button" rect=763,101,158x30
+          Text name="" id="" class="TextBlock" rect=775,109,14x14
+          Text name="Get from this PC…" id="GetText" class="TextBlock" rect=797,107,112x17
+        Button name="More" id="MoreButton" class="Button" rect=929,103,38x27
+          Text name="" id="" class="TextBlock" rect=941,109,14x14
+        Text name="Drop files or folders here to send them to the other PC" id="DropHint" class="TextBlock" rect=512,166,338x19
+        List name="" id="TransferList" class="ListView" rect=394,214,573x518
+          ListItem name="Remotely.App.Session.Files.TransferRowViewModel" id="" class="ListViewItem" rect=394,214,573x66
+            Text name="" id="" class="TextBlock" rect=422,226,18x18
+            Text name="Holiday video 2026.mp4" id="" class="TextBlock" rect=452,224,441x19
+            ProgressBar name="" id="" class="Microsoft.UI.Xaml.Controls.ProgressBar" rect=452,247,441x3
+            Text name="346 MB of 1.4 GB  ·  61.1 MB/s  ·  0:18 left" id="" class="TextBlock" rect=452,254,441x16
+            Button name="Cancel" id="" class="Button" rect=905,234,38x27
+              Text name="" id="" class="TextBlock" rect=917,240,14x14
+          ListItem name="Remotely.App.Session.Files.TransferRowViewModel" id="" class="ListViewItem" rect=394,280,573x66
+            Text name="" id="" class="TextBlock" rect=422,292,18x18
+            Text name="Quarterly report.pdf" id="" class="TextBlock" rect=452,290,441x19
+            ProgressBar name="" id="" class="Microsoft.UI.Xaml.Controls.ProgressBar" rect=452,313,441x3
+            Text name="30 MB of 48 MB  ·  continued from 21 MB" id="" class="TextBlock" rect=452,320,441x16
+            Button name="Cancel" id="" class="Button" rect=905,300,38x27
+              Text name="" id="" class="TextBlock" rect=917,306,14x14
+          ListItem name="Remotely.App.Session.Files.TransferRowViewModel" id="" class="ListViewItem" rect=394,346,573x59
+            Text name="" id="" class="TextBlock" rect=422,358,18x18
+            Text name="Fotografi të verës" id="" class="TextBlock" rect=452,356,441x19
+            Text name="Waiting…" id="" class="TextBlock" rect=452,379,441x16
+            Button name="Cancel" id="" class="Button" rect=905,362,38x27
+              Text name="" id="" class="TextBlock" rect=917,368,14x14
+          ListItem name="Remotely.App.Session.Files.TransferRowViewModel" id="" class="ListViewItem" rect=394,405,573x59
+            Text name="" id="" class="TextBlock" rect=422,417,18x18
+            Text name="Invoice.xlsx" id="" class="TextBlock" rect=452,415,441x19
+            Text name="Done  ·  saved as Invoice (1).xlsx" id="" class="TextBlock" rect=452,438,441x16
+            Button name="Show in folder" id="" class="Button" rect=905,421,38x27
+              Text name="" id="" class="TextBlock" rect=917,427,14x14
+          ListItem name="Remotely.App.Session.Files.TransferRowViewModel" id="" class="ListViewItem" rect=394,464,573x59
+            Text name="" id="" class="TextBlock" rect=422,476,18x18
+            Text name="Backup.zip" id="" class="TextBlock" rect=452,474,441x19
+            Text name="There is not enough free space for this file." id="" class="TextBlock" rect=452,497,441x16
+            Button name="Try again" id="" class="Button" rect=905,480,38x27
+              Text name="" id="" class="TextBlock" rect=917,486,14x14
+          ListItem name="Remotely.App.Session.Files.TransferRowViewModel" id="" class="ListViewItem" rect=394,523,573x59
+            Text name="" id="" class="TextBlock" rect=422,535,18x18
+            Text name="Presentation.pptx" id="" class="TextBlock" rect=452,533,399x19
+            Text name="Connection lost. It continues by itself when the connection is back." id="" class="TextBlock" rect=452,556,399x16
+            Button name="Try again" id="" class="Button" rect=863,539,38x27
+              Text name="" id="" class="TextBlock" rect=875,545,14x14
+            Button name="Cancel" id="" class="Button" rect=905,539,38x27
+              Text name="" id="" class="TextBlock" rect=917,545,14x14
+      StatusBar name="" id="ToastBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=- offscreen
+    MenuBar name="System" id="SystemMenuBar" class="" rect=28,28,22x22
+      MenuItem name="System" id="" class="" rect=28,28,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=- offscreen
+    Button name="Maximize" id="Maximize-Restore" class="" rect=- offscreen
+    Button name="Close" id="Close" class="" rect=- offscreen

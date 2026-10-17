@@ -1,0 +1,76 @@
+Window name="Remotely Server Manager" id="" class="WinUIDesktopWin32WindowClass" rect=104,104,1100x780
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=112,135,1084x741
+    Pane name="" id="" class="InputSiteWindowClass" rect=112,135,1084x741
+      StatusBar name="" id="ElevatedBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=112,135,1084x76
+        Text name="" id="IconBackground" class="TextBlock" rect=129,152,16x16
+        Text name="Warning icon" id="StandardIcon" class="TextBlock" rect=129,152,16x16
+        Text name="The Manager is running as administrator" id="Title" class="TextBlock" rect=159,150,259x19
+        Text name="That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally." id="Message" class="TextBlock" rect=159,173,879x19
+        Button name="Close" id="CloseButton" class="Button" rect=1152,141,38x38
+          Text name="" id="" class="TextBlock" rect=1164,152,14x16
+      Custom name="" id="Nav" class="" rect=112,211,1084x665
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=116,217,40x36
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=112,211,230x665
+          Image name="" id="" class="Image" rect=164,223,28x28
+          Text name="Remotely Server Manager" id="PaneTitle" class="TextBlock" rect=202,226,140x22
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=112,259,230x569
+            Group name="" id="MenuItemsHost" class="" rect=116,261,222x196
+              ListItem name="Dashboard" id="NavDashboard" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=116,261,222x36
+                Text name="" id="" class="TextBlock" rect=128,271,16x16
+                Text name="Dashboard" id="" class="TextBlock" rect=160,271,68x17
+              ListItem name="Invite a device" id="NavInvite" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=116,301,222x36
+                Text name="" id="" class="TextBlock" rect=128,311,16x16
+                Text name="Invite a device" id="" class="TextBlock" rect=160,311,89x17
+              ListItem name="Devices" id="NavDevices" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=116,341,222x36
+                Text name="" id="" class="TextBlock" rect=128,351,16x16
+                Text name="Devices" id="" class="TextBlock" rect=160,351,47x17
+              ListItem name="Activity" id="NavActivity" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=116,381,222x36
+                Text name="" id="" class="TextBlock" rect=128,391,16x16
+                Text name="Activity" id="" class="TextBlock" rect=160,391,46x17
+              ListItem name="Service" id="NavService" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=116,421,222x36
+                Text name="" id="" class="TextBlock" rect=128,431,16x16
+                Text name="Service" id="" class="TextBlock" rect=160,431,44x17
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=112,832,230x40
+            Group name="" id="FooterMenuItemsHost" class="" rect=116,834,222x36
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=116,834,222x36
+                Text name="Settings" id="" class="TextBlock" rect=160,844,50x17
+        Pane name="" id="" class="ScrollViewer" rect=343,212,853x664
+          Text name="Invite a device" id="" class="TextBlock" rect=375,236,789x38
+          StatusBar name="" id="" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Text name="Create an invite" id="" class="TextBlock" rect=396,327,747x19
+          Text name="Paste the invite into Remotely on the new device, or scan the QR code. After the chosen time, or the allowed number of devices, it stops working." id="" class="TextBlock" rect=396,356,747x38
+          ComboBox name="Valid for" id="" class="ComboBox" rect=392,404,188x64
+          ComboBox name="Devices that may use it" id="" class="ComboBox" rect=584,404,151x64
+          Button name="Create invite" id="" class="Button" rect=743,419,104x30
+            Text name="Create invite" id="" class="TextBlock" rect=756,425,78x17
+          ProgressBar name="" id="" class="Microsoft.UI.Xaml.Controls.ProgressRing" rect=859,422,24x24
+            Image name="" id="LottiePlayer" class="Microsoft.UI.Xaml.Controls.AnimatedVisualPlayer" rect=859,422,24x24
+          Text name="Earlier invites" id="" class="TextBlock" rect=396,522,747x19
+          Text name="Active  ·  9 of 10 uses left" id="" class="TextBlock" rect=396,551,530x19
+          Text name="Expires 10/16/2026 8:18 PM" id="" class="TextBlock" rect=396,572,530x19
+          Button name="Show" id="" class="Button" rect=938,556,60x30
+            Text name="Show" id="" class="TextBlock" rect=951,562,34x17
+          Button name="Copy" id="" class="Button" rect=1006,556,58x30
+            Text name="Copy" id="" class="TextBlock" rect=1019,562,32x17
+          Button name="Revoke" id="" class="Button" rect=1072,556,71x30
+            Text name="Revoke" id="" class="TextBlock" rect=1085,562,45x17
+          Text name="Used up  ·  0 of 1 uses left" id="" class="TextBlock" rect=396,599,609x19
+          Text name="Expires 10/13/2026 8:38 PM" id="" class="TextBlock" rect=396,620,609x19
+          Button name="Show" id="" class="Button" rect=1017,604,60x30
+            Text name="Show" id="" class="TextBlock" rect=1030,610,34x17
+          Button name="Copy" id="" class="Button" rect=1085,604,58x30
+            Text name="Copy" id="" class="TextBlock" rect=1098,610,32x17
+          Text name="Expired  ·  3 of 5 uses left" id="" class="TextBlock" rect=396,647,609x19
+          Text name="Expires 10/8/2026 7:38 PM" id="" class="TextBlock" rect=396,668,609x19
+          Button name="Show" id="" class="Button" rect=1017,652,60x30
+            Text name="Show" id="" class="TextBlock" rect=1030,658,34x17
+          Button name="Copy" id="" class="Button" rect=1085,652,58x30
+            Text name="Copy" id="" class="TextBlock" rect=1098,658,32x17
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=128,107,1068x28
+    MenuBar name="System" id="SystemMenuBar" class="" rect=112,112,22x22
+      MenuItem name="System" id="" class="" rect=112,112,22x22
+    Button name="Minimize" id="Minimize-Restore" class="" rect=1057,105,47x30
+    Button name="Maximize" id="Maximize-Restore" class="" rect=1104,105,46x30
+    Button name="Close" id="Close" class="" rect=1150,105,47x30

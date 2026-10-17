@@ -1,0 +1,50 @@
+Window name="Remotely" id="" class="WinUIDesktopWin32WindowClass" rect=20,20,1650x980
+  Pane name="Non Client Input Sink Window" id="" class="InputNonClientPointerSource" rect=31,20,1628x48
+  Pane name="AppWindow Custom Title Bar" id="" class="ReunionWindowingCaptionControls" rect=1452,20,207x48
+    Button name="Minimize" id="Minimize" class="" rect=1452,20,69x48
+    Button name="Maximize" id="Maximize" class="" rect=1521,20,69x48
+    Button name="Close" id="Close" class="" rect=1590,20,69x48
+  Pane name="" id="" class="Microsoft.UI.Content.DesktopChildSiteBridge" rect=31,21,1628x968
+    Pane name="" id="" class="InputSiteWindowClass" rect=31,21,1628x968
+      Image name="" id="" class="Image" rect=49,33,24x24
+      Text name="Remotely" id="TitleText" class="TextBlock" rect=85,33,77x24
+      Custom name="" id="Nav" class="" rect=31,69,1628x920
+        Button name="Close Navigation" id="TogglePaneButton" class="Button" rect=37,78,60x54
+          Text name="" id="PaneTitleTextBlock" class="TextBlock" rect=- offscreen
+        Window name="" id="PaneRoot" class="SplitViewPane" rect=31,69,330x920
+          Pane name="" id="MenuItemsScrollViewer" class="ScrollViewer" rect=32,136,328x781
+            Group name="" id="MenuItemsHost" class="" rect=38,139,316x114
+              ListItem name="This network" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=38,139,316x54
+                Text name="" id="" class="TextBlock" rect=56,154,24x24
+                Text name="This network" id="" class="TextBlock" rect=104,153,118x26
+              ListItem name="My computers" id="" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=38,199,316x54
+                Text name="" id="" class="TextBlock" rect=56,214,24x24
+                Text name="My computers" id="" class="TextBlock" rect=104,213,134x26
+          Pane name="" id="FooterItemsScrollViewer" class="ScrollViewer" rect=32,923,328x60
+            Group name="" id="FooterMenuItemsHost" class="" rect=38,926,316x54
+              ListItem name="Settings" id="SettingsItem" class="Microsoft.UI.Xaml.Controls.NavigationViewItem" rect=38,926,316x54
+                Text name="Settings" id="" class="TextBlock" rect=104,939,75x26
+        Pane name="" id="" class="ScrollViewer" rect=363,71,1295x918
+          Text name="My computers" id="" class="TextBlock" rect=492,107,276x56
+          Button name="Refresh" id="RefreshButton" class="Button" rect=786,109,67x51
+            Text name="" id="" class="TextBlock" rect=804,118,30x30
+          Text name="Computers paired with your own server. They work from any network. Connections go only through your server." id="Subtitle" class="TextBlock" rect=492,187,1037x28
+          StatusBar name="" id="Bar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+          Text name="Connect to your server" id="" class="TextBlock" rect=530,301,961x40
+          Text name="Paste the invite from your server to connect this PC. You get it from 'Remotely Server info' on the server. Not needed for connections on this network." id="" class="TextBlock" rect=530,359,961x56
+          Edit name="Invite" id="InviteBox" class="TextBox" rect=530,433,961x48
+            Edit name="Invite" id="" class="" rect=530,433,961x48
+            Pane name="" id="ContentElement" class="ScrollViewer" rect=532,435,958x46
+            Text name="RMT1-…" id="PlaceholderTextContentPresenter" class="TextBlock" rect=532,435,958x46
+          Button name="Connect" id="JoinButton" class="Button" rect=530,500,113x47
+            Text name="Connect" id="" class="TextBlock" rect=549,510,77x25
+          ProgressBar name="" id="JoinBusy" class="Microsoft.UI.Xaml.Controls.ProgressRing" rect=662,506,36x36
+            Image name="" id="LottiePlayer" class="Microsoft.UI.Xaml.Controls.AnimatedVisualPlayer" rect=662,506,36x36
+          ScrollBar name="Vertical" id="VerticalScrollBar" class="ScrollBar" rect=- offscreen
+      StatusBar name="" id="ToastBar" class="Microsoft.UI.Xaml.Controls.InfoBar" rect=- offscreen
+  TitleBar name="" id="TitleBar" class="" rect=- offscreen
+    MenuBar name="System" id="SystemMenuBar" class="" rect=31,31,33x33
+      MenuItem name="System" id="" class="" rect=31,31,33x33
+    Button name="Minimize" id="Minimize-Restore" class="" rect=- offscreen
+    Button name="Maximize" id="Maximize-Restore" class="" rect=- offscreen
+    Button name="Close" id="Close" class="" rect=- offscreen
