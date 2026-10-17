@@ -153,4 +153,42 @@
   <data name="Session_Downloading" xml:space="preserve"><value>Po shkarkohet {0}…</value></data>
   <data name="Session_Saved" xml:space="preserve"><value>U ruajt te {0}</value></data>
   <data name="Session_DownloadFailed" xml:space="preserve"><value>Shkarkimi dështoi: {0}</value></data>
+  <!-- A4 Connect (Albanian is machine-written and must be read by a fluent speaker before release). Messages produced by Remotely.Core (token hints, connection check results) are English only for now. -->
+  <data name="Connect_Title" xml:space="preserve"><value>Lidhu me një kompjuter</value></data>
+  <data name="Connect_Intro" xml:space="preserve"><value>Shkruaj kodin që po shfaq kompjuteri tjetër.</value></data>
+  <data name="Connect_TokenName" xml:space="preserve"><value>Kodi për t'u lidhur</value></data>
+  <data name="Connect_Button" xml:space="preserve"><value>Lidhu</value></data>
+  <data name="Connect_Cancel" xml:space="preserve"><value>Anulo</value></data>
+  <data name="Connect_Cancelled" xml:space="preserve"><value>U anulua.</value></data>
+  <data name="Connect_StepFinding" xml:space="preserve"><value>Po kërkohet kompjuteri në këtë rrjet…</value></data>
+  <data name="Connect_StepReaching" xml:space="preserve"><value>Po arrihet kompjuteri…</value></data>
+  <data name="Connect_StepVerifying" xml:space="preserve"><value>Po kontrollohet kodi dhe po krijohet lidhja e sigurt…</value></data>
+  <data name="Connect_Timeout" xml:space="preserve"><value>Kompjuteri tjetër nuk u përgjigj në kohë. Kontrollo kodin dhe që të dy kompjuterët janë në të njëjtin rrjet.</value></data>
+  <data name="Connect_SessionFailed" xml:space="preserve"><value>U lidh, por kompjuteri tjetër nuk e nisi seancën: {0}</value></data>
+  <data name="Connect_Diagnose" xml:space="preserve"><value>Pse dështoi?</value></data>
+  <data name="Connect_NearbyTitle" xml:space="preserve"><value>Po ndajnë në këtë rrjet</value></data>
+  <data name="Connect_NearbySearching" xml:space="preserve"><value>Po kërkohen kompjuterët që po ndajnë…</value></data>
+  <data name="Connect_NearbyEmpty" xml:space="preserve"><value>Asnjë kompjuter nuk po ndan tani në këtë rrjet.</value></data>
+  <data name="Connect_NearbyHint" xml:space="preserve"><value>Kliko një kompjuter, pastaj shkruaj pjesën tjetër të kodit të tij.</value></data>
+  <data name="Connect_NearbyLabel" xml:space="preserve"><value>Kodi fillon me {0}</value></data>
+  <data name="Connect_NearbyLock" xml:space="preserve"><value>Kërkon kodin</value></data>
+  <data name="Connect_RecentTitle" xml:space="preserve"><value>Kompjuterët e fundit</value></data>
+  <data name="Connect_RecentEmpty" xml:space="preserve"><value>Kompjuterët me të cilët lidhesh do të shfaqen këtu.</value></data>
+  <data name="Connect_RecentUsed" xml:space="preserve"><value>përdorur së fundmi {0}</value></data>
+  <data name="Connect_RecentRemove" xml:space="preserve"><value>Hiq</value></data>
+  <data name="Connect_AddressHeader" xml:space="preserve"><value>Nuk e gjen? Shkruaj adresën e tij</value></data>
+  <data name="Connect_AddressHelp" xml:space="preserve"><value>Përdore vetëm nëse kodi vetëm nuk funksionon, për shembull kur rrjeti bllokon kërkimin.</value></data>
+  <data name="Connect_AddressName" xml:space="preserve"><value>Adresa e kompjuterit tjetër</value></data>
+  <data name="Diag_Title" xml:space="preserve"><value>Kontrolli i lidhjes</value></data>
+  <data name="Diag_Intro" xml:space="preserve"><value>Kontrollon rrjetin e këtij kompjuteri dhe kompjuterin tjetër, hap pas hapi, dhe thotë cili hap dështon.</value></data>
+  <data name="Diag_Run" xml:space="preserve"><value>Kontrollo përsëri</value></data>
+  <data name="Diag_Back" xml:space="preserve"><value>Prapa</value></data>
+  <data name="Diag_Passed" xml:space="preserve"><value>Rrjeti është në rregull</value></data>
+  <data name="Diag_Failed" xml:space="preserve"><value>U gjet një problem</value></data>
+  <data name="Diag_Cancelled" xml:space="preserve"><value>Kontrolli u anulua.</value></data>
+  <data name="Diag_TimedOut" xml:space="preserve"><value>Kontrolli zgjati shumë dhe u ndalua.</value></data>
+  <data name="Diag_Step_Adapter" xml:space="preserve"><value>Lidhja e rrjetit</value></data>
+  <data name="Diag_Step_Subnet" xml:space="preserve"><value>I njëjti rrjet</value></data>
+  <data name="Diag_Step_Discovery" xml:space="preserve"><value>Përgjigjja nga kompjuteri tjetër</value></data>
+  <data name="Diag_Step_Port" xml:space="preserve"><value>Porta e lidhjes</value></data>
 </root>

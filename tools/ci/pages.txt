@@ -9,3 +9,5 @@ OnboardingSharePage
 OnboardingServerPage
 OnboardingDonePage
 SessionPreviewPage
+ConnectPage
+DiagnosisPage
