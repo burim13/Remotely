@@ -117,7 +117,7 @@ public sealed partial class ViewerSession
                         _replyBytes = message.Length;
                         _hostCaptureMicros = frame.CaptureMicros;
                         _hostEncodeMicros = frame.EncodeMicros;
-                        FrameReceived?.Invoke(frame.IsKey
+                        RaiseFrame(frame.IsKey
                             ? new FrameInfo(frame.Width, frame.Height, frame.Desktop, frame.Tiles[0].Jpeg) { FromTileStream = true, Monitor = frame.Monitor, CaptureMicros = frame.CaptureMicros, EncodeMicros = frame.EncodeMicros }
                             : new FrameInfo(frame.Width, frame.Height, frame.Desktop, []) { FromTileStream = true, Tiles = frame.Tiles, Monitor = frame.Monitor, CaptureMicros = frame.CaptureMicros, EncodeMicros = frame.EncodeMicros });
                         NoteFrame();

@@ -100,6 +100,8 @@ public sealed partial class HostAgent(DeviceIdentity identity, HostServices serv
         if (services.SecureAttention is not null) caps |= HostCapabilities.SecureAttention;
         if (services.Clipboard is not null) caps |= HostCapabilities.Clipboard;
         if (services.ReceiveDirectory is not null || services.ShareDirectory is not null) caps |= HostCapabilities.Files;
+        caps |= FidelityHostSession.Advertise(services);   // A7: rich clipboard
+        caps |= TransferCapabilities(s);                    // A8: resumable transfers
         return caps;
     }
 
@@ -134,6 +136,12 @@ public sealed partial class HostAgent(DeviceIdentity identity, HostServices serv
                     break;
                 case >= 0x20 and <= 0x2F:
                     await HandleFrameMessageAsync(s, message, ct).ConfigureAwait(false);
+                    break;
+                case >= 0x30 and <= 0x3F when s.Control:
+                    await HandleFidelityAsync(s, message, ct).ConfigureAwait(false);
+                    break;
+                case >= TransferMessages.FirstViewerToHost and <= TransferMessages.LastViewerToHost when s.Control:
+                    await HandleTransferAsync(s, message, ct).ConfigureAwait(false);
                     break;
                 default:
                     await ErrorAsync(s, "That request is not available.", ct).ConfigureAwait(false);

@@ -69,7 +69,9 @@ public class LanTests
         await using var session = await ViewerSession.OpenAsync(result.Channel, "host", rig.Cts.Token);
         var frame = new TaskCompletionSource<FrameInfo>();
         session.FrameReceived += f => frame.TrySetResult(f);
-        Assert.Equal("Default", (await frame.Task.WaitAsync(TimeSpan.FromSeconds(10))).Desktop);
+        // The first frame can arrive before the handler above is attached; LatestFrame holds the picture such a late subscriber missed.
+        var first = session.LatestFrame ?? await frame.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        Assert.Equal("Default", first.Desktop);
         Assert.True(session.CanControl);
         session.SendInput(new InputEvent(InputKind.KeyDown, 0, 0, 65));
         var sw = DateTime.UtcNow;

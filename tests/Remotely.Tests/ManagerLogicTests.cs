@@ -733,7 +733,9 @@ public partial class ManagerLogicTests
             Assert.False(string.IsNullOrWhiteSpace(sq[key]), key);
             Assert.Equal(Placeholders(value), Placeholders(sq[key]));
         }
-        Assert.All(en.Keys, k => Assert.True(used.Contains(k) || k.StartsWith("Kind_", StringComparison.Ordinal) || k.StartsWith("Result_", StringComparison.Ordinal), "unused string key " + k));
+        Assert.All(en.Keys, k => Assert.True(used.Contains(k) || k.StartsWith("Kind_", StringComparison.Ordinal) || k.StartsWith("Result_", StringComparison.Ordinal)
+            || k.StartsWith("Setup_", StringComparison.Ordinal),   // the setup wizard (Setup/) has its own checks in NetworkSetupTests
+            "unused string key " + k));
     }
 
     private static string Placeholders(string text) =>

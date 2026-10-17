@@ -51,6 +51,15 @@ public sealed partial class ViewerSession : IAsyncDisposable
     public string DownloadDirectory { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
 
     public event Action<FrameInfo>? FrameReceived;
+
+    /// <summary>The newest full picture received. A window that subscribes to <see cref="FrameReceived"/> after the session opened (the first frame can arrive before it does) reads this to get the picture it missed.</summary>
+    public FrameInfo? LatestFrame { get; private set; }
+
+    private void RaiseFrame(FrameInfo frame)
+    {
+        if (frame.Tiles is null) LatestFrame = frame;
+        FrameReceived?.Invoke(frame);
+    }
     public event Action<string>? ClipboardReceived;
     public event Action<string>? HostError;
     /// <summary>Raised once when the session ends; the argument is a reason, or null for a normal close.</summary>
@@ -110,7 +119,7 @@ public sealed partial class ViewerSession : IAsyncDisposable
                 switch (message[0])
                 {
                     case HostMessages.FrameReply:
-                        try { FrameReceived?.Invoke(FrameCodec.Decode(message.AsSpan(1))); }
+                        try { RaiseFrame(FrameCodec.Decode(message.AsSpan(1))); }
                         catch (FormatException ex) { HostError?.Invoke("Bad frame: " + ex.Message); }
                         _frameWaiter.TrySetResult(true);
                         break;
@@ -140,6 +149,12 @@ public sealed partial class ViewerSession : IAsyncDisposable
                         break;
                     case >= 0xA0 and <= 0xAF:
                         HandleFrameMessage(message);
+                        break;
+                    case >= 0xB0 and <= 0xBF:
+                        await HandleFidelityAsync(message).ConfigureAwait(false);
+                        break;
+                    case >= TransferMessages.FirstHostToViewer and <= TransferMessages.LastHostToViewer:
+                        HandleTransferMessage(message);
                         break;
                 }
             }

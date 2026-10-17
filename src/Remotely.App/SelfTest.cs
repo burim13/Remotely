@@ -31,6 +31,7 @@ internal static class SelfTest
             await using var session = await ViewerSession.OpenAsync(found.Channel, "selftest", cts.Token);
             var gotFrame = new TaskCompletionSource<(int W, int H, int Bytes)>(TaskCreationOptions.RunContinuationsAsynchronously);
             session.FrameReceived += f => gotFrame.TrySetResult((f.Width, f.Height, f.Jpeg.Length));
+            if (session.LatestFrame is { } early) gotFrame.TrySetResult((early.Width, early.Height, early.Jpeg.Length));   // arrived before we subscribed
             if (!session.CanControl) throw new InvalidOperationException("Session is view-only.");
             var frame = await gotFrame.Task.WaitAsync(cts.Token);
             Log($"Frame {frame.W}x{frame.H}, {frame.Bytes} bytes");
@@ -74,6 +75,7 @@ internal static class SelfTest
             await using var session = await ViewerSession.OpenAsync(client, App.Connection.Identity, host.DeviceId, cts.Token);
             var gotFrame = new TaskCompletionSource<(int W, int H, int Bytes)>(TaskCreationOptions.RunContinuationsAsynchronously);
             session.FrameReceived += f => gotFrame.TrySetResult((f.Width, f.Height, f.Jpeg.Length));
+            if (session.LatestFrame is { } early) gotFrame.TrySetResult((early.Width, early.Height, early.Jpeg.Length));   // arrived before we subscribed
             if (!session.CanControl) throw new InvalidOperationException("Session is view-only.");
             var frame = await gotFrame.Task.WaitAsync(cts.Token);
             Log($"Frame {frame.W}x{frame.H}, {frame.Bytes} bytes, Ctrl+Alt+Del offered: {session.CanSendSecureAttention}");
