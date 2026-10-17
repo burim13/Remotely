@@ -168,7 +168,7 @@ internal sealed class AppSession : IDisposable
         return null;
     }
 
-    private static readonly string[] SystemOverlays = ["WWAHost", "PickerHost", "CloudExperienceHost", "CloudExperienceHostBroker"];
+    private static readonly string[] SystemOverlays = ["WWAHost", "PickerHost", "StartMenuExperienceHost"];
 
     /// <summary>Brings the window forward and waits up to <paramref name="seconds"/> for it to be uncovered; returns the description of what still covers it, or null.</summary>
     public string? WaitUncovered(IntPtr hwnd, int seconds = 6)
@@ -180,7 +180,7 @@ internal sealed class AppSession : IDisposable
             Thread.Sleep(250);
             cover = Covering(hwnd, out var pid, out var name);
             if (cover is null) return null;
-            // The windows-11-arm runner image shows Windows setup screens ("Microsoft account" in WWAHost, a dimming layer from PickerHost) over everything. Close those processes, by name, and say so.
+            // The windows-11-arm runner image shows shell overlays ("Microsoft account" in WWAHost, a dimming layer from PickerHost, the Start menu from StartMenuExperienceHost) over everything. Close those processes, by name, and say so.
             if (SystemOverlays.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
                 try { Process.GetProcessById((int)pid).Kill(true); Console.WriteLine($"NOTE: closed {name} (pid {pid}) which covered the app: {cover}"); }
