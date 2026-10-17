@@ -303,7 +303,7 @@ reviewed any of these strings unless this document or the commit history says so
 
 ## Remotely Server Manager
 
-427 strings.
+425 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -320,7 +320,6 @@ reviewed any of these strings unless this document or the commit history says so
 | `Nav_Activity` | Activity | Aktiviteti | machine-written (git author Claude, 0362829) |  | |
 | `Nav_Service` | Service | Shërbimi | machine-written (git author Claude, 938803e) |  | |
 | `Nav_Settings` | Settings | Cilësimet | machine-written (git author Claude, 0362829) |  | |
-| `Banner_Dismiss` | Dismiss | Mbyll | machine-written (git author Claude, 634083b) |  | |
 | `Setup_Title` | Make my server reachable | Bëje serverin tim të arritshëm | machine-written (git author Claude, feb17a1) |  | |
 | `Setup_StepOf` | Step {0} of {1}: {2} | Hapi {0} nga {1}: {2} | machine-written (git author Claude, feb17a1) |  | |
 | `Setup_Back` | Back | Prapa | machine-written (git author Claude, feb17a1) |  | |
@@ -554,7 +553,6 @@ reviewed any of these strings unless this document or the commit history says so
 | `Notify_NewDevices` | {0} new devices paired with your server. | {0} pajisje të reja u çiftuan me serverin tuaj. | machine-written (git author Claude, 938803e) |  | |
 | `Elevated_Title` | The Manager is running as administrator | Menaxheri po funksionon si administrator | machine-written (git author Claude, 938803e) |  | |
 | `Elevated_Message` | That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally. | Nuk është e nevojshme. Menaxheri kërkon leje nga Windows vetëm kur instalon, ndalon ose rikthen shërbimin. Mbylle dhe hape përsëri në mënyrë normale. | machine-written (git author Claude, 938803e) |  | |
-| `Error_NoClient` | The Manager is not connected to a server yet: the admin client is not part of this build. Start it with --fake to see sample data. | Menaxheri nuk është lidhur ende me një server: klienti i administrimit nuk është pjesë e këtij versioni. Nise me --fake për të parë të dhëna shembull. | machine-written (git author Claude, 938803e) |  | |
 | `Dash_Running` | The server is running | Serveri po funksionon | machine-written (git author Claude, 938803e) |  | |
 | `Dash_NotAnswering` | The service is running but the server does not answer | Shërbimi po funksionon por serveri nuk përgjigjet | machine-written (git author Claude, 938803e) |  | |
 | `Dash_Stopped` | The server is stopped | Serveri është i ndalur | machine-written (git author Claude, 938803e) |  | |
@@ -741,4 +739,4 @@ reviewed any of these strings unless this document or the commit history says so
 - Forms of address: the strings use the polite plural (`ju`, `tuaj`). Confirm that this is the register you want for an app.
 - Units in `Duration_*` (`h`, `min`, `s`) are left as in English.
 
-Counts at generation time: 711 machine-written, 0 with another git author, 0 uncommitted.
+Counts at generation time: 709 machine-written, 0 with another git author, 0 uncommitted.
