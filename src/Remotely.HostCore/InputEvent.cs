@@ -12,7 +12,21 @@ public enum InputKind : byte
     KeyUp = 6,
     /// <summary>Release every key and button the viewer has pressed (sent when focus is lost so nothing sticks).</summary>
     ReleaseAll = 7,
+    // Kinds 8..11 are an extension (see FidelityMessages). A host that does not advertise HostCapabilities.RichClipboard rejects a whole message that contains them.
+    /// <summary>One UTF-16 code unit typed as text (SendInput with KEYEVENTF_UNICODE), independent of the host's keyboard layout. Arg1 = code unit; <see cref="InputEvent.FlagKeyUp"/> in Flags marks the release.</summary>
+    Text = 8,
+    /// <summary>A touch contact. Flags low 3 bits = <see cref="TouchPhase"/>, X/Y = position, Arg1 = contact id, Arg2 = pressure 0..1024.</summary>
+    Touch = 9,
+    /// <summary>A pen. Flags low 3 bits = <see cref="PenPhase"/> plus the pen flag bits, X/Y = position, Arg1 = pressure 0..1024, Arg2 = (tiltX + 90) * 256 + (tiltY + 90).</summary>
+    Pen = 10,
+    /// <summary>Sent about once a second while the viewer holds a key or button. The first one tells the host the viewer sends them; from then on the host releases everything held if they stop (the viewer vanished).</summary>
+    Heartbeat = 11,
 }
+
+public enum TouchPhase : byte { Down = 0, Move = 1, Up = 2, Cancel = 3 }
+
+/// <summary>Pen phases. Hover = in range but not touching; Leave = left the digitiser's range.</summary>
+public enum PenPhase : byte { Down = 0, Move = 1, Up = 2, Cancel = 3, Hover = 4, Leave = 5 }
 
 public enum MouseButton : byte { Left = 0, Right = 1, Middle = 2, X1 = 3, X2 = 4 }
 
@@ -25,6 +39,12 @@ public readonly record struct InputEvent(InputKind Kind, ushort X = 0, ushort Y 
     public const int WireSize = 10;
     public const byte FlagExtended = 1;
     public const byte FlagHorizontal = 1;
+    /// <summary>Text events: this is the release of the code unit.</summary>
+    public const byte FlagKeyUp = 2;
+    public const byte PhaseMask = 7;
+    public const byte PenBarrel = 8, PenEraser = 16, PenInverted = 32;
+    public const int MaxPressure = 1024;
+    public const int MaxTilt = 90;
 
     public static InputEvent Move(ushort x, ushort y) => new(InputKind.MouseMove, x, y);
     public static InputEvent Down(MouseButton b, ushort x, ushort y) => new(InputKind.MouseDown, x, y, (ushort)b);
@@ -34,7 +54,34 @@ public readonly record struct InputEvent(InputKind Kind, ushort X = 0, ushort Y 
     public static InputEvent Key(bool down, ushort virtualKey, ushort scanCode, bool extended) =>
         new(down ? InputKind.KeyDown : InputKind.KeyUp, 0, 0, virtualKey, scanCode, extended ? FlagExtended : (byte)0);
 
+    public static InputEvent Text(ushort codeUnit, bool down) => new(InputKind.Text, 0, 0, codeUnit, 0, down ? (byte)0 : FlagKeyUp);
+    public static InputEvent Touch(TouchPhase phase, ushort contactId, ushort x, ushort y, int pressure = MaxPressure / 2) =>
+        new(InputKind.Touch, x, y, contactId, (ushort)Math.Clamp(pressure, 0, MaxPressure), (byte)phase);
+    public static InputEvent Pen(PenPhase phase, ushort x, ushort y, int pressure, int tiltX, int tiltY, bool barrel = false, bool eraser = false, bool inverted = false) =>
+        new(InputKind.Pen, x, y, (ushort)Math.Clamp(pressure, 0, MaxPressure),
+            (ushort)((Math.Clamp(tiltX, -MaxTilt, MaxTilt) + MaxTilt) * 256 + Math.Clamp(tiltY, -MaxTilt, MaxTilt) + MaxTilt),
+            (byte)((byte)phase | (barrel ? PenBarrel : 0) | (eraser ? PenEraser : 0) | (inverted ? PenInverted : 0)));
+    public static InputEvent Heartbeat() => new(InputKind.Heartbeat);
+
+    /// <summary>A wheel movement of any size as events that each fit the wire: high-resolution and fast wheels report more than 32767 units at once.</summary>
+    public static IEnumerable<InputEvent> ScrollMany(int delta, ushort x, ushort y, bool horizontal = false)
+    {
+        while (delta != 0)
+        {
+            var part = Math.Clamp(delta, short.MinValue, short.MaxValue);
+            yield return Scroll((short)part, x, y, horizontal);
+            delta -= part;
+        }
+    }
+
     public short WheelDelta => unchecked((short)Arg1);
+    public bool IsKeyUp => (Flags & FlagKeyUp) != 0;
+    public byte Phase => (byte)(Flags & PhaseMask);
+    public int Pressure => Kind == InputKind.Pen ? Arg1 : Arg2;
+    public int TiltX => (Arg2 >> 8) - MaxTilt;
+    public int TiltY => (Arg2 & 0xFF) - MaxTilt;
+    /// <summary>True for the kinds that old hosts do not understand.</summary>
+    public bool IsExtension => Kind >= InputKind.Text;
 }
 
 public static class InputCodec
@@ -72,12 +119,17 @@ public static class InputCodec
         {
             var o = 3 + i * InputEvent.WireSize;
             var kind = (InputKind)message[o];
-            if (kind is < InputKind.MouseMove or > InputKind.ReleaseAll) return false;
+            if (kind is < InputKind.MouseMove or > InputKind.Heartbeat) return false;
             var e = new InputEvent(kind, BinaryPrimitives.ReadUInt16BigEndian(message[(o + 2)..]), BinaryPrimitives.ReadUInt16BigEndian(message[(o + 4)..]),
                 BinaryPrimitives.ReadUInt16BigEndian(message[(o + 6)..]), BinaryPrimitives.ReadUInt16BigEndian(message[(o + 8)..]), message[o + 1]);
             if (kind is InputKind.MouseDown or InputKind.MouseUp && e.Arg1 > (ushort)MouseButton.X2) return false;
+            if (kind == InputKind.Touch && (e.Phase > (byte)TouchPhase.Cancel || e.Arg2 > InputEvent.MaxPressure)) return false;
+            if (kind == InputKind.Pen && (e.Phase > (byte)PenPhase.Leave || e.Arg1 > InputEvent.MaxPressure || (e.Arg2 >> 8) > 2 * InputEvent.MaxTilt || (e.Arg2 & 0xFF) > 2 * InputEvent.MaxTilt)) return false;
             events.Add(e);
         }
         return true;
     }
+
+    /// <summary>True if any event needs a host that advertises <see cref="HostCapabilities.RichClipboard"/>.</summary>
+    public static bool NeedsExtension(IEnumerable<InputEvent> events) => events.Any(e => e.IsExtension);
 }
