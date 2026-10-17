@@ -29,6 +29,10 @@ Note ($info -join "`n")
 & $uitests system --res 1920x1080 | Tee-Object -Variable resInfo | Out-Host
 Note ($resInfo -join "`n")
 
+# What else has a window on this machine (an out-of-box-experience screen or a dialog would cover the app and ruin every screenshot).
+$windows = Get-Process | Where-Object { $_.MainWindowHandle -ne 0 } | ForEach-Object { "$($_.ProcessName) pid $($_.Id): '$($_.MainWindowTitle)'" }
+Note ("Processes with a main window before the run:`n" + ($windows -join "`n"))
+
 $variants = Get-Content (Join-Path $PSScriptRoot 'ui-variants.txt') | Where-Object { $_.Trim() -ne '' -and -not $_.StartsWith('#') }
 foreach ($line in $variants) {
   $c = $line -split '\s+'

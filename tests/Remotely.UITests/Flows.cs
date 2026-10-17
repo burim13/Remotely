@@ -139,11 +139,13 @@ internal sealed class Flows(string exe, string outDir, string maskedDir, Strings
                 AppSession.BringToFront(_hwnd);
                 Thread.Sleep(250);
                 var nodes = Tree();
+                var cover = _session.WaitUncovered(_hwnd);
+                if (cover is not null) Fail($"another window covers the app at step '{label}', so the screenshot does not show it: {cover}");
                 var image = Capture.Window(_hwnd);
                 var masks = Masking.For(nodes, Capture.FrameOf(_hwnd), image.Width, image.Height);
                 var file = $"flow-{Slug(name)}-{++_shot:00}-{Slug(label)}.png";
                 Capture.Save(image.DownscaleToWidth(Capture.MaxWidth), Path.Combine(owner.OutDir, file));
-                Capture.Save(Capture.Mask(image, masks).DownscaleToWidth(Capture.MaxWidth), Path.Combine(owner.MaskedDir, file));
+                if (cover is null) Capture.Save(Capture.Mask(image, masks).DownscaleToWidth(Capture.MaxWidth), Path.Combine(owner.MaskedDir, file));
                 if (!Capture.LooksRendered(image).HasContent) Fail("screenshot looks blank after step: " + label);
             }
             catch (Exception ex) when (ex is InvalidOperationException or System.Runtime.InteropServices.ExternalException or ArgumentException)

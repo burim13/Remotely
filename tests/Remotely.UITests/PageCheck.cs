@@ -94,12 +94,14 @@ internal sealed class PageCheck(AppKind kind, string exe, string outDir, string 
         string shot = "";
         if (!session.HasExited)
         {
+            var cover = session.WaitUncovered(hwnd);
+            if (cover is not null) problems.Add("another window covers the app, so the screenshot does not show it: " + cover);
             var image = Capture.Window(hwnd);
             var (rendered, colours) = Capture.LooksRendered(image);
             if (!rendered) problems.Add($"the screenshot looks blank ({colours} distinct colours)");
             var masks = Masking.For(nodes, Capture.FrameOf(hwnd), image.Width, image.Height);
             Capture.Save(image.DownscaleToWidth(Capture.MaxWidth), Path.Combine(folder, page + ".png"));
-            Capture.Save(Capture.Mask(image, masks).DownscaleToWidth(Capture.MaxWidth), Path.Combine(maskedDir, page + ".png"));
+            if (cover is null) Capture.Save(Capture.Mask(image, masks).DownscaleToWidth(Capture.MaxWidth), Path.Combine(maskedDir, page + ".png"));
             shot = $"{image.Width}x{image.Height}px, {masks.Count - 4} dynamic region(s) masked in the baseline copy";
         }
         var named = nodes.Count(n => n.Name.Length > 0);

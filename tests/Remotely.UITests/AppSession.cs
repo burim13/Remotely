@@ -141,6 +141,42 @@ internal sealed class AppSession : IDisposable
     public List<string> OtherWindows(IntPtr main) =>
         Windows().Where(h => h != main && Native.IsWindowVisible(h)).Select(Describe).Where(d => !d.Contains("PopupWindowSiteBridge") && !d.Contains("class=\"IME\"") && !d.Contains("class=\"MSCTFIME UI\"") && !d.Contains("class=\"CiceroUIWndFrame\"")).ToList();
 
+    /// <summary>
+    /// Looks at five points inside the window's frame and asks Windows which top-level window is really there. Returns a description of a window of ANOTHER process that covers the
+    /// app (a screen capture would then photograph that window, not the app), or null when the app is on top.
+    /// </summary>
+    public string? Covering(IntPtr hwnd)
+    {
+        var f = Capture.FrameOf(hwnd);
+        var points = new[] { (2, 2), (1, 1), (3, 1), (1, 3), (2, 1) }.Select(q => new System.Drawing.Point(f.Left + f.Width * q.Item1 / 4, f.Top + f.Height * q.Item2 / 4)).ToArray();
+        foreach (var point in points)
+        {
+            var root = Native.GetAncestor(Native.WindowFromPoint(point), 2);
+            if (root == IntPtr.Zero) continue;
+            Native.GetWindowThreadProcessId(root, out var owner);
+            if (owner == (uint)_process.Id) continue;
+            var name = "?";
+            try { name = Process.GetProcessById((int)owner).ProcessName; } catch (ArgumentException) { }
+            return $"process {name} (pid {owner}), {Describe(root)} at screen point {point.X},{point.Y}";
+        }
+        return null;
+    }
+
+    /// <summary>Brings the window forward and waits up to <paramref name="seconds"/> for it to be uncovered; returns the description of what still covers it, or null.</summary>
+    public string? WaitUncovered(IntPtr hwnd, int seconds = 6)
+    {
+        string? cover = null;
+        for (var i = 0; i < seconds * 2 + 1; i++)
+        {
+            BringToFront(hwnd);
+            Thread.Sleep(250);
+            cover = Covering(hwnd);
+            if (cover is null) return null;
+            Thread.Sleep(250);
+        }
+        return cover;
+    }
+
     private string TopLevelSummary() => string.Join("; ", Windows().Select(Describe));
 
     private static string Describe(IntPtr hwnd)
@@ -170,6 +206,7 @@ internal sealed class AppSession : IDisposable
     public static void BringToFront(IntPtr hwnd)
     {
         if (Native.IsIconic(hwnd)) Native.ShowWindow(hwnd, Native.SW_RESTORE);
+        Native.SetWindowPos(hwnd, new IntPtr(-1), 0, 0, 0, 0, 0x0001 | 0x0002 | 0x0040);   // topmost: no size, no move, show
         Native.SetForegroundWindow(hwnd);
         Native.SetCursorPos(Native.GetSystemMetrics(Native.SM_CXSCREEN) - 2, Native.GetSystemMetrics(Native.SM_CYSCREEN) - 2);
     }
