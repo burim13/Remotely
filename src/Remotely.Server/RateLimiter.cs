@@ -82,6 +82,9 @@ public sealed class RateLimits(LimitOptions options, TimeProvider time)
     /// <summary>Requests to open a session, per device.</summary>
     public RateLimiter Session { get; } = new(options.SessionRequestsPerMinute, time);
 
+    /// <summary>Requests for the public /check page, per source address.</summary>
+    public RateLimiter Check { get; } = new(30, time);
+
     /// <summary>Refused admin calls: used to keep the audit log from filling with them, never to refuse a valid token.</summary>
     public RateLimiter AdminFailures { get; } = new(10, time);
 

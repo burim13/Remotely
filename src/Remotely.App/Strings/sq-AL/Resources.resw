@@ -115,8 +115,6 @@
   <data name="Session_Sas" xml:space="preserve"><value>Dërgo Ctrl+Alt+Del</value></data>
   <data name="Session_Clipboard" xml:space="preserve"><value>Ndaj kujtesën e kopjimit</value></data>
   <data name="Session_Files" xml:space="preserve"><value>Skedarët</value></data>
-  <data name="Session_SendFile" xml:space="preserve"><value>Dërgo një skedar…</value></data>
-  <data name="Session_GetFile" xml:space="preserve"><value>Merr një skedar…</value></data>
   <data name="Session_PinToolbar" xml:space="preserve"><value>Mbaje shiritin e veglave të dukshëm</value></data>
   <data name="Session_End" xml:space="preserve"><value>Mbyll seancën</value></data>
   <data name="Session_Badge_Remote" xml:space="preserve"><value>Tastiera: kompjuteri tjetër</value></data>
@@ -133,6 +131,16 @@
   <data name="Session_ZoomNotice" xml:space="preserve"><value>Zmadhimi {0}%</value></data>
   <data name="Session_SasSent" xml:space="preserve"><value>U dërgua Ctrl+Alt+Del.</value></data>
   <data name="Session_OtherPcError" xml:space="preserve"><value>Kompjuteri tjetër: {0}</value></data>
+  <data name="Session_Stats_CodecTiles" xml:space="preserve"><value>JPEG me pllaka</value></data>
+  <data name="Session_Stats_Quality" xml:space="preserve"><value>Cilësia JPEG: {0}</value></data>
+  <data name="Session_Stats_HostTime" xml:space="preserve"><value>Kompjuteri tjetër: kapja {0} ms, kodimi {1} ms</value></data>
+  <data name="Session_ClipConfirmTitle" xml:space="preserve"><value>Kujtesë kopjimi e madhe</value></data>
+  <data name="Session_ClipConfirmReceive" xml:space="preserve"><value>Kompjuteri tjetër dëshiron të vendosë {0} në kujtesën e kopjimit të këtij kompjuteri. E lejoni?</value></data>
+  <data name="Session_ClipConfirmSend" xml:space="preserve"><value>Të dërgohen {0} përmbajtje nga kujtesa e kopjimit te kompjuteri tjetër?</value></data>
+  <data name="Session_ClipAllow" xml:space="preserve"><value>Lejo</value></data>
+  <data name="Session_ClipDeny" xml:space="preserve"><value>Mos lejo</value></data>
+  <data name="Session_ClipNotSent" xml:space="preserve"><value>Kujtesa e kopjimit nuk u dërgua.</value></data>
+  <data name="Session_ClipNotApplied" xml:space="preserve"><value>Kujtesa e kopjimit e kompjuterit tjetër nuk u kopjua këtu.</value></data>
   <data name="Session_Disconnected" xml:space="preserve"><value>U shkëput</value></data>
   <data name="Session_ConnectionLost" xml:space="preserve"><value>Lidhja u ndërpre</value></data>
   <data name="Session_EndedByOther" xml:space="preserve"><value>Kompjuteri tjetër e mbylli seancën.</value></data>
@@ -142,17 +150,6 @@
   <data name="Session_ReconnectFailed" xml:space="preserve"><value>Nuk u rilidh dot</value></data>
   <data name="Session_RetryNow" xml:space="preserve"><value>Rilidhu tani</value></data>
   <data name="Session_Close" xml:space="preserve"><value>Mbyll</value></data>
-  <data name="Session_Cancel" xml:space="preserve"><value>Anulo</value></data>
-  <data name="Session_Sending" xml:space="preserve"><value>Po dërgohet {0}…</value></data>
-  <data name="Session_SendingProgress" xml:space="preserve"><value>Po dërgohet {0}… {1}</value></data>
-  <data name="Session_Sent" xml:space="preserve"><value>{0} u dërgua te kompjuteri tjetër.</value></data>
-  <data name="Session_SendFailed" xml:space="preserve"><value>Skedari nuk u dërgua dot: {0}</value></data>
-  <data name="Session_ShareEmpty" xml:space="preserve"><value>{0} nuk ka asgjë në dosjen e ndarë. Vendosni skedarë te Documents\Remotely\Share në atë kompjuter për t'i vënë në dispozicion.</value></data>
-  <data name="Session_FilesOn" xml:space="preserve"><value>Skedarët në {0}</value></data>
-  <data name="Session_GetFileButton" xml:space="preserve"><value>Merr skedarin</value></data>
-  <data name="Session_Downloading" xml:space="preserve"><value>Po shkarkohet {0}…</value></data>
-  <data name="Session_Saved" xml:space="preserve"><value>U ruajt te {0}</value></data>
-  <data name="Session_DownloadFailed" xml:space="preserve"><value>Shkarkimi dështoi: {0}</value></data>
   <!-- A4 Connect (Albanian is machine-written and must be read by a fluent speaker before release). Messages produced by Remotely.Core (token hints, connection check results) are English only for now. -->
   <data name="Connect_Title" xml:space="preserve"><value>Lidhu me një kompjuter</value></data>
   <data name="Connect_Intro" xml:space="preserve"><value>Shkruaj kodin që po shfaq kompjuteri tjetër.</value></data>
