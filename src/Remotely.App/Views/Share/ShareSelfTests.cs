@@ -38,6 +38,8 @@ internal static class ShareSelfTests
         var dataDirectory = Path.Combine(Path.GetTempPath(), "remotely-share-selftest-" + Guid.NewGuid().ToString("N"));
         try
         {
+            // With no main window (this runs before the shell exists), closing the banner would close the last window and end the process. This one stays open.
+            if (ui is not null) new Microsoft.UI.Xaml.Window { Title = "Remotely self-test" }.Activate();
             await using var share = new ShareService(dataDirectory);
             if (ui is not null) share.AttachUi(ui);
             share.ToastSink = (t, b) => log($"toast: {t} / {b}");   // the real notification service is exercised once, at the end
@@ -76,9 +78,7 @@ internal static class ShareSelfTests
             Require(hostKey.DeviceId == share.Identity.DeviceId, "the host proved the device key it will use later");
             await using (var session = await ViewerSession.OpenAsync(allowed.Channel, "selftest", cts.Token))
             {
-                var frame = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-                session.FrameReceived += _ => frame.TrySetResult(true);
-                await frame.Task.WaitAsync(cts.Token);
+                await WaitForFrameAsync(session, cts.Token);
                 log("Frame received in the allowed session.");
                 await WaitAsync(() => share.State.Current.State == ShareState.InSession, "state InSession");
                 if (ui is not null)
@@ -103,9 +103,7 @@ internal static class ShareSelfTests
             var endpointIp = new System.Net.IPEndPoint(System.Net.IPAddress.Parse(address), host.TcpPort);
             await using (var again = await ViewerSession.OpenAsync(await LanResume.ConnectAsync(endpointIp, controller, share.Identity.DeviceId, cts.Token), "selftest", cts.Token))
             {
-                var frame = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-                again.FrameReceived += _ => frame.TrySetResult(true);
-                await frame.Task.WaitAsync(cts.Token);
+                await WaitForFrameAsync(again, cts.Token);
                 log("Remembered PC reconnected without a token and received a frame.");
             }
             await WaitAsync(() => !host.IsConnected, "host free after the second session");
@@ -130,6 +128,22 @@ internal static class ShareSelfTests
         {
             try { Directory.Delete(dataDirectory, recursive: true); } catch (IOException) { } catch (UnauthorizedAccessException) { }
         }
+    }
+
+    /// <summary>
+    /// The host sends a frame only when the screen changed, and the first one can arrive before this code has subscribed. So a small mouse move is sent every second until a frame
+    /// is seen (the cursor is part of the captured picture), instead of waiting for a frame that may already have gone by.
+    /// </summary>
+    private static async Task WaitForFrameAsync(ViewerSession session, CancellationToken ct)
+    {
+        var frame = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        session.FrameReceived += _ => frame.TrySetResult(true);
+        for (var i = 0; i < 30 && !frame.Task.IsCompleted; i++)
+        {
+            session.SendInput(Remotely.HostCore.InputEvent.Move((ushort)(20000 + i * 300), 20000));
+            await Task.WhenAny(frame.Task, Task.Delay(1000, ct));
+        }
+        if (!frame.Task.IsCompleted) throw new TimeoutException("No frame arrived in the session.");
     }
 
     private static void Require(bool condition, string what)
