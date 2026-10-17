@@ -68,6 +68,34 @@ public class CommandLineTests
         => Assert.Equal("\"C:\\Program Files\\Remotely\\Remotely.exe\" --minimized", StartupCommand.Build("C:\\Program Files\\Remotely\\Remotely.exe"));
 }
 
+public class ShowAndShellOptionTests
+{
+    [Fact]
+    public void Show_result_selftest_shell_and_instance_name_are_read()
+    {
+        var o = AppOptions.Parse(["--show", "HomePage", "--show-result", "r.txt", "--instance-name", "x"]);
+        Assert.Equal("r.txt", o.ShowResult);
+        Assert.Equal("x", o.InstanceName);
+        Assert.Empty(o.Problems);
+        var s = AppOptions.Parse(["--selftest-shell", "s.txt"]);
+        Assert.Equal("s.txt", s.SelfTestShellResultPath);
+        Assert.True(s.IsSelfTest);
+        Assert.False(s.UsesSingleInstance);
+    }
+
+    [Fact]
+    public void A_launch_with_an_instance_name_still_uses_single_instance()
+        => Assert.True(AppOptions.Parse(["--invite", "RMT1-x", "--instance-name", "n"]).UsesSingleInstance);
+
+    [Fact]
+    public void Tray_icon_follows_the_taskbar_theme()
+    {
+        Assert.Equal("tray-light.ico", TrayTheme.IconFile(0));      // dark taskbar -> light glyph
+        Assert.Equal("tray-dark.ico", TrayTheme.IconFile(1));       // light taskbar -> dark glyph
+        Assert.Equal("tray-light.ico", TrayTheme.IconFile(null));   // value missing: treated as dark
+    }
+}
+
 public class WindowPlacementTests
 {
     private static readonly PixelRect Main = new(0, 0, 1920, 1040);

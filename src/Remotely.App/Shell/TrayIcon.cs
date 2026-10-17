@@ -41,6 +41,7 @@ internal sealed class TrayIcon : IDisposable
         _open = open;
         _wndProc = WndProc;
         _taskbarCreated = RegisterWindowMessage("TaskbarCreated");
+        AllowDarkMenus();
 
         var instance = GetModuleHandle(null);
         var wc = new WNDCLASSEX
@@ -62,6 +63,23 @@ internal sealed class TrayIcon : IDisposable
 
     public bool IsAdded => _added;
 
+    /// <summary>Replaces the icon (the taskbar theme changed). Keeps the old one when the file cannot be loaded.</summary>
+    public void SetIcon(string iconPath)
+    {
+        var size = GetSystemMetrics(SM_CXSMICON);
+        var icon = LoadImage(IntPtr.Zero, iconPath, IMAGE_ICON, size, size, LR_LOADFROMFILE);
+        if (icon == IntPtr.Zero) return;
+        var old = _icon;
+        _icon = icon;
+        if (_added)
+        {
+            var data = NewData(NIF_ICON);
+            data.hIcon = _icon;
+            Shell_NotifyIcon(NIM_MODIFY, ref data);
+        }
+        if (old != IntPtr.Zero) DestroyIcon(old);
+    }
+
     /// <summary>Shows a balloon / toast-style notification from the tray icon.</summary>
     public void Notify(string title, string text)
     {
@@ -72,6 +90,31 @@ internal sealed class TrayIcon : IDisposable
         data.dwInfoFlags = NIIF_INFO;
         Shell_NotifyIcon(NIM_MODIFY, ref data);
     }
+
+    /// <summary>
+    /// Native popup menus follow the system dark mode only when the process opts in. This uses uxtheme.dll ordinals 135 (SetPreferredAppMode) and 136 (FlushMenuThemes):
+    /// undocumented, but used by many programs on Windows 10 1903 and later. If the entry points are missing the menu simply stays light.
+    /// </summary>
+    private static void AllowDarkMenus()
+    {
+        try
+        {
+            var lib = LoadLibrary("uxtheme.dll");
+            if (lib == IntPtr.Zero) return;
+            var setMode = GetProcAddress(lib, new IntPtr(135));
+            var flush = GetProcAddress(lib, new IntPtr(136));
+            if (setMode == IntPtr.Zero || flush == IntPtr.Zero) return;
+            Marshal.GetDelegateForFunctionPointer<SetPreferredAppModeDelegate>(setMode)(1 /* AllowDark: follow the system setting */);
+            Marshal.GetDelegateForFunctionPointer<FlushMenuThemesDelegate>(flush)();
+        }
+        catch (Exception ex) when (ex is ArgumentException or MarshalDirectiveException or SEHException or DllNotFoundException)
+        {
+            App.LogCrash(ex);
+        }
+    }
+
+    private delegate int SetPreferredAppModeDelegate(int mode);
+    private delegate void FlushMenuThemesDelegate();
 
     private void Add()
     {
@@ -206,4 +249,6 @@ internal sealed class TrayIcon : IDisposable
     [DllImport("user32.dll")] private static extern bool SetForegroundWindow(IntPtr hwnd);
     [DllImport("user32.dll")] private static extern bool PostMessage(IntPtr hwnd, uint message, IntPtr wParam, IntPtr lParam);
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode)] private static extern IntPtr GetModuleHandle(string? name);
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode)] private static extern IntPtr LoadLibrary(string name);
+    [DllImport("kernel32.dll")] private static extern IntPtr GetProcAddress(IntPtr module, IntPtr ordinal);
 }

@@ -7,6 +7,9 @@ namespace Remotely.App.Shell;
 ///   --connect-token TOKEN    open the This network page with the token filled in
 ///   --minimized              start in the tray without showing the window
 ///   --show PageName          open the app on that Page class (CI uses this; never forwards to a running instance)
+///   --show-result FILE       with --show: where to write the one-line result (default: show-result.txt next to the exe)
+///   --selftest-shell FILE    start a second copy of this program with --invite and check that a first instance receives it (CI)
+///   --instance-name NAME     test only: single-instance name to use instead of the per-user default
 ///   --selftest FILE          share this PC, connect to it, write PASS or FAIL to FILE, exit (CI)
 ///   --selftest-server FILE HOSTID   the same through the configured server (CI)
 /// An option that needs a value and does not get one is reported in <see cref="Problems"/> and ignored; unknown options are ignored and reported.
@@ -18,12 +21,15 @@ public sealed record AppOptions
     public string? ConnectToken { get; init; }
     public string? Show { get; init; }
     public bool Minimized { get; init; }
+    public string? ShowResult { get; init; }
+    public string? SelfTestShellResultPath { get; init; }
+    public string? InstanceName { get; init; }
     public string? SelfTestResultPath { get; init; }
     public string? SelfTestServerResultPath { get; init; }
     public string? SelfTestServerHostPrefix { get; init; }
     public IReadOnlyList<string> Problems { get; init; } = [];
 
-    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null;
+    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null || SelfTestShellResultPath is not null;
 
     /// <summary>Self-tests and --show are test and CI launches: they never join or forward to a running instance.</summary>
     public bool UsesSingleInstance => !IsSelfTest && Show is null;
@@ -46,7 +52,7 @@ public sealed record AppOptions
                 case "--minimized":
                     o = o with { Minimized = true };
                     break;
-                case "--invite" or "--pair" or "--connect-token" or "--show" or "--selftest":
+                case "--invite" or "--pair" or "--connect-token" or "--show" or "--selftest" or "--show-result" or "--selftest-shell" or "--instance-name":
                     if (Value(1) is { Length: > 0 } v)
                     {
                         o = key switch
@@ -55,6 +61,9 @@ public sealed record AppOptions
                             "--pair" => o with { Pair = v.Trim() },
                             "--connect-token" => o with { ConnectToken = v.Trim() },
                             "--show" => o with { Show = v.Trim() },
+                            "--show-result" => o with { ShowResult = v },
+                            "--selftest-shell" => o with { SelfTestShellResultPath = v },
+                            "--instance-name" => o with { InstanceName = v.Trim() },
                             _ => o with { SelfTestResultPath = v },
                         };
                         i++;
@@ -82,4 +91,11 @@ public sealed record AppOptions
 public static class StartupCommand
 {
     public static string Build(string exePath) => "\"" + exePath.Replace("\"", "") + "\" --minimized";
+}
+
+/// <summary>Which tray icon file suits the taskbar. "light" is a light glyph, for a dark taskbar.</summary>
+public static class TrayTheme
+{
+    /// <param name="systemUsesLightTheme">HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize\SystemUsesLightTheme; null when the value is missing (treated as a dark taskbar).</param>
+    public static string IconFile(int? systemUsesLightTheme) => systemUsesLightTheme == 1 ? "tray-dark.ico" : "tray-light.ico";
 }

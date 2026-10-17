@@ -8,12 +8,12 @@ internal static class TrayMenu
 {
     private const int Open = 1, Share = 2, CloseToTray = 3, Startup = 4, Quit = 5;
 
-    public static TrayIcon Create() => new(
-        Path.Combine(AppContext.BaseDirectory, "Assets", "remotely.ico"),
-        Loc.Get("App_Name"),
-        Items,
-        OnCommand,
-        () => App.Main?.ShowAndFocus());
+    public static TrayIcon Create()
+    {
+        var tray = new TrayIcon(TaskbarTheme.TrayIconPath(), Loc.Get("App_Name"), Items, OnCommand, () => App.Main?.ShowAndFocus());
+        TaskbarTheme.Watch(() => App.Main?.DispatcherQueue.TryEnqueue(() => App.Tray?.SetIcon(TaskbarTheme.TrayIconPath())));
+        return tray;
+    }
 
     private static IReadOnlyList<TrayMenuItem> Items() =>
     [
