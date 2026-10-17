@@ -145,8 +145,12 @@ internal sealed class AppSession : IDisposable
     /// Looks at five points inside the window's frame and asks Windows which top-level window is really there. Returns a description of a window of ANOTHER process that covers the
     /// app (a screen capture would then photograph that window, not the app), or null when the app is on top.
     /// </summary>
-    public string? Covering(IntPtr hwnd)
+    public string? Covering(IntPtr hwnd) => Covering(hwnd, out _, out _);
+
+    private string? Covering(IntPtr hwnd, out uint coverPid, out string coverName)
     {
+        coverPid = 0;
+        coverName = "";
         var f = Capture.FrameOf(hwnd);
         var points = new[] { (2, 2), (1, 1), (3, 1), (1, 3), (2, 1) }.Select(q => new System.Drawing.Point(f.Left + f.Width * q.Item1 / 4, f.Top + f.Height * q.Item2 / 4)).ToArray();
         foreach (var point in points)
@@ -157,10 +161,14 @@ internal sealed class AppSession : IDisposable
             if (owner == (uint)_process.Id) continue;
             var name = "?";
             try { name = Process.GetProcessById((int)owner).ProcessName; } catch (ArgumentException) { }
+            coverPid = owner;
+            coverName = name;
             return $"process {name} (pid {owner}), {Describe(root)} at screen point {point.X},{point.Y}";
         }
         return null;
     }
+
+    private static readonly string[] SystemOverlays = ["WWAHost", "PickerHost", "CloudExperienceHost", "CloudExperienceHostBroker"];
 
     /// <summary>Brings the window forward and waits up to <paramref name="seconds"/> for it to be uncovered; returns the description of what still covers it, or null.</summary>
     public string? WaitUncovered(IntPtr hwnd, int seconds = 6)
@@ -170,8 +178,14 @@ internal sealed class AppSession : IDisposable
         {
             BringToFront(hwnd);
             Thread.Sleep(250);
-            cover = Covering(hwnd);
+            cover = Covering(hwnd, out var pid, out var name);
             if (cover is null) return null;
+            // The windows-11-arm runner image shows Windows setup screens ("Microsoft account" in WWAHost, a dimming layer from PickerHost) over everything. Close those processes, by name, and say so.
+            if (SystemOverlays.Contains(name, StringComparer.OrdinalIgnoreCase))
+            {
+                try { Process.GetProcessById((int)pid).Kill(true); Console.WriteLine($"NOTE: closed {name} (pid {pid}) which covered the app: {cover}"); }
+                catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or System.ComponentModel.Win32Exception) { }
+            }
             Thread.Sleep(250);
         }
         return cover;
