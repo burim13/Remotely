@@ -240,8 +240,13 @@ internal sealed class Flows(string exe, string outDir, string maskedDir, Strings
 
         var share = f.Wait("the Share this PC switch", n => Uia.Find(n, ids: ["ShareSwitch"]));
         f.Toggle(share);
-        var token = f.Wait("the token after switching sharing on", n => n.FirstOrDefault(x => TokenPattern.IsMatch(x.Name)), seconds: 30);
-        f.Ok($"sharing on shows a token in the form XXXX-XXXX-XXXX (read: {token.Name[..4]}-****-****)");
+        f.Wait("the token field after switching sharing on", n => Uia.Find(n, ids: ["TokenText"]), seconds: 30);
+        // The token text is exposed to UI Automation only under the name "Token", so read it the way a person would: press Copy and look at the clipboard.
+        f.Click(f.Wait("the Copy button", n => Uia.Find(n, ids: ["CopyButton"], names: [text.Get("Share_Copy")], type: "Button")));
+        Thread.Sleep(600);
+        var copied = Native.ClipboardText()?.Trim() ?? "";
+        if (!TokenPattern.IsMatch(copied)) f.Fail($"Copy did not put a token of the form XXXX-XXXX-XXXX on the clipboard (clipboard: \"{(copied.Length > 40 ? copied[..40] : copied)}\")");
+        else f.Ok($"sharing on shows a token and Copy puts it on the clipboard in the form XXXX-XXXX-XXXX (starts {copied[..4]})");
         var ready = Uia.FindContaining(f.Tree(), text.Get("Share_State_Ready").Split('.')[0]);
         if (ready is null) f.Fail("the 'Ready' state line is not shown while sharing");
         else f.Ok($"state line while sharing: \"{ready.Name}\"");

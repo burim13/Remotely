@@ -38,8 +38,18 @@ internal sealed class PageCheck(AppKind kind, string exe, string outDir, string 
         return results;
     }
 
+    /// <summary>--show with a name that is no page silently shows the first page, so a typo in a list would pass; when the source tree is around, require a XAML file of that name.</summary>
+    private static string? UnknownPage(string page)
+    {
+        string src;
+        try { src = Path.Combine(Strings.FindRepoRoot(), "src"); }
+        catch (DirectoryNotFoundException) { return null; }
+        return Directory.EnumerateFiles(src, page + ".xaml", SearchOption.AllDirectories).Any() ? null : $"no {page}.xaml exists under src (the app would silently show its first page instead)";
+    }
+
     private Outcome One(string page)
     {
+        if (UnknownPage(page) is { } unknown) return new Outcome(page, false, unknown);
         AppSession.KillAll(kind);
         kind.ClearCrashLog();
         using var session = AppSession.Start(kind, exe, ["--show", page]);

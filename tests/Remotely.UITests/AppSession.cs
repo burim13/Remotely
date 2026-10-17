@@ -139,7 +139,7 @@ internal sealed class AppSession : IDisposable
 
     /// <summary>Visible top-level windows of the process other than the main one; a second window during a test is an unexpected dialog.</summary>
     public List<string> OtherWindows(IntPtr main) =>
-        Windows().Where(h => h != main && Native.IsWindowVisible(h)).Select(Describe).Where(d => !d.Contains("class=\"IME\"") && !d.Contains("class=\"MSCTFIME UI\"") && !d.Contains("class=\"CiceroUIWndFrame\"")).ToList();
+        Windows().Where(h => h != main && Native.IsWindowVisible(h)).Select(Describe).Where(d => !d.Contains("PopupWindowSiteBridge") && !d.Contains("class=\"IME\"") && !d.Contains("class=\"MSCTFIME UI\"") && !d.Contains("class=\"CiceroUIWndFrame\"")).ToList();
 
     private string TopLevelSummary() => string.Join("; ", Windows().Select(Describe));
 

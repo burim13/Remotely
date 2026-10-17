@@ -20,7 +20,7 @@ $baseline = Join-Path $root "docs/screenshots/ui/$Rid"
 New-Item -ItemType Directory -Force $raw, $masked | Out-Null
 $summary = New-Object System.Collections.Generic.List[string]
 $failures = 0
-function Note($text) { Write-Host $text; $summary.Add($text) }
+function Note($text) { $t = ($text -join "`n"); Write-Host $t; $summary.Add($t) }
 
 Note "## UI check on $Rid"
 & $uitests system --info | Tee-Object -Variable info | Out-Host

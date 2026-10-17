@@ -37,6 +37,32 @@ internal static class Native
     /// <summary>Per-monitor v2, so rectangles from Win32 and UI Automation are physical pixels, like the screen capture.</summary>
     internal static void MakeDpiAware() => SetProcessDpiAwarenessContext(new IntPtr(-4));
 
+    [DllImport("user32.dll")] internal static extern bool OpenClipboard(IntPtr owner);
+    [DllImport("user32.dll")] internal static extern bool CloseClipboard();
+    [DllImport("user32.dll")] internal static extern IntPtr GetClipboardData(uint format);
+    [DllImport("kernel32.dll")] internal static extern IntPtr GlobalLock(IntPtr handle);
+    [DllImport("kernel32.dll")] internal static extern bool GlobalUnlock(IntPtr handle);
+
+    /// <summary>The unicode text on the clipboard, or null when there is none or it cannot be opened.</summary>
+    internal static string? ClipboardText()
+    {
+        for (var attempt = 0; attempt < 20; attempt++)
+        {
+            if (!OpenClipboard(IntPtr.Zero)) { Thread.Sleep(100); continue; }
+            try
+            {
+                var handle = GetClipboardData(13);
+                if (handle == IntPtr.Zero) return null;
+                var ptr = GlobalLock(handle);
+                if (ptr == IntPtr.Zero) return null;
+                try { return Marshal.PtrToStringUni(ptr); }
+                finally { GlobalUnlock(handle); }
+            }
+            finally { CloseClipboard(); }
+        }
+        return null;
+    }
+
     // ---- display configuration (scaling) ----
 
     [StructLayout(LayoutKind.Sequential)]

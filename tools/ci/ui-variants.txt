@@ -4,5 +4,6 @@
 dark-100   dark   100  off  tools/ci/pages.txt       yes
 light-100  light  100  off  tools/ci/pages.txt       yes
 dark-150   dark   150  off  tools/ci/pages-core.txt  no
+dark-175   dark   175  off  tools/ci/pages-core.txt  no
 dark-200   dark   200  off  tools/ci/pages-core.txt  no
 hc-100     light  100  on   tools/ci/pages-core.txt  no
