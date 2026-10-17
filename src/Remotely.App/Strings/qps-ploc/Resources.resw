@@ -131,8 +131,6 @@
   <data name="Session_Sas" xml:space="preserve"><value>[Šéñď Çţŕĺ+Åĺţ+Ďéĺ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
   <data name="Session_Clipboard" xml:space="preserve"><value>[Šĥåŕé çĺîṕḃöåŕď ‹ĺöŕéḿ îṕš›]</value></data>
   <data name="Session_Files" xml:space="preserve"><value>[Ḟîĺéš ‹ĺöŕéḿ›]</value></data>
-  <data name="Session_SendFile" xml:space="preserve"><value>[Šéñď å ḟîĺé… ‹ĺöŕéḿ îṕ›]</value></data>
-  <data name="Session_GetFile" xml:space="preserve"><value>[Ĝéţ å ḟîĺé… ‹ĺöŕéḿ î›]</value></data>
   <data name="Session_PinToolbar" xml:space="preserve"><value>[Ķééṕ ţĥé ţööĺḃåŕ ṽîšîḃĺé ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
   <data name="Session_End" xml:space="preserve"><value>[Éñď šéššîöñ ‹ĺöŕéḿ î›]</value></data>
   <data name="Session_Badge_Remote" xml:space="preserve"><value>[Ķéýḃöåŕď: öţĥéŕ ṔÇ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
@@ -149,6 +147,16 @@
   <data name="Session_ZoomNotice" xml:space="preserve"><value>[Žööḿ {0}% ‹ĺöŕéḿ îṕš›]</value></data>
   <data name="Session_SasSent" xml:space="preserve"><value>[Šéñţ Çţŕĺ+Åĺţ+Ďéĺ. ‹ĺöŕéḿ îṕšüḿ›]</value></data>
   <data name="Session_OtherPcError" xml:space="preserve"><value>[Öţĥéŕ ṔÇ: {0} ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Session_Stats_CodecTiles" xml:space="preserve"><value>[ĴṔÉĜ ţîĺéš ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Session_Stats_Quality" xml:space="preserve"><value>[ĴṔÉĜ qüåĺîţý: {0} ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Session_Stats_HostTime" xml:space="preserve"><value>[Ĥöšţ: çåṕţüŕé {0} ḿš, éñçöďé {1} ḿš ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Session_ClipConfirmTitle" xml:space="preserve"><value>[Ĺåŕĝé çĺîṕḃöåŕď ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Session_ClipConfirmReceive" xml:space="preserve"><value>[Ţĥé öţĥéŕ ṔÇ ŵåñţš ţö ṕüţ {0} öñ ţĥîš ṔÇ'š çĺîṕḃöåŕď. Åĺĺöŵ îţ? ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
+  <data name="Session_ClipConfirmSend" xml:space="preserve"><value>[Šéñď {0} öḟ çĺîṕḃöåŕď çöñţéñţ ţö ţĥé öţĥéŕ ṔÇ? ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ š›]</value></data>
+  <data name="Session_ClipAllow" xml:space="preserve"><value>[Åĺĺöŵ ‹ĺöŕéḿ›]</value></data>
+  <data name="Session_ClipDeny" xml:space="preserve"><value>[Ďö ñöţ åĺĺöŵ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Session_ClipNotSent" xml:space="preserve"><value>[Ţĥé çĺîṕḃöåŕď ŵåš ñöţ šéñţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Session_ClipNotApplied" xml:space="preserve"><value>[Çöüĺď ñöţ çöṕý ţĥé öţĥéŕ ṔÇ'š çĺîṕḃöåŕď ĥéŕé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
   <data name="Session_Disconnected" xml:space="preserve"><value>[Ďîšçöññéçţéď ‹ĺöŕéḿ îṕ›]</value></data>
   <data name="Session_ConnectionLost" xml:space="preserve"><value>[Çöññéçţîöñ ĺöšţ ‹ĺöŕéḿ îṕš›]</value></data>
   <data name="Session_EndedByOther" xml:space="preserve"><value>[Ţĥé öţĥéŕ ṔÇ éñďéď ţĥé šéššîöñ. ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
@@ -158,17 +166,6 @@
   <data name="Session_ReconnectFailed" xml:space="preserve"><value>[Çöüĺď ñöţ ŕéçöññéçţ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
   <data name="Session_RetryNow" xml:space="preserve"><value>[Ŕéçöññéçţ ñöŵ ‹ĺöŕéḿ îṕ›]</value></data>
   <data name="Session_Close" xml:space="preserve"><value>[Çĺöšé ‹ĺöŕéḿ›]</value></data>
-  <data name="Session_Cancel" xml:space="preserve"><value>[Çåñçéĺ ‹ĺöŕéḿ›]</value></data>
-  <data name="Session_Sending" xml:space="preserve"><value>[Šéñďîñĝ {0}… ‹ĺöŕéḿ îṕ›]</value></data>
-  <data name="Session_SendingProgress" xml:space="preserve"><value>[Šéñďîñĝ {0}… {1} ‹ĺöŕéḿ îṕšü›]</value></data>
-  <data name="Session_Sent" xml:space="preserve"><value>[Šéñţ {0} ţö ţĥé öţĥéŕ ṔÇ. ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
-  <data name="Session_SendFailed" xml:space="preserve"><value>[Çöüĺď ñöţ šéñď ţĥé ḟîĺé: {0} ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
-  <data name="Session_ShareEmpty" xml:space="preserve"><value>[{0} ĥåš ñöţĥîñĝ îñ îţš šĥåŕéď ḟöĺďéŕ. Ṕüţ ḟîĺéš îñ Ďöçüḿéñţš\Ŕéḿöţéĺý\Šĥåŕé öñ ţĥåţ ṔÇ ţö ḿåķé ţĥéḿ åṽåîĺåḃĺé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕî›]</value></data>
-  <data name="Session_FilesOn" xml:space="preserve"><value>[Ḟîĺéš öñ {0} ‹ĺöŕéḿ îṕ›]</value></data>
-  <data name="Session_GetFileButton" xml:space="preserve"><value>[Ĝéţ ḟîĺé ‹ĺöŕéḿ îṕ›]</value></data>
-  <data name="Session_Downloading" xml:space="preserve"><value>[Ďöŵñĺöåďîñĝ {0}… ‹ĺöŕéḿ îṕšü›]</value></data>
-  <data name="Session_Saved" xml:space="preserve"><value>[Šåṽéď ţö {0} ‹ĺöŕéḿ îṕ›]</value></data>
-  <data name="Session_DownloadFailed" xml:space="preserve"><value>[Ďöŵñĺöåď ḟåîĺéď: {0} ‹ĺöŕéḿ îṕšüḿ›]</value></data>
   <data name="Connect_Title" xml:space="preserve"><value>[Çöññéçţ ţö å ṔÇ ‹ĺöŕéḿ îṕš›]</value></data>
   <data name="Connect_Intro" xml:space="preserve"><value>[Ţýṕé ţĥé ţöķéñ ţĥåţ ţĥé öţĥéŕ ṔÇ îš šĥöŵîñĝ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
   <data name="Connect_TokenName" xml:space="preserve"><value>[Ţöķéñ ţö çöññéçţ ŵîţĥ ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
@@ -289,4 +286,169 @@
   <data name="Duration_Seconds" xml:space="preserve"><value>[{0} š ‹ĺöŕéḿ›]</value></data>
   <data name="Home_NoNetwork" xml:space="preserve"><value>[Ţĥîš ṔÇ îš ñöţ çöññéçţéď ţö å ñéţŵöŕķ. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
   <data name="Home_ThisPc" xml:space="preserve"><value>[Šåḿé-ñéţŵöŕķ çöññéçţîöñš. Ţĥîš ṔÇ: {0} ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Connect_StepWaiting" xml:space="preserve"><value>[Ŵåîţîñĝ ḟöŕ åṕṕŕöṽåĺ öñ ţĥé öţĥéŕ ṔÇ. Åšķ ţĥé ṕéŕšöñ ţĥéŕé ţö çĥööšé Åĺĺöŵ öñçé öŕ Åĺŵåýš åĺĺöŵ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ›]</value></data>
+  <data name="Connect_Denied" xml:space="preserve"><value>[Ţĥé öţĥéŕ ṔÇ ďîď ñöţ åĺĺöŵ ţĥîš çöññéçţîöñ. Ţĥé ṕéŕšöñ ţĥéŕé çĥöšé Ďéñý, öŕ ñöḃöďý åñšŵéŕéď îñ ţîḿé. Ñöţĥîñĝ ŵåš šĥöŵñ öŕ çöñţŕöĺĺéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ›]</value></data>
+  <data name="Connect_Reconnect" xml:space="preserve"><value>[Ŕéçöññéçţ ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Connect_ReconnectTip" xml:space="preserve"><value>[Ţĥîš ṔÇ ŕéḿéḿḃéŕš ýöü, šö ñö ţöķéñ îš ñééďéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Section_General" xml:space="preserve"><value>[Ĝéñéŕåĺ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Section_Sharing" xml:space="preserve"><value>[Šĥåŕîñĝ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Section_Connection" xml:space="preserve"><value>[Çöññéçţîöñ ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Section_Security" xml:space="preserve"><value>[Šéçüŕîţý ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Section_Appearance" xml:space="preserve"><value>[Åṕṕéåŕåñçé ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Section_Advanced" xml:space="preserve"><value>[Åďṽåñçéď ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Section_About" xml:space="preserve"><value>[Åḃöüţ ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_Section_AddressBook" xml:space="preserve"><value>[Åďďŕéšš ḃööķ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Intro_General" xml:space="preserve"><value>[Ţĥîš ṔÇ'š ñåḿé, šţåŕţ-üṕ ḃéĥåṽîöüŕ åñď ĺåñĝüåĝé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Settings_Intro_Sharing" xml:space="preserve"><value>[Ŵĥö ḿåý çöññéçţ ţö ţĥîš ṔÇ, åñď ŵĥéñ šĥåŕîñĝ šţåŕţš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Settings_Intro_Connection" xml:space="preserve"><value>[Ýöüŕ šéŕṽéŕ, ĥöŵ ķéýš åñď ţĥé çĺîṕḃöåŕď åŕé šéñţ, åñď ḟîĺé ţŕåñšḟéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ ç›]</value></data>
+  <data name="Settings_Intro_Security" xml:space="preserve"><value>[Ŕüĺéš šéţ ḃý ýöüŕ öŕĝåñîšåţîöñ, ţĥîš ďéṽîçé'š îďéñţîţý åñď ĺîḿîţš ţĥåţ ṕŕöţéçţ ýöü. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţ›]</value></data>
+  <data name="Settings_Intro_Appearance" xml:space="preserve"><value>[Ĥöŵ Ŕéḿöţéĺý ĺööķš. ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_Intro_Advanced" xml:space="preserve"><value>[Ḃåçķ üṕ, ḿöṽé öŕ ŕéšéţ ýöüŕ šéţţîñĝš. ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_Intro_About" xml:space="preserve"><value>[Ṽéŕšîöñ åñď ŵĥéŕé ýöüŕ ďåţå îš ķéṕţ. ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_Intro_AddressBook" xml:space="preserve"><value>[ṔÇš ýöü šåṽéď: ĝŕöüṕ ţĥéḿ, ḿåŕķ ḟåṽöüŕîţéš, åďď ñöţéš, åñď ḿöṽé ţĥé ĺîšţ ḃéţŵééñ ṔÇš åš å ĴŠÖÑ ḟîĺé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ å›]</value></data>
+  <data name="Settings_On" xml:space="preserve"><value>[Öñ ‹ĺöŕ›]</value></data>
+  <data name="Settings_Off" xml:space="preserve"><value>[Öḟḟ ‹ĺöŕ›]</value></data>
+  <data name="Settings_PolicyManaged" xml:space="preserve"><value>[Ḿåñåĝéď ḃý ýöüŕ öŕĝåñîšåţîöñ. Ýöü çåññöţ çĥåñĝé ţĥîš ĥéŕé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Settings_Status_Saved" xml:space="preserve"><value>[Šåṽéď. ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_Status_Restart" xml:space="preserve"><value>[Šåṽéď. Îţ ţåķéš éḟḟéçţ ţĥé ñéẋţ ţîḿé Ŕéḿöţéĺý šţåŕţš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Settings_Status_SaveFailed" xml:space="preserve"><value>[Çöüĺď ñöţ ŵŕîţé ţĥé šéţţîñĝš ḟîĺé. Ţĥé çĥåñĝé ŵöŕķš üñţîĺ Ŕéḿöţéĺý çĺöšéš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñ›]</value></data>
+  <data name="Settings_Status_Refused" xml:space="preserve"><value>[Ŵîñďöŵš ďîď ñöţ åĺĺöŵ ţĥîš çĥåñĝé. Ţĥé šéţţîñĝ ŵåš ṕüţ ḃåçķ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Settings_Status_Invalid" xml:space="preserve"><value>[Ţĥåţ ṽåĺüé îš ñöţ åĺĺöŵéď. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_Status_InvalidNumber" xml:space="preserve"><value>[Éñţéŕ å ŵĥöĺé ñüḿḃéŕ ḟŕöḿ {0} ţö {1}. ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_Search_Placeholder" xml:space="preserve"><value>[Šéåŕçĥ šéţţîñĝš ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_Search_None" xml:space="preserve"><value>[Ñö šéţţîñĝ ḿåţçĥéš "{0}". ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_Search_Open" xml:space="preserve"><value>[Öṕéñ ‹ĺöŕé›]</value></data>
+  <data name="Settings_Folder_Default" xml:space="preserve"><value>[Ďöŵñĺöåďš ḟöĺďéŕ (ďéḟåüĺţ) ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_Folder_Choose" xml:space="preserve"><value>[Çĥööšé ḟöĺďéŕ… ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_Folder_UseDefault" xml:space="preserve"><value>[Üšé Ďöŵñĺöåďš ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Choice_LanguageSystem" xml:space="preserve"><value>[Šåḿé åš Ŵîñďöŵš ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_Choice_LanguageEnglish" xml:space="preserve"><value>[Éñĝĺîšĥ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Choice_LanguageAlbanian" xml:space="preserve"><value>[Šĥqîṕ (Åĺḃåñîåñ) ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Choice_KeyboardAuto" xml:space="preserve"><value>[Åüţöḿåţîç ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_Choice_KeyboardScanCode" xml:space="preserve"><value>[Ķéý ṕöšîţîöñš ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Choice_KeyboardUnicode" xml:space="preserve"><value>[Ţýṕéď çĥåŕåçţéŕš ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Choice_ThemeSystem" xml:space="preserve"><value>[Šåḿé åš Ŵîñďöŵš ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_Choice_ThemeDark" xml:space="preserve"><value>[Ďåŕķ ‹ĺöŕé›]</value></data>
+  <data name="Settings_Choice_ThemeLight" xml:space="preserve"><value>[Ĺîĝĥţ ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_DeviceName_Label" xml:space="preserve"><value>[Ţĥîš ṔÇ'š ñåḿé ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_DeviceName_Help" xml:space="preserve"><value>[Ĥöŵ ţĥîš ṔÇ åṕṕéåŕš ţö ţĥé ṕéöṕĺé åñď ďéṽîçéš ýöü çöññéçţ ŵîţĥ. Ĺéåṽé îţ éḿṕţý ţö üšé ţĥé Ŵîñďöŵš çöḿṕüţéŕ ñåḿé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîš›]</value></data>
+  <data name="Settings_StartWithWindows_Label" xml:space="preserve"><value>[Šţåŕţ Ŕéḿöţéĺý ŵĥéñ Î šîĝñ îñ ţö Ŵîñďöŵš ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_StartWithWindows_Help" xml:space="preserve"><value>[Šţåŕţš Ŕéḿöţéĺý ḿîñîḿîšéď îñ ţĥé ñöţîḟîçåţîöñ åŕéå. Îţ åďďš öñé éñţŕý ţö ýöüŕ åççöüñţ'š šţåŕţ-üṕ ĺîšţ; ñö åďḿîñîšţŕåţöŕ ŕîĝĥţš åŕé ñééďéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ š›]</value></data>
+  <data name="Settings_CloseToTray_Label" xml:space="preserve"><value>[Ķééṕ ŕüññîñĝ îñ ţĥé ţŕåý ŵĥéñ Î çĺöšé ţĥé ŵîñďöŵ ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Settings_CloseToTray_Help" xml:space="preserve"><value>[Çĺöšîñĝ ţĥé ŵîñďöŵ ĥîďéš Ŕéḿöţéĺý îñšţéåď öḟ qüîţţîñĝ, šö šĥåŕîñĝ åñď ţĥé ţŕåý ḿéñü šţåý åṽåîĺåḃĺé. Îţ öñĺý åṕṕĺîéš ŵĥîĺé ţĥé ţŕåý îçöñ îš šĥöŵñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď›]</value></data>
+  <data name="Settings_Language_Label" xml:space="preserve"><value>[Ĺåñĝüåĝé ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Language_Help" xml:space="preserve"><value>[Ţĥé ĺåñĝüåĝé öḟ Ŕéḿöţéĺý. Ţĥé çĥåñĝé ţåķéš éḟḟéçţ ţĥé ñéẋţ ţîḿé Ŕéḿöţéĺý šţåŕţš. Ţĥé Åĺḃåñîåñ ţéẋţ îš ḿåçĥîñé-ŵŕîţţéñ åñď ĥåš ñöţ ḃééñ ŕéṽîéŵéď ḃý å ñåţîṽé šṕéåķéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüš›]</value></data>
+  <data name="Settings_AskBeforeConnect_Label" xml:space="preserve"><value>[Åšķ ḿé ḃéḟöŕé šöḿéöñé çöññéçţš ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_AskBeforeConnect_Help" xml:space="preserve"><value>[Å ṔÇ ţĥåţ îš ñöţ öñ ýöüŕ ŕéḿéḿḃéŕéď ĺîšţ ḿüšţ ḃé åĺĺöŵéď ḃý ýöü ḃéḟöŕé îţ šééš ýöüŕ šçŕééñ. Öñ ḃý ďéḟåüĺţ. Åñ åďḿîñîšţŕåţöŕ çåñ ŕéqüîŕé îţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ š›]</value></data>
+  <data name="Settings_AllowRemembered_Label" xml:space="preserve"><value>[Ĺéţ ŕéḿéḿḃéŕéď ṔÇš ŕéçöññéçţ ŵîţĥöüţ å ţöķéñ ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_AllowRemembered_Help" xml:space="preserve"><value>[ṔÇš ýöü çĥöšé "Åĺŵåýš åĺĺöŵ" ḟöŕ çåñ ŕéçöññéçţ ŵĥîĺé šĥåŕîñĝ îš öñ, ŵîţĥöüţ å ñéŵ ţöķéñ åñď ŵîţĥöüţ å qüéšţîöñ. Ţüŕñ ţĥîš öḟḟ ţö åšķ ḟöŕ å ţöķéñ éṽéŕý ţîḿé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö é›]</value></data>
+  <data name="Settings_ShareOnStart_Label" xml:space="preserve"><value>[Šţåŕţ šĥåŕîñĝ öñ ḿý ñéţŵöŕķ ŵĥéñ Ŕéḿöţéĺý öṕéñš ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ š›]</value></data>
+  <data name="Settings_ShareOnStart_Help" xml:space="preserve"><value>[Šĥåŕîñĝ šţåýš öḟḟ üñţîĺ ýöü ţüŕñ îţ öñ, üñĺéšš ýöü çĥööšé ţĥîš. Šöḿéöñé šţîĺĺ ñééďš ţĥé ţöķéñ (öŕ ţö ḃé öñ ýöüŕ ŕéḿéḿḃéŕéď ĺîšţ) ţö çöññéçţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ š›]</value></data>
+  <data name="Settings_KeyboardMode_Label" xml:space="preserve"><value>[Ķéýḃöåŕď ḿöďé ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_KeyboardMode_Help" xml:space="preserve"><value>[Ĥöŵ ķéýš ýöü ţýṕé ŕéåçĥ ţĥé öţĥéŕ ṔÇ. Åüţöḿåţîç üšéš ķéý ṕöšîţîöñš ŵĥéñ ḃöţĥ ṔÇš ĥåṽé ţĥé šåḿé ķéýḃöåŕď ĺåýöüţ åñď ţýṕéď çĥåŕåçţéŕš öţĥéŕŵîšé. Ķéý ṕöšîţîöñš šüîţš ĝåḿéš åñď šĥöŕţçüţš; ţýṕéď çĥåŕåçţéŕš ĝîṽé ţĥé ŕîĝĥţ ĺéţţéŕš åçŕöšš ďîḟḟéŕéñţ ĺåýöüţš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé éţ›]</value></data>
+  <data name="Settings_SyncClipboard_Label" xml:space="preserve"><value>[Šĥåŕé ţĥé çĺîṕḃöåŕď ďüŕîñĝ å šéššîöñ ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_SyncClipboard_Help" xml:space="preserve"><value>[Ţéẋţ åñď öţĥéŕ çöṕîéď çöñţéñţ ḿöṽé ḃéţŵééñ ţĥé ţŵö ṔÇš ŵĥîĺé å šéššîöñ îš öṕéñ. Ţüŕñ öḟḟ îḟ ýöü ďö ñöţ ŵåñţ çöṕîéď çöñţéñţ ţö ĺéåṽé ţĥîš ṔÇ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ š›]</value></data>
+  <data name="Settings_FileTransferEnabled_Label" xml:space="preserve"><value>[Åĺĺöŵ ḟîĺé ţŕåñšḟéŕ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_FileTransferEnabled_Help" xml:space="preserve"><value>[Ĺéţš ýöü šéñď ḟîĺéš ţö ţĥé öţĥéŕ ṔÇ åñď ŕéçéîṽé ḟîĺéš ḟŕöḿ îţ îñ å šéššîöñ. Åñ åďḿîñîšţŕåţöŕ çåñ šŵîţçĥ ḟîĺé ţŕåñšḟéŕ öḟḟ ḟöŕ ţĥîš ṔÇ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ›]</value></data>
+  <data name="Settings_ReceiveFolder_Label" xml:space="preserve"><value>[Ḟöĺďéŕ ḟöŕ ŕéçéîṽéď ḟîĺéš ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_ReceiveFolder_Help" xml:space="preserve"><value>[Ḟîĺéš ýöü ŕéçéîṽé ḟŕöḿ ţĥé öţĥéŕ ṔÇ åŕé šåṽéď ĥéŕé. Ŵĥéñ ñöñé îš çĥöšéñ, ýöüŕ Ďöŵñĺöåďš ḟöĺďéŕ îš üšéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďî›]</value></data>
+  <data name="Settings_MaxItemMegabytes_Label" xml:space="preserve"><value>[Ĺåŕĝéšţ ḟîĺé öŕ ḟöĺďéŕ ţö åççéṕţ (ḾḂ) ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_MaxItemMegabytes_Help" xml:space="preserve"><value>[Å šîñĝĺé ḟîĺé öŕ ḟöĺďéŕ ḃîĝĝéŕ ţĥåñ ţĥîš îš ŕéḟüšéď. Ţĥé ďéḟåüĺţ îš 32768 ḾḂ (32 ĜḂ). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţ›]</value></data>
+  <data name="Settings_ReceiveQuotaMegabytes_Label" xml:space="preserve"><value>[Ţöţåĺ šṕåçé åĺĺöŵéď îñ ţĥé ŕéçéîṽé ḟöĺďéŕ (ḾḂ) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ š›]</value></data>
+  <data name="Settings_ReceiveQuotaMegabytes_Help" xml:space="preserve"><value>[Ŕéçéîṽîñĝ šţöṕš ŵĥéñ ţĥé ḟöĺďéŕ ŵöüĺď ĝŕöŵ ṕåšţ ţĥîš šîžé. 0 ḿéåñš ñö ĺîḿîţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñš›]</value></data>
+  <data name="Settings_ExtractFolders_Label" xml:space="preserve"><value>[Üñṕåçķ ŕéçéîṽéď ḟöĺďéŕš ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Settings_ExtractFolders_Help" xml:space="preserve"><value>[Å ḟöĺďéŕ šéñţ ḟŕöḿ ţĥé öţĥéŕ ṔÇ îš üñṕåçķéď îñţö ţĥé ŕéçéîṽé ḟöĺďéŕ. Ŵĥéñ öḟḟ, îţ îš ĺéḟţ åš å žîṕ ḟîĺé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďî›]</value></data>
+  <data name="Settings_ClipboardConfirmMegabytes_Label" xml:space="preserve"><value>[Åšķ ḃéḟöŕé åççéṕţîñĝ å çĺîṕḃöåŕď ĺåŕĝéŕ ţĥåñ (ḾḂ) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Settings_ClipboardConfirmMegabytes_Help" xml:space="preserve"><value>[Å çöṕý ḃîĝĝéŕ ţĥåñ ţĥîš ñééďš ýöüŕ åĝŕééḿéñţ ḃéḟöŕé îţ îš åççéṕţéď. Ţĥé ďéḟåüĺţ îš 8 ḾḂ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţ›]</value></data>
+  <data name="Settings_Theme_Label" xml:space="preserve"><value>[Åṕṕéåŕåñçé ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Theme_Help" xml:space="preserve"><value>[Ďåŕķ, ĺîĝĥţ, öŕ ţĥé šåḿé åš Ŵîñďöŵš. Îţ åṕṕĺîéš åţ öñçé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ å›]</value></data>
+  <data name="Settings_Policy_Title" xml:space="preserve"><value>[Ŕüĺéš ḟŕöḿ ýöüŕ öŕĝåñîšåţîöñ ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Policy_None" xml:space="preserve"><value>[Ñö ṕöĺîçý îš šéţ öñ ţĥîš ṔÇ. Éṽéŕýţĥîñĝ öñ ţĥéšé ṕåĝéš îš ýöüŕ öŵñ çĥöîçé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñ›]</value></data>
+  <data name="Settings_Policy_Active" xml:space="preserve"><value>[Åñ åďḿîñîšţŕåţöŕ ĥåš šéţ ŕüĺéš öñ ţĥîš ṔÇ. Ţĥéý öṽéŕŕîďé ýöüŕ çĥöîçéš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ ç›]</value></data>
+  <data name="Settings_Policy_DisableServerMode" xml:space="preserve"><value>[Çöññéçţîñĝ ţĥŕöüĝĥ å šéŕṽéŕ îš ţüŕñéď öḟḟ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Policy_ForceConsent" xml:space="preserve"><value>[Šöḿéöñé ḿüšţ åĺŵåýš ḃé åĺĺöŵéď ḃý ýöü ḃéḟöŕé ţĥéý çöññéçţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Settings_Policy_DisableFileTransfer" xml:space="preserve"><value>[Ḟîĺé ţŕåñšḟéŕ îš ţüŕñéď öḟḟ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Device_Title" xml:space="preserve"><value>[Ţĥîš ďéṽîçé ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Device_Help" xml:space="preserve"><value>[Å ṔÇ ýöü ŕéåçĥ ţĥŕöüĝĥ ýöüŕ šéŕṽéŕ ḿüšţ ţŕüšţ ţĥîš îď. Ţĥé îñšţåĺĺéŕ ďöéš ţĥåţ ḟöŕ ýöü. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţé›]</value></data>
+  <data name="Settings_Device_Copy" xml:space="preserve"><value>[Çöṕý îď ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Device_Secure" xml:space="preserve"><value>[Ţĥé ĺîñķ ţö ýöüŕ šéŕṽéŕ îš éñçŕýṕţéď (ŵšš). ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Device_Insecure" xml:space="preserve"><value>[Ţĥé ĺîñķ ţö ýöüŕ šéŕṽéŕ îš ñöţ éñçŕýṕţéď (ŵš). Üšé îţ öñĺý öñ å ñéţŵöŕķ ýöü ţŕüšţ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéç›]</value></data>
+  <data name="Settings_Server_Title" xml:space="preserve"><value>[Ýöüŕ šéŕṽéŕ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Server_None" xml:space="preserve"><value>[Ñö šéŕṽéŕ ýéţ. Çöññéçţîöñš öñ ţĥîš ñéţŵöŕķ ďö ñöţ ñééď öñé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Settings_Server_State" xml:space="preserve"><value>[Çöññéçţéď ţö {0} ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Server_Disabled" xml:space="preserve"><value>[Çöññéçţîñĝ ţĥŕöüĝĥ å šéŕṽéŕ îš ţüŕñéď öḟḟ öñ ţĥîš ṔÇ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Settings_Server_Invite" xml:space="preserve"><value>[Îñṽîţé ḟŕöḿ ýöüŕ šéŕṽéŕ ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Settings_Server_InvitePlaceholder" xml:space="preserve"><value>[ŔḾŢ1-…  (ĺéåṽé éḿṕţý ţö ķééṕ ţĥé çüŕŕéñţ šéŕṽéŕ) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Settings_Server_Manual" xml:space="preserve"><value>[Šéţ üṕ ḃý ĥåñď îñšţéåď ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Settings_Server_Address" xml:space="preserve"><value>[Šéŕṽéŕ åďďŕéšš ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_Server_Pin" xml:space="preserve"><value>[Šéŕṽéŕ ķéý ṕîñ (64 çĥåŕåçţéŕš) ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Server_Code" xml:space="preserve"><value>[Ṕåîŕîñĝ çöďé ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Server_Connect" xml:space="preserve"><value>[Çöññéçţ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Server_Connecting" xml:space="preserve"><value>[Çöññéçţîñĝ… ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_Server_Connected" xml:space="preserve"><value>[Çöññéçţéď. Ţĥîš ďéṽîçé îš ṕåîŕéď ŵîţĥ ýöüŕ šéŕṽéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Settings_Server_Failed" xml:space="preserve"><value>[Çöüĺď ñöţ çöññéçţ: {0} ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Settings_Server_NothingToDo" xml:space="preserve"><value>[Ṕåšţé åñ îñṽîţé, öŕ éñţéŕ ţĥé šéŕṽéŕ åďďŕéšš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Server_BadAddress" xml:space="preserve"><value>[Éñţéŕ ţĥé šéŕṽéŕ åďďŕéšš, šţåŕţîñĝ ŵîţĥ ŵšš:// ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ š›]</value></data>
+  <data name="Settings_Server_BadPin" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ ķéý ṕîñ îš 64 çĥåŕåçţéŕš. Çöṕý îţ ḟŕöḿ ţĥé šéŕṽéŕ'š šţåŕţ-üṕ ḿéššåĝé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšé›]</value></data>
+  <data name="Settings_Advanced_Title" xml:space="preserve"><value>[Ḃåçķ üṕ åñď ŕéšéţ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_Advanced_Help" xml:space="preserve"><value>[Éẋṕöŕţ ŵŕîţéš ýöüŕ šéţţîñĝš ţö å ḟîĺé ýöü çåñ îḿṕöŕţ öñ åñöţĥéŕ ṔÇ. Îţ ĺéåṽéš öüţ ţĥé šéŕṽéŕ, ṕåîŕîñĝ, ţĥîš ṔÇ'š ñåḿé åñď ţĥé åďďŕéšš ḃööķ. Ŕéšéţ ṕüţš éṽéŕý šéţţîñĝ öñ ţĥéšé ṕåĝéš ḃåçķ ţö îţš ďéḟåüĺţ; ţĥé šéŕṽéŕ, ṕåîŕîñĝ åñď åďďŕéšš ḃööķ šţåý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ îñçîďîďüñţ üţ ĺåḃöŕé›]</value></data>
+  <data name="Settings_Export" xml:space="preserve"><value>[Éẋṕöŕţ šéţţîñĝš… ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Import" xml:space="preserve"><value>[Îḿṕöŕţ šéţţîñĝš… ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_Reset" xml:space="preserve"><value>[Ŕéšéţ ţö ďéḟåüĺţš… ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_OpenFolder" xml:space="preserve"><value>[Öṕéñ ďåţå ḟöĺďéŕ ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_OpenFolder_Failed" xml:space="preserve"><value>[Çöüĺď ñöţ öṕéñ ţĥé ḟöĺďéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_Export_Done" xml:space="preserve"><value>[Šåṽéď ţö {0} ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_Import_Bad" xml:space="preserve"><value>[Ţĥîš îš ñöţ å Ŕéḿöţéĺý šéţţîñĝš ḟîĺé, öŕ îţ çöḿéš ḟŕöḿ å ñéŵéŕ Ŕéḿöţéĺý. Ñöţĥîñĝ ŵåš çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ›]</value></data>
+  <data name="Settings_Import_Done" xml:space="preserve"><value>[Îḿṕöŕţéď {0} šéţţîñĝš. Šķîṕṕéď {1} ţĥåţ ŵéŕé ñöţ ṽåĺîď öŕ ñöţ ķñöŵñ, åñď {2} ţĥåţ ýöüŕ öŕĝåñîšåţîöñ çöñţŕöĺš. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕî›]</value></data>
+  <data name="Settings_File_ReadFailed" xml:space="preserve"><value>[Ţĥé ḟîĺé çöüĺď ñöţ ḃé ŕéåď, öŕ îţ îš ĺåŕĝéŕ ţĥåñ 4 ḾḂ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Settings_File_WriteFailed" xml:space="preserve"><value>[Ţĥé ḟîĺé çöüĺď ñöţ ḃé ŵŕîţţéñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_Reset_Title" xml:space="preserve"><value>[Ŕéšéţ šéţţîñĝš? ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_Reset_Body" xml:space="preserve"><value>[Éṽéŕý šéţţîñĝ öñ ţĥéšé ṕåĝéš ĝöéš ḃåçķ ţö îţš ďéḟåüĺţ. Ýöüŕ šéŕṽéŕ, ṕåîŕîñĝ åñď åďďŕéšš ḃööķ šţåý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ å›]</value></data>
+  <data name="Settings_Reset_Accept" xml:space="preserve"><value>[Ŕéšéţ ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_Reset_Cancel" xml:space="preserve"><value>[Çåñçéĺ ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_Reset_Done" xml:space="preserve"><value>[Šéţţîñĝš ŵéŕé ŕéšéţ ţö ţĥéîŕ ďéḟåüĺţš. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_Load_Damaged" xml:space="preserve"><value>[Ţĥé šéţţîñĝš ḟîĺé çöüĺď ñöţ ḃé ŕéåď, šö ďéḟåüĺţ šéţţîñĝš åŕé îñ üšé. Ţĥé üñŕéåďåḃĺé ḟîĺé ŵåš ķéṕţ åš {0}. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďî›]</value></data>
+  <data name="Settings_Load_Newer" xml:space="preserve"><value>[Ţĥé šéţţîñĝš ḟîĺé ŵåš ŵŕîţţéñ ḃý å ñéŵéŕ Ŕéḿöţéĺý. Å çöṕý ŵåš ķéṕţ åš {0} ḃéḟöŕé åñýţĥîñĝ îš çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åď›]</value></data>
+  <data name="Settings_Load_Migrated" xml:space="preserve"><value>[Ýöüŕ šéţţîñĝš ḟîĺé ŵåš üṕďåţéď ḟŕöḿ ḟöŕḿåţ {0}. Å çöṕý öḟ ţĥé öĺď ḟîĺé ŵåš ķéṕţ åš {1}. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţé›]</value></data>
+  <data name="Settings_About_Body" xml:space="preserve"><value>[Ŕéḿöţéĺý ĺéţš ýöü šĥåŕé ţĥîš ṔÇ åñď çöñţŕöĺ öţĥéŕš, öñ ýöüŕ ñéţŵöŕķ öŕ ţĥŕöüĝĥ ýöüŕ öŵñ šéŕṽéŕ. Ñö åççöüñţš, ñö ţéĺéḿéţŕý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ›]</value></data>
+  <data name="Settings_About_Folder" xml:space="preserve"><value>[Ýöüŕ ďåţå îš ķéṕţ îñ {0} ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Settings_About_Schema" xml:space="preserve"><value>[Ḟîĺé ḟöŕḿåţš: šéţţîñĝš {0}, åďďŕéšš ḃööķ {1} ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_About_License" xml:space="preserve"><value>[Ŕéĺéåšéď üñďéŕ ţĥé ḾÎŢ ĺîçéñçé. ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Settings_About_Project" xml:space="preserve"><value>[Ṕŕöĵéçţ ṕåĝé ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_AddressBook_Add" xml:space="preserve"><value>[Åďď å ṔÇ… ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_AddressBook_Import" xml:space="preserve"><value>[Îḿṕöŕţ… ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_AddressBook_Export" xml:space="preserve"><value>[Éẋṕöŕţ… ‹ĺöŕéḿ î›]</value></data>
+  <data name="Settings_AddressBook_Filter" xml:space="preserve"><value>[Ḟîĺţéŕ ḃý ñåḿé, åďďŕéšš, ĝŕöüṕ öŕ ñöţéš ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_AddressBook_FavoritesOnly" xml:space="preserve"><value>[Ḟåṽöüŕîţéš öñĺý ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_AddressBook_Empty" xml:space="preserve"><value>[Ñö šåṽéď ṔÇš ýéţ. Åďď öñé, öŕ çöññéçţ ţö å ṔÇ åñď îţ ŵîĺĺ åṕṕéåŕ ĥéŕé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ ç›]</value></data>
+  <data name="Settings_AddressBook_NoMatch" xml:space="preserve"><value>[Ñö šåṽéď ṔÇ ḿåţçĥéš. ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_AddressBook_Ungrouped" xml:space="preserve"><value>[Ñö ĝŕöüṕ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_AddressBook_Favorite" xml:space="preserve"><value>[Åďď ţö ḟåṽöüŕîţéš ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_AddressBook_Unfavorite" xml:space="preserve"><value>[Ŕéḿöṽé ḟŕöḿ ḟåṽöüŕîţéš ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Settings_AddressBook_Edit" xml:space="preserve"><value>[Éďîţ ‹ĺöŕé›]</value></data>
+  <data name="Settings_AddressBook_Remove" xml:space="preserve"><value>[Ŕéḿöṽé ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_AddressBook_RemoveTitle" xml:space="preserve"><value>[Ŕéḿöṽé ţĥîš ṔÇ? ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Settings_AddressBook_RemoveBody" xml:space="preserve"><value>["{0}" ŵîĺĺ ḃé ŕéḿöṽéď ḟŕöḿ ýöüŕ åďďŕéšš ḃööķ. Ţĥé ṔÇ îţšéĺḟ îš ñöţ çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñ›]</value></data>
+  <data name="Settings_AddressBook_LastUsed" xml:space="preserve"><value>[Ĺåšţ üšéď {0} ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_AddressBook_AddTitle" xml:space="preserve"><value>[Åďď å ṔÇ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_AddressBook_EditTitle" xml:space="preserve"><value>[Éďîţ ţĥîš ṔÇ ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Settings_AddressBook_Name" xml:space="preserve"><value>[Ñåḿé ‹ĺöŕé›]</value></data>
+  <data name="Settings_AddressBook_Target" xml:space="preserve"><value>[Åďďŕéšš öŕ ďéṽîçé îď ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_AddressBook_TargetHint" xml:space="preserve"><value>[Å ĥöšţ ñåḿé, åñ åďďŕéšš, öŕ å ďéṽîçé îď ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_AddressBook_Group" xml:space="preserve"><value>[Ĝŕöüṕ ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_AddressBook_GroupsInUse" xml:space="preserve"><value>[Ĝŕöüṕš îñ üšé: {0} ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Settings_AddressBook_Notes" xml:space="preserve"><value>[Ñöţéš ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_AddressBook_ColorHeader" xml:space="preserve"><value>[Çöĺöüŕ ţåĝ ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Settings_AddressBook_Color_none" xml:space="preserve"><value>[Ñöñé ‹ĺöŕé›]</value></data>
+  <data name="Settings_AddressBook_Color_red" xml:space="preserve"><value>[Ŕéď ‹ĺöŕ›]</value></data>
+  <data name="Settings_AddressBook_Color_amber" xml:space="preserve"><value>[Åḿḃéŕ ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_AddressBook_Color_green" xml:space="preserve"><value>[Ĝŕééñ ‹ĺöŕéḿ›]</value></data>
+  <data name="Settings_AddressBook_Color_blue" xml:space="preserve"><value>[Ḃĺüé ‹ĺöŕé›]</value></data>
+  <data name="Settings_AddressBook_Color_gray" xml:space="preserve"><value>[Ĝŕåý ‹ĺöŕé›]</value></data>
+  <data name="Settings_AddressBook_Save" xml:space="preserve"><value>[Šåṽé ‹ĺöŕé›]</value></data>
+  <data name="Settings_AddressBook_NeedTarget" xml:space="preserve"><value>[Éñţéŕ åñ åďďŕéšš öŕ ďéṽîçé îď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_AddressBook_Duplicate" xml:space="preserve"><value>[Ţĥåţ åďďŕéšš îš åĺŕéåďý šåṽéď åš "{0}". ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
+  <data name="Settings_AddressBook_Failed" xml:space="preserve"><value>[Ţĥé çĥåñĝé çöüĺď ñöţ ḃé ḿåďé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Settings_AddressBook_ImportDone" xml:space="preserve"><value>[Îḿṕöŕţéď: {0} åďďéď, {1} üṕďåţéď, {2} šķîṕṕéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ š›]</value></data>
+  <data name="Settings_AddressBook_ImportBad" xml:space="preserve"><value>[Ţĥîš îš ñöţ å Ŕéḿöţéĺý åďďŕéšš ḃööķ ḟîĺé, öŕ îţ çöḿéš ḟŕöḿ å ñéŵéŕ Ŕéḿöţéĺý. Ñöţĥîñĝ ŵåš çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ›]</value></data>
 </root>

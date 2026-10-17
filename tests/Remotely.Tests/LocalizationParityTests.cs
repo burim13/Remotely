@@ -112,7 +112,8 @@ public class LocalizationParityTests(ITestOutputHelper output)
         var all = LocRepo.Apps.SelectMany(a => LocRepo.Table(a, LocRepo.English).Keys).ToHashSet();
         var families = all.Select(k => k[..k.IndexOf('_')]).ToHashSet();
         var (literals, _, _) = KeyLiterals("Remotely.Core", "Remotely.Client", "Remotely.HostCore", "Remotely.ViewerCore");
-        var missing = literals.Where(l => families.Contains(l[..l.IndexOf('_')]) && !all.Contains(l)).Order().ToList();
+        // Keys built by interpolation (for example $"Settings_{Id}_Label") show up here as "Settings__Label"; SettingsTests checks those per setting.
+        var missing = literals.Where(l => !l.Contains("__") && families.Contains(l[..l.IndexOf('_')]) && !all.Contains(l)).Order().ToList();
         Assert.True(missing.Count == 0, "Library code returns these resource keys but neither app defines them: " + string.Join(", ", missing));
     }
 

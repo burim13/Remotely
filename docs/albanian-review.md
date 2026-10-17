@@ -12,7 +12,7 @@ reviewed any of these strings unless this document or the commit history says so
 
 ## Remotely (the app on every PC)
 
-284 strings.
+446 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -142,8 +142,6 @@ reviewed any of these strings unless this document or the commit history says so
 | `Session_Sas` | Send Ctrl+Alt+Del | Dërgo Ctrl+Alt+Del | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_Clipboard` | Share clipboard | Ndaj kujtesën e kopjimit | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_Files` | Files | Skedarët | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_SendFile` | Send a file… | Dërgo një skedar… | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_GetFile` | Get a file… | Merr një skedar… | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_PinToolbar` | Keep the toolbar visible | Mbaje shiritin e veglave të dukshëm | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_End` | End session | Mbyll seancën | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_Badge_Remote` | Keyboard: other PC | Tastiera: kompjuteri tjetër | machine-written (git author Claude, ffa0ec4) |  | |
@@ -160,6 +158,16 @@ reviewed any of these strings unless this document or the commit history says so
 | `Session_ZoomNotice` | Zoom {0}% | Zmadhimi {0}% | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_SasSent` | Sent Ctrl+Alt+Del. | U dërgua Ctrl+Alt+Del. | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_OtherPcError` | Other PC: {0} | Kompjuteri tjetër: {0} | machine-written (git author Claude, ffa0ec4) |  | |
+| `Session_Stats_CodecTiles` | JPEG tiles | JPEG me pllaka | machine-written (git author Claude, 188b611) |  | |
+| `Session_Stats_Quality` | JPEG quality: {0} | Cilësia JPEG: {0} | machine-written (git author Claude, 188b611) |  | |
+| `Session_Stats_HostTime` | Host: capture {0} ms, encode {1} ms | Kompjuteri tjetër: kapja {0} ms, kodimi {1} ms | machine-written (git author Claude, 188b611) |  | |
+| `Session_ClipConfirmTitle` | Large clipboard | Kujtesë kopjimi e madhe | machine-written (git author Claude, 188b611) |  | |
+| `Session_ClipConfirmReceive` | The other PC wants to put {0} on this PC's clipboard. Allow it? | Kompjuteri tjetër dëshiron të vendosë {0} në kujtesën e kopjimit të këtij kompjuteri. E lejoni? | machine-written (git author Claude, 188b611) |  | |
+| `Session_ClipConfirmSend` | Send {0} of clipboard content to the other PC? | Të dërgohen {0} përmbajtje nga kujtesa e kopjimit te kompjuteri tjetër? | machine-written (git author Claude, 188b611) |  | |
+| `Session_ClipAllow` | Allow | Lejo | machine-written (git author Claude, 188b611) |  | |
+| `Session_ClipDeny` | Do not allow | Mos lejo | machine-written (git author Claude, 188b611) |  | |
+| `Session_ClipNotSent` | The clipboard was not sent. | Kujtesa e kopjimit nuk u dërgua. | machine-written (git author Claude, 188b611) |  | |
+| `Session_ClipNotApplied` | Could not copy the other PC's clipboard here. | Kujtesa e kopjimit e kompjuterit tjetër nuk u kopjua këtu. | machine-written (git author Claude, 188b611) |  | |
 | `Session_Disconnected` | Disconnected | U shkëput | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_ConnectionLost` | Connection lost | Lidhja u ndërpre | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_EndedByOther` | The other PC ended the session. | Kompjuteri tjetër e mbylli seancën. | machine-written (git author Claude, ffa0ec4) |  | |
@@ -169,17 +177,6 @@ reviewed any of these strings unless this document or the commit history says so
 | `Session_ReconnectFailed` | Could not reconnect | Nuk u rilidh dot | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_RetryNow` | Reconnect now | Rilidhu tani | machine-written (git author Claude, ffa0ec4) |  | |
 | `Session_Close` | Close | Mbyll | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_Cancel` | Cancel | Anulo | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_Sending` | Sending {0}… | Po dërgohet {0}… | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_SendingProgress` | Sending {0}… {1} | Po dërgohet {0}… {1} | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_Sent` | Sent {0} to the other PC. | {0} u dërgua te kompjuteri tjetër. | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_SendFailed` | Could not send the file: {0} | Skedari nuk u dërgua dot: {0} | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_ShareEmpty` | {0} has nothing in its shared folder. Put files in Documents\Remotely\Share on that PC to make them available. | {0} nuk ka asgjë në dosjen e ndarë. Vendosni skedarë te Documents\Remotely\Share në atë kompjuter për t'i vënë në dispozicion. | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_FilesOn` | Files on {0} | Skedarët në {0} | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_GetFileButton` | Get file | Merr skedarin | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_Downloading` | Downloading {0}… | Po shkarkohet {0}… | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_Saved` | Saved to {0} | U ruajt te {0} | machine-written (git author Claude, ffa0ec4) |  | |
-| `Session_DownloadFailed` | Download failed: {0} | Shkarkimi dështoi: {0} | machine-written (git author Claude, ffa0ec4) |  | |
 | `Connect_Title` | Connect to a PC | Lidhu me një kompjuter | machine-written (git author Claude, 365d2a4) |  | |
 | `Connect_Intro` | Type the token that the other PC is showing. | Shkruaj kodin që po shfaq kompjuteri tjetër. | machine-written (git author Claude, 365d2a4) |  | |
 | `Connect_TokenName` | Token to connect with | Kodi për t'u lidhur | machine-written (git author Claude, 365d2a4) |  | |
@@ -300,10 +297,175 @@ reviewed any of these strings unless this document or the commit history says so
 | `Duration_Seconds` | {0} s | {0} s | machine-written (git author Claude, 64e1ebb) | same as English | |
 | `Home_NoNetwork` | This PC is not connected to a network. | Ky kompjuter nuk është i lidhur me rrjet. | machine-written (git author Claude, 71a66b5) |  | |
 | `Home_ThisPc` | Same-network connections. This PC: {0} | Lidhje në të njëjtin rrjet. Ky kompjuter: {0} | machine-written (git author Claude, 71a66b5) |  | |
+| `Connect_StepWaiting` | Waiting for approval on the other PC. Ask the person there to choose Allow once or Always allow. | Po pritet miratimi në kompjuterin tjetër. Kërkoji personit atje të klikojë Lejo. | machine-written (git author Claude, 247c34d) |  | |
+| `Connect_Denied` | The other PC did not allow this connection. The person there chose Deny, or nobody answered in time. Nothing was shown or controlled. | Kompjuteri tjetër nuk e lejoi këtë lidhje. Personi atje zgjodhi Refuzo, ose askush nuk u përgjigj në kohë. Asgjë nuk u shfaq dhe nuk u kontrollua. | machine-written (git author Claude, 247c34d) |  | |
+| `Connect_Reconnect` | Reconnect | Rilidhu | machine-written (git author Claude, 247c34d) |  | |
+| `Connect_ReconnectTip` | This PC remembers you, so no token is needed. | Ky kompjuter të mban mend, ndaj nuk nevojitet kod. | machine-written (git author Claude, 247c34d) |  | |
+| `Settings_Section_General` | General | Të përgjithshme | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Section_Sharing` | Sharing | Ndarja | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Section_Connection` | Connection | Lidhja | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Section_Security` | Security | Siguria | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Section_Appearance` | Appearance | Pamja | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Section_Advanced` | Advanced | Të avancuara | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Section_About` | About | Rreth aplikacionit | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Section_AddressBook` | Address book | Libri i adresave | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_General` | This PC's name, start-up behaviour and language. | Emri i këtij kompjuteri, sjellja gjatë nisjes dhe gjuha. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_Sharing` | Who may connect to this PC, and when sharing starts. | Kush mund të lidhet me këtë kompjuter dhe kur fillon ndarja. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_Connection` | Your server, how keys and the clipboard are sent, and file transfer. | Serveri juaj, mënyra si dërgohen tastet dhe kujtesa e kopjimit, dhe transferimi i skedarëve. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_Security` | Rules set by your organisation, this device's identity and limits that protect you. | Rregullat e vendosura nga organizata juaj, identiteti i kësaj pajisjeje dhe kufijtë që ju mbrojnë. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_Appearance` | How Remotely looks. | Si duket Remotely. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_Advanced` | Back up, move or reset your settings. | Ruani, zhvendosni ose rivendosni cilësimet tuaja. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_About` | Version and where your data is kept. | Versioni dhe vendi ku ruhen të dhënat tuaja. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Intro_AddressBook` | PCs you saved: group them, mark favourites, add notes, and move the list between PCs as a JSON file. | Kompjuterët që keni ruajtur: grupojini, shënoni të preferuarit, shtoni shënime dhe zhvendoseni listën mes kompjuterëve si skedar JSON. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_On` | On | Aktiv | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Off` | Off | Joaktiv | machine-written (git author Claude, 415e327) |  | |
+| `Settings_PolicyManaged` | Managed by your organisation. You cannot change this here. | Menaxhohet nga organizata juaj. Nuk mund ta ndryshoni këtu. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Status_Saved` | Saved. | U ruajt. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Status_Restart` | Saved. It takes effect the next time Remotely starts. | U ruajt. Hyn në fuqi herën tjetër që niset Remotely. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Status_SaveFailed` | Could not write the settings file. The change works until Remotely closes. | Skedari i cilësimeve nuk mund të shkruhej. Ndryshimi vlen deri sa të mbyllet Remotely. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Status_Refused` | Windows did not allow this change. The setting was put back. | Windows nuk e lejoi këtë ndryshim. Cilësimi u kthye si më parë. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Status_Invalid` | That value is not allowed. | Kjo vlerë nuk lejohet. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Status_InvalidNumber` | Enter a whole number from {0} to {1}. | Shkruani një numër të plotë nga {0} deri në {1}. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Search_Placeholder` | Search settings | Kërko te cilësimet | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Search_None` | No setting matches "{0}". | Asnjë cilësim nuk përputhet me "{0}". | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Search_Open` | Open | Hap | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Folder_Default` | Downloads folder (default) | Dosja Shkarkimet (parazgjedhja) | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Folder_Choose` | Choose folder… | Zgjidh dosjen… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Folder_UseDefault` | Use Downloads | Përdor Shkarkimet | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_LanguageSystem` | Same as Windows | Si Windows | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_LanguageEnglish` | English | Anglisht | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_LanguageAlbanian` | Shqip (Albanian) | Shqip | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_KeyboardAuto` | Automatic | Automatike | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_KeyboardScanCode` | Key positions | Pozicionet e tasteve | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_KeyboardUnicode` | Typed characters | Karakteret e shtypura | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_ThemeSystem` | Same as Windows | Si Windows | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_ThemeDark` | Dark | E errët | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Choice_ThemeLight` | Light | E çelët | machine-written (git author Claude, 415e327) |  | |
+| `Settings_DeviceName_Label` | This PC's name | Emri i këtij kompjuteri | machine-written (git author Claude, 415e327) |  | |
+| `Settings_DeviceName_Help` | How this PC appears to the people and devices you connect with. Leave it empty to use the Windows computer name. | Si shfaqet ky kompjuter te personat dhe pajisjet me të cilat lidheni. Lëreni bosh për të përdorur emrin e kompjuterit në Windows. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_StartWithWindows_Label` | Start Remotely when I sign in to Windows | Nise Remotely kur hyj në Windows | machine-written (git author Claude, 415e327) |  | |
+| `Settings_StartWithWindows_Help` | Starts Remotely minimised in the notification area. It adds one entry to your account's start-up list; no administrator rights are needed. | Nis Remotely të minimizuar në zonën e njoftimeve. Shton një hyrje në listën e nisjes së llogarisë suaj; nuk nevojiten të drejta administratori. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_CloseToTray_Label` | Keep running in the tray when I close the window | Vazhdo në tabakanë e sistemit kur mbyll dritaren | machine-written (git author Claude, 415e327) |  | |
+| `Settings_CloseToTray_Help` | Closing the window hides Remotely instead of quitting, so sharing and the tray menu stay available. It only applies while the tray icon is shown. | Mbyllja e dritares e fsheh Remotely në vend që ta mbyllë, kështu ndarja dhe menyja e tabakasë mbeten në dispozicion. Vlen vetëm kur shfaqet ikona e tabakasë. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Language_Label` | Language | Gjuha | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Language_Help` | The language of Remotely. The change takes effect the next time Remotely starts. The Albanian text is machine-written and has not been reviewed by a native speaker. | Gjuha e Remotely. Ndryshimi hyn në fuqi herën tjetër që niset Remotely. Teksti në shqip është shkruar nga makina dhe nuk është rishikuar nga një folës amtar. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AskBeforeConnect_Label` | Ask me before someone connects | Më pyet para se dikush të lidhet | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AskBeforeConnect_Help` | A PC that is not on your remembered list must be allowed by you before it sees your screen. On by default. An administrator can require it. | Një kompjuter që nuk është në listën tuaj të kujtuar duhet të lejohet nga ju para se të shohë ekranin tuaj. Aktiv si parazgjedhje. Një administrator mund ta kërkojë. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AllowRemembered_Label` | Let remembered PCs reconnect without a token | Lejo kompjuterët e kujtuar të rilidhen pa tokenin | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AllowRemembered_Help` | PCs you chose "Always allow" for can reconnect while sharing is on, without a new token and without a question. Turn this off to ask for a token every time. | Kompjuterët për të cilët zgjodhët "Lejo gjithmonë" mund të rilidhen kur ndarja është aktive, pa token të ri dhe pa pyetje. Çaktivizojeni për të kërkuar token çdo herë. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ShareOnStart_Label` | Start sharing on my network when Remotely opens | Fillo ndarjen në rrjetin tim kur hapet Remotely | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ShareOnStart_Help` | Sharing stays off until you turn it on, unless you choose this. Someone still needs the token (or to be on your remembered list) to connect. | Ndarja mbetet joaktive derisa ta aktivizoni, përveç nëse e zgjidhni këtë. Dikush prapë ka nevojë për tokenin (ose të jetë në listën tuaj të kujtuar) për t'u lidhur. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_KeyboardMode_Label` | Keyboard mode | Mënyra e tastierës | machine-written (git author Claude, 415e327) |  | |
+| `Settings_KeyboardMode_Help` | How keys you type reach the other PC. Automatic uses key positions when both PCs have the same keyboard layout and typed characters otherwise. Key positions suits games and shortcuts; typed characters give the right letters across different layouts. | Si arrijnë te kompjuteri tjetër tastet që shtypni. Automatike përdor pozicionet e tasteve kur të dy kompjuterët kanë të njëjtën tastierë dhe karakteret e shtypura përndryshe. Pozicionet e tasteve i përshtaten lojërave dhe shkurtoreve; karakteret e shtypura japin shkronjat e duhura mes tastierave të ndryshme. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_SyncClipboard_Label` | Share the clipboard during a session | Ndaj kujtesën e kopjimit gjatë një sesioni | machine-written (git author Claude, 415e327) |  | |
+| `Settings_SyncClipboard_Help` | Text and other copied content move between the two PCs while a session is open. Turn off if you do not want copied content to leave this PC. | Teksti dhe përmbajtja tjetër e kopjuar lëviz mes dy kompjuterëve gjatë një sesioni. Çaktivizojeni nëse nuk doni që përmbajtja e kopjuar të dalë nga ky kompjuter. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_FileTransferEnabled_Label` | Allow file transfer | Lejo transferimin e skedarëve | machine-written (git author Claude, 415e327) |  | |
+| `Settings_FileTransferEnabled_Help` | Lets you send files to the other PC and receive files from it in a session. An administrator can switch file transfer off for this PC. | Ju lejon të dërgoni skedarë te kompjuteri tjetër dhe t'i merrni prej tij gjatë një sesioni. Një administrator mund ta çaktivizojë transferimin e skedarëve për këtë kompjuter. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ReceiveFolder_Label` | Folder for received files | Dosja për skedarët e marrë | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ReceiveFolder_Help` | Files you receive from the other PC are saved here. When none is chosen, your Downloads folder is used. | Skedarët që merrni nga kompjuteri tjetër ruhen këtu. Kur nuk zgjidhet asnjë, përdoret dosja juaj Shkarkimet. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_MaxItemMegabytes_Label` | Largest file or folder to accept (MB) | Skedari ose dosja më e madhe që pranohet (MB) | machine-written (git author Claude, 415e327) |  | |
+| `Settings_MaxItemMegabytes_Help` | A single file or folder bigger than this is refused. The default is 32768 MB (32 GB). | Një skedar ose dosje e vetme më e madhe se kjo refuzohet. Parazgjedhja është 32768 MB (32 GB). | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ReceiveQuotaMegabytes_Label` | Total space allowed in the receive folder (MB) | Hapësira totale e lejuar në dosjen e marrjes (MB) | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ReceiveQuotaMegabytes_Help` | Receiving stops when the folder would grow past this size. 0 means no limit. | Marrja ndalon kur dosja do të rritej përtej kësaj madhësie. 0 do të thotë pa kufi. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ExtractFolders_Label` | Unpack received folders | Zhpaketo dosjet e marra | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ExtractFolders_Help` | A folder sent from the other PC is unpacked into the receive folder. When off, it is left as a zip file. | Një dosje e dërguar nga kompjuteri tjetër zhpaketohet në dosjen e marrjes. Kur është joaktive, mbetet si skedar zip. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ClipboardConfirmMegabytes_Label` | Ask before accepting a clipboard larger than (MB) | Pyet para se të pranohet kujtesa e kopjimit më e madhe se (MB) | machine-written (git author Claude, 415e327) |  | |
+| `Settings_ClipboardConfirmMegabytes_Help` | A copy bigger than this needs your agreement before it is accepted. The default is 8 MB. | Një kopjim më i madh se kjo kërkon pëlqimin tuaj para se të pranohet. Parazgjedhja është 8 MB. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Theme_Label` | Appearance | Pamja | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Theme_Help` | Dark, light, or the same as Windows. It applies at once. | E errët, e çelët ose si Windows. Zbatohet menjëherë. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Policy_Title` | Rules from your organisation | Rregullat nga organizata juaj | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Policy_None` | No policy is set on this PC. Everything on these pages is your own choice. | Asnjë politikë nuk është vendosur në këtë kompjuter. Gjithçka në këto faqe është zgjedhja juaj. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Policy_Active` | An administrator has set rules on this PC. They override your choices. | Një administrator ka vendosur rregulla në këtë kompjuter. Ato kanë përparësi mbi zgjedhjet tuaja. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Policy_DisableServerMode` | Connecting through a server is turned off. | Lidhja përmes një serveri është çaktivizuar. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Policy_ForceConsent` | Someone must always be allowed by you before they connect. | Dikush duhet të lejohet gjithmonë nga ju para se të lidhet. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Policy_DisableFileTransfer` | File transfer is turned off. | Transferimi i skedarëve është çaktivizuar. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Device_Title` | This device | Kjo pajisje | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Device_Help` | A PC you reach through your server must trust this id. The installer does that for you. | Një kompjuter që arrini përmes serverit tuaj duhet t'i besojë këtij identifikuesi. Instaluesi e bën këtë për ju. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Device_Copy` | Copy id | Kopjo identifikuesin | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Device_Secure` | The link to your server is encrypted (wss). | Lidhja me serverin tuaj është e enkriptuar (wss). | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Device_Insecure` | The link to your server is not encrypted (ws). Use it only on a network you trust. | Lidhja me serverin tuaj nuk është e enkriptuar (ws). Përdoreni vetëm në një rrjet që i besoni. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Title` | Your server | Serveri juaj | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_None` | No server yet. Connections on this network do not need one. | Ende pa server. Lidhjet në këtë rrjet nuk kanë nevojë për të. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_State` | Connected to {0} | I lidhur me {0} | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Disabled` | Connecting through a server is turned off on this PC. | Lidhja përmes një serveri është çaktivizuar në këtë kompjuter. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Invite` | Invite from your server | Ftesa nga serveri juaj | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_InvitePlaceholder` | RMT1-…  (leave empty to keep the current server) | RMT1-…  (lëreni bosh për të mbajtur serverin aktual) | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Manual` | Set up by hand instead | Konfiguroje manualisht | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Address` | Server address | Adresa e serverit | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Pin` | Server key pin (64 characters) | Pini i çelësit të serverit (64 karaktere) | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Code` | Pairing code | Kodi i çiftimit | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Connect` | Connect | Lidhu | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Connecting` | Connecting… | Duke u lidhur… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Connected` | Connected. This device is paired with your server. | U lidh. Kjo pajisje është çiftuar me serverin tuaj. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_Failed` | Could not connect: {0} | Nuk u lidh: {0} | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_NothingToDo` | Paste an invite, or enter the server address. | Ngjitni një ftesë ose shkruani adresën e serverit. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_BadAddress` | Enter the server address, starting with wss:// | Shkruani adresën e serverit, duke filluar me wss:// | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Server_BadPin` | The server key pin is 64 characters. Copy it from the server's start-up message. | Pini i çelësit të serverit është 64 karaktere. Kopjojeni nga mesazhi i nisjes së serverit. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Advanced_Title` | Back up and reset | Kopje rezervë dhe rivendosje | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Advanced_Help` | Export writes your settings to a file you can import on another PC. It leaves out the server, pairing, this PC's name and the address book. Reset puts every setting on these pages back to its default; the server, pairing and address book stay. | Eksportimi shkruan cilësimet tuaja në një skedar që mund ta importoni në një kompjuter tjetër. Lë jashtë serverin, çiftimin, emrin e këtij kompjuteri dhe librin e adresave. Rivendosja kthen çdo cilësim në këto faqe te parazgjedhja; serveri, çiftimi dhe libri i adresave mbeten. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Export` | Export settings… | Eksporto cilësimet… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Import` | Import settings… | Importo cilësimet… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Reset` | Reset to defaults… | Rivendos parazgjedhjet… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_OpenFolder` | Open data folder | Hap dosjen e të dhënave | machine-written (git author Claude, 415e327) |  | |
+| `Settings_OpenFolder_Failed` | Could not open the folder. | Dosja nuk mund të hapej. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Export_Done` | Saved to {0} | U ruajt në {0} | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Import_Bad` | This is not a Remotely settings file, or it comes from a newer Remotely. Nothing was changed. | Ky nuk është skedar cilësimesh i Remotely, ose vjen nga një Remotely më i ri. Asgjë nuk u ndryshua. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Import_Done` | Imported {0} settings. Skipped {1} that were not valid or not known, and {2} that your organisation controls. | U importuan {0} cilësime. U anashkaluan {1} që nuk ishin të vlefshme ose të njohura, dhe {2} që i kontrollon organizata juaj. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_File_ReadFailed` | The file could not be read, or it is larger than 4 MB. | Skedari nuk mund të lexohej, ose është më i madh se 4 MB. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_File_WriteFailed` | The file could not be written. | Skedari nuk mund të shkruhej. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Reset_Title` | Reset settings? | Të rivendosen cilësimet? | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Reset_Body` | Every setting on these pages goes back to its default. Your server, pairing and address book stay. | Çdo cilësim në këto faqe kthehet te parazgjedhja. Serveri, çiftimi dhe libri i adresave mbeten. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Reset_Accept` | Reset | Rivendos | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Reset_Cancel` | Cancel | Anulo | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Reset_Done` | Settings were reset to their defaults. | Cilësimet u rivendosën te parazgjedhjet. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Load_Damaged` | The settings file could not be read, so default settings are in use. The unreadable file was kept as {0}. | Skedari i cilësimeve nuk mund të lexohej, ndaj po përdoren cilësimet e parazgjedhura. Skedari i palexueshëm u ruajt si {0}. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Load_Newer` | The settings file was written by a newer Remotely. A copy was kept as {0} before anything is changed. | Skedari i cilësimeve është shkruar nga një Remotely më i ri. Një kopje u ruajt si {0} para çdo ndryshimi. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_Load_Migrated` | Your settings file was updated from format {0}. A copy of the old file was kept as {1}. | Skedari juaj i cilësimeve u përditësua nga formati {0}. Një kopje e skedarit të vjetër u ruajt si {1}. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_About_Body` | Remotely lets you share this PC and control others, on your network or through your own server. No accounts, no telemetry. | Remotely ju lejon të ndani këtë kompjuter dhe të kontrolloni të tjerë, në rrjetin tuaj ose përmes serverit tuaj. Pa llogari, pa telemetri. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_About_Folder` | Your data is kept in {0} | Të dhënat tuaja ruhen në {0} | machine-written (git author Claude, 415e327) |  | |
+| `Settings_About_Schema` | File formats: settings {0}, address book {1} | Formatet e skedarëve: cilësimet {0}, libri i adresave {1} | machine-written (git author Claude, 415e327) |  | |
+| `Settings_About_License` | Released under the MIT licence. | Publikuar nën licencën MIT. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_About_Project` | Project page | Faqja e projektit | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Add` | Add a PC… | Shto një kompjuter… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Import` | Import… | Importo… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Export` | Export… | Eksporto… | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Filter` | Filter by name, address, group or notes | Filtro sipas emrit, adresës, grupit ose shënimeve | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_FavoritesOnly` | Favourites only | Vetëm të preferuarit | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Empty` | No saved PCs yet. Add one, or connect to a PC and it will appear here. | Ende pa kompjuterë të ruajtur. Shtoni një, ose lidhuni me një kompjuter dhe do të shfaqet këtu. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_NoMatch` | No saved PC matches. | Asnjë kompjuter i ruajtur nuk përputhet. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Ungrouped` | No group | Pa grup | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Favorite` | Add to favourites | Shto te të preferuarit | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Unfavorite` | Remove from favourites | Hiq nga të preferuarit | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Edit` | Edit | Ndrysho | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Remove` | Remove | Hiq | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_RemoveTitle` | Remove this PC? | Të hiqet ky kompjuter? | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_RemoveBody` | "{0}" will be removed from your address book. The PC itself is not changed. | "{0}" do të hiqet nga libri juaj i adresave. Vetë kompjuteri nuk ndryshon. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_LastUsed` | Last used {0} | Përdorur së fundi {0} | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_AddTitle` | Add a PC | Shto një kompjuter | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_EditTitle` | Edit this PC | Ndrysho këtë kompjuter | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Name` | Name | Emri | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Target` | Address or device id | Adresa ose identifikuesi i pajisjes | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_TargetHint` | A host name, an address, or a device id | Një emër hosti, një adresë ose një identifikues pajisjeje | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Group` | Group | Grupi | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_GroupsInUse` | Groups in use: {0} | Grupet në përdorim: {0} | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Notes` | Notes | Shënime | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_ColorHeader` | Colour tag | Etiketa e ngjyrës | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Color_none` | None | Asnjë | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Color_red` | Red | E kuqe | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Color_amber` | Amber | Qelibar | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Color_green` | Green | E gjelbër | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Color_blue` | Blue | Blu | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Color_gray` | Gray | Gri | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Save` | Save | Ruaj | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_NeedTarget` | Enter an address or device id. | Shkruani një adresë ose identifikues pajisjeje. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Duplicate` | That address is already saved as "{0}". | Kjo adresë është ruajtur tashmë si "{0}". | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_Failed` | The change could not be made. | Ndryshimi nuk mund të bëhej. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_ImportDone` | Imported: {0} added, {1} updated, {2} skipped. | U importua: {0} të shtuar, {1} të përditësuar, {2} të anashkaluar. | machine-written (git author Claude, 415e327) |  | |
+| `Settings_AddressBook_ImportBad` | This is not a Remotely address book file, or it comes from a newer Remotely. Nothing was changed. | Ky nuk është skedar libri adresash i Remotely, ose vjen nga një Remotely më i ri. Asgjë nuk u ndryshua. | machine-written (git author Claude, 415e327) |  | |
 
 ## Remotely Server Manager
 
-425 strings.
+427 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -732,6 +894,8 @@ reviewed any of these strings unless this document or the commit history says so
 | `Backup_RestoreBody` | The server's current data will be replaced with the contents of {0}. Windows will ask for permission. | Të dhënat e tanishme të serverit do të zëvendësohen me përmbajtjen e {0}. Windows do të kërkojë leje. | machine-written (git author Claude, 938803e) |  | |
 | `Backup_Restore` | Restore | Rikthe | machine-written (git author Claude, 938803e) |  | |
 | `Backup_Restored` | The backup was restored and the service started. | Kopja rezervë u rikthye dhe shërbimi u nis. | machine-written (git author Claude, 938803e) |  | |
+| `Setup_Nav` | Make reachable | Bëje të arritshëm | machine-written (git author Claude, e6a89c4) |  | |
+| `Setup_Err_Cancelled` | You declined the Windows permission prompt, so nothing was changed. | E refuzove kërkesën e lejes së Windows, ndaj asgjë nuk u ndryshua. | machine-written (git author Claude, e6a89c4) |  | |
 
 ## Notes for the reviewer
 
@@ -739,4 +903,4 @@ reviewed any of these strings unless this document or the commit history says so
 - Forms of address: the strings use the polite plural (`ju`, `tuaj`). Confirm that this is the register you want for an app.
 - Units in `Duration_*` (`h`, `min`, `s`) are left as in English.
 
-Counts at generation time: 709 machine-written, 0 with another git author, 0 uncommitted.
+Counts at generation time: 873 machine-written, 0 with another git author, 0 uncommitted.

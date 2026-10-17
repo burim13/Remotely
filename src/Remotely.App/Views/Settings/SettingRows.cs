@@ -53,6 +53,7 @@ internal static class SettingRows
             case SettingKind.Toggle:
             {
                 var toggle = new ToggleSwitch { IsOn = (bool)current, OnContent = Loc.Get("Settings_On"), OffContent = Loc.Get("Settings_Off") };
+                Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(toggle, label);
                 toggle.Toggled += (_, _) =>
                 {
                     if (loading) return;
@@ -65,6 +66,7 @@ internal static class SettingRows
             case SettingKind.Choice:
             {
                 var combo = new ComboBox { MinWidth = 240 };
+                Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(combo, label);
                 foreach (var choice in def.Choices) combo.Items.Add(new ComboBoxItem { Content = Loc.Get(choice.LabelKey), Tag = choice.Value });
                 void Select(string value)
                 {
@@ -87,6 +89,7 @@ internal static class SettingRows
                     Minimum = def.Min, Maximum = def.Max, Value = Convert.ToDouble(current), MinWidth = 200, SmallChange = 1, LargeChange = 10,
                     SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline,
                 };
+                Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(box, label);
                 box.ValueChanged += (_, args) =>
                 {
                     if (loading) return;

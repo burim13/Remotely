@@ -13,8 +13,9 @@ public interface ISettingsStore<T> where T : class, new()
 }
 
 /// <summary>Saved PCs. <see cref="Target"/> is a device id (server mode) or a host name / address (same network).</summary>
+/// <param name="HostDeviceId">Device id of the sharing PC when it remembered this controller, so a token-less reconnect is possible (same-network mode). Added by the integration of the connect and address-book work.</param>
 /// <param name="ColorTag">One of <see cref="AddressBookTags.Names"/> or null: a label colour in the list. Added after the first contract and optional, so older call sites compile.</param>
-public sealed record AddressEntry(string Id, string Name, string Target, string? Group, string? Notes, bool Favorite, DateTimeOffset? LastUsedUtc, string? ColorTag = null);
+public sealed record AddressEntry(string Id, string Name, string Target, string? Group, string? Notes, bool Favorite, DateTimeOffset? LastUsedUtc, string? ColorTag = null, string? HostDeviceId = null);
 
 public interface IAddressBook
 {

@@ -430,4 +430,6 @@
   <data name="Backup_RestoreBody" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ'š çüŕŕéñţ ďåţå ŵîĺĺ ḃé ŕéṕĺåçéď ŵîţĥ ţĥé çöñţéñţš öḟ {0}. Ŵîñďöŵš ŵîĺĺ åšķ ḟöŕ ṕéŕḿîššîöñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åď›]</value></data>
   <data name="Backup_Restore" xml:space="preserve"><value>[Ŕéšţöŕé ‹ĺöŕéḿ î›]</value></data>
   <data name="Backup_Restored" xml:space="preserve"><value>[Ţĥé ḃåçķüṕ ŵåš ŕéšţöŕéď åñď ţĥé šéŕṽîçé šţåŕţéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šî›]</value></data>
+  <data name="Setup_Nav" xml:space="preserve"><value>[Ḿåķé ŕéåçĥåḃĺé ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Setup_Err_Cancelled" xml:space="preserve"><value>[Ýöü ďéçĺîñéď ţĥé Ŵîñďöŵš ṕéŕḿîššîöñ ṕŕöḿṕţ, šö ñöţĥîñĝ ŵåš çĥåñĝéď. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
 </root>

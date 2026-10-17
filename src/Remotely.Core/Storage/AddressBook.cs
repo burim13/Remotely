@@ -180,7 +180,7 @@ public sealed class JsonAddressBook : IAddressBook
         var target = Limit(e.Target, MaxTarget);
         if (target is null) return null;
         var color = e.ColorTag is { } c && AddressBookTags.Names.Contains(c, StringComparer.OrdinalIgnoreCase) ? c.ToLowerInvariant() : null;
-        return new AddressEntry(Limit(e.Id, 64) ?? "", Limit(e.Name, MaxName) ?? target, target, Limit(e.Group, MaxGroup), Limit(e.Notes, MaxNotes), e.Favorite, e.LastUsedUtc, color);
+        return new AddressEntry(Limit(e.Id, 64) ?? "", Limit(e.Name, MaxName) ?? target, target, Limit(e.Group, MaxGroup), Limit(e.Notes, MaxNotes), e.Favorite, e.LastUsedUtc, color, Limit(e.HostDeviceId, 128));
     }
 
     /// <summary>A hand-edited or damaged file can hold entries without an address or with repeated ids; drop and repair them in memory (the file is rewritten on the next change).</summary>
@@ -211,13 +211,14 @@ public sealed class AddressBookRecentPcs(JsonAddressBook book) : IRecentPcs
 {
     public const int MaxEntries = JsonRecentPcs.MaxEntries;
 
-    public IReadOnlyList<RecentPc> List() => [.. book.All.Where(e => e.LastUsedUtc is not null).OrderByDescending(e => e.LastUsedUtc).Take(MaxEntries).Select(e => new RecentPc(e.Name, e.Target, e.LastUsedUtc!.Value))];
+    public IReadOnlyList<RecentPc> List() => [.. book.All.Where(e => e.LastUsedUtc is not null).OrderByDescending(e => e.LastUsedUtc).Take(MaxEntries).Select(e => new RecentPc(e.Name, e.Target, e.LastUsedUtc!.Value, e.HostDeviceId))];
 
-    public void Record(string name, string address)
+    public void Record(string name, string address, string? hostDeviceId = null)
     {
         address = address.Trim();
         if (address.Length == 0) return;
         var entry = book.Add(string.IsNullOrWhiteSpace(name) ? address : name.Trim(), address);
+        if (entry.HostDeviceId != hostDeviceId) book.Update(entry with { HostDeviceId = hostDeviceId });   // cleared again when a later connection was not remembered
         book.MarkUsed(entry.Id);
     }
 
@@ -235,7 +236,7 @@ public sealed class AddressBookRecentPcs(JsonAddressBook book) : IRecentPcs
     private void Forget(AddressEntry e)
     {
         if (e.Group is null && e.Notes is null && e.ColorTag is null && !e.Favorite) book.Remove(e.Id);
-        else book.Update(e with { LastUsedUtc = null });
+        else book.Update(e with { LastUsedUtc = null, HostDeviceId = null });
     }
 
     /// <summary>Copies the old <c>recent-pcs.json</c> into the book (once: PCs already in the book are left alone). Returns how many were added.</summary>
@@ -246,7 +247,7 @@ public sealed class AddressBookRecentPcs(JsonAddressBook book) : IRecentPcs
         {
             if (book.All.Any(e => string.Equals(e.Target, pc.Address, StringComparison.OrdinalIgnoreCase))) continue;
             var entry = book.Add(pc.Name, pc.Address);
-            book.Update(entry with { LastUsedUtc = pc.LastUsedUtc });
+            book.Update(entry with { LastUsedUtc = pc.LastUsedUtc, HostDeviceId = pc.HostDeviceId });
             added++;
         }
         return added;

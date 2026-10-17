@@ -27,7 +27,10 @@ src/Remotely.App/Session/Files/TransfersPage.xaml.cs | * | CI preview page with 
 src/Remotely.App/Views/Gallery/GalleryPanel.xaml | * | debug Gallery page (see the comment in the file); only reachable with --show GalleryPage
 src/Remotely.App/Views/Gallery/GalleryPanel.xaml.cs | * | debug Gallery page: shows the theme name
 
-# ---- Legacy Settings page: agent A14 replaces it with Views/Settings, so it is not translated twice ----
-src/Remotely.App/SettingsPage.xaml | * | PENDING A14: old Settings page, to be replaced by Views/Settings/** (A14). Remove this entry and the page together.
-src/Remotely.App/SettingsPage.xaml.cs | * | PENDING A14: see SettingsPage.xaml
 src/Remotely.App/Shell/UiaScan.cs | * | CI tool (--uia-scan): machine-readable result lines and a scan window title, not part of the product UI
+
+# ---- Added during integration of Wave 1 and 2 ----
+src/Remotely.App/ShareService.cs | # on desktop thread # (service #) | developer diagnostic line in the self-test log, not shown to people
+src/Remotely.App/Views/Settings/ServerBlock.cs | wss://server.example:8443 | example address, technical and language independent
+src/Remotely.App/Views/Settings/ServerBlock.cs | ABCD-EFGH | example pairing code format, language independent
+src/Remotely.ServerManager/Setup/ElevatedSetupActions.cs | Bad pipe name. | internal error from the elevated helper, written to the helper log, not shown in the UI
