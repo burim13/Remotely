@@ -64,13 +64,12 @@ public sealed partial class MainWindow : Window
         Root.Loaded += (_, _) => IsReady = true;
         App.ApplyTheme(this);
 
+        ShowVerifier.Attach(Pages);
         if (NeedsOnboarding) StartOnboarding();
         else
         {
             Nav.SelectedItem = Nav.MenuItems[0];   // raises SelectionChanged, which shows the first page
-            if (App.Options.Show is { Length: > 0 } name
-                && typeof(MainWindow).Assembly.GetTypes().FirstOrDefault(t => t.Name == name && typeof(Page).IsAssignableFrom(t)) is { } pageType)
-                Pages.Navigate(pageType);
+            if (ShowVerifier.Active) ShowVerifier.Navigate(Pages, DispatcherQueue);
         }
     }
 

@@ -92,4 +92,51 @@ internal static class SelfTest
             return 1;
         }
     }
+
+    /// <summary>
+    /// <c>Remotely.exe --selftest-shell result.txt</c>: this process plays the first instance (a test-only single-instance name, so a running Remotely is not disturbed),
+    /// then starts the real Remotely.exe again with <c>--invite</c> and that name. The second copy must forward its arguments over the named pipe and exit with code 0;
+    /// the first must receive exactly <c>--invite &lt;value&gt;</c>. The invite value is fake and never processed: the forwarding copy exits before reading any settings.
+    /// </summary>
+    public static async Task<int> RunShellAsync(string resultPath)
+    {
+        var lines = new List<string>();
+        void Log(string s) => lines.Add($"{DateTime.UtcNow:HH:mm:ss.fff} {s}");
+        try
+        {
+            var name = "Remotely.App.selftest." + Guid.NewGuid().ToString("N");
+            var invite = "RMT1-selftest-" + Guid.NewGuid().ToString("N");
+            using var first = Remotely.App.Shell.SingleInstance.Acquire(name);
+            if (!first.IsPrimary) throw new InvalidOperationException("Could not become the first instance under a fresh name.");
+            var received = new TaskCompletionSource<string[]>(TaskCreationOptions.RunContinuationsAsynchronously);
+            first.Listen(a => received.TrySetResult(a));
+            Log("First instance listening as " + name);
+
+            var exe = Environment.ProcessPath ?? throw new InvalidOperationException("No process path.");
+            using var second = System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(exe)
+            {
+                ArgumentList = { "--invite", invite, "--instance-name", name },
+                UseShellExecute = false,
+            }) ?? throw new InvalidOperationException("The second copy did not start.");
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+            var args = await received.Task.WaitAsync(cts.Token);
+            Log("First instance received: " + string.Join(" ", args));
+            if (args.Length != 2 || args[0] != "--invite" || args[1] != invite)
+                throw new InvalidOperationException("The forwarded arguments are not what the second copy was started with.");
+
+            try { await second.WaitForExitAsync(cts.Token); }
+            finally { if (!second.HasExited) second.Kill(); }
+            Log("Second copy exited with code " + second.ExitCode);
+            if (second.ExitCode != 0) throw new InvalidOperationException("The second copy did not exit with code 0.");
+            File.WriteAllLines(resultPath, ["PASS", .. lines]);
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Log("FAILED: " + ex);
+            Log("app logs:" + Environment.NewLine + App.ReadLogs());
+            File.WriteAllLines(resultPath, ["FAIL", .. lines]);
+            return 1;
+        }
+    }
 }
