@@ -81,7 +81,7 @@ internal static class SettingsHub
                     SaveTransfers(set.Transfers);
                     break;
                 default:
-                    set.Viewer.Save();
+                    App.Settings.Save();
                     break;
             }
             return true;

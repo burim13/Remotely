@@ -132,7 +132,7 @@ internal static class SettingRows
         {
             AutomationProperties.SetName(control, label);
             AutomationProperties.SetHelpText(control, help);
-            control.IsEnabled = forced is null;
+            if (control is Control enabledControl) enabledControl.IsEnabled = forced is null;
         }
 
         var children = new List<UIElement> { SettingsUi.Strong(label), SettingsUi.Secondary(help), control };
