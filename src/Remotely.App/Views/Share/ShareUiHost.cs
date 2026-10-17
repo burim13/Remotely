@@ -27,6 +27,8 @@ public sealed class ShareUiHost : IDisposable
 
     /// <summary>True while the banner window exists (a session is running). Safe to read from any thread.</summary>
     public bool BannerOpen => Volatile.Read(ref _banner) is not null;
+    /// <summary>The last failure while making or closing a window (null if none). A window that cannot be made must never take the app down.</summary>
+    public string? LastError { get; private set; }
     public bool QuestionOpen => Volatile.Read(ref _question) is not null;
 
     /// <summary>Called from the UI thread or any other: shows the question and returns the person's answer. Cancelling closes the window.</summary>
@@ -48,8 +50,9 @@ public sealed class ShareUiHost : IDisposable
                 window.Activate();
                 Toast("Toast_Question_Title", "Toast_Question_Body", request.ControllerName, request.Address);
             }
-            catch (Exception ex) when (ex is System.Runtime.InteropServices.COMException or InvalidOperationException)
+            catch (Exception ex) when (ex is not OutOfMemoryException)
             {
+                LastError = ex.ToString();
                 App.LogCrash(ex);
                 result.TrySetResult(ConsentDecision.Deny);   // no window, no answer: nobody is let in
             }
@@ -67,8 +70,9 @@ public sealed class ShareUiHost : IDisposable
                 Volatile.Write(ref _banner, banner);
                 banner.Activate();
             }
-            catch (Exception ex) when (ex is System.Runtime.InteropServices.COMException or InvalidOperationException)
+            catch (Exception ex) when (ex is not OutOfMemoryException)
             {
+                LastError = ex.ToString();
                 App.LogCrash(ex);
             }
         });
@@ -80,7 +84,7 @@ public sealed class ShareUiHost : IDisposable
         _ui.TryEnqueue(() =>
         {
             var banner = Interlocked.Exchange(ref _banner, null);
-            try { banner?.CloseForReal(); } catch (Exception ex) when (ex is System.Runtime.InteropServices.COMException or InvalidOperationException) { App.LogCrash(ex); }
+            try { banner?.CloseForReal(); } catch (Exception ex) when (ex is not OutOfMemoryException) { App.LogCrash(ex); }
         });
         Toast("Toast_Left_Title", reason == SessionEndReasons.ControllerLeft ? "Toast_Left_Body" : "Toast_Stopped_Body", info.ControllerName);
     }

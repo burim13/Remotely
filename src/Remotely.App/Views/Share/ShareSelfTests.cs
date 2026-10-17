@@ -82,7 +82,8 @@ internal static class ShareSelfTests
                 await WaitAsync(() => share.State.Current.State == ShareState.InSession, "state InSession");
                 if (ui is not null)
                 {
-                    await WaitAsync(() => share.Ui!.BannerOpen, "the banner window opens during a session");
+                    await WaitAsync(() => share.Ui!.BannerOpen || share.Ui.LastError is not null, "the banner window opens during a session");
+                    Require(share.Ui!.BannerOpen, "the banner window opens during a session: " + share.Ui.LastError);
                     log("Banner window is open.");
                 }
                 await share.Coordinator.SetControlPausedAsync(true, "paused by selftest");
