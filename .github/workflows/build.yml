@@ -84,6 +84,13 @@ jobs:
           if (-not $p.WaitForExit(120000)) { $p.Kill(); Write-Host "timed out" }
           if (Test-Path selftest.txt) { Get-Content selftest.txt } else { Write-Host "no result file" }
           if (-not (Test-Path selftest.txt) -or (Get-Content selftest.txt -TotalCount 1) -ne "PASS") { throw "self-test failed" }
+      - name: Session window self-test (frame painted, input reaches the host, transfers panel, clean close)
+        shell: pwsh
+        run: |
+          $p = Start-Process "out/app-${{ matrix.rid }}/Remotely.exe" -ArgumentList '--selftest-session', "$PWD/selftest-session.txt" -PassThru
+          if (-not $p.WaitForExit(120000)) { $p.Kill(); Write-Host "timed out" }
+          if (Test-Path selftest-session.txt) { Get-Content selftest-session.txt } else { Write-Host "no result file" }
+          if (-not (Test-Path selftest-session.txt) -or (Get-Content selftest-session.txt -TotalCount 1) -ne 'PASS') { throw 'session self-test failed' }
       - name: Start the window and take a screenshot
         shell: pwsh
         run: |

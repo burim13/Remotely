@@ -252,7 +252,6 @@
   <data name="Notify_NewDevices" xml:space="preserve"><value>{0} pajisje të reja u çiftuan me serverin tuaj.</value></data>
   <data name="Elevated_Title" xml:space="preserve"><value>Menaxheri po funksionon si administrator</value></data>
   <data name="Elevated_Message" xml:space="preserve"><value>Nuk është e nevojshme. Menaxheri kërkon leje nga Windows vetëm kur instalon, ndalon ose rikthen shërbimin. Mbylle dhe hape përsëri në mënyrë normale.</value></data>
-  <data name="Error_NoClient" xml:space="preserve"><value>Menaxheri nuk është lidhur ende me një server: klienti i administrimit nuk është pjesë e këtij versioni. Nise me --fake për të parë të dhëna shembull.</value></data>
   <data name="Dash_Running" xml:space="preserve"><value>Serveri po funksionon</value></data>
   <data name="Dash_NotAnswering" xml:space="preserve"><value>Shërbimi po funksionon por serveri nuk përgjigjet</value></data>
   <data name="Dash_Stopped" xml:space="preserve"><value>Serveri është i ndalur</value></data>
@@ -432,4 +431,6 @@
   <data name="Backup_RestoreBody" xml:space="preserve"><value>Të dhënat e tanishme të serverit do të zëvendësohen me përmbajtjen e {0}. Windows do të kërkojë leje.</value></data>
   <data name="Backup_Restore" xml:space="preserve"><value>Rikthe</value></data>
   <data name="Backup_Restored" xml:space="preserve"><value>Kopja rezervë u rikthye dhe shërbimi u nis.</value></data>
+  <data name="Setup_Nav" xml:space="preserve"><value>Bëje të arritshëm</value></data>
+  <data name="Setup_Err_Cancelled" xml:space="preserve"><value>E refuzove kërkesën e lejes së Windows, ndaj asgjë nuk u ndryshua.</value></data>
 </root>

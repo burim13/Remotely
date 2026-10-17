@@ -4,3 +4,4 @@ DevicesPage
 ActivityPage
 ServicePage
 ServerSettingsPage
+SetupWizardPage

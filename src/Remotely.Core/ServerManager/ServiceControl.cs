@@ -72,7 +72,12 @@ public sealed class ServiceQuery(IProcessRunner runner)
     }
 }
 
-public enum ServiceVerb { Install, Uninstall, Start, Stop, Restart, Restore }
+public enum ServiceVerb
+{
+    Install, Uninstall, Start, Stop, Restart, Restore,
+    // Network setup wizard (agent A12): handled by SetupHelperMain in the Manager, not by ServiceHelper.
+    FirewallAdd, FirewallRemove, CertInstall, CertRenew,
+}
 
 /// <summary>
 /// The command line of the elevated helper. The Manager (never elevated) starts a second copy of itself with the verb <c>runas</c>; that copy parses this,

@@ -42,14 +42,7 @@
                 <AppBarToggleButton x:Name="ViewOnlyButton" Icon="View" Click="OnViewOnly" />
                 <AppBarButton x:Name="SasButton" Icon="Permissions" Click="OnSas" />
                 <AppBarToggleButton x:Name="ClipboardButton" Icon="Paste" Click="OnClipboard" />
-                <AppBarButton x:Name="FilesButton" Icon="Folder">
-                    <AppBarButton.Flyout>
-                        <MenuFlyout x:Name="FilesMenu">
-                            <MenuFlyoutItem x:Name="SendFileItem" Click="OnSendFile" />
-                            <MenuFlyoutItem x:Name="GetFileItem" Click="OnGetFile" />
-                        </MenuFlyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
+                <AppBarToggleButton x:Name="FilesButton" Icon="Folder" Click="OnFiles" />
                 <AppBarSeparator />
                 <AppBarToggleButton x:Name="PinButton" Icon="Pin" Click="OnPin" />
                 <AppBarButton x:Name="EndButton" Icon="Cancel" Click="OnEnd" />

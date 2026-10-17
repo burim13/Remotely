@@ -256,6 +256,30 @@ public class ScreenMappingTests
         Assert.True(s.BytesPerSecond > 0);
     }
 
+    [Fact]
+    public void The_host_cursor_in_desktop_pixels_is_placed_on_the_monitor_shown()
+    {
+        var rect = new RectD(100, 50, 960, 540);                   // a 1920x1080 monitor at half size, letterboxed
+        Assert.True(ScreenMapping.TryMapFromDesktopPixel(-960, 540, rect, Left, out var p));
+        Assert.Equal((580, 320), (p.X, p.Y));
+        Assert.False(ScreenMapping.TryMapFromDesktopPixel(10, 540, rect, Left, out _));          // on the primary monitor, not this one
+        Assert.True(ScreenMapping.TryMapFromDesktopPixel(0, -1080, rect, Above, out var corner));
+        Assert.Equal((100, 50), (corner.X, corner.Y));
+        Assert.False(ScreenMapping.TryMapFromDesktopPixel(0, 0, rect, default, out _));
+    }
+
+    [Fact]
+    public void The_monitor_picker_lists_all_monitors_first_and_only_when_there_is_a_choice()
+    {
+        Assert.Equal([MonitorEntry.All], SessionMonitorSource.Build([]));
+        Assert.Equal([MonitorEntry.All], SessionMonitorSource.Build([new MonitorInfo(0, "Only", 0, 0, 1920, 1080, true)]));
+        var list = SessionMonitorSource.Build([new MonitorInfo(0, "Main", 0, 0, 2560, 1440, true), new MonitorInfo(1, "Left", -1920, 0, 1920, 1080, false)]);
+        Assert.Equal(3, list.Count);
+        Assert.True(list[0].IsAll);
+        Assert.Equal(new MonitorEntry(1, "Left", new PixelRect(-1920, 0, 1920, 1080)), list[2]);
+        Assert.True(list[1].IsPrimary);
+    }
+
     private static string RepoRoot()
     {
         var dir = new DirectoryInfo(AppContext.BaseDirectory);

@@ -154,4 +154,19 @@ public static class ScreenMapping
         view = new PointD(image.X + u * image.Width, image.Y + v * image.Height);
         return true;
     }
+
+    /// <summary>
+    /// Where a host position in virtual-desktop pixels (the cursor, as the host reports it) falls in the view. <paramref name="shown"/> is the area
+    /// of the host desktop the picture covers (the selected monitor, or the whole virtual desktop). False when the position is outside it.
+    /// </summary>
+    public static bool TryMapFromDesktopPixel(double hostX, double hostY, RectD image, PixelRect shown, out PointD view)
+    {
+        view = default;
+        if (image.Width <= 0 || image.Height <= 0 || shown.IsEmpty) return false;
+        var u = (hostX - shown.X) / shown.Width;
+        var v = (hostY - shown.Y) / shown.Height;
+        if (u < 0 || u > 1 || v < 0 || v > 1) return false;
+        view = new PointD(image.X + u * image.Width, image.Y + v * image.Height);
+        return true;
+    }
 }

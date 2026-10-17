@@ -769,8 +769,9 @@ public partial class ManagerLogicTests
     [Fact]
     public void Every_Manager_page_is_built_by_the_start_up_check_and_listed_for_the_screenshot_run()
     {
-        var root = Path.Combine(RepoRoot(), "src", "Remotely.ServerManager", "Views");
-        var pages = Directory.EnumerateFiles(root, "*Page.xaml").Select(f => Path.GetFileNameWithoutExtension(f)).OrderBy(n => n, StringComparer.Ordinal).ToList();
+        var managerRoot = Path.Combine(RepoRoot(), "src", "Remotely.ServerManager");
+        var pages = new[] { "Views", "Setup" }.SelectMany(dir => Directory.EnumerateFiles(Path.Combine(managerRoot, dir), "*Page.xaml"))
+            .Select(f => Path.GetFileNameWithoutExtension(f)).OrderBy(n => n, StringComparer.Ordinal).ToList();
         Assert.NotEmpty(pages);
         var app = File.ReadAllText(Path.Combine(RepoRoot(), "src", "Remotely.ServerManager", "App.xaml.cs"));
         var listed = File.ReadAllLines(Path.Combine(RepoRoot(), "tools", "ci", "manager-pages.txt")).Select(l => l.Trim()).Where(l => l.Length > 0 && l[0] != '#').OrderBy(n => n, StringComparer.Ordinal).ToList();
