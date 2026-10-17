@@ -12,3 +12,4 @@ DiagTilePage
 DiagTokenPage
 DiagEmptyPage
 DiagIconPage
+DiagIconBarePage

@@ -15,17 +15,15 @@ public sealed class PorticoIcon : UserControl
 
     private readonly Viewbox _box = new() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Uniform, Width = 16, Height = 16 };
     private readonly Canvas _canvas = new() { Width = 24, Height = 24 };
-    private readonly Path _path = new();
+    private Path? _path;
 
     public PorticoIcon()
     {
         IsTabStop = false;
         AutomationProperties.SetAccessibilityView(this, AccessibilityView.Raw);
-        _canvas.Children.Add(_path);
         _box.Child = _canvas;
         Content = _box;
-        _path.Fill = Foreground;
-        RegisterPropertyChangedCallback(ForegroundProperty, (_, _) => _path.Fill = Foreground);
+        RegisterPropertyChangedCallback(ForegroundProperty, (_, _) => { if (_path is not null) _path.Fill = Foreground; });
     }
 
     /// <summary>A key of <see cref="Icons.Paths"/>, for example <c>Monitor</c>.</summary>
@@ -38,8 +36,11 @@ public sealed class PorticoIcon : UserControl
 
     private void Rebuild()
     {
-        if (!Icons.Paths.TryGetValue(Glyph ?? "", out var data)) { _path.Data = null; return; }
-        var holder = (Path)XamlReader.Load($"<Path xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" Data=\"{data}\" />");
-        _path.Data = holder.Data;
+        _canvas.Children.Clear();
+        _path = null;
+        if (!Icons.Paths.TryGetValue(Glyph ?? "", out var data)) return;
+        _path = (Path)XamlReader.Load($"<Path xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" Data=\"{data}\" />");
+        _path.Fill = Foreground;
+        _canvas.Children.Add(_path);
     }
 }
