@@ -68,14 +68,14 @@ public sealed class SessionStats
 public sealed partial class ViewerSession
 {
     private SessionStats? _stats;
-    private readonly object _statsGate = new();
+    private readonly object _receivedStatsGate = new();
 
     /// <summary>Counts frames from the first time this is read, so read it right after opening the session.</summary>
-    public SessionStats Stats
+    public SessionStats ReceivedStats
     {
         get
         {
-            lock (_statsGate)
+            lock (_receivedStatsGate)
             {
                 if (_stats is not null) return _stats;
                 var stats = new SessionStats();

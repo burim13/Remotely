@@ -243,8 +243,8 @@ public class ScreenMappingTests
         var screen = new HostCoreTests.FakeScreen(() => new FrameInfo(800, 600, "Default", Encoding.ASCII.GetBytes("jpeg-" + Environment.TickCount64)));
         await using var rig = await HostCoreTests.Rig.StartAsync(v => new HostServices(screen) { IsTrusted = id => id == v.DeviceId });
         await using var session = await rig.OpenAsync();
-        var stats = session.Stats;
-        Assert.Same(stats, session.Stats);
+        var stats = session.ReceivedStats;
+        Assert.Same(stats, session.ReceivedStats);
 
         var deadline = DateTime.UtcNow + TimeSpan.FromSeconds(10);
         while (stats.Snapshot().TotalFrames < 3 && DateTime.UtcNow < deadline) await Task.Delay(25);

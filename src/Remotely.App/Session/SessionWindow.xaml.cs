@@ -105,7 +105,7 @@ public sealed partial class SessionWindow : Window
 
     private void Attach(ViewerSession s)
     {
-        _ = s.Stats;   // starts counting frames now
+        _ = s.ReceivedStats;   // starts counting frames now
         s.FrameReceived += info => { if (ReferenceEquals(s, _session)) OnFrame(info); };
         s.ClipboardReceived += text => _ui.TryEnqueue(() => { if (ReferenceEquals(s, _session)) OnHostClipboard(text); });
         s.HostError += error => _ui.TryEnqueue(() => { if (ReferenceEquals(s, _session)) ShowNotice(string.Format(Loc.Get("Session_OtherPcError"), error)); });
@@ -219,7 +219,7 @@ public sealed partial class SessionWindow : Window
 
     // ---- stats overlay ----
 
-    private void UpdateStats() => StatsText.Text = SessionStatsText.Format(_session.Stats.Snapshot(), Screen.FrameWidth, Screen.FrameHeight);
+    private void UpdateStats() => StatsText.Text = SessionStatsText.Format(_session.ReceivedStats.Snapshot(), Screen.FrameWidth, Screen.FrameHeight);
 
     // ---- frames ----
 
