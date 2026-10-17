@@ -1,6 +1,7 @@
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Remotely.ServerManager.Setup;
 using Remotely.ServerManager.Views;
 
 namespace Remotely.ServerManager;
@@ -17,6 +18,7 @@ public sealed partial class MainWindow : Window
         NavDevices.Content = Ui.T("Nav_Devices");
         NavActivity.Content = Ui.T("Nav_Activity");
         NavService.Content = Ui.T("Nav_Service");
+        NavSetup.Content = Ui.T("Setup_Nav");
         foreach (var item in Nav.MenuItems.OfType<NavigationViewItem>())
             Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(item, (string)item.Content);
 
@@ -38,7 +40,7 @@ public sealed partial class MainWindow : Window
         {
             var item = Nav.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(i => (string?)i.Tag == name);
             if (item is not null) Nav.SelectedItem = item;   // raises SelectionChanged, which navigates
-            else Pages.Navigate(pageType);
+            else Pages.Navigate(pageType, pageType == typeof(SetupWizardPage) ? SetupLifecycle.Dependencies : null);
         }
         else
         {
@@ -62,8 +64,9 @@ public sealed partial class MainWindow : Window
                 "DevicesPage" => typeof(DevicesPage),
                 "ActivityPage" => typeof(ActivityPage),
                 "ServicePage" => typeof(ServicePage),
+                "SetupWizardPage" => typeof(SetupWizardPage),
                 _ => typeof(DashboardPage),
             };
-        if (Pages.CurrentSourcePageType != page) Pages.Navigate(page);
+        if (Pages.CurrentSourcePageType != page) Pages.Navigate(page, page == typeof(SetupWizardPage) ? SetupLifecycle.Dependencies : null);
     }
 }

@@ -119,8 +119,13 @@ public sealed class NetshElevatedActions(IProcessRunner runner, string dataDir) 
         byte[] bytes;
         try { bytes = await File.ReadAllBytesAsync(pfxPath, ct).ConfigureAwait(false); }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return ActionResult.Failure("Setup_Pfx_CannotRead", ex.Message); }
+        return await InstallCertificateBytesAsync(bytes, password, ct).ConfigureAwait(false);
+    }
 
-        var validation = PfxValidator.Load(bytes, password, DateTimeOffset.UtcNow, out var certificate);
+    /// <summary>Same as <see cref="InstallCertificateAsync"/> for a file the caller has already read, so the elevated side never opens a path it was handed.</summary>
+    public async Task<ActionResult> InstallCertificateBytesAsync(byte[] pfx, string? password, CancellationToken ct = default)
+    {
+        var validation = PfxValidator.Load(pfx, password, DateTimeOffset.UtcNow, out var certificate);
         if (!validation.IsValid || certificate is null) return ActionResult.Failure(validation.ErrorKey ?? "Setup_Pfx_NotAPfx");
         using (certificate)
         {
@@ -196,5 +201,39 @@ public sealed record ElevatedCommand(string Name, int? Port, string? Path)
         if (args[1] == CertInstall && path is null) return false;
         command = new ElevatedCommand(args[1], port, path);
         return true;
+    }
+}
+
+/// <summary>
+/// How a PFX and its password travel from the Manager to the elevated helper: over a private named pipe, never on a command line.
+/// Layout: bool hasPassword, string password (if any), int32 length, the PFX bytes.
+/// </summary>
+public static class PfxTransfer
+{
+    public const int MaxBytes = 1_000_000;
+
+    public static void Write(Stream stream, byte[] pfx, string? password)
+    {
+        using var writer = new BinaryWriter(stream, System.Text.Encoding.UTF8, leaveOpen: true);
+        writer.Write(password is not null);
+        if (password is not null) writer.Write(password);
+        writer.Write(pfx.Length);
+        writer.Write(pfx);
+        writer.Flush();
+    }
+
+    /// <summary>Returns null when the data is malformed or larger than <see cref="MaxBytes"/>.</summary>
+    public static (byte[] Pfx, string? Password)? Read(Stream stream)
+    {
+        try
+        {
+            using var reader = new BinaryReader(stream, System.Text.Encoding.UTF8, leaveOpen: true);
+            var password = reader.ReadBoolean() ? reader.ReadString() : null;
+            var length = reader.ReadInt32();
+            if (length is < 1 or > MaxBytes) return null;
+            var bytes = reader.ReadBytes(length);
+            return bytes.Length == length ? (bytes, password) : null;
+        }
+        catch (Exception ex) when (ex is EndOfStreamException or IOException or ArgumentException) { return null; }
     }
 }

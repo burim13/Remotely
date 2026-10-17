@@ -431,4 +431,6 @@
   <data name="Backup_RestoreBody" xml:space="preserve"><value>The server's current data will be replaced with the contents of {0}. Windows will ask for permission.</value></data>
   <data name="Backup_Restore" xml:space="preserve"><value>Restore</value></data>
   <data name="Backup_Restored" xml:space="preserve"><value>The backup was restored and the service started.</value></data>
+  <data name="Setup_Nav" xml:space="preserve"><value>Make reachable</value></data>
+  <data name="Setup_Err_Cancelled" xml:space="preserve"><value>You declined the Windows permission prompt, so nothing was changed.</value></data>
 </root>

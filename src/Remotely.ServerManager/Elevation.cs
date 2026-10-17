@@ -75,6 +75,7 @@ internal static class ElevatedHelperMain
 
         if (!request.IsValid) { Log("Unknown request."); return HelperExit.BadUsage; }
         if (!ElevatedHelper.IsElevated()) { Log("The helper is not running as administrator."); return HelperExit.NotElevated; }
+        if (Setup.SetupHelperMain.Handles(request.Verb)) return await Setup.SetupHelperMain.RunAsync(request, Log);
         var managerDir = AppContext.BaseDirectory;
         var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
         var exe = ServerExeLocator.Find(ServerExeLocator.Candidates(request.Verb, managerDir, programFiles), File.Exists);

@@ -431,4 +431,6 @@
   <data name="Backup_RestoreBody" xml:space="preserve"><value>Të dhënat e tanishme të serverit do të zëvendësohen me përmbajtjen e {0}. Windows do të kërkojë leje.</value></data>
   <data name="Backup_Restore" xml:space="preserve"><value>Rikthe</value></data>
   <data name="Backup_Restored" xml:space="preserve"><value>Kopja rezervë u rikthye dhe shërbimi u nis.</value></data>
+  <data name="Setup_Nav" xml:space="preserve"><value>Bëje të arritshëm</value></data>
+  <data name="Setup_Err_Cancelled" xml:space="preserve"><value>E refuzove kërkesën e lejes së Windows, ndaj asgjë nuk u ndryshua.</value></data>
 </root>
