@@ -40,6 +40,7 @@ internal static class ShareSelfTests
         {
             await using var share = new ShareService(dataDirectory);
             if (ui is not null) share.AttachUi(ui);
+            share.ToastSink = (t, b) => log($"toast: {t} / {b}");   // the real notification service is exercised once, at the end
             var error = share.Start(log);
             if (error is not null) throw new InvalidOperationException(error);
             var host = share.Host!;
@@ -86,11 +87,14 @@ internal static class ShareSelfTests
                     Require(share.Ui!.BannerOpen, "the banner window opens during a session: " + share.Ui.LastError);
                     log("Banner window is open.");
                 }
+                log("Pausing control.");
                 await share.Coordinator.SetControlPausedAsync(true, "paused by selftest");
                 Require(share.State.Current.ControlPaused && host.ControlPaused, "pause control is reflected");
                 await share.Coordinator.SetControlPausedAsync(false, "");
                 Require(!host.ControlPaused, "resume control is reflected");
+                log("Pause and resume are reflected.");
             }
+            log("First session over.");
             await WaitAsync(() => share.State.Current.State == ShareState.Ready, "Ready after the session ends");
             if (ui is not null) await WaitAsync(() => !share.Ui!.BannerOpen, "the banner closes when the session ends");
             Require(share.Coordinator.Remembered.Contains(controller.DeviceId), "the PC is on the remembered list");
@@ -117,6 +121,9 @@ internal static class ShareSelfTests
             await WaitAsync(() => share.Coordinator.History.All.Count == 3 && share.Coordinator.History.All.All(r => r.EndedUtc is not null), "history has the refusal and both sessions, all finished");
             var rows = share.Coordinator.History.All;
             Require(rows.Any(r => r.Via == "remembered"), "the token-free session is in the history");
+            log("Checking the real notification service once.");
+            ShareToasts.Show("Remotely self-test", "This notification is part of a self-test.");
+            log("Notification call returned.");
             log("History: " + string.Join("; ", rows.Select(r => $"{r.ControllerName} {r.Via} {r.Outcome} {r.EndReason}")));
         }
         finally
