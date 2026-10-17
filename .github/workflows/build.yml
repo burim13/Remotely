@@ -84,6 +84,14 @@ jobs:
           if (-not $p.WaitForExit(120000)) { $p.Kill(); Write-Host "timed out" }
           if (Test-Path selftest.txt) { Get-Content selftest.txt } else { Write-Host "no result file" }
           if (-not (Test-Path selftest.txt) -or (Get-Content selftest.txt -TotalCount 1) -ne "PASS") { throw "self-test failed" }
+      - name: Self-test - share this PC, host-side checks (consent, remembered PCs, banner, pause)
+        shell: pwsh
+        run: |
+          $exe = "out/app-${{ matrix.rid }}/Remotely.exe"
+          $p = Start-Process $exe -ArgumentList "--selftest-share","$PWD/selftest-share.txt" -PassThru
+          if (-not $p.WaitForExit(150000)) { $p.Kill(); Write-Host "timed out" }
+          if (Test-Path selftest-share.txt) { Get-Content selftest-share.txt } else { Write-Host "no result file" }
+          if (-not (Test-Path selftest-share.txt) -or (Get-Content selftest-share.txt -TotalCount 1) -ne "PASS") { throw "share self-test failed" }
       - name: Start the window and take a screenshot
         shell: pwsh
         run: |
@@ -406,6 +414,10 @@ jobs:
           if (-not $lan.WaitForExit(120000)) { $lan.Kill(); Write-Host "same-network self-test timed out" }
           if (Test-Path "$PWD\lan-selftest.txt") { Get-Content "$PWD\lan-selftest.txt" }
           Check "installed app: same-network token connection works" ((Test-Path "$PWD\lan-selftest.txt") -and ((Get-Content "$PWD\lan-selftest.txt" -TotalCount 1) -eq 'PASS'))
+          $sh = Start-Process 'C:\Program Files\Remotely\Remotely.exe' -ArgumentList '--selftest-share', "$PWD\share-selftest.txt" -PassThru
+          if (-not $sh.WaitForExit(150000)) { $sh.Kill(); Write-Host "share self-test timed out" }
+          if (Test-Path "$PWD\share-selftest.txt") { Get-Content "$PWD\share-selftest.txt" }
+          Check "installed app: Share this PC host checks work" ((Test-Path "$PWD\share-selftest.txt") -and ((Get-Content "$PWD\share-selftest.txt" -TotalCount 1) -eq 'PASS'))
           Check "host service running" (WaitFor 'svc' { (sc.exe query Remotely.Host) -match 'RUNNING' } 30)
           Check "host online" (WaitFor 'online' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+inst-host\s' } 40)
           $hostId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'inst-host\s+([0-9a-f]{64})')).Groups[1].Value
