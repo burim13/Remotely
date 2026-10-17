@@ -34,3 +34,6 @@ src/Remotely.App/ShareService.cs | # on desktop thread # (service #) | developer
 src/Remotely.App/Views/Settings/ServerBlock.cs | wss://server.example:8443 | example address, technical and language independent
 src/Remotely.App/Views/Settings/ServerBlock.cs | ABCD-EFGH | example pairing code format, language independent
 src/Remotely.ServerManager/Setup/ElevatedSetupActions.cs | Bad pipe name. | internal error from the elevated helper, written to the helper log, not shown in the UI
+src/Remotely.App/Shell/ShowVerifier.cs | * | CI result lines for --show (LOADED/FAILED with a developer reason), written to a file, not shown to people
+
+src/Remotely.App/App.xaml.cs | * | start-up code: the only literals are developer reasons written to the --show result file and the crash log (CI), never shown in the UI

@@ -99,6 +99,13 @@ jobs:
           if (-not $p.WaitForExit(240000)) { $p.Kill(); Write-Host "timed out" }
           if (Test-Path uia.txt) { Get-Content uia.txt } else { Write-Host "no result file" }
           Write-Host "uia-scan exit code: $($p.ExitCode)"
+      - name: Shell self-test - second launch forwards --invite
+        shell: pwsh
+        run: |
+          $p = Start-Process "out/app-${{ matrix.rid }}/Remotely.exe" -ArgumentList "--selftest-shell","$PWD/selftest-shell.txt" -PassThru
+          if (-not $p.WaitForExit(90000)) { $p.Kill(); Write-Host "timed out" }
+          if (Test-Path selftest-shell.txt) { Get-Content selftest-shell.txt } else { Write-Host "no result file" }
+          if (-not (Test-Path selftest-shell.txt) -or (Get-Content selftest-shell.txt -TotalCount 1) -ne "PASS") { throw "shell self-test failed" }
       - name: Session window self-test (frame painted, input reaches the host, transfers panel, clean close)
         shell: pwsh
         run: |
