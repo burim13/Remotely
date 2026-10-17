@@ -49,8 +49,8 @@ Remotely-Setup-<version>-x64.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART [switc
 | `/SimulateFailure=1` | makes the install fail at its last step on purpose, to test the rollback. Never use it otherwise |
 
 The server installer takes `/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /LOG=...` and `/Address=myhome.example.com` (optional, the name devices use to reach the server) and
-`/SimulateFailure=1`. The standard Inno switches are documented in Inno Setup's "Setup Command Line Parameters" page. The installer returns exit code 0 on success and a
-non-zero code when it fails or is rolled back.
+`/SimulateFailure=1`. The standard Inno switches are documented in Inno Setup's "Setup Command Line Parameters" page. The installer returns exit code 0 on success. A failed installation that was rolled back returns **4**
+(Setup ends the process itself with that code, because an error after the files are in place would otherwise still report 0).
 
 ### Server installer: the service and the Server Manager
 
