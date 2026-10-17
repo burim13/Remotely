@@ -18,7 +18,6 @@
   <data name="Nav_Activity" xml:space="preserve"><value>[Åçţîṽîţý ‹ĺöŕéḿ îṕ›]</value></data>
   <data name="Nav_Service" xml:space="preserve"><value>[Šéŕṽîçé ‹ĺöŕéḿ î›]</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>[Šéţţîñĝš ‹ĺöŕéḿ îṕ›]</value></data>
-  <data name="Banner_Dismiss" xml:space="preserve"><value>[Ďîšḿîšš ‹ĺöŕéḿ î›]</value></data>
   <data name="Setup_Title" xml:space="preserve"><value>[Ḿåķé ḿý šéŕṽéŕ ŕéåçĥåḃĺé ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
   <data name="Setup_StepOf" xml:space="preserve"><value>[Šţéṕ {0} öḟ {1}: {2} ‹ĺöŕéḿ îṕšüḿ›]</value></data>
   <data name="Setup_Back" xml:space="preserve"><value>[Ḃåçķ ‹ĺöŕé›]</value></data>
@@ -252,7 +251,6 @@
   <data name="Notify_NewDevices" xml:space="preserve"><value>[{0} ñéŵ ďéṽîçéš ṕåîŕéď ŵîţĥ ýöüŕ šéŕṽéŕ. ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
   <data name="Elevated_Title" xml:space="preserve"><value>[Ţĥé Ḿåñåĝéŕ îš ŕüññîñĝ åš åďḿîñîšţŕåţöŕ ‹ĺöŕéḿ îṕšüḿ ďöĺö›]</value></data>
   <data name="Elevated_Message" xml:space="preserve"><value>[Ţĥåţ îš ñöţ ñééďéď. Ţĥé Ḿåñåĝéŕ åšķš Ŵîñďöŵš ḟöŕ ṕéŕḿîššîöñ öñĺý ŵĥéñ îţ îñšţåĺĺš, šţöṕš öŕ ŕéšţöŕéš ţĥé šéŕṽîçé. Çĺöšé îţ åñď öṕéñ îţ ñöŕḿåĺĺý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď›]</value></data>
-  <data name="Error_NoClient" xml:space="preserve"><value>[Ţĥé Ḿåñåĝéŕ îš ñöţ çöññéçţéď ţö å šéŕṽéŕ ýéţ: ţĥé åďḿîñ çĺîéñţ îš ñöţ ṕåŕţ öḟ ţĥîš ḃüîĺď. Šţåŕţ îţ ŵîţĥ --ḟåķé ţö šéé šåḿṕĺé ďåţå. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺ›]</value></data>
   <data name="Dash_Running" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ îš ŕüññîñĝ ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
   <data name="Dash_NotAnswering" xml:space="preserve"><value>[Ţĥé šéŕṽîçé îš ŕüññîñĝ ḃüţ ţĥé šéŕṽéŕ ďöéš ñöţ åñšŵéŕ ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
   <data name="Dash_Stopped" xml:space="preserve"><value>[Ţĥé šéŕṽéŕ îš šţöṕṕéď ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>

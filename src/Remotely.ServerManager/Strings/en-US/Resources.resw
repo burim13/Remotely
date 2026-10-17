@@ -18,8 +18,6 @@
   <data name="Nav_Activity" xml:space="preserve"><value>Activity</value></data>
   <data name="Nav_Service" xml:space="preserve"><value>Service</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
-  <!-- A15: shared control label. -->
-  <data name="Banner_Dismiss" xml:space="preserve"><value>Dismiss</value></data>
   <!-- Setup_ strings: server setup wizard (agent A12). -->
   <data name="Setup_Title" xml:space="preserve"><value>Make my server reachable</value></data>
   <data name="Setup_StepOf" xml:space="preserve"><value>Step {0} of {1}: {2}</value></data>
@@ -254,7 +252,6 @@
   <data name="Notify_NewDevices" xml:space="preserve"><value>{0} new devices paired with your server.</value></data>
   <data name="Elevated_Title" xml:space="preserve"><value>The Manager is running as administrator</value></data>
   <data name="Elevated_Message" xml:space="preserve"><value>That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally.</value></data>
-  <data name="Error_NoClient" xml:space="preserve"><value>The Manager is not connected to a server yet: the admin client is not part of this build. Start it with --fake to see sample data.</value></data>
   <data name="Dash_Running" xml:space="preserve"><value>The server is running</value></data>
   <data name="Dash_NotAnswering" xml:space="preserve"><value>The service is running but the server does not answer</value></data>
   <data name="Dash_Stopped" xml:space="preserve"><value>The server is stopped</value></data>

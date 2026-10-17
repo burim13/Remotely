@@ -30,3 +30,4 @@ src/Remotely.App/Views/Gallery/GalleryPanel.xaml.cs | * | debug Gallery page: sh
 # ---- Legacy Settings page: agent A14 replaces it with Views/Settings, so it is not translated twice ----
 src/Remotely.App/SettingsPage.xaml | * | PENDING A14: old Settings page, to be replaced by Views/Settings/** (A14). Remove this entry and the page together.
 src/Remotely.App/SettingsPage.xaml.cs | * | PENDING A14: see SettingsPage.xaml
+src/Remotely.App/Shell/UiaScan.cs | * | CI tool (--uia-scan): machine-readable result lines and a scan window title, not part of the product UI
