@@ -275,4 +275,9 @@
   <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
   <data name="Home_NoNetwork" xml:space="preserve"><value>Ky kompjuter nuk është i lidhur me rrjet.</value></data>
   <data name="Home_ThisPc" xml:space="preserve"><value>Lidhje në të njëjtin rrjet. Ky kompjuter: {0}</value></data>
+  <!-- A4 integration (Albanian machine-written, needs a fluent reader) -->
+  <data name="Connect_StepWaiting" xml:space="preserve"><value>Po pritet miratimi në kompjuterin tjetër. Kërkoji personit atje të klikojë Lejo.</value></data>
+  <data name="Connect_Denied" xml:space="preserve"><value>Kompjuteri tjetër nuk e lejoi këtë lidhje. Personi atje zgjodhi Refuzo, ose askush nuk u përgjigj në kohë. Asgjë nuk u shfaq dhe nuk u kontrollua.</value></data>
+  <data name="Connect_Reconnect" xml:space="preserve"><value>Rilidhu</value></data>
+  <data name="Connect_ReconnectTip" xml:space="preserve"><value>Ky kompjuter të mban mend, ndaj nuk nevojitet kod.</value></data>
 </root>
