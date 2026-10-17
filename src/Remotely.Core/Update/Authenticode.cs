@@ -50,6 +50,8 @@ public sealed class PowerShellAuthenticodeVerifier : IAuthenticodeVerifier
         info.ArgumentList.Add("-Command");
         info.ArgumentList.Add(Script);
         info.Environment[PathVariable] = Path.GetFullPath(path);
+        // Started from PowerShell 7 (as the CI does), the inherited PSModulePath points Windows PowerShell 5.1 at modules it cannot load ("Microsoft.PowerShell.Security could not be loaded").
+        info.Environment.Remove("PSModulePath");
         try
         {
             using var process = Process.Start(info) ?? throw new InvalidOperationException("PowerShell did not start.");

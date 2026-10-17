@@ -442,9 +442,11 @@ public class UpdateTests
         var verifier = new PowerShellAuthenticodeVerifier();
         using var dir = new TempDir();
 
-        var unsigned = Path.Combine(dir.Path, "plain.exe");
-        await File.WriteAllBytesAsync(unsigned, Package("unsigned"));
-        Assert.Equal(SignatureStatus.NotSigned, (await verifier.VerifyAsync(unsigned, default)).Status);
+        // A real, unsigned PE file: this test assembly.
+        var unsigned = Path.Combine(dir.Path, "plain.dll");
+        File.Copy(typeof(UpdateTests).Assembly.Location, unsigned);
+        var plain = await verifier.VerifyAsync(unsigned, default);
+        Assert.True(plain.Status == SignatureStatus.NotSigned, $"{plain.Status} {plain.Detail}");
 
         // The test host itself (dotnet.exe) carries an embedded Microsoft signature.
         var signedFile = Environment.ProcessPath!;
