@@ -521,4 +521,32 @@
   <data name="Diag_Net_Check_port" xml:space="preserve"><value>Connection port</value></data>
   <data name="Diag_Net_Check_server" xml:space="preserve"><value>Server</value></data>
   <data name="Diag_Net_Latency" xml:space="preserve"><value>Average connection time: {0} ms</value></data>
+  <data name="Update_Section_Title" xml:space="preserve"><value>Updates</value></data>
+  <data name="Update_Toggle_Header" xml:space="preserve"><value>Check for updates</value></data>
+  <data name="Update_Toggle_On" xml:space="preserve"><value>On</value></data>
+  <data name="Update_Toggle_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Update_Toggle_Description" xml:space="preserve"><value>When this is on, Remotely asks the project's releases page on GitHub once a day whether a newer version exists. It only tells you: nothing is installed by itself. It is off until you turn it on.</value></data>
+  <data name="Update_CheckNow" xml:space="preserve"><value>Check now</value></data>
+  <data name="Update_Download" xml:space="preserve"><value>Download</value></data>
+  <data name="Update_Skip" xml:space="preserve"><value>Skip this version</value></data>
+  <data name="Update_OpenInstaller" xml:space="preserve"><value>Open the installer</value></data>
+  <data name="Update_ShowInFolder" xml:space="preserve"><value>Show in folder</value></data>
+  <data name="Update_ReleaseNotes" xml:space="preserve"><value>What is new</value></data>
+  <data name="Update_Banner_Title" xml:space="preserve"><value>Version {0} is available</value></data>
+  <data name="Update_Banner_Message" xml:space="preserve"><value>Nothing is installed by itself. Download it, then open the installer when you are ready.</value></data>
+  <data name="Update_Banner_Ready" xml:space="preserve"><value>Version {0} was downloaded and checked. Open the installer when you are ready.</value></data>
+  <data name="Update_Status_Off" xml:space="preserve"><value>Update checks are off.</value></data>
+  <data name="Update_Status_Idle" xml:space="preserve"><value>Not checked yet.</value></data>
+  <data name="Update_Status_Checking" xml:space="preserve"><value>Checking…</value></data>
+  <data name="Update_Status_UpToDate" xml:space="preserve"><value>You have the latest version ({0}).</value></data>
+  <data name="Update_Status_Available" xml:space="preserve"><value>Version {0} is available.</value></data>
+  <data name="Update_Status_Downloading" xml:space="preserve"><value>Downloading version {0}… {1}%</value></data>
+  <data name="Update_Status_Ready" xml:space="preserve"><value>Version {0} was downloaded and checked against the SHA-256 published with the release.</value></data>
+  <data name="Update_Status_Unverifiable" xml:space="preserve"><value>A newer version exists, but its release does not publish a SHA-256 for the installer, so it is not offered. {0}</value></data>
+  <data name="Update_Status_NoPackage" xml:space="preserve"><value>A newer version exists, but it has no installer for this PC. {0}</value></data>
+  <data name="Update_Status_Failed" xml:space="preserve"><value>The update check or download did not work: {0}</value></data>
+  <data name="Update_Sig_Valid" xml:space="preserve"><value>The installer has a valid digital signature. Signed by: {0}</value></data>
+  <data name="Update_Sig_Unsigned" xml:space="preserve"><value>The installer is not digitally signed (Windows SmartScreen will warn). It matches the SHA-256 published with the release.</value></data>
+  <data name="Update_Sig_NotChecked" xml:space="preserve"><value>The digital signature was not checked on this system.</value></data>
+  <data name="Update_Changed_Warning" xml:space="preserve"><value>The downloaded file changed after it was checked, so it was not opened. Download it again.</value></data>
 </root>

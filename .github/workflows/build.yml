@@ -688,5 +688,5 @@ jobs:
           TAG: ${{ inputs.release_tag }}
         run: |
           ls -la release
-          gh release create "$TAG" release/*.exe --repo "$GITHUB_REPOSITORY" --draft --title "Remotely $TAG" \
+          gh release create "$TAG" release/*.exe release/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --draft --title "Remotely $TAG" \
             --notes "Installers for Windows 11 (x64 and ARM64) and the server. Unsigned: see docs/user-guide.md. The Mac .dmg is attached by the 'mac' workflow."

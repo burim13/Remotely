@@ -1,9 +1,11 @@
 <Window x:Class="Remotely.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:update="using:Remotely.App.Update"
         Title="Remotely">
     <Grid x:Name="Root" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -16,15 +18,18 @@
             </StackPanel>
         </Grid>
 
-        <NavigationView x:Name="Nav" Grid.Row="1" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed" IsSettingsVisible="True"
+        <!-- Opt-in update notice (notify only): hidden unless a newer, verified version exists. -->
+        <update:UpdateBanner Grid.Row="1" />
+
+        <NavigationView x:Name="Nav" Grid.Row="2" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed" IsSettingsVisible="True"
                         OpenPaneLength="220" SelectionChanged="OnNavSelected" Background="Transparent"
                         AutomationProperties.LandmarkType="Navigation">
             <Frame x:Name="Pages" AutomationProperties.LandmarkType="Main" />
         </NavigationView>
 
-        <Frame x:Name="OnboardingFrame" Grid.Row="1" Visibility="Collapsed" AutomationProperties.LandmarkType="Main" />
+        <Frame x:Name="OnboardingFrame" Grid.Row="2" Visibility="Collapsed" AutomationProperties.LandmarkType="Main" />
 
-        <InfoBar x:Name="ToastBar" Grid.Row="1" IsOpen="False" IsClosable="True" Severity="Informational"
+        <InfoBar x:Name="ToastBar" Grid.Row="2" IsOpen="False" IsClosable="True" Severity="Informational"
                  VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="16" MaxWidth="560" />
     </Grid>
 </Window>

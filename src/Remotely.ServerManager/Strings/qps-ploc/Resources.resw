@@ -518,4 +518,32 @@
   <data name="Diag_Net_Check_port" xml:space="preserve"><value>[Çöññéçţîöñ ṕöŕţ ‹ĺöŕéḿ îṕš›]</value></data>
   <data name="Diag_Net_Check_server" xml:space="preserve"><value>[Šéŕṽéŕ ‹ĺöŕéḿ›]</value></data>
   <data name="Diag_Net_Latency" xml:space="preserve"><value>[Åṽéŕåĝé çöññéçţîöñ ţîḿé: {0} ḿš ‹ĺöŕéḿ îṕšüḿ ď›]</value></data>
+  <data name="Update_Section_Title" xml:space="preserve"><value>[Üṕďåţéš ‹ĺöŕéḿ î›]</value></data>
+  <data name="Update_Toggle_Header" xml:space="preserve"><value>[Çĥéçķ ḟöŕ üṕďåţéš ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Update_Toggle_On" xml:space="preserve"><value>[Öñ ‹ĺöŕ›]</value></data>
+  <data name="Update_Toggle_Off" xml:space="preserve"><value>[Öḟḟ ‹ĺöŕ›]</value></data>
+  <data name="Update_Toggle_Description" xml:space="preserve"><value>[Ŵĥéñ ţĥîš îš öñ, Ŕéḿöţéĺý åšķš ţĥé ṕŕöĵéçţ'š ŕéĺéåšéš ṕåĝé öñ ĜîţĤüḃ öñçé å ďåý ŵĥéţĥéŕ å ñéŵéŕ ṽéŕšîöñ éẋîšţš. Îţ öñĺý ţéĺĺš ýöü: ñöţĥîñĝ îš îñšţåĺĺéď ḃý îţšéĺḟ. Îţ îš öḟḟ üñţîĺ ýöü ţüŕñ îţ öñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ éĺîţ šéď ďö éîüšḿöď ţéḿṕöŕ î›]</value></data>
+  <data name="Update_CheckNow" xml:space="preserve"><value>[Çĥéçķ ñöŵ ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Update_Download" xml:space="preserve"><value>[Ďöŵñĺöåď ‹ĺöŕéḿ îṕ›]</value></data>
+  <data name="Update_Skip" xml:space="preserve"><value>[Šķîṕ ţĥîš ṽéŕšîöñ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Update_OpenInstaller" xml:space="preserve"><value>[Öṕéñ ţĥé îñšţåĺĺéŕ ‹ĺöŕéḿ îṕšüḿ›]</value></data>
+  <data name="Update_ShowInFolder" xml:space="preserve"><value>[Šĥöŵ îñ ḟöĺďéŕ ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Update_ReleaseNotes" xml:space="preserve"><value>[Ŵĥåţ îš ñéŵ ‹ĺöŕéḿ î›]</value></data>
+  <data name="Update_Banner_Title" xml:space="preserve"><value>[Ṽéŕšîöñ {0} îš åṽåîĺåḃĺé ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Update_Banner_Message" xml:space="preserve"><value>[Ñöţĥîñĝ îš îñšţåĺĺéď ḃý îţšéĺḟ. Ďöŵñĺöåď îţ, ţĥéñ öṕéñ ţĥé îñšţåĺĺéŕ ŵĥéñ ýöü åŕé ŕéåďý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţ›]</value></data>
+  <data name="Update_Banner_Ready" xml:space="preserve"><value>[Ṽéŕšîöñ {0} ŵåš ďöŵñĺöåďéď åñď çĥéçķéď. Öṕéñ ţĥé îñšţåĺĺéŕ ŵĥéñ ýöü åŕé ŕéåďý. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšé›]</value></data>
+  <data name="Update_Status_Off" xml:space="preserve"><value>[Üṕďåţé çĥéçķš åŕé öḟḟ. ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Update_Status_Idle" xml:space="preserve"><value>[Ñöţ çĥéçķéď ýéţ. ‹ĺöŕéḿ îṕšü›]</value></data>
+  <data name="Update_Status_Checking" xml:space="preserve"><value>[Çĥéçķîñĝ… ‹ĺöŕéḿ îṕš›]</value></data>
+  <data name="Update_Status_UpToDate" xml:space="preserve"><value>[Ýöü ĥåṽé ţĥé ĺåţéšţ ṽéŕšîöñ ({0}). ‹ĺöŕéḿ îṕšüḿ ďö›]</value></data>
+  <data name="Update_Status_Available" xml:space="preserve"><value>[Ṽéŕšîöñ {0} îš åṽåîĺåḃĺé. ‹ĺöŕéḿ îṕšüḿ ďöĺ›]</value></data>
+  <data name="Update_Status_Downloading" xml:space="preserve"><value>[Ďöŵñĺöåďîñĝ ṽéŕšîöñ {0}… {1}% ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ›]</value></data>
+  <data name="Update_Status_Ready" xml:space="preserve"><value>[Ṽéŕšîöñ {0} ŵåš ďöŵñĺöåďéď åñď çĥéçķéď åĝåîñšţ ţĥé ŠĤÅ-256 ṕüḃĺîšĥéď ŵîţĥ ţĥé ŕéĺéåšé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţé›]</value></data>
+  <data name="Update_Status_Unverifiable" xml:space="preserve"><value>[Å ñéŵéŕ ṽéŕšîöñ éẋîšţš, ḃüţ îţš ŕéĺéåšé ďöéš ñöţ ṕüḃĺîšĥ å ŠĤÅ-256 ḟöŕ ţĥé îñšţåĺĺéŕ, šö îţ îš ñöţ öḟḟéŕéď. {0} ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîš›]</value></data>
+  <data name="Update_Status_NoPackage" xml:space="preserve"><value>[Å ñéŵéŕ ṽéŕšîöñ éẋîšţš, ḃüţ îţ ĥåš ñö îñšţåĺĺéŕ ḟöŕ ţĥîš ṔÇ. {0} ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ›]</value></data>
+  <data name="Update_Status_Failed" xml:space="preserve"><value>[Ţĥé üṕďåţé çĥéçķ öŕ ďöŵñĺöåď ďîď ñöţ ŵöŕķ: {0} ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ š›]</value></data>
+  <data name="Update_Sig_Valid" xml:space="preserve"><value>[Ţĥé îñšţåĺĺéŕ ĥåš å ṽåĺîď ďîĝîţåĺ šîĝñåţüŕé. Šîĝñéď ḃý: {0} ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿ›]</value></data>
+  <data name="Update_Sig_Unsigned" xml:space="preserve"><value>[Ţĥé îñšţåĺĺéŕ îš ñöţ ďîĝîţåĺĺý šîĝñéď (Ŵîñďöŵš ŠḿåŕţŠçŕééñ ŵîĺĺ ŵåŕñ). Îţ ḿåţçĥéš ţĥé ŠĤÅ-256 ṕüḃĺîšĥéď ŵîţĥ ţĥé ŕéĺéåšé. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţüŕ åďîṕîšçîñĝ›]</value></data>
+  <data name="Update_Sig_NotChecked" xml:space="preserve"><value>[Ţĥé ďîĝîţåĺ šîĝñåţüŕé ŵåš ñöţ çĥéçķéď öñ ţĥîš šýšţéḿ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ›]</value></data>
+  <data name="Update_Changed_Warning" xml:space="preserve"><value>[Ţĥé ďöŵñĺöåďéď ḟîĺé çĥåñĝéď åḟţéŕ îţ ŵåš çĥéçķéď, šö îţ ŵåš ñöţ öṕéñéď. Ďöŵñĺöåď îţ åĝåîñ. ‹ĺöŕéḿ îṕšüḿ ďöĺöŕ šîţ åḿéţ çöñšéçţéţ›]</value></data>
 </root>

@@ -734,6 +734,7 @@ public partial class ManagerLogicTests
             Assert.Equal(Placeholders(value), Placeholders(sq[key]));
         }
         Assert.All(en.Keys, k => Assert.True(used.Contains(k) || k.StartsWith("Kind_", StringComparison.Ordinal) || k.StartsWith("Result_", StringComparison.Ordinal)
+            || k.StartsWith("Update_", StringComparison.Ordinal)   // looked up through ManagerUpdates.Text(key) with the keys listed in UpdatePresentation.EnglishText
             || k.StartsWith("Setup_", StringComparison.Ordinal)   // the setup wizard (Setup/) has its own checks in NetworkSetupTests
             || k.StartsWith("Diag_Err_", StringComparison.Ordinal) || k.StartsWith("Diag_Net_Check_", StringComparison.Ordinal),   // looked up by code and check id; DiagnosticsTests covers them
             "unused string key " + k));

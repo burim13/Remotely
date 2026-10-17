@@ -1,14 +1,18 @@
 <Window x:Class="Remotely.ServerManager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:update="using:Remotely.ServerManager.Update"
         Title="Remotely Server Manager">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <InfoBar x:Name="ElevatedBar" Grid.Row="0" IsOpen="False" IsClosable="True" Severity="Warning" />
-        <NavigationView x:Name="Nav" Grid.Row="1" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed" IsSettingsVisible="True"
+        <!-- Opt-in update notice (notify only): hidden unless a newer, verified server installer exists. -->
+        <update:UpdateBanner Grid.Row="1" />
+        <NavigationView x:Name="Nav" Grid.Row="2" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed" IsSettingsVisible="True"
                         OpenPaneLength="230" SelectionChanged="OnNavSelected" Background="Transparent"
                         AutomationProperties.LandmarkType="Navigation">
             <NavigationView.PaneHeader>

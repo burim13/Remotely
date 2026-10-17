@@ -12,7 +12,7 @@ reviewed any of these strings unless this document or the commit history says so
 
 ## Remotely (the app on every PC)
 
-715 strings.
+743 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -731,10 +731,38 @@ reviewed any of these strings unless this document or the commit history says so
 | `Unattended_Awake_Switch` | Keep this PC awake while someone is viewing it (needs an administrator) | Mbaje këtë kompjuter zgjuar kur dikush e shikon (kërkon administrator) | machine-written (git author Claude, 58b312b) |  | |
 | `Unattended_Awake_Held` | Windows is being kept awake right now. | Windows po mbahet zgjuar tani. | machine-written (git author Claude, 58b312b) |  | |
 | `Unattended_Awake_Idle` | Nobody is viewing this PC, so Windows may sleep. | Askush nuk po e shikon këtë kompjuter, ndaj Windows mund të fiket. | machine-written (git author Claude, 58b312b) |  | |
+| `Update_Section_Title` | Updates | Përditësimet | uncommitted when generated |  | |
+| `Update_Toggle_Header` | Check for updates | Kontrollo për përditësime | uncommitted when generated |  | |
+| `Update_Toggle_On` | On | Aktiv | uncommitted when generated |  | |
+| `Update_Toggle_Off` | Off | Joaktiv | uncommitted when generated |  | |
+| `Update_Toggle_Description` | When this is on, Remotely asks the project's releases page on GitHub once a day whether a newer version exists. It only tells you: nothing is installed by itself. It is off until you turn it on. | Kur është aktiv, Remotely pyet një herë në ditë faqen e botimeve të projektit në GitHub nëse ekziston një version më i ri. Ju njofton vetëm: asgjë nuk instalohet vetvetiu. Është joaktiv derisa ta aktivizoni. | uncommitted when generated |  | |
+| `Update_CheckNow` | Check now | Kontrollo tani | uncommitted when generated |  | |
+| `Update_Download` | Download | Shkarko | uncommitted when generated |  | |
+| `Update_Skip` | Skip this version | Kapërce këtë version | uncommitted when generated |  | |
+| `Update_OpenInstaller` | Open the installer | Hap instaluesin | uncommitted when generated |  | |
+| `Update_ShowInFolder` | Show in folder | Shfaq në dosje | uncommitted when generated |  | |
+| `Update_ReleaseNotes` | What is new | Çfarë ka të re | uncommitted when generated |  | |
+| `Update_Banner_Title` | Version {0} is available | Versioni {0} është i disponueshëm | uncommitted when generated |  | |
+| `Update_Banner_Message` | Nothing is installed by itself. Download it, then open the installer when you are ready. | Asgjë nuk instalohet vetvetiu. Shkarkojeni, pastaj hapeni instaluesin kur të jeni gati. | uncommitted when generated |  | |
+| `Update_Banner_Ready` | Version {0} was downloaded and checked. Open the installer when you are ready. | Versioni {0} u shkarkua dhe u kontrollua. Hapeni instaluesin kur të jeni gati. | uncommitted when generated |  | |
+| `Update_Status_Off` | Update checks are off. | Kontrollet për përditësime janë joaktive. | uncommitted when generated |  | |
+| `Update_Status_Idle` | Not checked yet. | Ende pa kontrolluar. | uncommitted when generated |  | |
+| `Update_Status_Checking` | Checking… | Po kontrollohet… | uncommitted when generated |  | |
+| `Update_Status_UpToDate` | You have the latest version ({0}). | Keni versionin më të fundit ({0}). | uncommitted when generated |  | |
+| `Update_Status_Available` | Version {0} is available. | Versioni {0} është i disponueshëm. | uncommitted when generated |  | |
+| `Update_Status_Downloading` | Downloading version {0}… {1}% | Po shkarkohet versioni {0}… {1}% | uncommitted when generated |  | |
+| `Update_Status_Ready` | Version {0} was downloaded and checked against the SHA-256 published with the release. | Versioni {0} u shkarkua dhe u kontrollua me SHA-256 të publikuar me botimin. | uncommitted when generated |  | |
+| `Update_Status_Unverifiable` | A newer version exists, but its release does not publish a SHA-256 for the installer, so it is not offered. {0} | Ekziston një version më i ri, por botimi i tij nuk publikon SHA-256 për instaluesin, ndaj nuk ofrohet. {0} | uncommitted when generated |  | |
+| `Update_Status_NoPackage` | A newer version exists, but it has no installer for this PC. {0} | Ekziston një version më i ri, por nuk ka instalues për këtë kompjuter. {0} | uncommitted when generated |  | |
+| `Update_Status_Failed` | The update check or download did not work: {0} | Kontrolli ose shkarkimi i përditësimit nuk funksionoi: {0} | uncommitted when generated |  | |
+| `Update_Sig_Valid` | The installer has a valid digital signature. Signed by: {0} | Instaluesi ka nënshkrim dixhital të vlefshëm. Nënshkruar nga: {0} | uncommitted when generated |  | |
+| `Update_Sig_Unsigned` | The installer is not digitally signed (Windows SmartScreen will warn). It matches the SHA-256 published with the release. | Instaluesi nuk është i nënshkruar dixhitalisht (Windows SmartScreen do të paralajmërojë). Përputhet me SHA-256 të publikuar me botimin. | uncommitted when generated |  | |
+| `Update_Sig_NotChecked` | The digital signature was not checked on this system. | Nënshkrimi dixhital nuk u kontrollua në këtë sistem. | uncommitted when generated |  | |
+| `Update_Changed_Warning` | The downloaded file changed after it was checked, so it was not opened. Download it again. | Skedari i shkarkuar ndryshoi pasi u kontrollua, ndaj nuk u hap. Shkarkojeni përsëri. | uncommitted when generated |  | |
 
 ## Remotely Server Manager
 
-513 strings.
+541 strings.
 
 | Key | English | Albanian | Origin | Flags | Corrected Albanian |
 |---|---|---|---|---|---|
@@ -1251,6 +1279,34 @@ reviewed any of these strings unless this document or the commit history says so
 | `Diag_Net_Check_port` | Connection port | Porta e lidhjes | machine-written (git author Claude, bfe04de) |  | |
 | `Diag_Net_Check_server` | Server | Serveri | machine-written (git author Claude, bfe04de) |  | |
 | `Diag_Net_Latency` | Average connection time: {0} ms | Koha mesatare e lidhjes: {0} ms | machine-written (git author Claude, bfe04de) |  | |
+| `Update_Section_Title` | Updates | Përditësimet | uncommitted when generated |  | |
+| `Update_Toggle_Header` | Check for updates | Kontrollo për përditësime | uncommitted when generated |  | |
+| `Update_Toggle_On` | On | Aktiv | uncommitted when generated |  | |
+| `Update_Toggle_Off` | Off | Joaktiv | uncommitted when generated |  | |
+| `Update_Toggle_Description` | When this is on, Remotely asks the project's releases page on GitHub once a day whether a newer version exists. It only tells you: nothing is installed by itself. It is off until you turn it on. | Kur është aktiv, Remotely pyet një herë në ditë faqen e botimeve të projektit në GitHub nëse ekziston një version më i ri. Ju njofton vetëm: asgjë nuk instalohet vetvetiu. Është joaktiv derisa ta aktivizoni. | uncommitted when generated |  | |
+| `Update_CheckNow` | Check now | Kontrollo tani | uncommitted when generated |  | |
+| `Update_Download` | Download | Shkarko | uncommitted when generated |  | |
+| `Update_Skip` | Skip this version | Kapërce këtë version | uncommitted when generated |  | |
+| `Update_OpenInstaller` | Open the installer | Hap instaluesin | uncommitted when generated |  | |
+| `Update_ShowInFolder` | Show in folder | Shfaq në dosje | uncommitted when generated |  | |
+| `Update_ReleaseNotes` | What is new | Çfarë ka të re | uncommitted when generated |  | |
+| `Update_Banner_Title` | Version {0} is available | Versioni {0} është i disponueshëm | uncommitted when generated |  | |
+| `Update_Banner_Message` | Nothing is installed by itself. Download it, then open the installer when you are ready. | Asgjë nuk instalohet vetvetiu. Shkarkojeni, pastaj hapeni instaluesin kur të jeni gati. | uncommitted when generated |  | |
+| `Update_Banner_Ready` | Version {0} was downloaded and checked. Open the installer when you are ready. | Versioni {0} u shkarkua dhe u kontrollua. Hapeni instaluesin kur të jeni gati. | uncommitted when generated |  | |
+| `Update_Status_Off` | Update checks are off. | Kontrollet për përditësime janë joaktive. | uncommitted when generated |  | |
+| `Update_Status_Idle` | Not checked yet. | Ende pa kontrolluar. | uncommitted when generated |  | |
+| `Update_Status_Checking` | Checking… | Po kontrollohet… | uncommitted when generated |  | |
+| `Update_Status_UpToDate` | You have the latest version ({0}). | Keni versionin më të fundit ({0}). | uncommitted when generated |  | |
+| `Update_Status_Available` | Version {0} is available. | Versioni {0} është i disponueshëm. | uncommitted when generated |  | |
+| `Update_Status_Downloading` | Downloading version {0}… {1}% | Po shkarkohet versioni {0}… {1}% | uncommitted when generated |  | |
+| `Update_Status_Ready` | Version {0} was downloaded and checked against the SHA-256 published with the release. | Versioni {0} u shkarkua dhe u kontrollua me SHA-256 të publikuar me botimin. | uncommitted when generated |  | |
+| `Update_Status_Unverifiable` | A newer version exists, but its release does not publish a SHA-256 for the installer, so it is not offered. {0} | Ekziston një version më i ri, por botimi i tij nuk publikon SHA-256 për instaluesin, ndaj nuk ofrohet. {0} | uncommitted when generated |  | |
+| `Update_Status_NoPackage` | A newer version exists, but it has no installer for this PC. {0} | Ekziston një version më i ri, por nuk ka instalues për këtë kompjuter. {0} | uncommitted when generated |  | |
+| `Update_Status_Failed` | The update check or download did not work: {0} | Kontrolli ose shkarkimi i përditësimit nuk funksionoi: {0} | uncommitted when generated |  | |
+| `Update_Sig_Valid` | The installer has a valid digital signature. Signed by: {0} | Instaluesi ka nënshkrim dixhital të vlefshëm. Nënshkruar nga: {0} | uncommitted when generated |  | |
+| `Update_Sig_Unsigned` | The installer is not digitally signed (Windows SmartScreen will warn). It matches the SHA-256 published with the release. | Instaluesi nuk është i nënshkruar dixhitalisht (Windows SmartScreen do të paralajmërojë). Përputhet me SHA-256 të publikuar me botimin. | uncommitted when generated |  | |
+| `Update_Sig_NotChecked` | The digital signature was not checked on this system. | Nënshkrimi dixhital nuk u kontrollua në këtë sistem. | uncommitted when generated |  | |
+| `Update_Changed_Warning` | The downloaded file changed after it was checked, so it was not opened. Download it again. | Skedari i shkarkuar ndryshoi pasi u kontrollua, ndaj nuk u hap. Shkarkojeni përsëri. | uncommitted when generated |  | |
 
 ## Notes for the reviewer
 
@@ -1258,4 +1314,4 @@ reviewed any of these strings unless this document or the commit history says so
 - Forms of address: the strings use the polite plural (`ju`, `tuaj`). Confirm that this is the register you want for an app.
 - Units in `Duration_*` (`h`, `min`, `s`) are left as in English.
 
-Counts at generation time: 1228 machine-written, 0 with another git author, 0 uncommitted.
+Counts at generation time: 1228 machine-written, 0 with another git author, 56 uncommitted.

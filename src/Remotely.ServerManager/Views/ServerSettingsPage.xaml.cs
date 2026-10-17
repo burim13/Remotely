@@ -88,6 +88,7 @@ public sealed partial class ServerSettingsPage : Page
         Root.Children.Add(Ui.Card(server));
         Root.Children.Add(Ui.Card(manager));
         Root.Children.Add(Ui.Card(backup));
+        Root.Children.Add(Ui.Card(new Remotely.ServerManager.Update.UpdateSettingsSection()));
         Root.Children.Add(about);
 
         Loaded += async (_, _) => await LoadAsync();

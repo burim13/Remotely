@@ -12,6 +12,7 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
         Title = Ui.T("App_Name");
+        if (!App.Args.Fake && App.Args.Show is null) Remotely.ServerManager.Update.ManagerUpdates.StartBackgroundCheck();   // does nothing unless the person turned update checks on
         PaneTitle.Text = Ui.T("App_Name");
         NavDashboard.Content = Ui.T("Nav_Dashboard");
         NavInvite.Content = Ui.T("Nav_Invite");

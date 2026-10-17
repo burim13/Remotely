@@ -10,5 +10,6 @@ public sealed partial class SettingsAboutPage : Page
     {
         InitializeComponent();
         SectionView.Build(Body, SettingsSection.About);
+        Body.Children.Add(new Remotely.App.Update.UpdateSettingsSection());
     }
 }

@@ -41,3 +41,4 @@ src/Remotely.ServerManager/Views/Help/DiagnosticsHub.cs | Remotely Server Manage
 src/Remotely.App/Views/Unattended/UnattendedController.cs | Cannot tell who owns the pipe. | security diagnostic returned to the caller's log when the pipe owner cannot be verified, not shown as UI text
 src/Remotely.App/Views/Unattended/UnattendedController.cs | The pipe belongs to process , not to the Remotely service (process ). | security diagnostic for the log (the process ids are interpolated), not shown as UI text
 src/Remotely.App/Views/Unattended/UnattendedPage.xaml.cs | unreachable | internal error code used as a switch key; the shown text is the resource Unattended_Err_Unreachable
+src/Remotely.ServerManager/Update/ManagerUpdates.cs | Remotely Server Manager | product name used as the update product identifier and the download folder name, not shown as text

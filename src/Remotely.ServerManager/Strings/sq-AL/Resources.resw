@@ -521,4 +521,33 @@
   <data name="Diag_Net_Check_port" xml:space="preserve"><value>Porta e lidhjes</value></data>
   <data name="Diag_Net_Check_server" xml:space="preserve"><value>Serveri</value></data>
   <data name="Diag_Net_Latency" xml:space="preserve"><value>Koha mesatare e lidhjes: {0} ms</value></data>
+  <!-- Update_* Albanian: machine-written by Claude, not yet reviewed by a fluent speaker. -->
+  <data name="Update_Section_Title" xml:space="preserve"><value>Përditësimet</value></data>
+  <data name="Update_Toggle_Header" xml:space="preserve"><value>Kontrollo për përditësime</value></data>
+  <data name="Update_Toggle_On" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Update_Toggle_Off" xml:space="preserve"><value>Joaktiv</value></data>
+  <data name="Update_Toggle_Description" xml:space="preserve"><value>Kur është aktiv, Remotely pyet një herë në ditë faqen e botimeve të projektit në GitHub nëse ekziston një version më i ri. Ju njofton vetëm: asgjë nuk instalohet vetvetiu. Është joaktiv derisa ta aktivizoni.</value></data>
+  <data name="Update_CheckNow" xml:space="preserve"><value>Kontrollo tani</value></data>
+  <data name="Update_Download" xml:space="preserve"><value>Shkarko</value></data>
+  <data name="Update_Skip" xml:space="preserve"><value>Kapërce këtë version</value></data>
+  <data name="Update_OpenInstaller" xml:space="preserve"><value>Hap instaluesin</value></data>
+  <data name="Update_ShowInFolder" xml:space="preserve"><value>Shfaq në dosje</value></data>
+  <data name="Update_ReleaseNotes" xml:space="preserve"><value>Çfarë ka të re</value></data>
+  <data name="Update_Banner_Title" xml:space="preserve"><value>Versioni {0} është i disponueshëm</value></data>
+  <data name="Update_Banner_Message" xml:space="preserve"><value>Asgjë nuk instalohet vetvetiu. Shkarkojeni, pastaj hapeni instaluesin kur të jeni gati.</value></data>
+  <data name="Update_Banner_Ready" xml:space="preserve"><value>Versioni {0} u shkarkua dhe u kontrollua. Hapeni instaluesin kur të jeni gati.</value></data>
+  <data name="Update_Status_Off" xml:space="preserve"><value>Kontrollet për përditësime janë joaktive.</value></data>
+  <data name="Update_Status_Idle" xml:space="preserve"><value>Ende pa kontrolluar.</value></data>
+  <data name="Update_Status_Checking" xml:space="preserve"><value>Po kontrollohet…</value></data>
+  <data name="Update_Status_UpToDate" xml:space="preserve"><value>Keni versionin më të fundit ({0}).</value></data>
+  <data name="Update_Status_Available" xml:space="preserve"><value>Versioni {0} është i disponueshëm.</value></data>
+  <data name="Update_Status_Downloading" xml:space="preserve"><value>Po shkarkohet versioni {0}… {1}%</value></data>
+  <data name="Update_Status_Ready" xml:space="preserve"><value>Versioni {0} u shkarkua dhe u kontrollua me SHA-256 të publikuar me botimin.</value></data>
+  <data name="Update_Status_Unverifiable" xml:space="preserve"><value>Ekziston një version më i ri, por botimi i tij nuk publikon SHA-256 për instaluesin, ndaj nuk ofrohet. {0}</value></data>
+  <data name="Update_Status_NoPackage" xml:space="preserve"><value>Ekziston një version më i ri, por nuk ka instalues për këtë kompjuter. {0}</value></data>
+  <data name="Update_Status_Failed" xml:space="preserve"><value>Kontrolli ose shkarkimi i përditësimit nuk funksionoi: {0}</value></data>
+  <data name="Update_Sig_Valid" xml:space="preserve"><value>Instaluesi ka nënshkrim dixhital të vlefshëm. Nënshkruar nga: {0}</value></data>
+  <data name="Update_Sig_Unsigned" xml:space="preserve"><value>Instaluesi nuk është i nënshkruar dixhitalisht (Windows SmartScreen do të paralajmërojë). Përputhet me SHA-256 të publikuar me botimin.</value></data>
+  <data name="Update_Sig_NotChecked" xml:space="preserve"><value>Nënshkrimi dixhital nuk u kontrollua në këtë sistem.</value></data>
+  <data name="Update_Changed_Warning" xml:space="preserve"><value>Skedari i shkarkuar ndryshoi pasi u kontrollua, ndaj nuk u hap. Shkarkojeni përsëri.</value></data>
 </root>
