@@ -47,6 +47,7 @@ internal static class SelfTest
 
             await session.DisposeAsync();
             await share.DisposeAsync();
+            await Remotely.App.Views.Share.ShareSelfTests.RunCoreAsync(Log, Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread());
             File.WriteAllLines(resultPath, ["PASS", .. lines]);
             return 0;
         }
