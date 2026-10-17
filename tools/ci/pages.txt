@@ -3,3 +3,8 @@ ComputersPage
 SettingsPage
 GalleryPage
 TransfersPage
+OnboardingPage
+OnboardingNamePage
+OnboardingSharePage
+OnboardingServerPage
+OnboardingDonePage

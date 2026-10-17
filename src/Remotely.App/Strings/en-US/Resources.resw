@@ -56,4 +56,47 @@
   <data name="Transfers_Error_Unsupported" xml:space="preserve"><value>The other PC does not support this. Update Remotely there.</value></data>
   <data name="Transfers_Error_SourceChanged" xml:space="preserve"><value>The file changed while it was being sent. Try again.</value></data>
   <data name="Transfers_Error_Other" xml:space="preserve"><value>Something went wrong: {0}</value></data>
+  <!-- ===== App shell, tray, crash dialog and first run (agent A2) ===== -->
+  <data name="Common_On" xml:space="preserve"><value>On</value></data>
+  <data name="Common_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Dialog_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Dialog_CopyDetails" xml:space="preserve"><value>Copy details</value></data>
+  <data name="Dialog_Copied" xml:space="preserve"><value>Copied</value></data>
+  <data name="Crash_Title" xml:space="preserve"><value>Something went wrong</value></data>
+  <data name="Crash_Message" xml:space="preserve"><value>Remotely hit an unexpected problem. You can keep working. If it keeps happening, copy the details and send them with your report.</value></data>
+  <data name="Invite_Failed_Title" xml:space="preserve"><value>Could not join with the invite</value></data>
+  <data name="Tray_Open" xml:space="preserve"><value>Open Remotely</value></data>
+  <data name="Tray_Share" xml:space="preserve"><value>Share this PC on my network</value></data>
+  <data name="Tray_CloseToTray" xml:space="preserve"><value>Keep running in the tray when closed</value></data>
+  <data name="Tray_StartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
+  <data name="Tray_Quit" xml:space="preserve"><value>Quit</value></data>
+  <data name="Tray_ShareFailed" xml:space="preserve"><value>Sharing did not start</value></data>
+  <data name="Startup_Failed" xml:space="preserve"><value>Windows did not allow this change.</value></data>
+  <data name="Onboarding_StepOf" xml:space="preserve"><value>Step {0} of {1}</value></data>
+  <data name="Onboarding_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Onboarding_Next" xml:space="preserve"><value>Next</value></data>
+  <data name="Onboarding_Finish" xml:space="preserve"><value>Finish</value></data>
+  <data name="Onboarding_Skip" xml:space="preserve"><value>Skip setup</value></data>
+  <data name="Onboarding_Name_Title" xml:space="preserve"><value>Name this PC</value></data>
+  <data name="Onboarding_Name_Body" xml:space="preserve"><value>This is how this PC appears to the people and devices you connect with. You can change it later in Settings.</value></data>
+  <data name="Onboarding_Name_Header" xml:space="preserve"><value>PC name</value></data>
+  <data name="Onboarding_Name_Empty" xml:space="preserve"><value>Enter a name for this PC.</value></data>
+  <data name="Onboarding_Share_Title" xml:space="preserve"><value>Share this PC on your network?</value></data>
+  <data name="Onboarding_Share_Body" xml:space="preserve"><value>If you turn this on, someone on the same network who has a one-time code from you can see and control this screen. Nothing is shared until a code is entered, and each code works once. You can switch sharing off at any time.</value></data>
+  <data name="Onboarding_Share_Switch" xml:space="preserve"><value>Share this PC on my network</value></data>
+  <data name="Onboarding_Server_Title" xml:space="preserve"><value>Connect to your server (optional)</value></data>
+  <data name="Onboarding_Server_Body" xml:space="preserve"><value>A server lets you reach your PCs from other networks. If you already have one, paste the invite it gave you. If not, skip this: sharing on the same network works without a server.</value></data>
+  <data name="Onboarding_Server_Header" xml:space="preserve"><value>Invite from your server</value></data>
+  <data name="Onboarding_Server_Placeholder" xml:space="preserve"><value>RMT1-…</value></data>
+  <data name="Onboarding_Server_Working" xml:space="preserve"><value>Connecting…</value></data>
+  <data name="Onboarding_Server_Connected" xml:space="preserve"><value>Connected to {0}.</value></data>
+  <data name="Onboarding_Done_Title" xml:space="preserve"><value>You are all set</value></data>
+  <data name="Onboarding_Done_Body" xml:space="preserve"><value>This is how Remotely is set up.</value></data>
+  <data name="Onboarding_Done_Name" xml:space="preserve"><value>This PC is called {0}.</value></data>
+  <data name="Onboarding_Done_SharingOn" xml:space="preserve"><value>Sharing on your network is on.</value></data>
+  <data name="Onboarding_Done_SharingOff" xml:space="preserve"><value>Sharing on your network is off.</value></data>
+  <data name="Onboarding_Done_Server" xml:space="preserve"><value>Server: {0}</value></data>
+  <data name="Onboarding_Done_NoServer" xml:space="preserve"><value>No server yet.</value></data>
+  <data name="Onboarding_Done_StartWithWindows" xml:space="preserve"><value>Start Remotely when I sign in to Windows</value></data>
+  <data name="Onboarding_Done_CloseToTray" xml:space="preserve"><value>Keep Remotely running in the tray when I close the window</value></data>
 </root>

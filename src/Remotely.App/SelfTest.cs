@@ -87,6 +87,7 @@ internal static class SelfTest
         catch (Exception ex)
         {
             Log("FAILED: " + ex);
+            Log("app logs:" + Environment.NewLine + App.ReadLogs());
             File.WriteAllLines(resultPath, ["FAIL", .. lines]);
             return 1;
         }

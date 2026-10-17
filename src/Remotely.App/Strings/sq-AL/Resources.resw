@@ -56,4 +56,47 @@
   <data name="Transfers_Error_Unsupported" xml:space="preserve"><value>Kompjuteri tjetër nuk e mbështet këtë. Përditësoni Remotely atje.</value></data>
   <data name="Transfers_Error_SourceChanged" xml:space="preserve"><value>Skedari ndryshoi gjatë dërgimit. Provoni përsëri.</value></data>
   <data name="Transfers_Error_Other" xml:space="preserve"><value>Diçka shkoi keq: {0}</value></data>
+  <!-- ===== App shell, tray, crash dialog and first run (agent A2). The Albanian below is machine-written and has not been reviewed by a native speaker. ===== -->
+  <data name="Common_On" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Common_Off" xml:space="preserve"><value>Joaktiv</value></data>
+  <data name="Dialog_Close" xml:space="preserve"><value>Mbyll</value></data>
+  <data name="Dialog_CopyDetails" xml:space="preserve"><value>Kopjo detajet</value></data>
+  <data name="Dialog_Copied" xml:space="preserve"><value>U kopjua</value></data>
+  <data name="Crash_Title" xml:space="preserve"><value>Diçka shkoi keq</value></data>
+  <data name="Crash_Message" xml:space="preserve"><value>Remotely hasi një problem të papritur. Mund të vazhdoni punën. Nëse përsëritet, kopjoni detajet dhe dërgojini së bashku me raportimin tuaj.</value></data>
+  <data name="Invite_Failed_Title" xml:space="preserve"><value>Nuk u lidh dot me ftesën</value></data>
+  <data name="Tray_Open" xml:space="preserve"><value>Hap Remotely</value></data>
+  <data name="Tray_Share" xml:space="preserve"><value>Ndaj këtë kompjuter në rrjetin tim</value></data>
+  <data name="Tray_CloseToTray" xml:space="preserve"><value>Mbaje të hapur në tabelën e njoftimeve kur mbyllet</value></data>
+  <data name="Tray_StartWithWindows" xml:space="preserve"><value>Nise me Windows</value></data>
+  <data name="Tray_Quit" xml:space="preserve"><value>Dil</value></data>
+  <data name="Tray_ShareFailed" xml:space="preserve"><value>Ndarja nuk filloi</value></data>
+  <data name="Startup_Failed" xml:space="preserve"><value>Windows nuk e lejoi këtë ndryshim.</value></data>
+  <data name="Onboarding_StepOf" xml:space="preserve"><value>Hapi {0} nga {1}</value></data>
+  <data name="Onboarding_Back" xml:space="preserve"><value>Mbrapa</value></data>
+  <data name="Onboarding_Next" xml:space="preserve"><value>Vazhdo</value></data>
+  <data name="Onboarding_Finish" xml:space="preserve"><value>Mbaro</value></data>
+  <data name="Onboarding_Skip" xml:space="preserve"><value>Kapërce konfigurimin</value></data>
+  <data name="Onboarding_Name_Title" xml:space="preserve"><value>Emërtoni këtë kompjuter</value></data>
+  <data name="Onboarding_Name_Body" xml:space="preserve"><value>Kështu shfaqet ky kompjuter te personat dhe pajisjet me të cilat lidheni. Mund ta ndryshoni më vonë te Cilësimet.</value></data>
+  <data name="Onboarding_Name_Header" xml:space="preserve"><value>Emri i kompjuterit</value></data>
+  <data name="Onboarding_Name_Empty" xml:space="preserve"><value>Shkruani një emër për këtë kompjuter.</value></data>
+  <data name="Onboarding_Share_Title" xml:space="preserve"><value>Ta ndani këtë kompjuter në rrjetin tuaj?</value></data>
+  <data name="Onboarding_Share_Body" xml:space="preserve"><value>Nëse e aktivizoni, dikush në të njëjtin rrjet që ka një kod njëpërdorimsh nga ju mund ta shohë dhe ta kontrollojë këtë ekran. Asgjë nuk ndahet derisa të futet një kod, dhe çdo kod vlen vetëm një herë. Mund ta çaktivizoni ndarjen në çdo kohë.</value></data>
+  <data name="Onboarding_Share_Switch" xml:space="preserve"><value>Ndaj këtë kompjuter në rrjetin tim</value></data>
+  <data name="Onboarding_Server_Title" xml:space="preserve"><value>Lidhuni me serverin tuaj (opsionale)</value></data>
+  <data name="Onboarding_Server_Body" xml:space="preserve"><value>Një server ju lejon të arrini kompjuterët tuaj nga rrjete të tjera. Nëse e keni tashmë një, ngjitni ftesën që ju dha. Nëse jo, kapërcejeni: ndarja në të njëjtin rrjet funksionon pa server.</value></data>
+  <data name="Onboarding_Server_Header" xml:space="preserve"><value>Ftesa nga serveri juaj</value></data>
+  <data name="Onboarding_Server_Placeholder" xml:space="preserve"><value>RMT1-…</value></data>
+  <data name="Onboarding_Server_Working" xml:space="preserve"><value>Po lidhet…</value></data>
+  <data name="Onboarding_Server_Connected" xml:space="preserve"><value>Lidhur me {0}.</value></data>
+  <data name="Onboarding_Done_Title" xml:space="preserve"><value>Gjithçka është gati</value></data>
+  <data name="Onboarding_Done_Body" xml:space="preserve"><value>Kështu është konfiguruar Remotely.</value></data>
+  <data name="Onboarding_Done_Name" xml:space="preserve"><value>Ky kompjuter quhet {0}.</value></data>
+  <data name="Onboarding_Done_SharingOn" xml:space="preserve"><value>Ndarja në rrjetin tuaj është aktive.</value></data>
+  <data name="Onboarding_Done_SharingOff" xml:space="preserve"><value>Ndarja në rrjetin tuaj është joaktive.</value></data>
+  <data name="Onboarding_Done_Server" xml:space="preserve"><value>Serveri: {0}</value></data>
+  <data name="Onboarding_Done_NoServer" xml:space="preserve"><value>Ende pa server.</value></data>
+  <data name="Onboarding_Done_StartWithWindows" xml:space="preserve"><value>Nise Remotely kur hyj në Windows</value></data>
+  <data name="Onboarding_Done_CloseToTray" xml:space="preserve"><value>Mbaje Remotely të hapur në tabelën e njoftimeve kur e mbyll dritaren</value></data>
 </root>
