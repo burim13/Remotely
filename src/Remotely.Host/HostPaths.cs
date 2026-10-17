@@ -15,6 +15,8 @@ internal static class HostPaths
 
     public static string DataDir => Path.Combine(Environment.GetFolderPath(UserMode ? Environment.SpecialFolder.LocalApplicationData : Environment.SpecialFolder.CommonApplicationData), "Remotely");
     public static string ConfigFile => Path.Combine(DataDir, "host.json");
+    /// <summary>Machine-wide choices for unattended access (see <c>Remotely.Host.Unattended.UnattendedSettings</c>).</summary>
+    public static string UnattendedFile => Path.Combine(DataDir, "unattended.json");
     public static string KeyFile => Path.Combine(DataDir, "host.key");
     public static string LogDir => Path.Combine(DataDir, "logs");
     public static string ProgramDir => UserMode

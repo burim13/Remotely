@@ -22,3 +22,4 @@ SettingsAboutPage
 SettingsAddressBookPage
 DiagnosticsPage
 NetworkTestPage
+UnattendedPage

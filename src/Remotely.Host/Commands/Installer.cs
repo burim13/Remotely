@@ -43,6 +43,7 @@ internal static class Installer
         if (code != 0) return code;
         Sc("description", ServiceName, "Lets your other devices view and control this PC through your own Remotely server.");
         Sc("failure", ServiceName, "reset=", "86400", "actions=", "restart/5000/restart/5000/restart/5000");
+        Sc("failureflag", ServiceName, "1");   // also restart it when it stops itself with an error code, not only when it crashes
         HostPaths.EnsureDataDir();
         code = Sc("start", ServiceName);
         Console.WriteLine(code == 0 ? "Installed and started. Log: " + HostPaths.LogDir : "Installed, but it did not start; check 'sc query Remotely.Host' and the log.");
@@ -62,6 +63,7 @@ internal static class Installer
         }
         if (!RequireAdmin()) return 1;
         if (ServiceExists()) { Sc("stop", ServiceName); WaitStopped(); Sc("delete", ServiceName); }
+        Unattended.LanFirewall.Remove();   // the rules for same-network sharing through the service (a no-op when they were never added)
         TryDeleteProgram();
         Console.WriteLine("Service removed. Settings, key and logs in " + HostPaths.DataDir + " were kept.");
         return 0;
@@ -145,6 +147,33 @@ internal static class Installer
         return 0;
     }
 
+    /// <summary>Starts the installed service and waits (up to 20 s) for it to run. Exit code 0 when it runs.</summary>
+    public static int StartService()
+    {
+        if (!RequireAdmin()) return 1;
+        if (!ServiceExists()) { Console.WriteLine("The Remotely service is not installed."); return 1; }
+        if (!ServiceState().Contains("RUNNING")) Sc("start", ServiceName);
+        for (var i = 0; i < 40; i++)
+        {
+            if (ServiceState().Contains("RUNNING")) { Console.WriteLine("The Remotely service is running."); return 0; }
+            Thread.Sleep(500);
+        }
+        Console.WriteLine("The Remotely service did not start; check 'sc query Remotely.Host' and the log in " + HostPaths.LogDir);
+        return 1;
+    }
+
+    /// <summary>Stops the service and waits (up to 10 s) for it to stop. Exit code 0 when it is not running any more.</summary>
+    public static int StopService()
+    {
+        if (!RequireAdmin()) return 1;
+        if (!ServiceExists()) { Console.WriteLine("The Remotely service is not installed."); return 1; }
+        if (ServiceState().Contains("RUNNING")) Sc("stop", ServiceName);
+        WaitStopped();
+        var state = ServiceState();
+        Console.WriteLine(state.Contains("STOPPED") ? "The Remotely service is stopped." : "The Remotely service did not stop: " + state);
+        return state.Contains("STOPPED") ? 0 : 1;
+    }
+
     public static string ServiceState()
     {
         var (code, output) = Run("sc.exe", "query", ServiceName);
@@ -185,7 +214,7 @@ internal static class Installer
         return code;
     }
 
-    private static (int Code, string Output) Run(string file, params string[] args)
+    internal static (int Code, string Output) Run(string file, params string[] args)
     {
         var info = new ProcessStartInfo(file) { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false, CreateNoWindow = true };
         foreach (var a in args) info.ArgumentList.Add(a);
@@ -195,7 +224,7 @@ internal static class Installer
         return (process.ExitCode, output);
     }
 
-    private static bool RequireAdmin()
+    internal static bool RequireAdmin()
     {
         if (HostPaths.IsAdministrator()) return true;
         Console.WriteLine("This needs an elevated prompt: right-click Terminal, Run as administrator. (Or add --user to install without administrator rights.)");
