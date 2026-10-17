@@ -52,7 +52,7 @@ internal sealed class HelperPipe
 }
 
 /// <summary>The service's view of the helper: screen, input and clipboard, each forwarded over a pipe to the process running in the user's session.</summary>
-internal sealed class HelperLink : IFrameSource, IInputSink, IClipboardSync
+internal sealed class HelperLink : ITiledFrameSource, IInputSink, IClipboardSync
 {
     public HelperPipe Main { get; } = new();
     public HelperPipe Input { get; } = new();
@@ -67,6 +67,9 @@ internal sealed class HelperLink : IFrameSource, IInputSink, IClipboardSync
 
     public async Task<FrameInfo> CaptureAsync(CancellationToken ct) =>
         FrameCodec.Decode(await Main.CallAsync(HelperRpc.Capture, [], ct).ConfigureAwait(false));
+
+    public async Task<TileCapture> CaptureTilesAsync(TileRequest request, CancellationToken ct) =>
+        FrameWire.DecodeCapture(await Main.CallAsync(HelperRpc.Capture, FrameWire.EncodeRequest(request), ct).ConfigureAwait(false));
 
     public async Task InjectAsync(IReadOnlyList<InputEvent> events, CancellationToken ct) =>
         await Input.CallAsync(HelperRpc.Input, InputCodec.Encode(events), ct).ConfigureAwait(false);

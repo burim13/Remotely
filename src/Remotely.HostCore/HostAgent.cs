@@ -79,7 +79,7 @@ public sealed partial class HostAgent(DeviceIdentity identity, HostServices serv
     {
         var session = new Session(secure, viewerLabel, control);
         log($"Viewer {viewerLabel} connected ({(session.Control ? "control" : "view only")}).");
-        await secure.SendAsync(new HelloInfo(HostMessages.ProtocolVersion, Capabilities(session)).Encode(), ct).ConfigureAwait(false);
+        await secure.SendAsync((await HelloForAsync(session, ct).ConfigureAwait(false)).Encode(), ct).ConfigureAwait(false);
         try
         {
             while (await secure.ReceiveAsync(ct).ConfigureAwait(false) is { } message)
@@ -131,6 +131,9 @@ public sealed partial class HostAgent(DeviceIdentity identity, HostServices serv
                     break;
                 case HostMessages.ShareGet when s.Control && services.ShareDirectory is not null:
                     StartDownload(s, message, ct);
+                    break;
+                case >= 0x20 and <= 0x2F:
+                    await HandleFrameMessageAsync(s, message, ct).ConfigureAwait(false);
                     break;
                 default:
                     await ErrorAsync(s, "That request is not available.", ct).ConfigureAwait(false);

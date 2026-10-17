@@ -34,7 +34,7 @@ internal static class HelperProgram
 
             Serve(main, request => request.First switch
             {
-                HelperRpc.Capture => CaptureAsync(capturer),
+                HelperRpc.Capture => CaptureAsync(capturer, request.Payload),
                 HelperRpc.ClipboardRead => ClipboardReadAsync(clipboard),
                 HelperRpc.ClipboardWrite => ClipboardWriteAsync(clipboard, request.Payload),
                 _ => throw new InvalidOperationException("Unknown request."),
@@ -71,8 +71,11 @@ internal static class HelperProgram
         catch (Exception ex) when (ex is EndOfStreamException or IOException or ObjectDisposedException) { /* peer closed */ }
     }
 
-    private static async Task<byte[]> CaptureAsync(DesktopCapturer capturer) =>
-        FrameCodec.Encode(await capturer.CaptureAsync(CancellationToken.None).ConfigureAwait(false));
+    /// <summary>An empty request is the version 1 call (one full-frame JPEG); a tile request carries the viewer's session and settings.</summary>
+    private static async Task<byte[]> CaptureAsync(DesktopCapturer capturer, byte[] payload) =>
+        FrameWire.TryDecodeRequest(payload, out var request)
+            ? FrameWire.EncodeCapture(await capturer.CaptureTilesAsync(request, CancellationToken.None).ConfigureAwait(false))
+            : FrameCodec.Encode(await capturer.CaptureAsync(CancellationToken.None).ConfigureAwait(false));
 
     private static async Task<byte[]> InputAsync(InputInjector injector, byte[] payload)
     {

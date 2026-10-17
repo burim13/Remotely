@@ -89,7 +89,7 @@ public sealed partial class ViewerSession : IAsyncDisposable
     {
         var first = await secure.ReceiveAsync(ct).ConfigureAwait(false) ?? throw new HandshakeException("Host closed the session.");
         var hello = HelloInfo.Decode(first) ?? throw new HandshakeException("Host did not introduce itself.");
-        if (hello.Version != HostMessages.ProtocolVersion) throw new HandshakeException("Host speaks a different protocol version.");
+        if (hello.Version is < 1 or > HostMessages.ProtocolVersion) throw new HandshakeException("Host speaks a different protocol version.");
         var session = new ViewerSession(secure, hello, hostLabel);
         session._receiveLoop = Task.Run(session.ReceiveLoopAsync);
         session._frameLoop = Task.Run(session.FrameLoopAsync);
@@ -137,6 +137,9 @@ public sealed partial class ViewerSession : IAsyncDisposable
                         break;
                     case HostMessages.ShareFileStart or HostMessages.ShareFileChunk or HostMessages.ShareFileEnd:
                         HandleDownload(message);
+                        break;
+                    case >= 0xA0 and <= 0xAF:
+                        HandleFrameMessage(message);
                         break;
                 }
             }
