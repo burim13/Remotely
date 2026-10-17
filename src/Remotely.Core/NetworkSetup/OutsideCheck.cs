@@ -26,6 +26,15 @@ public sealed class UnavailableOutsideCheck : IOutsideCheck
     public Task<OutsideCheckHit?> GetHitAsync(string ticketId, CancellationToken ct = default) => throw new NotSupportedException();
 }
 
+/// <summary>Invented answers for <c>--fake</c> demos and screenshots: the second poll "sees" a phone on mobile data. Never used against a real server.</summary>
+public sealed class DemoOutsideCheck : IOutsideCheck
+{
+    private int _polls;
+    public Task<OutsideCheckTicket> StartAsync(CancellationToken ct = default) { _polls = 0; return Task.FromResult(new OutsideCheckTicket("demo", "/check/DEMO")); }
+    public Task<OutsideCheckHit?> GetHitAsync(string ticketId, CancellationToken ct = default) =>
+        Task.FromResult<OutsideCheckHit?>(++_polls < 2 ? null : new OutsideCheckHit(IPAddress.Parse("198.51.100.20"), DateTimeOffset.UtcNow));
+}
+
 public enum OutsideVerdict
 {
     /// <summary>A request arrived from an address outside every private range: the port is reachable from the internet.</summary>

@@ -12,6 +12,7 @@ namespace Remotely.App.Shell;
 ///   --instance-name NAME     test only: single-instance name to use instead of the per-user default
 ///   --selftest FILE          share this PC, connect to it, write PASS or FAIL to FILE, exit (CI)
 ///   --selftest-server FILE HOSTID   the same through the configured server (CI)
+///   --selftest-session FILE  open a real session window against an in-process fake host and check frame, input and transfers panel (CI)
 /// An option that needs a value and does not get one is reported in <see cref="Problems"/> and ignored; unknown options are ignored and reported.
 /// </summary>
 public sealed record AppOptions
@@ -27,9 +28,10 @@ public sealed record AppOptions
     public string? SelfTestResultPath { get; init; }
     public string? SelfTestServerResultPath { get; init; }
     public string? SelfTestServerHostPrefix { get; init; }
+    public string? SelfTestSessionResultPath { get; init; }
     public IReadOnlyList<string> Problems { get; init; } = [];
 
-    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null || SelfTestShellResultPath is not null;
+    public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null || SelfTestSessionResultPath is not null || SelfTestShellResultPath is not null;
 
     /// <summary>Self-tests and --show are test and CI launches: they never join or forward to a running instance.</summary>
     public bool UsesSingleInstance => !IsSelfTest && Show is null;
@@ -52,7 +54,7 @@ public sealed record AppOptions
                 case "--minimized":
                     o = o with { Minimized = true };
                     break;
-                case "--invite" or "--pair" or "--connect-token" or "--show" or "--selftest" or "--show-result" or "--selftest-shell" or "--instance-name":
+                case "--invite" or "--pair" or "--connect-token" or "--show" or "--selftest" or "--selftest-session" or "--show-result" or "--selftest-shell" or "--instance-name":
                     if (Value(1) is { Length: > 0 } v)
                     {
                         o = key switch
@@ -64,6 +66,7 @@ public sealed record AppOptions
                             "--show-result" => o with { ShowResult = v },
                             "--selftest-shell" => o with { SelfTestShellResultPath = v },
                             "--instance-name" => o with { InstanceName = v.Trim() },
+                            "--selftest-session" => o with { SelfTestSessionResultPath = v },
                             _ => o with { SelfTestResultPath = v },
                         };
                         i++;

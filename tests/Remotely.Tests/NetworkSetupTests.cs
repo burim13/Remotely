@@ -788,6 +788,55 @@ public class NetworkSetupTests
     }
 
     [Fact]
+    public void A_pfx_and_its_password_travel_through_the_pipe_format_and_bad_data_is_refused()
+    {
+        var pfx = MakePfx("pw", Now.AddDays(-1), Now.AddYears(1));
+        using var ms = new MemoryStream();
+        PfxTransfer.Write(ms, pfx, "pässword");
+        ms.Position = 0;
+        var back = PfxTransfer.Read(ms)!.Value;
+        Assert.Equal(pfx, back.Pfx);
+        Assert.Equal("pässword", back.Password);
+
+        using var none = new MemoryStream();
+        PfxTransfer.Write(none, pfx, null);
+        none.Position = 0;
+        Assert.Null(PfxTransfer.Read(none)!.Value.Password);
+
+        Assert.Null(PfxTransfer.Read(new MemoryStream([1, 0, 0, 0, 0])));                         // length zero
+        Assert.Null(PfxTransfer.Read(new MemoryStream([0, 0xFF, 0xFF, 0xFF, 0x7F])));            // absurd length
+        Assert.Null(PfxTransfer.Read(new MemoryStream([0, 10, 0, 0, 0, 1, 2])));                 // cut off
+        Assert.Null(PfxTransfer.Read(new MemoryStream([])));
+    }
+
+    [Fact]
+    public async Task Installing_from_bytes_never_opens_a_path_and_the_helper_verbs_parse()
+    {
+        var data = TempDir();
+        try
+        {
+            var result = await new NetshElevatedActions(new RecordingRunner(), data).InstallCertificateBytesAsync(MakePfx(null, DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1)), null);
+            Assert.True(result.Ok, result.ErrorKey);
+            Assert.True(File.Exists(Path.Combine(data, "server.pfx")));
+        }
+        finally { Directory.Delete(data, true); }
+        foreach (var verb in new[] { "firewalladd", "firewallremove", "certinstall", "certrenew" })
+        {
+            var parsed = Remotely.Core.ServerManager.HelperCommandLine.Parse(["x", "--service-helper", verb, "8443"]);
+            Assert.True(parsed!.IsValid);
+        }
+        Assert.Equal("--service-helper firewalladd \"8443\"", Remotely.Core.ServerManager.HelperCommandLine.Build(Remotely.Core.ServerManager.ServiceVerb.FirewallAdd, "8443"));
+    }
+
+    [Fact]
+    public async Task The_demo_outside_check_sees_a_phone_on_the_second_poll()
+    {
+        var demo = new DemoOutsideCheck();
+        var (verdict, _) = await OutsideCheckEvaluator.WaitAsync(demo, await demo.StartAsync(), TimeSpan.FromSeconds(5), TimeSpan.FromMilliseconds(1));
+        Assert.Equal(OutsideVerdict.ReachableFromOutside, verdict);
+    }
+
+    [Fact]
     public async Task Renewing_without_a_current_certificate_says_so()
     {
         var data = TempDir();

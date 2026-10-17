@@ -18,7 +18,7 @@ public sealed partial class SessionPreviewPage : Page
         Toolbar.ScaleChosen += mode => { Screen.SetMode(mode); Toolbar.SetScale(mode); };
         Screen.SetFrame(new BitmapImage(new Uri("ms-appx:///Assets/remotely-256.png")), 256, 256);
         Screen.CanControl = false;
-        StatsText.Text = SessionStatsText.Format(new StatsSnapshot(0, 0, 0, 0, null, null, "JPEG"), 256, 256);
+        StatsText.Text = SessionStatsText.Format(new StatsSnapshot(0, 0, 0, 0, null, null, "JPEG"), null, 256, 256);
         KeyboardText.Text = Loc.Get("Session_Badge_Remote");
         KeyboardDot.Fill = Palette.Connected(this);
     }

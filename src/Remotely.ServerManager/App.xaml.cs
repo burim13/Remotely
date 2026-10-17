@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Remotely.Core.Admin;
 using Remotely.Core.ServerManager;
+using Remotely.ServerManager.Setup;
 using Remotely.ServerManager.Views;
 
 namespace Remotely.ServerManager;
@@ -112,6 +113,7 @@ public partial class App : Application
             var snapshot = await Monitor.RefreshAsync();
             Tray?.SetStatus(ServerMonitor.TrayStatusOf(snapshot, DateTimeOffset.UtcNow), TrayTip(snapshot));
             SnapshotChanged?.Invoke(snapshot);
+            await SetupLifecycle.OnSnapshotAsync(snapshot);
         }
         catch (Exception ex) when (ex is not OutOfMemoryException)
         {
@@ -168,6 +170,7 @@ public partial class App : Application
     private static void Cleanup()
     {
         _timer?.Stop();
+        SetupLifecycle.RemoveAllOnExit();
         Tray?.Dispose();
         Tray = null;
     }
@@ -184,6 +187,7 @@ internal static class Preflight
         () => new ActivityPage(),
         () => new ServicePage(),
         () => new ServerSettingsPage(),
+        () => { var page = new SetupWizardPage(); page.BuildStepsForSelfCheck(SetupLifecycle.Dependencies); return page; },
     ];
 
     public static bool Run(out Exception? failure)

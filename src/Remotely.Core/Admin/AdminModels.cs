@@ -21,3 +21,8 @@ public sealed class ServerAdminException(int statusCode, string message, Excepti
 {
     public int StatusCode { get; } = statusCode;
 }
+
+public sealed record OutsideCheckTicketInfo(string Id, string Path, DateTimeOffset ExpiresUtc);
+
+/// <summary>Who asked for the check page first (null until someone does). <see cref="Kind"/> is the address class the server worked out, for information.</summary>
+public sealed record OutsideCheckState(string? Source, DateTimeOffset? TimeUtc, string? Kind, DateTimeOffset ExpiresUtc);

@@ -88,13 +88,60 @@ public static class ServerCertificate
     }
 }
 
-/// <summary>The certificate the public port presents right now. Renewing or restoring swaps it without restarting (new connections get the new one).</summary>
-public sealed class CertificateHolder(X509Certificate2 initial)
+/// <summary>
+/// The certificate the public port presents right now. Renewing or restoring through the admin API swaps it at once. If server.pfx is replaced by something else
+/// (the Server Manager's helper does this), the file is noticed within <see cref="Recheck"/> and used for new connections; no restart.
+/// </summary>
+public sealed class CertificateHolder
 {
-    private volatile X509Certificate2 _current = initial;
+    public static readonly TimeSpan Recheck = TimeSpan.FromSeconds(5);
 
-    public X509Certificate2 Current => _current;
-    public string Pin => ServerCertificate.Pin(_current);
+    private readonly string? _path;
+    private volatile X509Certificate2 _current;
+    private DateTime _fileTime;
+    private long _nextCheck;
 
-    public void Replace(X509Certificate2 next) => _current = next;
+    public CertificateHolder(X509Certificate2 initial, string? pfxPath = null)
+    {
+        _current = initial;
+        _path = pfxPath;
+        _fileTime = pfxPath is not null && File.Exists(pfxPath) ? File.GetLastWriteTimeUtc(pfxPath) : default;
+    }
+
+    public X509Certificate2 Current
+    {
+        get
+        {
+            MaybeReload();
+            return _current;
+        }
+    }
+
+    public string Pin => ServerCertificate.Pin(Current);
+
+    public void Replace(X509Certificate2 next)
+    {
+        _current = next;
+        if (_path is not null && File.Exists(_path)) _fileTime = File.GetLastWriteTimeUtc(_path);
+    }
+
+    private void MaybeReload()
+    {
+        if (_path is null) return;
+        var now = Environment.TickCount64;
+        if (now < Interlocked.Read(ref _nextCheck)) return;
+        Interlocked.Exchange(ref _nextCheck, now + (long)Recheck.TotalMilliseconds);
+        try
+        {
+            if (!File.Exists(_path)) return;
+            var time = File.GetLastWriteTimeUtc(_path);
+            if (time == _fileTime) return;
+            _current = ServerCertificate.LoadFromBytes(File.ReadAllBytes(_path));
+            _fileTime = time;
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Security.Cryptography.CryptographicException)
+        {
+            // half-written or unreadable: keep the certificate in use and look again later
+        }
+    }
 }

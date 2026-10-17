@@ -144,6 +144,13 @@ public sealed class ServerAdminClient : IServerAdmin, IDisposable
         return reply["token"];
     }
 
+    /// <summary>Makes a ticket for the public check page /check/{id}; see <see cref="ServerOutsideCheck"/>.</summary>
+    public Task<OutsideCheckTicketInfo> StartOutsideCheckAsync(TimeSpan? lifetime = null, CancellationToken ct = default) =>
+        SendAsync<OutsideCheckTicketInfo>(HttpMethod.Post, "admin/v1/outside-check" + (lifetime is { } l ? $"?minutes={(int)Math.Ceiling(l.TotalMinutes)}" : ""), null, ct);
+
+    public Task<OutsideCheckState> GetOutsideCheckAsync(string id, CancellationToken ct = default) =>
+        SendAsync<OutsideCheckState>(HttpMethod.Get, $"admin/v1/outside-check/{Uri.EscapeDataString(id)}", null, ct);
+
     public Task<ServerMetricsSnapshot> GetMetricsAsync(CancellationToken ct = default) => GetAsync<ServerMetricsSnapshot>("admin/v1/metrics", ct);
 
     private Task<T> GetAsync<T>(string path, CancellationToken ct) => SendAsync<T>(HttpMethod.Get, path, null, ct);
