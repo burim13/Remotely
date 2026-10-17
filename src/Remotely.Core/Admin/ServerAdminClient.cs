@@ -17,14 +17,16 @@ public sealed class ServerAdminClient : IServerAdmin, IDisposable
     private readonly HttpClient _http;
     private readonly bool _ownsHttp;
     private readonly Func<string?> _tokenProvider;
+    private readonly bool _adoptRotation;
     private volatile string? _rotated;
 
     /// <param name="http">Client whose BaseAddress is the admin port, for example http://127.0.0.1:8181/. The caller keeps ownership.</param>
     /// <param name="tokenProvider">Called for every request, so a rotated token in the file is picked up.</param>
-    public ServerAdminClient(HttpClient http, Func<string?> tokenProvider) : this(http, tokenProvider, ownsHttp: false) { }
+    public ServerAdminClient(HttpClient http, Func<string?> tokenProvider) : this(http, tokenProvider, ownsHttp: false, adoptRotation: false) { }
 
-    private ServerAdminClient(HttpClient http, Func<string?> tokenProvider, bool ownsHttp)
+    private ServerAdminClient(HttpClient http, Func<string?> tokenProvider, bool ownsHttp, bool adoptRotation)
     {
+        _adoptRotation = adoptRotation;
         if (http.BaseAddress is null) throw new ArgumentException("The HttpClient needs a BaseAddress.", nameof(http));
         _http = http;
         _tokenProvider = tokenProvider;
@@ -47,11 +49,11 @@ public sealed class ServerAdminClient : IServerAdmin, IDisposable
     public static ServerAdminClient ForDataDirectory(string? dataDir = null, int adminPort = 8181)
     {
         var path = Path.Combine(string.IsNullOrWhiteSpace(dataDir) ? DefaultDataDirectory : dataDir, TokenFileName);
-        return new ServerAdminClient(NewHttp(adminPort), () => ReadTokenFile(path), ownsHttp: true);
+        return new ServerAdminClient(NewHttp(adminPort), () => ReadTokenFile(path), ownsHttp: true, adoptRotation: false);
     }
 
     public static ServerAdminClient ForToken(string token, int adminPort = 8181) =>
-        new(NewHttp(adminPort), () => token, ownsHttp: true);
+        new(NewHttp(adminPort), () => token, ownsHttp: true, adoptRotation: true);
 
     private static HttpClient NewHttp(int port) => new() { BaseAddress = new Uri($"http://127.0.0.1:{port}/"), Timeout = TimeSpan.FromSeconds(30) };
 
@@ -114,7 +116,7 @@ public sealed class ServerAdminClient : IServerAdmin, IDisposable
     {
         using var response = await SendRawAsync(HttpMethod.Get, "admin/v1/backup", null, ct).ConfigureAwait(false);
         Directory.CreateDirectory(folder);
-        var path = Path.Combine(folder, $"Remotely-Server-backup-{DateTime.UtcNow:yyyyMMdd-HHmmss}.zip");
+        var path = Path.Combine(folder, $"Remotely-Server-backup-{DateTime.UtcNow:yyyyMMdd-HHmmss-fff}.zip");
         await using (var file = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             await response.Content.CopyToAsync(file, ct).ConfigureAwait(false);
         return path;
@@ -134,12 +136,12 @@ public sealed class ServerAdminClient : IServerAdmin, IDisposable
     public Task<CertificateRenewal> RenewCertificateAsync(bool newKey = false, bool confirmPinChange = false, CancellationToken ct = default) =>
         SendAsync<CertificateRenewal>(HttpMethod.Post, "admin/v1/certificate/renew", new { newKey, confirmPinChange }, ct);
 
-    /// <summary>Makes a new admin token and invalidates the old one. A client that reads the token from a file picks the new one up by itself.</summary>
+    /// <summary>Makes a new admin token and invalidates the old one. Returns the new token. A client that reads the token from a file picks the new one up by itself; one made with <see cref="ForToken"/> switches to it.</summary>
     public async Task<string> RotateTokenAsync(CancellationToken ct = default)
     {
         var reply = await SendAsync<Dictionary<string, string>>(HttpMethod.Post, "admin/v1/token/rotate", null, ct).ConfigureAwait(false);
-        _rotated = reply["token"];
-        return _rotated;
+        if (_adoptRotation) _rotated = reply["token"];   // a client built from a fixed token keeps working; one that reads the file follows the file
+        return reply["token"];
     }
 
     public Task<ServerMetricsSnapshot> GetMetricsAsync(CancellationToken ct = default) => GetAsync<ServerMetricsSnapshot>("admin/v1/metrics", ct);
