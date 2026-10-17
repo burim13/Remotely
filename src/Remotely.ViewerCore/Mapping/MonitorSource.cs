@@ -32,16 +32,3 @@ public sealed class AllMonitorsSource : IMonitorSource
     public event Action? Changed { add { } remove { } }
     public Task SelectAsync(MonitorEntry monitor, CancellationToken ct = default) => Task.CompletedTask;
 }
-
-/// <summary>Where the host's cursor is, in the host's normalised coordinates.</summary>
-public readonly record struct RemoteCursorState(ushort X, ushort Y);
-
-/// <summary>
-/// Seam for a locally drawn remote cursor (zero lag). Nothing implements it yet: cursor position and shape on the wire belong to the capture
-/// work (agent A6, capability <c>CursorShape</c>). The session view draws a small arrow wherever a source says the cursor is; null means none.
-/// </summary>
-public interface IRemoteCursorSource
-{
-    RemoteCursorState? Current { get; }
-    event Action? Changed;
-}
