@@ -682,6 +682,8 @@ public sealed class TransferReceiver : IDisposable
     private FileStream? _stream;
     private IncrementalHash? _hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
     private bool _done;
+    private readonly object _gate = new();
+    private string? _storedPath;
 
     private TransferReceiver(FileTransferOptions options, string directory, string name, TransferWire.Announce announce, string partPath, long used, FileStream stream)
     {
@@ -814,6 +816,11 @@ public sealed class TransferReceiver : IDisposable
     /// <summary>Appends data at <paramref name="offset"/>, which must be exactly where the previous data ended.</summary>
     public void Write(long offset, ReadOnlySpan<byte> data)
     {
+        lock (_gate) WriteLocked(offset, data);
+    }
+
+    private void WriteLocked(long offset, ReadOnlySpan<byte> data)
+    {
         if (_done || _stream is null) throw new TransferException(TransferError.Protocol, "The transfer already ended.");
         if (offset != Offset) throw new TransferException(TransferError.Protocol, "Data arrived out of order.");
         var after = Offset + data.Length;
@@ -833,6 +840,11 @@ public sealed class TransferReceiver : IDisposable
     /// <summary>Verifies length and hash, then stores the result. Returns the stored name (a file name, or the folder's name when it was unpacked). Deletes the partial file on any failure except a full disk.</summary>
     public string Complete(long total, ReadOnlySpan<byte> sha256)
     {
+        lock (_gate) return CompleteLocked(total, sha256);
+    }
+
+    private string CompleteLocked(long total, ReadOnlySpan<byte> sha256)
+    {
         if (_done || _stream is null) throw new TransferException(TransferError.Protocol, "The transfer already ended.");
         try
         {
@@ -846,10 +858,17 @@ public sealed class TransferReceiver : IDisposable
             _done = true;
             if (_isFolder && _options.ExtractFolders)
             {
-                try { return SafeZip.ExtractToUniqueFolder(PartPath, _directory, Path.GetFileNameWithoutExtension(_displayName), _options, _usedBytes); }
+                try
+                {
+                    var folder = SafeZip.ExtractToUniqueFolder(PartPath, _directory, Path.GetFileNameWithoutExtension(_displayName), _options, _usedBytes);
+                    _storedPath = Path.Combine(_directory, folder);
+                    return folder;
+                }
                 finally { TryDelete(PartPath); }
             }
-            return MoveIntoPlace();
+            var stored = MoveIntoPlace();
+            _storedPath = Path.Combine(_directory, stored);
+            return stored;
         }
         catch (Exception ex)
         {
@@ -874,26 +893,45 @@ public sealed class TransferReceiver : IDisposable
         throw new TransferException(TransferError.NameClash, "A file with that name already exists and no free name was found.");
     }
 
-    /// <summary>Deletes the partial file (the sender cancelled, or the content is bad).</summary>
+    /// <summary>
+    /// Deletes the partial file (the sender cancelled, or the content is bad). If a completion won the race against a cancel and the result is already in place, that result is
+    /// removed too: a cancelled transfer leaves nothing behind. Safe to call while another thread is writing or completing.
+    /// </summary>
     public void Discard()
     {
-        _done = true;
-        _stream?.Dispose();
-        _stream = null;
-        TryDelete(PartPath);
+        lock (_gate)
+        {
+            _done = true;
+            _stream?.Dispose();
+            _stream = null;
+            TryDelete(PartPath);
+            if (_storedPath is { } stored)
+            {
+                _storedPath = null;
+                try
+                {
+                    if (Directory.Exists(stored)) Directory.Delete(stored, true);
+                    else File.Delete(stored);
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { /* best effort */ }
+            }
+        }
     }
 
     /// <summary>Closes the partial file. It is kept for a later attempt unless the transfer cannot be resumed.</summary>
     public void Dispose()
     {
-        if (_stream is not null)
+        lock (_gate)
         {
-            _stream.Dispose();
-            _stream = null;
-            if (!_done && !_resumable) TryDelete(PartPath);
+            if (_stream is not null)
+            {
+                _stream.Dispose();
+                _stream = null;
+                if (!_done && !_resumable) TryDelete(PartPath);
+            }
+            _hash?.Dispose();
+            _hash = null;
         }
-        _hash?.Dispose();
-        _hash = null;
     }
 
     /// <summary>Deletes ".part" files in a receive folder that have not been touched for a long time.</summary>

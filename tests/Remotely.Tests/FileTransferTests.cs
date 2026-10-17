@@ -342,7 +342,7 @@ public class FileTransferTests
         loop.OnDataToViewer = sent => { if (sent >= 1_500_000) cts.Cancel(); };
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => loop.Client.DownloadAsync(item, cts.Token).WaitAsync(Limit));
-        Assert.Empty(Directory.GetFileSystemEntries(downloads));
+        Assert.True(Directory.GetFileSystemEntries(downloads).Length == 0, "left: " + string.Join(", ", Directory.GetFileSystemEntries(downloads).Select(p => Path.GetFileName(p) + " " + new FileInfo(p).Length)));
     }
 
     [Fact]
