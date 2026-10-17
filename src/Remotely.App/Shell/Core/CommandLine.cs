@@ -7,6 +7,7 @@ namespace Remotely.App.Shell;
 ///   --connect-token TOKEN    open the This network page with the token filled in
 ///   --minimized              start in the tray without showing the window
 ///   --show PageName          open the app on that Page class (CI uses this; never forwards to a running instance)
+///   --uia-scan RESULT [PAGES]   open every page named in PAGES (default: tools/ci/pages.txt format, one Page class per line; without it every page class of the app), list interactive elements Narrator would read without a name into RESULT, exit 0 when there are none (A15)
 ///   --selftest FILE          share this PC, connect to it, write PASS or FAIL to FILE, exit (CI)
 ///   --selftest-server FILE HOSTID   the same through the configured server (CI)
 /// An option that needs a value and does not get one is reported in <see cref="Problems"/> and ignored; unknown options are ignored and reported.
@@ -19,6 +20,8 @@ public sealed record AppOptions
     public string? Show { get; init; }
     public bool Minimized { get; init; }
     public string? SelfTestResultPath { get; init; }
+    public string? UiaScanResultPath { get; init; }
+    public string? UiaScanPagesPath { get; init; }
     public string? SelfTestServerResultPath { get; init; }
     public string? SelfTestServerHostPrefix { get; init; }
     public IReadOnlyList<string> Problems { get; init; } = [];
@@ -26,7 +29,7 @@ public sealed record AppOptions
     public bool IsSelfTest => SelfTestResultPath is not null || SelfTestServerResultPath is not null;
 
     /// <summary>Self-tests and --show are test and CI launches: they never join or forward to a running instance.</summary>
-    public bool UsesSingleInstance => !IsSelfTest && Show is null;
+    public bool UsesSingleInstance => !IsSelfTest && Show is null && UiaScanResultPath is null;
 
     /// <summary>The launch carries something the running window must act on (as opposed to just being opened again).</summary>
     public bool HasWork => Invite is not null || Pair is not null || ConnectToken is not null;
@@ -60,6 +63,15 @@ public sealed record AppOptions
                         i++;
                     }
                     else problems.Add($"{name} needs a value");
+                    break;
+                case "--uia-scan":
+                    if (Value(1) is { Length: > 0 } result)
+                    {
+                        var pages = Value(2);
+                        o = o with { UiaScanResultPath = result, UiaScanPagesPath = pages };
+                        i += pages is null ? 1 : 2;
+                    }
+                    else problems.Add($"{name} needs a result file");
                     break;
                 case "--selftest-server":
                     if (Value(1) is { } file && Value(2) is { } host)

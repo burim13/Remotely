@@ -38,6 +38,7 @@ public sealed partial class SessionWindow
                 return;
             }
             var list = new ListView { ItemsSource = files.Select(f => f.Name).ToList(), SelectionMode = ListViewSelectionMode.Single, MinWidth = 360, MaxHeight = 320 };
+            Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(list, string.Format(Loc.Get("Session_FilesOn"), _hostName));
             var dialog = new ContentDialog
             {
                 XamlRoot = Content.XamlRoot, Title = string.Format(Loc.Get("Session_FilesOn"), _hostName), Content = list,

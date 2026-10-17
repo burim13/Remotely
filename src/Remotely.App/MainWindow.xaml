@@ -17,11 +17,12 @@
         </Grid>
 
         <NavigationView x:Name="Nav" Grid.Row="1" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed" IsSettingsVisible="True"
-                        OpenPaneLength="220" SelectionChanged="OnNavSelected" Background="Transparent">
-            <Frame x:Name="Pages" />
+                        OpenPaneLength="220" SelectionChanged="OnNavSelected" Background="Transparent"
+                        AutomationProperties.LandmarkType="Navigation">
+            <Frame x:Name="Pages" AutomationProperties.LandmarkType="Main" />
         </NavigationView>
 
-        <Frame x:Name="OnboardingFrame" Grid.Row="1" Visibility="Collapsed" />
+        <Frame x:Name="OnboardingFrame" Grid.Row="1" Visibility="Collapsed" AutomationProperties.LandmarkType="Main" />
 
         <InfoBar x:Name="ToastBar" Grid.Row="1" IsOpen="False" IsClosable="True" Severity="Informational"
                  VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="16" MaxWidth="560" />

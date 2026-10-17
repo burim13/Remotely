@@ -180,6 +180,7 @@ public sealed partial class TransfersPanel : UserControl
         var choices = entries.Select(entry => new RemoteChoice(entry,
             entry.IsFolder ? $"{entry.Name}  ({Loc.Get("Transfers_Folder")})" : $"{entry.Name}  ({TransferFormat.Size(entry.Size)})")).ToList();
         var list = new ListView { ItemsSource = choices, SelectionMode = ListViewSelectionMode.Multiple, MinWidth = 380, MaxHeight = 360 };
+        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(list, Loc.Get("Transfers_GetTitle"));
         var dialog = new ContentDialog
         {
             XamlRoot = XamlRoot, Title = Loc.Get("Transfers_GetTitle"), Content = list,

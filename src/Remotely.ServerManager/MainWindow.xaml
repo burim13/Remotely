@@ -9,7 +9,8 @@
         </Grid.RowDefinitions>
         <InfoBar x:Name="ElevatedBar" Grid.Row="0" IsOpen="False" IsClosable="True" Severity="Warning" />
         <NavigationView x:Name="Nav" Grid.Row="1" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed" IsSettingsVisible="True"
-                        OpenPaneLength="230" SelectionChanged="OnNavSelected" Background="Transparent">
+                        OpenPaneLength="230" SelectionChanged="OnNavSelected" Background="Transparent"
+                        AutomationProperties.LandmarkType="Navigation">
             <NavigationView.PaneHeader>
                 <StackPanel Orientation="Horizontal" Spacing="10" Margin="12,8,0,8">
                     <Image Source="ms-appx:///Assets/remotely-64.png" Width="28" Height="28" />
@@ -33,7 +34,7 @@
                     <NavigationViewItem.Icon><SymbolIcon Symbol="Repair" /></NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
-            <Frame x:Name="Pages" />
+            <Frame x:Name="Pages" AutomationProperties.LandmarkType="Main" />
         </NavigationView>
     </Grid>
 </Window>

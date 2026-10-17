@@ -21,7 +21,7 @@
             <StackPanel x:Name="NearbyPanel" Spacing="6">
                 <TextBlock x:Name="NearbyTitle" Style="{StaticResource BodyStrongTextBlockStyle}" />
                 <TextBlock x:Name="NearbyStatus" TextWrapping="Wrap" Opacity="0.7" />
-                <ListView x:Name="NearbyList" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnNearbyClick" MaxHeight="180" />
+                <ListView x:Name="NearbyList" AutomationProperties.LabeledBy="{Binding ElementName=NearbyTitle}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnNearbyClick" MaxHeight="180" />
             </StackPanel>
 
             <Expander x:Name="AddressExpander" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
@@ -34,7 +34,7 @@
             <StackPanel x:Name="RecentPanel" Spacing="6">
                 <TextBlock x:Name="RecentTitle" Style="{StaticResource BodyStrongTextBlockStyle}" />
                 <TextBlock x:Name="RecentEmpty" TextWrapping="Wrap" Opacity="0.7" />
-                <ListView x:Name="RecentList" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnRecentClick" MaxHeight="200" />
+                <ListView x:Name="RecentList" AutomationProperties.LabeledBy="{Binding ElementName=RecentTitle}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnRecentClick" MaxHeight="200" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Spacing="12">
