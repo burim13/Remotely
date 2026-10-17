@@ -446,26 +446,71 @@ public class UpdateTests
         await File.WriteAllBytesAsync(unsigned, Package("unsigned"));
         Assert.Equal(SignatureStatus.NotSigned, (await verifier.VerifyAsync(unsigned, default)).Status);
 
-        var system = Path.Combine(Environment.SystemDirectory, "notepad.exe");
-        var signed = await verifier.VerifyAsync(system, default);
-        Assert.Equal(SignatureStatus.Valid, signed.Status);
+        // The test host itself (dotnet.exe) carries an embedded Microsoft signature.
+        var signedFile = Environment.ProcessPath!;
+        var signed = await verifier.VerifyAsync(signedFile, default);
+        Assert.True(signed.Status == SignatureStatus.Valid, $"{signedFile}: {signed.Status} {signed.Detail}");
+        Assert.Contains("Microsoft", signed.Signer);
 
-        // A copy of a file with an embedded signature, with one byte changed in the code, must not pass.
-        var candidate = Directory.GetFiles(Environment.SystemDirectory, "*.exe").Where(f => new FileInfo(f).Length is > 80_000 and < 3_000_000).Take(60).ToList();
-        var checkedOne = false;
-        foreach (var file in candidate)
+        // A copy with one byte changed in the middle must not pass.
+        var copy = Path.Combine(dir.Path, "copy.exe");
+        File.Copy(signedFile, copy, true);
+        var bytes = await File.ReadAllBytesAsync(copy);
+        bytes[bytes.Length / 3] ^= 0xFF;
+        await File.WriteAllBytesAsync(copy, bytes);
+        var tampered = await verifier.VerifyAsync(copy, default);
+        Assert.Equal(SignatureStatus.Invalid, tampered.Status);
+    }
+
+    [Fact]
+    public async Task The_installers_built_by_CI_pass_the_whole_update_pipeline()
+    {
+        // Set by the CI "installers" job (Windows) to the folder with the real installers and the SHA256SUMS.txt that build\checksums.ps1 wrote. Skipped elsewhere.
+        var dir = Environment.GetEnvironmentVariable("REMOTELY_PUBLISH_DIR");
+        if (string.IsNullOrEmpty(dir)) return;
+        var version = ReleaseVersion.Parse(Environment.GetEnvironmentVariable("REMOTELY_VERSION") ?? "0.4.0");
+        var sumsText = await File.ReadAllTextAsync(Path.Combine(dir, "SHA256SUMS.txt"));
+        var sums = ReleaseFeed.ParseSums(sumsText);
+
+        var wanted = new[]
         {
-            var copy = Path.Combine(dir.Path, "copy.exe");
-            File.Copy(file, copy, true);
-            if ((await verifier.VerifyAsync(copy, default)).Status != SignatureStatus.Valid) continue;   // catalog-signed files lose their signature when copied
-            var bytes = await File.ReadAllBytesAsync(copy);
-            bytes[1024] ^= 0xFF;
-            await File.WriteAllBytesAsync(copy, bytes);
-            Assert.Equal(SignatureStatus.Invalid, (await verifier.VerifyAsync(copy, default)).Status);
-            checkedOne = true;
-            break;
+            (UpdateProduct.Client, "x64"),
+            (UpdateProduct.Client, "arm64"),
+            (UpdateProduct.Server, "x64"),
+        };
+        var files = wanted.ToDictionary(w => w, w => UpdateAssets.PackageName(w.Item1, version, w.Item2));
+        foreach (var name in files.Values)
+        {
+            var actual = Sha(await File.ReadAllBytesAsync(Path.Combine(dir, name)));
+            Assert.Equal(actual, sums[name]);   // the sums file written by the build lists every installer with its real hash
         }
-        Assert.True(checkedOne, "No system file with an embedded signature was found to tamper with.");
+
+        using var feed = new TestFeed();
+        var first = files.Values.First();
+        feed.AddRelease("v" + version, first, await File.ReadAllBytesAsync(Path.Combine(dir, first)), sumsText: sumsText,
+            extra: files.Values.Skip(1).Select(n => (n, File.ReadAllBytes(Path.Combine(dir, n)))).ToArray());
+        var checker = Checker(feed);
+        var older = ReleaseVersion.Parse("0.0.1");
+        using var work = new TempDir();
+        foreach (var ((product, arch), name) in files)
+        {
+            var offer = (await checker.CheckAsync(older, product, arch)).Offer;
+            Assert.NotNull(offer);
+            Assert.Equal(name, offer!.AssetName);
+            // The real Authenticode check (PowerShell on Windows). The installers are unsigned for now, so NotSigned is expected until a certificate exists.
+            var real = new UpdateDownloader(new HttpClient(), Options(feed));
+            var package = await real.DownloadAsync(offer, work.Path);
+            Assert.Equal(sums[name], package.Sha256);
+            Assert.Equal(OperatingSystem.IsWindows() ? SignatureStatus.NotSigned : SignatureStatus.NotChecked, package.Signature.Status);
+        }
+
+        // The same installer served with one flipped bit is refused.
+        var victim = files.Values.First();
+        var bad = await File.ReadAllBytesAsync(Path.Combine(dir, victim));
+        bad[bad.Length / 2] ^= 0x01;
+        feed.ReplacePackage(victim, bad);
+        var offerAgain = (await checker.CheckAsync(older, UpdateProduct.Client, "x64")).Offer!;
+        await Assert.ThrowsAsync<UpdateVerificationException>(() => new UpdateDownloader(new HttpClient(), Options(feed)).DownloadAsync(offerAgain, work.Path));
     }
 
     // ---- helpers ----

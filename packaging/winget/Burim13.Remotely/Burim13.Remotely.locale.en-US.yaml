@@ -1,0 +1,18 @@
+PackageIdentifier: Burim13.Remotely
+PackageVersion: 0.4.0
+PackageLocale: en-US
+Publisher: Remotely (open source)
+PublisherUrl: https://github.com/burim13/Remotely
+PackageName: Remotely
+PackageUrl: https://github.com/burim13/Remotely
+License: MIT
+LicenseUrl: https://github.com/burim13/Remotely/blob/HEAD/LICENSE
+ShortDescription: Remote access between your own PCs, self-hosted and end-to-end encrypted.
+Description: Remotely lets you share a PC on your network with a short token, connect to PCs you own, and optionally reach them from outside through a small server you run yourself. No accounts, no telemetry.
+Tags:
+- remote-desktop
+- remote-control
+- self-hosted
+ReleaseNotesUrl: https://github.com/burim13/Remotely/releases
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

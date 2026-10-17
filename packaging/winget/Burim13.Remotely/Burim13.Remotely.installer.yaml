@@ -1,0 +1,23 @@
+PackageIdentifier: Burim13.Remotely
+PackageVersion: 0.4.0
+InstallerType: inno
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+InstallerSwitches:
+  Silent: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+  SilentWithProgress: /SILENT /SUPPRESSMSGBOXES /NORESTART
+ElevationRequirement: elevatesSelf
+UpgradeBehavior: install
+MinimumOSVersion: 10.0.17763.0
+ProductCode: '{A979AC82-5CEB-4AFD-9C80-A0AC7E51F7E0}_is1'
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/burim13/Remotely/releases/download/v0.4.0/Remotely-Setup-0.4.0-x64.exe
+  InstallerSha256: REPLACE_WITH_SHA256_FROM_SHA256SUMS_TXT
+- Architecture: arm64
+  InstallerUrl: https://github.com/burim13/Remotely/releases/download/v0.4.0/Remotely-Setup-0.4.0-arm64.exe
+  InstallerSha256: REPLACE_WITH_SHA256_FROM_SHA256SUMS_TXT
+ManifestType: installer
+ManifestVersion: 1.6.0

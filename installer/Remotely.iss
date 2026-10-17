@@ -1,12 +1,16 @@
 ; Remotely installer (Inno Setup 6). One per architecture, built by build\publish.ps1 or the CI "installers" job:
 ;   ISCC.exe /DArch=arm64 /DVersion=0.4.0 installer\Remotely.iss
 ;   ISCC.exe /DArch=x64   /DVersion=0.4.0 installer\Remotely.iss
-; At the start the installer asks: for all users (administrator: the Host runs as a Windows service that survives sign-out and shows the
+; At the start Windows asks (once): for all users (administrator: the Host can run as a Windows service that survives sign-out and shows the
 ; lock screen) or only for me (no administrator: the Host runs while you are signed in). Same choice as Portico's per-user installer, plus the service.
-; Same-network sharing needs nothing from the wizard. The only optional question is the invite that "Remotely Server info" prints on your server (it holds the address, key pin and a pairing code).
-; Silent install for scripts and tests:  Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /Invite=RMT1-... /Name="Dad's PC"
+; Same-network sharing needs nothing from the wizard: the "Additional tasks" page has two boxes, both off, and "Next" is all that is needed. The tasks are
+;   startup  Start Remotely when I sign in to Windows (it waits in the tray; same as the app's own "Start with Windows" setting)
+;   connect  Connect this PC to my own server: shows one page for the invite that "Remotely Server info" prints on your server
+; Silent install for scripts and tests:  Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART [/TASKS=startup] [/Invite=RMT1-... /Name="Dad's PC"]
 ;   The long form still works: /Server=wss://host:8443/ws /Pin=<hex> /Code=XXXX-XXXX /Trust=<viewer id>
-;   add /CURRENTUSER for the no-administrator mode, /Insecure=1 only for local testing over ws://
+;   add /CURRENTUSER for the no-administrator mode (or /ALLUSERS), /Insecure=1 only for local testing over ws://, /COMPONENTS=viewer to leave out the Host.
+;   An install over an installed Remotely (same AppId) is an upgrade in place: see UpgradeSafety.isi for how a failed upgrade is rolled back.
+;   /SimulateFailure=1 makes the install fail at its last step on purpose (the CI uses it to prove the rollback). Do not use it otherwise.
 
 #ifndef Arch
   #define Arch "x64"
@@ -59,6 +63,10 @@ Name: "custom"; Description: "Choose what to install"; Flags: iscustom
 Name: "viewer"; Description: "Remotely: control other computers, and share this PC on your network with a token"; Types: full custom
 Name: "host"; Description: "Remotely Host: let your other devices control this PC"; Types: full custom
 
+[Tasks]
+Name: "startup"; Description: "Start Remotely when I sign in to Windows (it waits in the notification area)"; Flags: unchecked; Components: viewer
+Name: "connect"; Description: "Connect this PC to my own Remotely server (I have an invite)"; Flags: unchecked
+
 [Files]
 Source: "{#Publish}\app\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: viewer
 Source: "{#Publish}\host\Remotely.Host.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: host
@@ -72,9 +80,9 @@ Name: "{group}\Uninstall Remotely"; Filename: "{uninstallexe}"
 ; Only an all-users install can add firewall rules; a per-user install is asked by Windows the first time instead.
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""Remotely same-network (TCP)"" dir=in action=allow program=""{app}\Remotely.exe"" protocol=TCP localport=47810 profile=private,domain"; Flags: runhidden waituntilterminated; Components: viewer; Check: IsAdminInstallMode
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""Remotely same-network (UDP)"" dir=in action=allow program=""{app}\Remotely.exe"" protocol=UDP localport=47811 profile=private,domain"; Flags: runhidden waituntilterminated; Components: viewer; Check: IsAdminInstallMode
-; Configure and start the host. Both commands are the same ones you can run by hand (Remotely.Host.exe setup / install).
-Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostSetupArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Connecting this PC to your server..."; Check: NeedsSetup
-Filename: "{app}\Remotely.Host.exe"; Parameters: "{code:HostInstallArgs}"; Flags: runhidden waituntilterminated; Components: host; StatusMsg: "Starting Remotely Host..."; Check: ShouldStartHost
+; Start with Windows: the same value the app's own setting writes (HKCU Run, "Remotely", command with --minimized), written as the person who started Setup even when
+; Setup runs elevated. Configuring and starting the Host is done in the Pascal script below (CurStepChanged) so that a failure can be detected and rolled back.
+Filename: "{sys}\reg.exe"; Parameters: "add ""HKCU\Software\Microsoft\Windows\CurrentVersion\Run"" /v Remotely /t REG_SZ /d ""\""{app}\Remotely.exe\"" --minimized"" /f"; Flags: runhidden waituntilterminated runasoriginaluser; Tasks: startup; Components: viewer
 Filename: "{app}\Remotely.exe"; Parameters: "{code:ViewerArgs}"; Description: "Open Remotely"; Flags: nowait postinstall skipifsilent runasoriginaluser; Components: viewer
 
 [UninstallRun]
@@ -86,9 +94,11 @@ Filename: "{app}\Remotely.Host.exe"; Parameters: "uninstall --user"; Flags: runh
 
 ; RULE (as in Portico): the installer and uninstaller never touch user data. The host's key, settings and logs live in
 ; %ProgramData%\Remotely (service) or %LocalAppData%\Remotely (user), the viewer's in %LocalAppData%\Remotely, all outside {app}.
-; A newer installer over an installed Remotely (same AppId) is an in-place upgrade of the program files only.
+; A newer installer over an installed Remotely (same AppId) is an in-place upgrade of the program files only; if the upgrade fails it is rolled back (UpgradeSafety.isi).
 
 [Code]
+#include "UpgradeSafety.isi"
+
 var
   HostPage: TInputQueryWizardPage;
 
@@ -97,10 +107,14 @@ begin
   Result := ExpandConstant('{param:' + Name + '|}');
 end;
 
-// Index 0 = invite, 1 = this PC's name, 2 = server, 3 = pin, 4 = code, 5 = viewer ids. Only 0 and 1 are shown; the rest come from the command line (scripts, tests).
+// Index 0 = invite, 1 = this PC's name, 2 = server, 3 = pin, 4 = code, 5 = viewer ids. Only 0 and 1 are shown (and only when the "connect" task is ticked);
+// the rest come from the command line (scripts, tests).
 function HostPageValue(Index: Integer; ParamName: String): String;
 begin
-  if (Index <= 1) and (not WizardSilent) then Result := Trim(HostPage.Values[Index])
+  if (Index <= 1) and (not WizardSilent) then
+  begin
+    if WizardIsTaskSelected('connect') then Result := Trim(HostPage.Values[Index]) else Result := '';
+  end
   else Result := Param(ParamName);
   if (Index = 1) and (Result = '') then Result := GetComputerNameString;
 end;
@@ -122,10 +136,9 @@ end;
 
 procedure InitializeWizard;
 begin
-  HostPage := CreateInputQueryPage(wpSelectComponents, 'Connect this PC to your server',
+  HostPage := CreateInputQueryPage(wpSelectTasks, 'Connect this PC to your server',
     'Paste the invite from your own Remotely server.',
-    'On the server, open "Remotely Server info" and copy the invite. It holds the address, the key and a one-time code, so there is nothing else to type. ' +
-    'Leave it empty if you only connect PCs on the same network, or to connect this PC later.');
+    'On the server, open "Remotely Server info" and copy the invite. It holds the address, the key and a one-time code, so there is nothing else to type.');
   HostPage.Add('Invite:', False);
   HostPage.Add('This PC''s name:', False);
   HostPage.Values[0] := Param('Invite');
@@ -135,7 +148,10 @@ end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
-  Result := (PageID = HostPage.ID) and (not WizardIsComponentSelected('host')) and (not WizardIsComponentSelected('viewer'));
+  Result := False;
+  // Same-network use needs no questions: the component choice is left to /COMPONENTS, the invite page only appears when "connect" was ticked.
+  if PageID = wpSelectComponents then Result := True;
+  if PageID = HostPage.ID then Result := not WizardIsTaskSelected('connect');
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
@@ -165,12 +181,6 @@ function HostConfigExists: Boolean;
 begin
   if IsAdminInstallMode then Result := FileExists(ExpandConstant('{commonappdata}\Remotely\host.json'))
   else Result := FileExists(ExpandConstant('{localappdata}\Remotely\host.json'));
-end;
-
-// Start (or restart) the host when it was just set up, or when an earlier install left its settings behind: an upgrade keeps working without new details.
-function ShouldStartHost: Boolean;
-begin
-  Result := NeedsSetup or HostConfigExists;
 end;
 
 function HostSetupArgs(Param: String): String;
@@ -225,21 +235,88 @@ begin
 end;
 
 // Let go of the program files before they are replaced: stop the service (it would otherwise be restarted by its recovery settings) and any leftover helper.
+// Then keep a copy of the installed program folder, so a failed upgrade can put it back.
 function PrepareToInstall(var NeedsRestart: Boolean): String;
-var
-  ResultCode: Integer;
 begin
-  if IsAdminInstallMode then
-  begin
-    Exec(ExpandConstant('{sys}\sc.exe'), 'stop Remotely.Host', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    Sleep(3000);
-  end;
-  Exec(ExpandConstant('{sys}\taskkill.exe'), '/IM Remotely.Host.exe /F /T', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  if IsAdminInstallMode then StopServiceAndWait('Remotely.Host', 30);
+  RunQuiet(ExpandConstant('{sys}\taskkill.exe'), '/IM Remotely.Host.exe /F /T');
+  Sleep(500);
+  BackupForUpgrade(ExpandConstant('{app}'), 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{A979AC82-5CEB-4AFD-9C80-A0AC7E51F7E0}_is1');
   Result := '';
+end;
+
+// A fresh install that fails leaves no half-registered service behind (an upgrade is restored from the backup instead).
+procedure FailHostStep(const Reason: String);
+begin
+  if not UpgradeHaveBackup then RunQuiet(ExpandConstant('{app}\Remotely.Host.exe'), 'uninstall ' + UserFlag);
+  FailInstall(Reason);
+end;
+
+// Connects the Host to the server (only when an invite or server details were given), starts it when it is configured (a new setup, or settings left by an earlier
+// install, so an upgrade keeps working without new details), and checks that it runs. The same commands you can run by hand: Remotely.Host.exe setup / install.
+procedure ConfigureAndStartHost;
+var
+  Host: String;
+  Code: Integer;
+begin
+  if not WizardIsComponentSelected('host') then Exit;
+  Host := ExpandConstant('{app}\Remotely.Host.exe');
+  if NeedsSetup then
+  begin
+    if not WizardSilent then WizardForm.StatusLabel.Caption := 'Connecting this PC to your server...';
+    Code := RunQuiet(Host, HostSetupArgs(''));
+    if Code <> 0 then
+    begin
+      // An expired invite must not undo the installation: the app is installed, and Settings in the app takes a new invite.
+      Log('Remotely.Host.exe setup failed with exit code ' + IntToStr(Code));
+      if not WizardSilent then
+        MsgBox('This PC could not be connected to your server (the invite may have expired). Remotely is installed. Open Remotely, Settings, and paste a new invite.', mbInformation, MB_OK);
+    end;
+  end;
+  if HostConfigExists then
+  begin
+    if not WizardSilent then WizardForm.StatusLabel.Caption := 'Starting Remotely Host...';
+    Code := RunQuiet(Host, HostInstallArgs(''));
+    if Code <> 0 then FailHostStep('Remotely Host could not be started (exit code ' + IntToStr(Code) + ').');
+    if IsAdminInstallMode and (not WaitForServiceRunning('Remotely.Host', 30)) then
+      FailHostStep('The Remotely.Host service did not reach the running state within 30 seconds.');
+  end;
+  if Param('SimulateFailure') = '1' then FailHostStep('Simulated failure (requested with /SimulateFailure=1).');
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssPostInstall then ConfigureAndStartHost;
+end;
+
+// After a failed upgrade (Setup has already undone what it could): put the previous program folder back and start the previous Host again.
+procedure DeinitializeSetup();
+begin
+  if UpgradeFailed and UpgradeHaveBackup then
+  begin
+    if IsAdminInstallMode then StopServiceAndWait('Remotely.Host', 30);
+    RunQuiet(ExpandConstant('{sys}\taskkill.exe'), '/IM Remotely.Host.exe /F /T');
+    RunQuiet(ExpandConstant('{sys}\taskkill.exe'), '/IM Remotely.exe /F /T');
+    Sleep(500);
+    RestoreFromUpgradeBackup;
+    if IsAdminInstallMode then RunQuiet(ExpandConstant('{sys}\sc.exe'), 'start Remotely.Host')
+    else if HostConfigExists then RunQuiet(UpgradeAppDir + '\Remotely.Host.exe', 'install --user');
+  end;
 end;
 
 function InitializeUninstall(): Boolean;
 begin
   StopRemotely();
   Result := True;
+end;
+
+// Remove the start-with-Windows value only if it points at this installation (the person may have set it up by hand for another copy).
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+  Value: String;
+begin
+  if CurUninstallStep = usUninstall then
+    if RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run', 'Remotely', Value) then
+      if Pos(Lowercase(ExpandConstant('{app}\Remotely.exe')), Lowercase(Value)) > 0 then
+        RegDeleteValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run', 'Remotely');
 end;

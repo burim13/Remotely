@@ -1,0 +1,96 @@
+// Shared by Remotely.iss and Remotely-Server.iss (#include inside [Code]). Backup, restore and checks that make an upgrade safe:
+//   1. Before anything is replaced, the installed program folder is copied to Setup's temporary folder (robocopy ships with Windows).
+//   2. After the files are in place the installer starts the program/service and checks that it runs. If that fails, FailInstall stops the installation with an error;
+//      Setup exits with a failure code and DeinitializeSetup puts the old files back (and the old version number in "Apps & features") and starts the old service again.
+// The installer never touches data (settings, address book, keys, logs): they live outside the program folder, so there is nothing to restore there.
+
+var
+  UpgradeBackupDir, UpgradeAppDir, UpgradeUninstallKey, UpgradeOldVersion: String;
+  UpgradeHaveBackup, UpgradeFailed: Boolean;
+
+function RunQuiet(const FileName, Params: String): Integer;
+var
+  Code: Integer;
+begin
+  if Exec(FileName, Params, '', SW_HIDE, ewWaitUntilTerminated, Code) then Result := Code else Result := -1;
+end;
+
+function ServiceIsRunning(const ServiceName: String): Boolean;
+var
+  OutFile: String;
+  Raw: AnsiString;
+begin
+  OutFile := ExpandConstant('{tmp}\service-state.txt');
+  DeleteFile(OutFile);
+  // cmd.exe is only used to redirect the output of sc.exe into a file.
+  RunQuiet(ExpandConstant('{cmd}'), '/C ""' + ExpandConstant('{sys}\sc.exe') + '" query ' + ServiceName + ' > "' + OutFile + '""');
+  Result := LoadStringFromFile(OutFile, Raw) and (Pos('RUNNING', String(Raw)) > 0);
+end;
+
+function WaitForServiceRunning(const ServiceName: String; Seconds: Integer): Boolean;
+var
+  I: Integer;
+begin
+  Result := False;
+  for I := 1 to Seconds do
+  begin
+    if ServiceIsRunning(ServiceName) then
+    begin
+      Result := True;
+      Exit;
+    end;
+    Sleep(1000);
+  end;
+end;
+
+procedure StopServiceAndWait(const ServiceName: String; Seconds: Integer);
+var
+  I: Integer;
+begin
+  RunQuiet(ExpandConstant('{sys}\sc.exe'), 'stop ' + ServiceName);
+  for I := 1 to Seconds do
+  begin
+    if not ServiceIsRunning(ServiceName) then Break;
+    Sleep(1000);
+  end;
+end;
+
+// Call once all programs are stopped and before any file is replaced. UninstallKey is the "Apps & features" registry key of the installer's AppId.
+procedure BackupForUpgrade(const AppDir, UninstallKey: String);
+var
+  Code: Integer;
+begin
+  UpgradeHaveBackup := False;
+  UpgradeAppDir := AppDir;
+  UpgradeUninstallKey := UninstallKey;
+  UpgradeOldVersion := '';
+  // No uninstaller means no earlier installation: there is nothing to go back to.
+  if not FileExists(AppDir + '\unins000.exe') then Exit;
+  RegQueryStringValue(HKA, UninstallKey, 'DisplayVersion', UpgradeOldVersion);
+  UpgradeBackupDir := ExpandConstant('{tmp}\upgrade-backup');
+  if not ForceDirectories(UpgradeBackupDir) then Exit;
+  Code := RunQuiet(ExpandConstant('{sys}\robocopy.exe'), '"' + AppDir + '" "' + UpgradeBackupDir + '" /E /R:2 /W:1 /NFL /NDL /NJH /NJS /NP');
+  // robocopy: 0 to 7 mean "copied or nothing to copy", 8 and above mean failures.
+  UpgradeHaveBackup := (Code >= 0) and (Code < 8);
+  Log('Upgrade backup of ' + AppDir + ' (previous version "' + UpgradeOldVersion + '"): robocopy exit code ' + IntToStr(Code));
+end;
+
+// Puts the backed-up program folder back exactly (files the new version added are removed) and the old version number.
+procedure RestoreFromUpgradeBackup;
+var
+  Code: Integer;
+begin
+  if not UpgradeHaveBackup then Exit;
+  Code := RunQuiet(ExpandConstant('{sys}\robocopy.exe'), '"' + UpgradeBackupDir + '" "' + UpgradeAppDir + '" /MIR /R:3 /W:2 /NFL /NDL /NJH /NJS /NP');
+  Log('Upgrade rollback of ' + UpgradeAppDir + ': robocopy exit code ' + IntToStr(Code));
+  if UpgradeOldVersion <> '' then
+    RegWriteStringValue(HKA, UpgradeUninstallKey, 'DisplayVersion', UpgradeOldVersion);
+end;
+
+// Stops the installation with an error. The caller has already made the system consistent where only the caller can (for example removed a service it just added).
+procedure FailInstall(const Reason: String);
+begin
+  UpgradeFailed := True;
+  Log('INSTALL FAILED: ' + Reason);
+  RaiseException(Reason);
+end;
