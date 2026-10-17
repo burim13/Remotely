@@ -1,0 +1,18 @@
+# Accessibility findings that are deliberate.
+# Format, one per line:   path (from the repository root) | finding text as printed by the test | reason
+# AccessibilityTests fails on a finding that is not here, and on an entry here that matches nothing any more.
+
+# ---- Fixed colours on purpose ----
+src/Remotely.App/Palette.cs | * | Palette picks by theme and returns the user's system text colour when Windows high contrast is on (AccessibilitySettings.HighContrast)
+src/Remotely.App/Session/SessionWindow.xaml | * | dark scrims with white text over a live picture of another PC; readable in every theme and in high contrast (white on near-black)
+src/Remotely.App/Session/SessionPreviewPage.xaml | * | CI preview of the same overlays as SessionWindow.xaml
+src/Remotely.App/Session/RemoteScreen.cs | * | the remote screen is black behind the picture, and the cursor is drawn white with a black outline so it is visible on any content
+src/Remotely.App/Views/Share/ShareCard.xaml | Border@41 Background=White (a fixed colour ignores high contrast) | a QR code must be dark modules on a light background to be scannable in every theme
+src/Remotely.App/Views/Share/ShareCard.xaml.cs | * | QR modules are black on the white Border above
+src/Remotely.ServerManager/Views/InvitePage.xaml.cs | * | QR code: black modules on a white host, required for scanning
+
+# ---- Mouse-only handlers that are not controls ----
+src/Remotely.App/Session/RemoteScreen.cs | * | the remote-screen surface forwards pointer input to the other PC; keyboard input to the other PC goes through key capture (KeyboardButton on the toolbar, IsTabStop=true)
+
+# ---- Names that the static check cannot see ----
+src/Remotely.UI/Controls/TokenBox.xaml | * | the four group TextBoxes are named in TokenBox.xaml.cs (AutomationProperties.SetName(_boxes[i], "Header i/n")); checked at run time by --uia-scan

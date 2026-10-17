@@ -9,6 +9,26 @@
   <data name="Nav_Home" xml:space="preserve"><value>Kjo rrjet</value></data>
   <data name="Nav_Computers" xml:space="preserve"><value>Kompjuterët e mi</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Cilësimet</value></data>
+  <!-- A15: MACHINE-WRITTEN Albanian: not reviewed by a native speaker. -->
+  <data name="Banner_Dismiss" xml:space="preserve"><value>Mbyll</value></data>
+  <data name="Computers_Title" xml:space="preserve"><value>Kompjuterët e mi</value></data>
+  <data name="Computers_Refresh" xml:space="preserve"><value>Rifresko</value></data>
+  <data name="Computers_Subtitle" xml:space="preserve"><value>Kompjuterë të çiftuar me serverin tuaj. Funksionojnë nga çdo rrjet. Lidhjet kalojnë vetëm përmes serverit tuaj.</value></data>
+  <data name="Computers_Join_Title" xml:space="preserve"><value>Lidhuni me serverin tuaj</value></data>
+  <data name="Computers_Join_Help" xml:space="preserve"><value>Ngjitni ftesën nga serveri juaj për ta lidhur këtë kompjuter. E merrni nga 'Remotely Server info' në server. Nuk nevojitet për lidhjet në këtë rrjet.</value></data>
+  <data name="Computers_Invite_Name" xml:space="preserve"><value>Ftesa</value></data>
+  <data name="Computers_Join_Button" xml:space="preserve"><value>Lidhu</value></data>
+  <data name="Computers_Empty" xml:space="preserve"><value>Ende pa kompjuterë. Instaloni Remotely në kompjuterin që doni të arrini dhe ngjitni të njëjtën ftesë atje.</value></data>
+  <data name="Computers_Unreachable" xml:space="preserve"><value>Serveri juaj nuk arrihet: {0}</value></data>
+  <data name="Computers_ThisPc" xml:space="preserve"><value>Ky kompjuter</value></data>
+  <data name="Computers_Online" xml:space="preserve"><value>Në linjë</value></data>
+  <data name="Computers_Offline" xml:space="preserve"><value>Jashtë linje</value></data>
+  <data name="Computers_Connect" xml:space="preserve"><value>Lidhu</value></data>
+  <data name="Computers_Connecting" xml:space="preserve"><value>Po lidhet me {0}…</value></data>
+  <data name="Computers_NotTrusted" xml:space="preserve"><value>Ai kompjuter nuk e beson ende këtë pajisje. Në atë kompjuter, ekzekutoni:  Remotely.Host trust {0}</value></data>
+  <data name="Join_Paired" xml:space="preserve"><value>U lidh. Kjo pajisje është çiftuar me serverin tuaj.</value></data>
+  <data name="Join_FreshInvite" xml:space="preserve"><value>{0} Kërkoni nga serveri një ftesë të re.</value></data>
+  <data name="Join_Unreachable" xml:space="preserve"><value>Serveri juaj nuk arrihet: {0}</value></data>
   <!-- A8: file transfer panel. MACHINE-WRITTEN Albanian: not reviewed by a native speaker. -->
   <data name="Transfers_Title" xml:space="preserve"><value>Skedarët</value></data>
   <data name="Transfers_SendFiles" xml:space="preserve"><value>Dërgo skedarë…</value></data>

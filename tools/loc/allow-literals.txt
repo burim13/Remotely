@@ -1,0 +1,33 @@
+# Literals that are allowed to stay in XAML or code although they contain letters.
+# Format, one per line:   path (from the repository root) | exact text, or * for the whole file | reason
+# LocalizationScannerTests fails when a user-visible literal is not here and not a resource key, and fails when an entry here matches nothing any more.
+
+# ---- Window titles in XAML are design-time placeholders; every one is overwritten in code with a resource ----
+src/Remotely.App/MainWindow.xaml | Remotely | Title is set in MainWindow.xaml.cs: Title = Loc.Get("App_Name")
+src/Remotely.App/Session/SessionWindow.xaml | Remotely | Title is set in SessionWindow.xaml.cs: Loc.Get("Session_WindowTitle")
+src/Remotely.App/Views/Share/ConsentWindow.xaml | Remotely | Title is set in ConsentWindow.xaml.cs: Loc.Get("Consent_Title")
+src/Remotely.App/Views/Share/SessionBannerWindow.xaml | Remotely | Title is set in SessionBannerWindow.xaml.cs: Loc.Get("Banner_Title")
+src/Remotely.ServerManager/MainWindow.xaml | Remotely Server Manager | Title is set in MainWindow.xaml.cs: Title = Ui.T("App_Name")
+
+# ---- Technical examples of a format (not words) ----
+src/Remotely.App/ComputersPage.xaml | RMT1-… | placeholder showing the prefix of an invite
+src/Remotely.App/Views/Connect/ConnectCard.xaml | ABCD-EFGH-JKLM | placeholder showing the shape of a token
+src/Remotely.App/Session/SessionPreviewPage.xaml.cs | JPEG | name of the image format in the CI preview page's statistics text
+
+# ---- Text that is never shown to a user ----
+src/Remotely.App/ComputersPage.xaml.cs | not trusted | substring matched against the protocol's exception message, not displayed
+src/Remotely.App/Shell/TrayIcon.cs | Remotely tray | Win32 message-window name, not shown
+src/Remotely.ServerManager/TrayIcon.cs | Remotely Server Manager tray | Win32 message-window name, not shown
+src/Remotely.ServerManager/App.xaml.cs | not started | reason text of the placeholder admin client that OnLaunched replaces (App.xaml.cs, Admin = AdminFactory.Create)
+src/Remotely.App/Shell/Core/CrashReport.cs | (no exception information) | part of the technical crash report the user copies for support; English by design so support can read it
+src/Remotely.App/Views/Share/ShareSelfTests.cs | * | CI self-test (--selftest): log lines and a test window title, never part of the product UI
+src/Remotely.App/Session/Files/TransfersPage.xaml.cs | * | CI preview page with made-up file names and one sample error, so the transfer panel can be photographed without a session
+
+# ---- Debug design-system page (Gallery): sample texts, not localised on purpose ----
+src/Remotely.App/Views/Gallery/GalleryPanel.xaml | * | debug Gallery page (see the comment in the file); only reachable with --show GalleryPage
+src/Remotely.App/Views/Gallery/GalleryPanel.xaml.cs | * | debug Gallery page: shows the theme name
+
+# ---- Legacy Settings page: agent A14 replaces it with Views/Settings, so it is not translated twice ----
+src/Remotely.App/SettingsPage.xaml | * | PENDING A14: old Settings page, to be replaced by Views/Settings/** (A14). Remove this entry and the page together.
+src/Remotely.App/SettingsPage.xaml.cs | * | PENDING A14: see SettingsPage.xaml
+src/Remotely.App/Shell/UiaScan.cs | * | CI tool (--uia-scan): machine-readable result lines and a scan window title, not part of the product UI

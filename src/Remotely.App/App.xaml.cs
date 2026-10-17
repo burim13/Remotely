@@ -133,12 +133,14 @@ public partial class App : Application
         }
 
         // CI starts every page with --show. A build whose strings did not load would show resource keys everywhere, so fail that launch loudly.
-        if (Options.Show is not null && Loc.Get("App_Name") == "App_Name")
+        if ((Options.Show is not null || Options.UiaScanResultPath is not null) && Loc.Get("App_Name") == "App_Name")
         {
             LogCrash(new InvalidOperationException("The string resources (Strings/en-US/Resources.resw) did not load."));
             Environment.Exit(3);
             return;
         }
+
+        if (Options.UiaScanResultPath is { } scanFile) { Environment.Exit(await UiaScan.RunAsync(scanFile, Options.UiaScanPagesPath)); return; }
 
         try
         {

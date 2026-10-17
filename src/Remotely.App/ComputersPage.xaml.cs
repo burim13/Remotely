@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Media;
 using Remotely.Client;
 using Remotely.Core.Crypto;
 using Remotely.Core.Protocol;
+using Remotely.UI.Localization;
 using Remotely.ViewerCore;
 
 namespace Remotely.App;
@@ -19,6 +20,15 @@ public sealed partial class ComputersPage : Page
     public ComputersPage()
     {
         InitializeComponent();
+        TitleText.Text = Loc.Get("Computers_Title");
+        Subtitle.Text = Loc.Get("Computers_Subtitle");
+        JoinTitle.Text = Loc.Get("Computers_Join_Title");
+        JoinHelp.Text = Loc.Get("Computers_Join_Help");
+        JoinButton.Content = Loc.Get("Computers_Join_Button");
+        EmptyText.Text = Loc.Get("Computers_Empty");
+        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(InviteBox, Loc.Get("Computers_Invite_Name"));
+        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(RefreshButton, Loc.Get("Computers_Refresh"));
+        ToolTipService.SetToolTip(RefreshButton, Loc.Get("Computers_Refresh"));
         _timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
         _timer.Interval = TimeSpan.FromSeconds(10);
         _timer.Tick += async (_, _) => { if (Visibility == Visibility.Visible && XamlRoot is not null) await RefreshAsync(); };
@@ -46,7 +56,7 @@ public sealed partial class ComputersPage : Page
         }
         catch (Exception ex) when (ex is CoordinatorException or IOException or System.Net.WebSockets.WebSocketException or HttpRequestException or TimeoutException or UriFormatException or OperationCanceledException)
         {
-            Show(ex is CoordinatorException ? ex.Message : "Can't reach your server: " + ex.Message);
+            Show(ex is CoordinatorException ? ex.Message : string.Format(Loc.Get("Computers_Unreachable"), ex.Message));
         }
         finally { _refreshing = false; }
     }
@@ -54,7 +64,7 @@ public sealed partial class ComputersPage : Page
     private UIElement BuildRow(DeviceInfo device, bool self)
     {
         var canConnect = device.Online && device.CanHost && !self;
-        var subtitle = self ? "This PC" : device.Online ? "Online" : "Offline";
+        var subtitle = Loc.Get(self ? "Computers_ThisPc" : device.Online ? "Computers_Online" : "Computers_Offline");
         var dot = new Microsoft.UI.Xaml.Shapes.Ellipse
         {
             Width = 8, Height = 8, VerticalAlignment = VerticalAlignment.Center,
@@ -72,7 +82,7 @@ public sealed partial class ComputersPage : Page
         grid.Children.Add(text);
         if (canConnect)
         {
-            var go = new TextBlock { Text = "Connect", FontWeight = Microsoft.UI.Text.FontWeights.SemiBold, VerticalAlignment = VerticalAlignment.Center };
+            var go = new TextBlock { Text = Loc.Get("Computers_Connect"), FontWeight = Microsoft.UI.Text.FontWeights.SemiBold, VerticalAlignment = VerticalAlignment.Center };
             go.Foreground = Palette.AccentText(this);
             Grid.SetColumn(go, 2);
             grid.Children.Add(go);
@@ -91,7 +101,7 @@ public sealed partial class ComputersPage : Page
     {
         if (_connecting) return;
         _connecting = true;
-        Show($"Connecting to {device.Name}…", InfoBarSeverity.Informational);
+        Show(string.Format(Loc.Get("Computers_Connecting"), device.Name), InfoBarSeverity.Informational);
         try
         {
             var client = await App.Connection.EnsureAsync();
@@ -109,7 +119,7 @@ public sealed partial class ComputersPage : Page
     private static string Friendly(Exception ex) => ex switch
     {
         HandshakeException h when h.Message.Contains("not trusted", StringComparison.OrdinalIgnoreCase)
-            => "That PC does not trust this device yet. On that PC, run:  Remotely.Host trust " + App.Connection.Identity.DeviceId,
+            => string.Format(Loc.Get("Computers_NotTrusted"), App.Connection.Identity.DeviceId),
         CoordinatorException c => c.Message,
         _ => ex.Message,
     };
