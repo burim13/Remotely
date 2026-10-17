@@ -56,10 +56,10 @@ jobs:
       - name: Pages in every variant, UI Automation flows, comparison with the baselines
         shell: pwsh
         run: |
-          $args = @('-Rid', '${{ matrix.rid }}', '-App', 'out/app-${{ matrix.rid }}/Remotely.exe', '-Manager', 'out/manager-${{ matrix.rid }}/Remotely.ServerManager.exe', '-Out', 'ui-out')
-          if ('${{ inputs.update_baseline }}' -eq 'true') { $args += '-UpdateBaseline' }
-          if ('${{ inputs.strict_content }}' -eq 'true') { $args += '-StrictContent' }
-          ./tools/ci/run-ui.ps1 @args
+          $runArgs = @{ Rid = '${{ matrix.rid }}'; App = 'out/app-${{ matrix.rid }}/Remotely.exe'; Manager = 'out/manager-${{ matrix.rid }}/Remotely.ServerManager.exe'; Out = 'ui-out' }
+          if ('${{ inputs.update_baseline }}' -eq 'true') { $runArgs.UpdateBaseline = $true }
+          if ('${{ inputs.strict_content }}' -eq 'true') { $runArgs.StrictContent = $true }
+          ./tools/ci/run-ui.ps1 @runArgs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
