@@ -6,7 +6,7 @@ DiagHeaderPage
 DiagSectionPage
 DiagPillPage
 DiagBannerPage
-DiagBannerLocPage
+DiagBannerDismissPage
 DiagCardPage
 DiagTilePage
 DiagTokenPage

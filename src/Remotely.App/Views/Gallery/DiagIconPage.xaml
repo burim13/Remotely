@@ -1,0 +1,6 @@
+<Page x:Class="Remotely.App.Views.Gallery.DiagIconPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="using:Remotely.UI.Controls">
+    <StackPanel><ui:PorticoIcon Glyph="Monitor" Size="24" /></StackPanel>
+</Page>
