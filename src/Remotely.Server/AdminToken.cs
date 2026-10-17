@@ -39,7 +39,7 @@ public sealed class AdminToken
                 if (existing.Length >= 32) return new AdminToken(path, existing);
             }
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is not OutOfMemoryException)
         {
             problem = $"The admin token file could not be read ({ex.Message}); making a new one.";
         }
@@ -49,7 +49,7 @@ public sealed class AdminToken
             WriteProtected(path, token);
             return new AdminToken(path, token);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is not OutOfMemoryException)   // whatever goes wrong here must not stop the server that devices depend on
         {
             problem = $"The admin token file could not be written ({ex.Message}). The admin API v1 is switched off.";
             return null;
