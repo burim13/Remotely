@@ -15,6 +15,8 @@ const string Usage = """
       watch   <host id or prefix> [--out frames] [--count 5] [--seconds 10]
       host-fake [--name NAME] [--code CODE] [--trust ID]... [--seconds 60]
               runs a host with a synthetic screen on any OS, for testing viewers (prints what it receives)
+      input-check <host id or prefix> [--text TEXT] [--layout] [--html HTML] [--png FILE] [--files A,B] [--touch] [--pen] [--hold-key VK [--vanish]] [--wait 3]
+              exercises typed text, touch, pen, rich clipboard and release-on-disappearance through a host that advertises RichClipboard
       control <host id or prefix> [--move X,Y] [--click left|right] [--key VK] [--clip TEXT] [--sas]
                                   [--upload FILE] [--list-share] [--download NAME] [--wait 3]
               (X,Y are 0..65535 across the whole screen; VK is a Windows virtual-key code, e.g. 65 for A)
@@ -34,6 +36,7 @@ try
         "list" => await ListAsync(),
         "watch" when args.Length >= 2 => await WatchAsync(args[1], args[2..]),
         "control" when args.Length >= 2 => await ControlAsync(args[1], args[2..]),
+        "input-check" when args.Length >= 2 => await InputCheckAsync(args[1], args[2..]),
         "host-fake" => await FakeHostAsync(args[1..]),
         _ => Print(Usage, 1),
     };
@@ -202,6 +205,14 @@ async Task<int> ControlAsync(string hostPrefix, string[] a)
     return failures == 0 ? 0 : 4;
 }
 
+async Task<int> InputCheckAsync(string hostPrefix, string[] a)
+{
+    var identity = LoadOrCreateIdentity();
+    await using var client = await CoordinatorClient.ConnectAsync(LoadOptions(), identity);
+    await using var session = await OpenAsync(client, identity, hostPrefix);
+    return await InputCheck.RunAsync(session, a);
+}
+
 async Task<int> FakeHostAsync(string[] a)
 {
     var name = Option(a, "--name") ?? "fake-host";
@@ -233,7 +244,7 @@ async Task<int> FakeHostAsync(string[] a)
         IsTrusted = id => trusted.Contains(id.ToLowerInvariant()),
         CanControl = id => trusted.Contains(id.ToLowerInvariant()),
         Input = new PrintingInput(),
-        Clipboard = new FakeClipboardSync(),
+        Clipboard = new RichFakeClipboard(),
         ReceiveDirectory = receive,
         ShareDirectory = share,
     };

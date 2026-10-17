@@ -1,10 +1,3 @@
-using System.Buffers.Binary;
-using System.Collections.Concurrent;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using Remotely.Client;
-using Remotely.Core.Crypto;
 using Remotely.HostCore;
 
 namespace Remotely.ViewerCore;
@@ -13,18 +6,62 @@ public sealed partial class ViewerSession
 {
     // ---- input ----
 
+    private readonly HeldInputTracker _held = new();
+    private int _heartbeatStarted;
+
+    /// <summary>
+    /// The host understands typed text, touch, pen and heartbeats (it advertised <see cref="HostCapabilities.RichClipboard"/>). Events of those kinds are dropped
+    /// silently for any other host, because an older host rejects the whole message that contains one.
+    /// </summary>
+    public bool SupportsExtendedInput => Hello.Capabilities.HasFlag(HostCapabilities.RichClipboard);
+
     /// <summary>Queues an event. Mouse moves are coalesced so a fast mouse cannot flood the link; everything else keeps its order.</summary>
     public void SendInput(InputEvent e)
     {
         if (!CanControl) return;
+        if (e.IsExtension && !SupportsExtendedInput) return;
+        if (SupportsExtendedInput && Interlocked.Exchange(ref _heartbeatStarted, 1) == 0)
+        {
+            SendInput(InputEvent.Heartbeat()); // first, so the host knows to release everything if this viewer ever goes silent while holding something
+            _ = Task.Run(HeartbeatLoopAsync);
+        }
         lock (_inputGate)
         {
-            if (e.Kind == InputKind.MouseMove && _pendingInput.Count > 0 && _pendingInput[^1].Kind == InputKind.MouseMove)
-                _pendingInput[^1] = e;
+            _held.Apply(e);
+            if (_pendingInput.Count > 0 && Coalesces(_pendingInput[^1], e)) _pendingInput[^1] = e;
             else if (_pendingInput.Count < 4096)
                 _pendingInput.Add(e);
         }
         _inputSignal.Release();
+    }
+
+    public void SendInput(IEnumerable<InputEvent> events)
+    {
+        foreach (var e in events) SendInput(e);
+    }
+
+    private static bool Coalesces(InputEvent last, InputEvent next) =>
+        (last.Kind, next.Kind) switch
+        {
+            (InputKind.MouseMove, InputKind.MouseMove) => true,
+            (InputKind.Touch, InputKind.Touch) => last.Phase == (byte)TouchPhase.Move && next.Phase == (byte)TouchPhase.Move && last.Arg1 == next.Arg1,
+            (InputKind.Pen, InputKind.Pen) => last.Flags == next.Flags && last.Phase is (byte)PenPhase.Move or (byte)PenPhase.Hover,
+            _ => false,
+        };
+
+    private async Task HeartbeatLoopAsync()
+    {
+        try
+        {
+            while (!_cts.IsCancellationRequested)
+            {
+                await Task.Delay(1000, _cts.Token).ConfigureAwait(false);
+                bool holding;
+                lock (_inputGate) holding = _held.AnyHeld;
+                if (holding) SendInput(InputEvent.Heartbeat());
+            }
+        }
+        catch (Exception ex) when (ex is OperationCanceledException or ObjectDisposedException) { }
     }
 
     public void ReleaseAllInput() => SendInput(new InputEvent(InputKind.ReleaseAll));
