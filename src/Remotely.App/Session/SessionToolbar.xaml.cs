@@ -35,12 +35,10 @@ public sealed partial class SessionToolbar : UserControl
         FitItem.Text = Loc.Get("Session_ScaleFit");
         ActualItem.Text = Loc.Get("Session_ScaleActual");
         FillItem.Text = Loc.Get("Session_ScaleFill");
-        SendFileItem.Text = Loc.Get("Session_SendFile");
-        GetFileItem.Text = Loc.Get("Session_GetFile");
         FitItem.IsChecked = true;
         KeyboardButton.IsChecked = true;
         SetMonitors([MonitorEntry.All], MonitorEntry.All);
-        foreach (FlyoutBase flyout in new FlyoutBase[] { MonitorMenu, ScaleMenu, FilesMenu })
+        foreach (FlyoutBase flyout in new FlyoutBase[] { MonitorMenu, ScaleMenu })
         {
             flyout.Opened += (_, _) => { _openMenus++; MenuStateChanged?.Invoke(); };
             flyout.Closed += (_, _) => { _openMenus = Math.Max(0, _openMenus - 1); MenuStateChanged?.Invoke(); };
@@ -59,8 +57,8 @@ public sealed partial class SessionToolbar : UserControl
 
     public event Action<MonitorEntry>? MonitorChosen;
     public event Action<ScaleMode>? ScaleChosen;
-    public event Action<bool>? FullScreenChanged, StatsChanged, KeyboardCaptureChanged, ViewOnlyChanged, ClipboardChanged, PinnedChanged;
-    public event Action? SecureAttentionClicked, SendFileClicked, GetFileClicked, EndClicked;
+    public event Action<bool>? FilesChanged, FullScreenChanged, StatsChanged, KeyboardCaptureChanged, ViewOnlyChanged, ClipboardChanged, PinnedChanged;
+    public event Action? SecureAttentionClicked, EndClicked;
     /// <summary>Pointer entered or left the bar, or a menu of the bar opened or closed.</summary>
     public event Action? MenuStateChanged, PointerStateChanged;
 
@@ -85,6 +83,7 @@ public sealed partial class SessionToolbar : UserControl
         MonitorButton.IsEnabled = ScaleButton.IsEnabled = FullScreenButton.IsEnabled = StatsButton.IsEnabled = _connected;
     }
 
+    public void SetFiles(bool on) => FilesButton.IsChecked = on;
     public void SetClipboard(bool on) => ClipboardButton.IsChecked = on;
     public void SetKeyboardCapture(bool on) => KeyboardButton.IsChecked = on;
     public void SetViewOnly(bool on) => ViewOnlyButton.IsChecked = on;
@@ -146,7 +145,6 @@ public sealed partial class SessionToolbar : UserControl
     private void OnClipboard(object sender, RoutedEventArgs e) => ClipboardChanged?.Invoke(ClipboardButton.IsChecked == true);
     private void OnPin(object sender, RoutedEventArgs e) => PinnedChanged?.Invoke(PinButton.IsChecked == true);
     private void OnSas(object sender, RoutedEventArgs e) => SecureAttentionClicked?.Invoke();
-    private void OnSendFile(object sender, RoutedEventArgs e) => SendFileClicked?.Invoke();
-    private void OnGetFile(object sender, RoutedEventArgs e) => GetFileClicked?.Invoke();
+    private void OnFiles(object sender, RoutedEventArgs e) => FilesChanged?.Invoke(FilesButton.IsChecked == true);
     private void OnEnd(object sender, RoutedEventArgs e) => EndClicked?.Invoke();
 }

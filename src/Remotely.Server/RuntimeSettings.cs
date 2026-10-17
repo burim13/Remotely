@@ -29,7 +29,8 @@ public sealed class RuntimeSettings
         _current = current;
     }
 
-    public ServerSettings Current => _current;
+    /// <summary>The address is read from address.txt each time, so <c>set-address</c> (a separate process) takes effect without a restart.</summary>
+    public ServerSettings Current => _current with { Address = ServerAddress.Load(_dataDir) };
     public int MaxDevices => _current.MaxDevices;
     public int MaxSessionsPerDevice => _current.MaxSessionsPerDevice;
     public int RunningPort => _running.PublicPort;

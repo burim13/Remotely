@@ -123,6 +123,7 @@ public partial class App : Application
         catch (IOException) { }
         catch (UnauthorizedAccessException) { }
 
+        if (Options.SelfTestSessionResultPath is { } sessionFile) { Environment.Exit(await SessionSelfTest.RunAsync(sessionFile)); return; }
         if (Options.SelfTestResultPath is { } lanFile) { Environment.Exit(await SelfTest.RunAsync(lanFile)); return; }
         if (Options.SelfTestServerResultPath is { } serverFile && Options.SelfTestServerHostPrefix is { } hostPrefix)
         {

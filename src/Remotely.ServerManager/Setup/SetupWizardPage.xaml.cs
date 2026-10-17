@@ -37,8 +37,22 @@ public sealed partial class SetupWizardPage : Page
         if (e.Parameter is SetupWizardDependencies deps) Initialize(deps);
     }
 
-    /// <summary>The wizard can be started only once per page instance.</summary>
+    /// <summary>The wizard can be started only once per page instance. Called by OnNavigatedTo, or by the host for a page it created itself.</summary>
     public void Initialize(SetupWizardDependencies dependencies)
+    {
+        if (_deps is not null) return;
+        BuildStepsForSelfCheck(dependencies);
+
+        // Leases are short on purpose; while this page is open it asks the router to extend them. SetupLifecycle keeps doing this while the server runs.
+        _renewTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(5) };
+        _renewTimer.Tick += async (_, _) => { try { await dependencies.Services.Mapping.RenewDueAsync(); } catch (Exception) { } };
+        _renewTimer.Start();
+
+        _ = GoAsync(0);
+    }
+
+    /// <summary>Builds every step panel without starting anything (no network, no timer). The Manager's start-up self-check calls this so a broken step stops it with a log entry.</summary>
+    internal void BuildStepsForSelfCheck(SetupWizardDependencies dependencies)
     {
         if (_deps is not null) return;
         _deps = dependencies;
@@ -55,13 +69,6 @@ public sealed partial class SetupWizardPage : Page
             step.Panel.Visibility = Visibility.Collapsed;
             StepHost.Children.Add(step.Panel);
         }
-
-        // Leases are short on purpose; while this page is open it asks the router to extend them. The host should keep doing this while the server runs.
-        _renewTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(5) };
-        _renewTimer.Tick += async (_, _) => { try { await dependencies.Services.Mapping.RenewDueAsync(); } catch (Exception) { } };
-        _renewTimer.Start();
-
-        _ = GoAsync(0);
     }
 
     /// <summary>Removes every router mapping the wizard created. The host calls this when the server stops and when the Manager closes.</summary>

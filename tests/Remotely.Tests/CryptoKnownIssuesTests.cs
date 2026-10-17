@@ -34,7 +34,7 @@ public class CryptoKnownIssuesTests
         Assert.DoesNotContain("K7P4-4NX2", invite.ToString());
     }
 
-    [Fact(Skip = "Known gap, owner A10 (Server/Hub.cs, admin DELETE /admin/devices/{id}): revoking a device removes it from the store but does not close its open connection or sessions; a revoked device that is online can still list devices and open sessions until it disconnects. Only its next reconnect is refused.")]
+    [Fact]
     public async Task KnownIssue_a_device_revoked_while_connected_must_lose_its_connection()
     {
         await using var server = await TestServer.StartAsync();

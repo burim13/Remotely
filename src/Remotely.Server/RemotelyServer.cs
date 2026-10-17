@@ -23,7 +23,7 @@ public static class RemotelyServer
 
         var clock = time ?? TimeProvider.System;
         var token = AdminToken.LoadOrCreate(dataDir, out var tokenProblem);
-        CertificateHolder? certificate = options.TlsEnabled ? new CertificateHolder(ServerCertificate.LoadOrCreate(dataDir)) : null;
+        CertificateHolder? certificate = options.TlsEnabled ? new CertificateHolder(ServerCertificate.LoadOrCreate(dataDir), ServerCertificate.PathIn(dataDir)) : null;
         var store = new DeviceStore(dataDir);
         var audit = new AuditLog(dataDir, options.AuditMaxBytes, clock);
 
@@ -57,6 +57,7 @@ public static class RemotelyServer
         builder.Services.AddSingleton(new ServerMetrics(clock));
         builder.Services.AddSingleton(new RateLimits(options.Limits, clock));
         builder.Services.AddSingleton<PairingCodes>();
+        builder.Services.AddSingleton(new OutsideChecks(clock));
         builder.Services.AddSingleton<Hub>();
         builder.Services.AddSingleton(sp => new AdminOperations(options, dataDir, store, sp.GetRequiredService<PairingCodes>(), settings, audit, sp.GetRequiredService<Hub>(),
             certificate, token, sp.GetRequiredService<ServerMetrics>(), clock, sp.GetRequiredService<ILogger<AdminOperations>>()));
@@ -117,6 +118,17 @@ public static class RemotelyServer
             metrics.ConnectionAccepted();
             using var socket = await ctx.WebSockets.AcceptWebSocketAsync();
             await hub.RunAsync(new DeviceConnection(socket, remote), ctx.RequestAborted);
+        });
+
+        // The one unauthenticated page: records who asked for a ticket the administrator made. Says nothing else, and 404 for anything it does not know.
+        var checks = app.Services.GetRequiredService<OutsideChecks>();
+        app.MapGet("/check/{id}", (string id, HttpContext ctx) =>
+        {
+            if (ctx.Connection.LocalPort != options.PublicPort) return Results.NotFound();
+            if (limits.Check.Hit(RateLimits.SourceKey(ctx.Connection.RemoteIpAddress)) != RateResult.Allowed) return Results.StatusCode(StatusCodes.Status429TooManyRequests);
+            return checks.Visit(id, ctx.Connection.RemoteIpAddress)
+                ? Results.Text("<!doctype html><meta charset=utf-8><meta name=viewport content=\"width=device-width\"><title>Remotely</title><p>Your Remotely server can be reached from here.</p>", "text/html")
+                : Results.NotFound();
         });
 
         AdminApi.Map(app, options);

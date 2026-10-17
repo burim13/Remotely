@@ -155,6 +155,15 @@ public static class AdminApi
             Results.Ok(ops.RenewCertificate(request?.NewKey ?? false, request?.ConfirmPinChange ?? false)));
         v1.MapPost("/token/rotate", () => Results.Ok(new { token = ops.RotateToken() }));
 
+        var checks = app.Services.GetRequiredService<OutsideChecks>();
+        v1.MapPost("/outside-check", (int? minutes) =>
+        {
+            var info = checks.Create(minutes is > 0 ? TimeSpan.FromMinutes(minutes.Value) : null);
+            audit.Write("outside-check.create", "", null, "ok", $"expires {info.ExpiresUtc:O}");
+            return Results.Ok(info);
+        });
+        v1.MapGet("/outside-check/{id}", (string id) => checks.Get(id) is { } r ? Results.Ok(r) : Error(404, "There is no such check (it may have expired)."));
+
         // ---- health ----
         app.MapGet("/healthz", (HttpContext ctx) =>
             ctx.Connection.LocalPort == options.PublicPort || IsLoopbackRequest(ctx)
