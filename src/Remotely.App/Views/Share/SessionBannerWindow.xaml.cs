@@ -1,5 +1,6 @@
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
+using Remotely.Core.Lan;
 using Remotely.Core.Lan.Consent;
 using Remotely.UI.Localization;
 
