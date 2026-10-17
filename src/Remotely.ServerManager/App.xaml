@@ -7,6 +7,41 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Remotely.UI/Themes/Portico.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Shared looks for the pages. The pages build their rows in code, so these are looked up by key (Ui.StyleOf). -->
+            <Style x:Key="CardStyle" TargetType="Border">
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+            </Style>
+            <Style x:Key="SecondaryTextStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style x:Key="MonoTextStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Cascadia Mono, Consolas" />
+                <Setter Property="IsTextSelectionEnabled" Value="True" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style x:Key="DotStyle" TargetType="Ellipse">
+                <Setter Property="Width" Value="10" />
+                <Setter Property="Height" Value="10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="DotGoodStyle" TargetType="Ellipse" BasedOn="{StaticResource DotStyle}">
+                <Setter Property="Fill" Value="{ThemeResource Portico.Connected}" />
+            </Style>
+            <Style x:Key="DotBadStyle" TargetType="Ellipse" BasedOn="{StaticResource DotStyle}">
+                <Setter Property="Fill" Value="{ThemeResource Portico.Error}" />
+            </Style>
+            <Style x:Key="DotNeutralStyle" TargetType="Ellipse" BasedOn="{StaticResource DotStyle}">
+                <Setter Property="Fill" Value="{ThemeResource TextFillColorTertiaryBrush}" />
+            </Style>
+            <Style x:Key="DotWarnStyle" TargetType="Ellipse" BasedOn="{StaticResource DotStyle}">
+                <Setter Property="Fill" Value="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
