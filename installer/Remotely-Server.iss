@@ -191,6 +191,7 @@ begin
     RestoreFromUpgradeBackup;
     RunQuiet(ExpandConstant('{sys}\sc.exe'), 'start Remotely.Server');
   end;
+  if UpgradeFailed then ExitAfterFailedInstall;
 end;
 
 function InitializeUninstall(): Boolean;

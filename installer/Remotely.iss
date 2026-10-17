@@ -302,6 +302,7 @@ begin
     if IsAdminInstallMode then RunQuiet(ExpandConstant('{sys}\sc.exe'), 'start Remotely.Host')
     else if HostConfigExists then RunQuiet(UpgradeAppDir + '\Remotely.Host.exe', 'install --user');
   end;
+  if UpgradeFailed then ExitAfterFailedInstall;
 end;
 
 function InitializeUninstall(): Boolean;

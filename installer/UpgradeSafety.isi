@@ -87,6 +87,18 @@ begin
     RegWriteStringValue(HKA, UpgradeUninstallKey, 'DisplayVersion', UpgradeOldVersion);
 end;
 
+procedure ExitProcess(uExitCode: Cardinal);
+external 'ExitProcess@kernel32.dll stdcall';
+
+// An exception raised after the files are installed does not change Setup's exit code (the CI showed code 0), so a failed installation ends the process itself with
+// code 4 ("a fatal error occurred during the actual installation process" in Inno Setup's list of exit codes), after the old state was put back and the backup deleted.
+procedure ExitAfterFailedInstall;
+begin
+  if UpgradeHaveBackup then DelTree(UpgradeBackupDir, True, True, True);
+  Log('Exiting with code 4 after a failed installation.');
+  ExitProcess(4);
+end;
+
 // Stops the installation with an error. The caller has already made the system consistent where only the caller can (for example removed a service it just added).
 procedure FailInstall(const Reason: String);
 begin
