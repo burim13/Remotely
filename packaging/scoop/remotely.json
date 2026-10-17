@@ -1,0 +1,44 @@
+{
+    "version": "0.4.0",
+    "description": "Remote access between your own PCs: share a PC on your network with a token, connect to PCs you own. Self-hosted, no accounts, no telemetry.",
+    "homepage": "https://github.com/burim13/Remotely",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/burim13/Remotely/releases/download/v0.4.0/Remotely-Setup-0.4.0-x64.exe",
+            "hash": "REPLACE_WITH_SHA256_FROM_SHA256SUMS_TXT"
+        },
+        "arm64": {
+            "url": "https://github.com/burim13/Remotely/releases/download/v0.4.0/Remotely-Setup-0.4.0-arm64.exe",
+            "hash": "REPLACE_WITH_SHA256_FROM_SHA256SUMS_TXT"
+        }
+    },
+    "installer": {
+        "script": [
+            "$setup = Get-ChildItem \"$dir\\Remotely-Setup-*.exe\" | Select-Object -First 1",
+            "Start-Process $setup.FullName -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/CURRENTUSER' -Wait"
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "$unins = Join-Path $env:LOCALAPPDATA 'Programs\\Remotely\\unins000.exe'",
+            "if (Test-Path $unins) { Start-Process $unins -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART' -Wait }"
+        ]
+    },
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/burim13/Remotely/releases/download/v$version/Remotely-Setup-$version-x64.exe"
+            },
+            "arm64": {
+                "url": "https://github.com/burim13/Remotely/releases/download/v$version/Remotely-Setup-$version-arm64.exe"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/burim13/Remotely/releases/download/v$version/SHA256SUMS.txt",
+            "regex": "$sha256\\s+$basename"
+        }
+    },
+    "notes": "This installs Remotely for the current user (no administrator, no Windows service). For a PC that must be reachable at the sign-in screen run the installer from the GitHub release as administrator instead."
+}

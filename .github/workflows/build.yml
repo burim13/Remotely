@@ -349,7 +349,7 @@ jobs:
   # Compiles the three installers with Inno Setup on Windows.
   installers:
     needs: [build, app]
-    timeout-minutes: 20
+    timeout-minutes: 30
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -363,6 +363,8 @@ jobs:
         with: { name: Remotely.Host-win-arm64, path: publish/arm64/host }
       - uses: actions/download-artifact@v4
         with: { name: Remotely.Server-win-x64, path: publish/server }
+      - uses: actions/download-artifact@v4
+        with: { name: Remotely.ServerManager-win-x64, path: publish/manager }
       - name: Install Inno Setup
         shell: pwsh
         run: choco install innosetup -y --no-progress
@@ -374,6 +376,41 @@ jobs:
           foreach ($arch in "x64", "arm64") { & $iscc "/DArch=$arch" "/DVersion=0.4.0" installer\Remotely.iss; if ($LASTEXITCODE -ne 0) { throw "client installer $arch failed" } }
           & $iscc "/DVersion=0.4.0" installer\Remotely-Server.iss; if ($LASTEXITCODE -ne 0) { throw "server installer failed" }
           Get-ChildItem publish\*.exe | ForEach-Object { "{0}  {1:N1} MB" -f $_.Name, ($_.Length / 1MB) }
+      # SHA256SUMS.txt is what the update check in the apps reads before it offers a download; the release must carry it next to the installers.
+      - name: SHA-256 checksums of the installers
+        shell: pwsh
+        run: ./build/checksums.ps1 -Dir publish
+      - name: The winget and scoop manifests can be filled in from the checksums
+        shell: pwsh
+        run: |
+          $tmp = Join-Path $env:RUNNER_TEMP 'packaging'
+          Copy-Item packaging $tmp -Recurse
+          ./build/update-manifests.ps1 -Version 0.4.0 -SumsFile publish/SHA256SUMS.txt -Packaging $tmp
+          $files = Get-ChildItem $tmp -Recurse -File
+          $left = $files | Select-String -SimpleMatch 'REPLACE_WITH'
+          if ($left) { throw "placeholders left after update-manifests.ps1: $($left | Out-String)" }
+          $null = Get-Content (Join-Path $tmp 'scoop\remotely.json') -Raw | ConvertFrom-Json
+          foreach ($line in Get-Content publish/SHA256SUMS.txt) {
+            $hash, $name = $line -split '\s+', 2
+            $hits = $files | Select-String -SimpleMatch $hash
+            if (-not $hits) { throw "the hash of $name is in no manifest" }
+            Write-Host "manifest holds the hash of ${name}: $(($hits | ForEach-Object { $_.Path | Split-Path -Leaf } | Sort-Object -Unique) -join ', ')"
+          }
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      # Runs the update pipeline on Windows: the real PowerShell Authenticode check (unsigned, signed, tampered) and the real installers through a local test feed
+      # (the check, the download, the SHA-256 comparison, a tampered copy refused).
+      - name: Update pipeline test with the real installers
+        shell: pwsh
+        env:
+          REMOTELY_PUBLISH_DIR: ${{ github.workspace }}\publish
+          REMOTELY_VERSION: "0.4.0"
+        run: |
+          dotnet test tests/Remotely.Tests -c Release --filter "FullyQualifiedName~Update" --logger "console;verbosity=normal"
+          if ($LASTEXITCODE -ne 0) { throw "update tests failed" }
+      - uses: actions/upload-artifact@v4
+        with: { name: Installer-sha256, path: publish/SHA256SUMS.txt }
       - uses: actions/upload-artifact@v4
         with: { name: Installer-x64, path: publish/Remotely-Setup-0.4.0-x64.exe }
       - uses: actions/upload-artifact@v4
@@ -385,7 +422,7 @@ jobs:
   # over real TLS with the server key pin.
   installer-smoke:
     needs: installers
-    timeout-minutes: 20
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
@@ -402,6 +439,8 @@ jobs:
         with: { name: "Remotely.Probe-${{ matrix.rid }}", path: probe }
       - name: Install and test
         shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference = 'Continue'
           $script:fail = 0
@@ -416,11 +455,40 @@ jobs:
             if (-not $p.WaitForExit($timeoutSec * 1000)) { Write-Host "TIMEOUT waiting for $file"; try { $p.Kill() } catch {} }
             return $p
           }
+          # Upgrade tests start from the installers of the last published release (v0.2.0), downloaded from GitHub and compared with the SHA-256 GitHub shows for the asset.
+          function GetRelease($name) {
+            $ProgressPreference = 'SilentlyContinue'
+            try {
+              $headers = @{ Authorization = "Bearer $env:GH_TOKEN"; 'User-Agent' = 'remotely-ci'; Accept = 'application/vnd.github+json' }
+              $rel = Invoke-RestMethod 'https://api.github.com/repos/burim13/Remotely/releases/tags/v0.2.0' -Headers $headers
+              $asset = $rel.assets | Where-Object { $_.name -eq $name } | Select-Object -First 1
+              New-Item -ItemType Directory -Force old | Out-Null
+              $file = Join-Path "$PWD\old" $name
+              Invoke-WebRequest $asset.browser_download_url -OutFile $file -UseBasicParsing
+              $actual = (Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant()
+              Write-Host "downloaded $name ($((Get-Item $file).Length) bytes), sha256 $actual, GitHub shows $($asset.digest)"
+              Check "v0.2.0 asset $name matches the SHA-256 GitHub shows for it" ($asset.digest -eq "sha256:$actual")
+              return $file
+            } catch { Write-Host "could not get ${name}: $_"; Check "v0.2.0 asset $name could be downloaded" $false; return $null }
+          }
+          function Snap($dir) { $m = @{}; Get-ChildItem $dir -Recurse -File -Force | ForEach-Object { $m[$_.FullName.Substring($dir.Length)] = (Get-FileHash $_.FullName -Algorithm SHA256).Hash }; return $m }
+          function SameSnap($a, $b) { if ($a.Count -ne $b.Count) { return $false }; foreach ($k in $a.Keys) { if ($b[$k] -ne $a[$k]) { return $false } }; return $true }
+          function ArpVersion($guid) { (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{$guid}_is1" -ErrorAction SilentlyContinue).DisplayVersion }
+          $clientGuid = 'A979AC82-5CEB-4AFD-9C80-A0AC7E51F7E0'
+          $serverGuid = '4AD4465B-1297-47FA-96EB-767F6966DD9D'
+          $runKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
 
           Write-Host "===== SERVER INSTALLER ====="
           $p = RunWait "$PWD\inst\Remotely-Server-Setup-0.4.0-x64.exe" ($silent + '/LOG=server-install.log' + '/Address=127.0.0.1')
           Check "server installer exit code 0" ($p.ExitCode -eq 0)
           Check "server service running" (WaitFor 'server' { (sc.exe query Remotely.Server) -match 'RUNNING' } 30)
+          Check "the Server Manager was installed beside the server" (Test-Path 'C:\Program Files\Remotely Server\Manager\Remotely.ServerManager.exe')
+          Check "the Server Manager's runtime files were installed with it" ((Get-ChildItem 'C:\Program Files\Remotely Server\Manager' -Recurse -File).Count -gt 50)
+          Check "Start menu entry for the Server Manager exists" (Test-Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Remotely Server\Remotely Server Manager.lnk')
+          $mgr = Start-Process 'C:\Program Files\Remotely Server\Manager\Remotely.ServerManager.exe' -PassThru
+          Start-Sleep -Seconds 8
+          Check "the installed Server Manager starts and stays running (process alive; this does not show that it renders)" (-not $mgr.HasExited)
+          if (-not $mgr.HasExited) { $mgr.Kill() }
           Check "firewall rule added" ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Remotely Server')
           $pin = ((& $serverExe pin) | Select-Object -Last 1).Trim()
           Check "server key pin printed (64 hex)" ($pin -match '^[0-9a-f]{64}$')
@@ -465,6 +533,69 @@ jobs:
           Check "uninstall removed the firewall rules" (-not ((netsh advfirewall firewall show rule name="Remotely same-network (TCP)") -match 'Rule Name'))
           Check "uninstall kept the user's data" (Test-Path 'C:\ProgramData\Remotely\host.json')
 
+          Write-Host "`n===== CLIENT UPGRADE: the v0.2.0 release installer, then this build ====="
+          $newClient = (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName
+          $arch = '${{ matrix.arch }}'
+          $dataDir = 'C:\ProgramData\Remotely'
+          if (Test-Path $dataDir) { Remove-Item $dataDir -Recurse -Force }
+          $appDir = Join-Path $env:LOCALAPPDATA 'Remotely'
+          New-Item -ItemType Directory -Force $appDir | Out-Null
+          Set-Content "$appDir\address-book-canary.json" '{"canary":"a saved PC that must survive an upgrade"}'
+          $canary = (Get-FileHash "$appDir\address-book-canary.json").Hash
+          $oldClient = GetRelease "Remotely-Setup-0.2.0-$arch.exe"
+          if ($oldClient) {
+            $p = RunWait $oldClient ($silent + @('/LOG=client-old-install.log', "/Server=$server", "/Pin=$pin", "/Code=$(NewCode)", '/Name=upg-host', "/Trust=$viewerId"))
+            Check "v0.2.0 installer exit code 0" ($p.ExitCode -eq 0)
+            Check "v0.2.0 is registered as version 0.2.0 in Apps and features" ((ArpVersion $clientGuid) -eq '0.2.0')
+            Check "v0.2.0 host service running" (WaitFor 'oldsvc' { (sc.exe query Remotely.Host) -match 'RUNNING' } 30)
+            $oldOnline = WaitFor 'oldonline' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+upg-host\s' } 40
+            Write-Host "INFO: the v0.2.0 host is $(if ($oldOnline) { 'online' } else { 'NOT online' }) on this server"
+            $oldId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'upg-host\s+([0-9a-f]{64})')).Groups[1].Value
+            $keyBefore = (Get-FileHash "$dataDir\host.key").Hash
+            $before = Snap 'C:\Program Files\Remotely'
+            Write-Host "v0.2.0 program folder: $($before.Count) files"
+
+            Write-Host "--- failing upgrade (/SimulateFailure=1): must roll back"
+            $p = RunWait $newClient ($silent + @('/LOG=client-rollback.log', '/SimulateFailure=1'))
+            Write-Host "failing installer exit code: $($p.ExitCode)"
+            Check "a failing upgrade reports failure (non-zero exit code)" ($p.ExitCode -ne 0)
+            $after = Snap 'C:\Program Files\Remotely'
+            Check "rollback: every program file is exactly the v0.2.0 file again ($($after.Count) vs $($before.Count) files)" (SameSnap $before $after)
+            Check "rollback: Apps and features still says 0.2.0" ((ArpVersion $clientGuid) -eq '0.2.0')
+            Check "rollback: the host service is running again" (WaitFor 'rbsvc' { (sc.exe query Remotely.Host) -match 'RUNNING' } 40)
+            Check "rollback: the device key is untouched" ((Get-FileHash "$dataDir\host.key").Hash -eq $keyBefore)
+            Check "rollback: the address book canary is untouched" ((Get-FileHash "$appDir\address-book-canary.json").Hash -eq $canary)
+            if ($oldOnline) { Check "rollback: the old host is online again" (WaitFor 'rbon' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+upg-host\s' } 60) }
+
+            Write-Host "--- upgrade with no parameters at all (no questions)"
+            $p = RunWait $newClient ($silent + '/LOG=client-upgrade.log')
+            Check "upgrade installer exit code 0" ($p.ExitCode -eq 0)
+            Check "upgrade: Apps and features says 0.4.0" ((ArpVersion $clientGuid) -eq '0.4.0')
+            Check "upgrade: the app's runtime files are there" ((Get-ChildItem 'C:\Program Files\Remotely' -Recurse -File).Count -gt 50)
+            Check "upgrade: the host program was replaced" ((Get-FileHash 'C:\Program Files\Remotely\Remotely.Host.exe').Hash -ne $before['\Remotely.Host.exe'])
+            Check "upgrade: the host service is running (kept and restarted)" (WaitFor 'upsvc' { (sc.exe query Remotely.Host) -match 'RUNNING' } 40)
+            Check "upgrade: the host is online again under the same name" (WaitFor 'uponline' { ((& $probe list 2>&1) -join "`n") -match 'online\s+host\s+upg-host\s' } 60)
+            $newId = ([regex]::Match(((& $probe list 2>&1) -join "`n"), 'upg-host\s+([0-9a-f]{64})')).Groups[1].Value
+            if ($oldId) { Check "upgrade: the device id did not change" ($newId -eq $oldId) }
+            Check "upgrade: the device key is untouched" ((Get-FileHash "$dataDir\host.key").Hash -eq $keyBefore)
+            Check "upgrade: the address book canary is untouched" ((Get-FileHash "$appDir\address-book-canary.json").Hash -eq $canary)
+            Check "upgrade: firewall rules are in place" (((netsh advfirewall firewall show rule name="Remotely same-network (TCP)") -match '47810') -and ((netsh advfirewall firewall show rule name="Remotely same-network (UDP)") -match '47811'))
+            Check "upgrade: Start menu entry exists" (Test-Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Remotely\Remotely.lnk')
+            Check "upgrade without the start-with-Windows task writes no startup entry" ($null -eq (Get-ItemProperty $runKey -Name 'Remotely' -ErrorAction SilentlyContinue))
+
+            Write-Host "--- start with Windows (task)"
+            $p = RunWait $newClient ($silent + @('/LOG=client-startup.log', '/TASKS=startup'))
+            Check "install with /TASKS=startup exit code 0" ($p.ExitCode -eq 0)
+            $run = (Get-ItemProperty $runKey -Name 'Remotely' -ErrorAction SilentlyContinue).Remotely
+            Check "startup entry equals what the app's own setting writes: [$run]" ($run -eq '"C:\Program Files\Remotely\Remotely.exe" --minimized')
+            $p = RunWait $newClient ($silent + '/LOG=client-startup-keep.log')
+            Check "a later upgrade without the task keeps the startup entry" ((Get-ItemProperty $runKey -Name 'Remotely' -ErrorAction SilentlyContinue).Remotely -eq $run)
+            $null = RunWait 'C:\Program Files\Remotely\unins000.exe' ($silent + '/LOG=client-upgrade-uninstall.log')
+            Check "uninstall removed the startup entry" ($null -eq (Get-ItemProperty $runKey -Name 'Remotely' -ErrorAction SilentlyContinue))
+            Check "uninstall removed the service" (WaitFor 'ugone2' { (sc.exe query Remotely.Host) -match '1060' } 20)
+            Check "uninstall kept the device key and the address book canary" ((Test-Path "$dataDir\host.key") -and (Test-Path "$appDir\address-book-canary.json"))
+          }
+
           Write-Host "`n===== CLIENT INSTALLER: CURRENT USER (no service) ====="
           $args2 = $silent + @('/CURRENTUSER', '/LOG=client-install-user.log', "/Server=$server", "/Pin=$pin", "/Code=$(NewCode)", '/Name=inst-user-host', "/Trust=$viewerId")
           $p = RunWait (Get-ChildItem "$PWD\inst\Remotely-Setup-*.exe").FullName $args2
@@ -483,6 +614,48 @@ jobs:
           Check "server service removed" (WaitFor 'sgone' { (sc.exe query Remotely.Server) -match '1060' } 20)
           Check "firewall rule removed" (-not ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Rule Name'))
           Check "server data kept" (Test-Path 'C:\ProgramData\Remotely Server\devices.json')
+
+          Write-Host "`n===== SERVER UPGRADE: the v0.2.0 release installer, then this build ====="
+          $newServer = "$PWD\inst\Remotely-Server-Setup-0.4.0-x64.exe"
+          $sdata = 'C:\ProgramData\Remotely Server'
+          if (Test-Path $sdata) { Remove-Item $sdata -Recurse -Force }
+          $oldServer = GetRelease 'Remotely-Server-Setup-0.2.0-x64.exe'
+          if ($oldServer) {
+            $p = RunWait $oldServer ($silent + '/LOG=server-old-install.log')
+            Check "v0.2.0 server installer exit code 0" ($p.ExitCode -eq 0)
+            Check "v0.2.0 server is registered as version 0.2.0" ((ArpVersion $serverGuid) -eq '0.2.0')
+            Check "v0.2.0 server service running" (WaitFor 'oldsrv' { (sc.exe query Remotely.Server) -match 'RUNNING' } 30)
+            $oldPin = ((& $serverExe pin) | Select-Object -Last 1).Trim()
+            Check "v0.2.0 server key pin printed (64 hex)" ($oldPin -match '^[0-9a-f]{64}$')
+            Set-Content "$sdata\upgrade-canary.json" '{"canary":"server data that must survive an upgrade"}'
+            $sCanary = (Get-FileHash "$sdata\upgrade-canary.json").Hash
+            $sBefore = Snap 'C:\Program Files\Remotely Server'
+            Write-Host "v0.2.0 server folder: $($sBefore.Count) files"
+
+            Write-Host "--- failing server upgrade (/SimulateFailure=1): must roll back"
+            $p = RunWait $newServer ($silent + @('/LOG=server-rollback.log', '/SimulateFailure=1'))
+            Write-Host "failing installer exit code: $($p.ExitCode)"
+            Check "a failing server upgrade reports failure (non-zero exit code)" ($p.ExitCode -ne 0)
+            $sAfter = Snap 'C:\Program Files\Remotely Server'
+            Check "server rollback: every file is exactly the v0.2.0 file again ($($sAfter.Count) vs $($sBefore.Count) files)" (SameSnap $sBefore $sAfter)
+            Check "server rollback: Apps and features still says 0.2.0" ((ArpVersion $serverGuid) -eq '0.2.0')
+            Check "server rollback: the old service is running again" (WaitFor 'rbsrv' { (sc.exe query Remotely.Server) -match 'RUNNING' } 40)
+            Check "server rollback: the Server Manager of the failed upgrade is gone" (-not (Test-Path 'C:\Program Files\Remotely Server\Manager'))
+
+            Write-Host "--- server upgrade"
+            $p = RunWait $newServer ($silent + '/LOG=server-upgrade.log')
+            Check "server upgrade exit code 0" ($p.ExitCode -eq 0)
+            Check "server upgrade: Apps and features says 0.4.0" ((ArpVersion $serverGuid) -eq '0.4.0')
+            Check "server upgrade: the service is running" (WaitFor 'upsrv' { (sc.exe query Remotely.Server) -match 'RUNNING' } 40)
+            Check "server upgrade: the Server Manager is installed" (Test-Path 'C:\Program Files\Remotely Server\Manager\Remotely.ServerManager.exe')
+            $newPin = ((& $serverExe pin) | Select-Object -Last 1).Trim()
+            Check "server upgrade: the server key (pin) did not change" ($newPin -eq $oldPin)
+            Check "server upgrade: the server data canary is untouched" ((Get-FileHash "$sdata\upgrade-canary.json").Hash -eq $sCanary)
+            Check "server upgrade: the firewall rule is in place" ((netsh advfirewall firewall show rule name="Remotely Server") -match 'Remotely Server')
+            $null = RunWait 'C:\Program Files\Remotely Server\unins000.exe' ($silent + '/LOG=server-upgrade-uninstall.log')
+            Check "server uninstall removed the service and the Manager" ((WaitFor 'sgone2' { (sc.exe query Remotely.Server) -match '1060' } 20) -and (-not (Test-Path 'C:\Program Files\Remotely Server\Manager')))
+            Check "server uninstall kept the data" (Test-Path "$sdata\upgrade-canary.json")
+          }
 
           Write-Host "`nFAILED CHECKS: $script:fail"
           Get-ChildItem *.log | ForEach-Object { Write-Host "--- $($_.Name) (last 25 lines)"; Get-Content $_ -Tail 25 }

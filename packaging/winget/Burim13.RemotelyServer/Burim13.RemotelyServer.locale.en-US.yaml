@@ -1,0 +1,18 @@
+PackageIdentifier: Burim13.RemotelyServer
+PackageVersion: 0.4.0
+PackageLocale: en-US
+Publisher: Remotely (open source)
+PublisherUrl: https://github.com/burim13/Remotely
+PackageName: Remotely Server
+PackageUrl: https://github.com/burim13/Remotely
+License: MIT
+LicenseUrl: https://github.com/burim13/Remotely/blob/HEAD/LICENSE
+ShortDescription: The server and the Server Manager for your own Remotely devices.
+Description: Installs the Remotely server as a Windows service together with the Remotely Server Manager app, for reaching your own PCs from outside your network. Self-hosted, no accounts, no telemetry.
+Tags:
+- remote-desktop
+- self-hosted
+- server
+ReleaseNotesUrl: https://github.com/burim13/Remotely/releases
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0
