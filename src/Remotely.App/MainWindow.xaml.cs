@@ -128,21 +128,29 @@ public sealed partial class MainWindow : Window
 
     private void ApplyPlacement()
     {
-        var scale = GetDpiForWindow(WinRT.Interop.WindowNative.GetWindowHandle(this)) / 96.0;
-        if (scale < 1) scale = 1;
-        var areas = new List<PixelRect> { ToRect(DisplayArea.Primary.WorkArea) };
-        foreach (var area in DisplayArea.FindAll())
+        try
         {
-            var r = ToRect(area.WorkArea);
-            if (!areas.Contains(r)) areas.Add(r);
+            var scale = GetDpiForWindow(WinRT.Interop.WindowNative.GetWindowHandle(this)) / 96.0;
+            if (scale < 1) scale = 1;
+            var areas = new List<PixelRect> { ToRect(DisplayArea.Primary.WorkArea) };
+            var all = DisplayArea.FindAll();
+            for (var i = 0; i < all.Count; i++)   // index, do not foreach: enumerating this projected list throws InvalidCastException (seen on CI)
+            {
+                var r = ToRect(all[i].WorkArea);
+                if (!areas.Contains(r)) areas.Add(r);
+            }
+            var s = App.Settings;
+            WindowBounds? saved = s.WindowX is { } x && s.WindowY is { } y && s.WindowWidth is { } w && s.WindowHeight is { } h
+                ? new WindowBounds(x, y, w, h, s.WindowMaximized) : null;
+            var fitted = WindowPlacement.Fit(saved, areas, (int)(DefaultWidth * scale), (int)(DefaultHeight * scale), (int)(MinWidth * scale), (int)(MinHeight * scale));
+            AppWindow.MoveAndResize(new RectInt32(fitted.X, fitted.Y, fitted.Width, fitted.Height));
+            _lastNormal = fitted with { Maximized = false };
+            _maximizeOnShow = fitted.Maximized;
         }
-        var s = App.Settings;
-        WindowBounds? saved = s.WindowX is { } x && s.WindowY is { } y && s.WindowWidth is { } w && s.WindowHeight is { } h
-            ? new WindowBounds(x, y, w, h, s.WindowMaximized) : null;
-        var fitted = WindowPlacement.Fit(saved, areas, (int)(DefaultWidth * scale), (int)(DefaultHeight * scale), (int)(MinWidth * scale), (int)(MinHeight * scale));
-        AppWindow.MoveAndResize(new RectInt32(fitted.X, fitted.Y, fitted.Width, fitted.Height));
-        _lastNormal = fitted with { Maximized = false };
-        _maximizeOnShow = fitted.Maximized;
+        catch (Exception ex) when (ex is COMException or InvalidCastException or InvalidOperationException)
+        {
+            App.LogCrash(ex);   // the window then opens where Windows puts it
+        }
     }
 
     private static PixelRect ToRect(RectInt32 r) => new(r.X, r.Y, r.Width, r.Height);
