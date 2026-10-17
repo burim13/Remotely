@@ -13,6 +13,8 @@ const string Usage = """
       pair  --server wss://host:8443/ws --pin <server key pin> --code XXXX-XXXX --name "My laptop" [--insecure]
       list
       watch   <host id or prefix> [--out frames] [--count 5] [--seconds 10]
+      bench   <host id or prefix> [--seconds 8] [--legacy] [--activity] [--monitor N] [--quality Q]
+              prints fps, bytes per frame and the host's grab and encode time for an idle desktop (and a moving window with --activity)
       host-fake [--name NAME] [--code CODE] [--trust ID]... [--seconds 60]
               runs a host with a synthetic screen on any OS, for testing viewers (prints what it receives)
       control <host id or prefix> [--move X,Y] [--click left|right] [--key VK] [--clip TEXT] [--sas]
@@ -34,6 +36,7 @@ try
         "list" => await ListAsync(),
         "watch" when args.Length >= 2 => await WatchAsync(args[1], args[2..]),
         "control" when args.Length >= 2 => await ControlAsync(args[1], args[2..]),
+        "bench" when args.Length >= 2 => await BenchAsync(args[1], args[2..]),
         "host-fake" => await FakeHostAsync(args[1..]),
         _ => Print(Usage, 1),
     };
@@ -115,6 +118,14 @@ async Task<ViewerSession> OpenAsync(CoordinatorClient client, DeviceIdentity ide
     return session;
 }
 
+async Task<int> BenchAsync(string hostPrefix, string[] a)
+{
+    var identity = LoadOrCreateIdentity();
+    await using var client = await CoordinatorClient.ConnectAsync(LoadOptions(), identity);
+    await using var session = await OpenAsync(client, identity, hostPrefix);
+    return await Remotely.Probe.Bench.RunAsync(session, a);
+}
+
 async Task<int> WatchAsync(string hostPrefix, string[] a)
 {
     var outDir = Option(a, "--out") ?? "frames";
@@ -125,15 +136,19 @@ async Task<int> WatchAsync(string hostPrefix, string[] a)
     var identity = LoadOrCreateIdentity();
     await using var client = await CoordinatorClient.ConnectAsync(LoadOptions(), identity);
     await using var session = await OpenAsync(client, identity, hostPrefix);
+    var tiled = !a.Contains("--legacy") && session.SupportsTiledFrames;
+    if (tiled) await session.EnableTiledFramesAsync();
     var received = 0;
     var done = new TaskCompletionSource();
     session.FrameReceived += frame =>
     {
+        if (tiled && !frame.FromTileStream) return; // the one full-frame reply that was already on its way when tiles were switched on
         var n = Interlocked.Increment(ref received);
         if (n > count) return;
         var file = Path.Combine(outDir, $"frame-{n:0000}.jpg");
-        File.WriteAllBytes(file, frame.Jpeg);
-        Console.WriteLine($"#{n}: {frame.Width}x{frame.Height} desktop={frame.Desktop} {frame.Jpeg.Length / 1024} KB -> {file}");
+        if (frame.Tiles is null) File.WriteAllBytes(file, frame.Jpeg);
+        Console.WriteLine($"#{n}: {frame.Width}x{frame.Height} desktop={frame.Desktop} {(frame.Tiles?.Sum(t => t.Jpeg.Length) ?? frame.Jpeg.Length) / 1024} KB " +
+                          (frame.Tiles is null ? $"-> {file}" : $"({frame.Tiles.Count} changed tile(s))") + (tiled ? $" tile-stream grab {frame.CaptureMicros / 1000.0:0.0} ms encode {frame.EncodeMicros / 1000.0:0.0} ms" : ""));
         if (n == count) done.TrySetResult();
     };
     session.Closed += reason => { Console.WriteLine("Session closed" + (reason is null ? "" : ": " + reason)); done.TrySetResult(); };
