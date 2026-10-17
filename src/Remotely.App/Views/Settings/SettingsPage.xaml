@@ -1,0 +1,19 @@
+<Page x:Class="Remotely.App.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      NavigationCacheMode="Disabled">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="248" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="0">
+            <StackPanel Padding="16,24,8,16" Spacing="12">
+                <TextBlock x:Name="TitleText" Style="{StaticResource Portico.Text.Title}" />
+                <AutoSuggestBox x:Name="Search" QueryIcon="Find" TextChanged="OnSearchChanged" />
+                <ListView x:Name="Sections" SelectionMode="Single" IsItemClickEnabled="True" SelectionChanged="OnSectionChanged" ItemClick="OnSectionClicked" />
+            </StackPanel>
+        </ScrollViewer>
+        <ContentControl x:Name="Host" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False" />
+    </Grid>
+</Page>

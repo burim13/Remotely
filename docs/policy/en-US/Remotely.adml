@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources revision="1.0" schemaVersion="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Remotely</displayName>
+  <description>Group Policy settings for Remotely.</description>
+  <resources>
+    <stringTable>
+      <string id="Remotely">Remotely</string>
+      <string id="SUPPORTED_Remotely1">Remotely 1.0 or later</string>
+      <string id="DisableServerMode">Turn off connecting through a server</string>
+      <string id="DisableServerMode_Help">When enabled, Remotely on this PC does not offer joining or using a Remotely server. Connections on the same network still work. When disabled or not configured, the person using the PC decides.</string>
+      <string id="ForceConsent">Always ask before someone connects</string>
+      <string id="ForceConsent_Help">When enabled, the person at this PC must always allow a connection from a PC that is not on the remembered list, and cannot turn off "Ask me before someone connects". When disabled or not configured, the person decides (the default is to ask).</string>
+      <string id="DisableFileTransfer">Turn off file transfer</string>
+      <string id="DisableFileTransfer_Help">When enabled, Remotely on this PC does not send or receive files in a session, and the setting cannot be turned on in Remotely. When disabled or not configured, the person decides.</string>
+    </stringTable>
+    <presentationTable />
+  </resources>
+</policyDefinitionResources>

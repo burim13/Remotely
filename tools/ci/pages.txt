@@ -12,3 +12,11 @@ SessionPreviewPage
 ConnectPage
 DiagnosisPage
 SharePage
+SettingsGeneralPage
+SettingsSharingPage
+SettingsConnectionPage
+SettingsSecurityPage
+SettingsAppearancePage
+SettingsAdvancedPage
+SettingsAboutPage
+SettingsAddressBookPage
