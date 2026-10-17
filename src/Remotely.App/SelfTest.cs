@@ -96,7 +96,7 @@ internal static class SelfTest
     /// <summary>
     /// <c>Remotely.exe --selftest-shell result.txt</c>: this process plays the first instance (a test-only single-instance name, so a running Remotely is not disturbed),
     /// then starts the real Remotely.exe again with <c>--invite</c> and that name. The second copy must forward its arguments over the named pipe and exit with code 0;
-    /// the first must receive exactly <c>--invite &lt;value&gt;</c>. The invite value is fake and never processed: the forwarding copy exits before reading any settings.
+    /// the first must receive exactly the four arguments the second copy was started with. The invite value is fake and never processed: the forwarding copy exits before reading any settings.
     /// </summary>
     public static async Task<int> RunShellAsync(string resultPath)
     {
@@ -121,7 +121,7 @@ internal static class SelfTest
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
             var args = await received.Task.WaitAsync(cts.Token);
             Log("First instance received: " + string.Join(" ", args));
-            if (args.Length != 2 || args[0] != "--invite" || args[1] != invite)
+            if (args.Length != 4 || args[0] != "--invite" || args[1] != invite || args[2] != "--instance-name" || args[3] != name)
                 throw new InvalidOperationException("The forwarded arguments are not what the second copy was started with.");
 
             try { await second.WaitForExitAsync(cts.Token); }
