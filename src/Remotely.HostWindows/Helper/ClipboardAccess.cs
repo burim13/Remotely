@@ -83,10 +83,10 @@ internal sealed class ClipboardAccess : IClipboardSync, IRichClipboardSync
         Raw raw;
         try
         {
-            var png = ReadBytesLocked(PngFormat, limits.MaxPngBytes);
+            var pngData = ReadBytesLocked(PngFormat, limits.MaxPngBytes);
             // A bitmap is only read (and converted) when no PNG is offered: asking for a DIB makes Windows synthesise one from other formats.
-            var dib = png is null ? ReadBytesLocked(ClipboardNative.CF_DIB, limits.MaxPngBytes * 2L) ?? ReadBytesLocked(ClipboardNative.CF_DIBV5, limits.MaxPngBytes * 2L) : null;
-            raw = new Raw(ReadTextLocked(), ReadBytesLocked(HtmlFormat, limits.MaxHtmlBytes * 2L), png, dib, ReadFileListLocked());
+            var dibData = pngData is null ? ReadBytesLocked(ClipboardNative.CF_DIB, limits.MaxPngBytes * 2L) ?? ReadBytesLocked(ClipboardNative.CF_DIBV5, limits.MaxPngBytes * 2L) : null;
+            raw = new Raw(ReadTextLocked(), ReadBytesLocked(HtmlFormat, limits.MaxHtmlBytes * 2L), pngData, dibData, ReadFileListLocked());
         }
         finally { Native.CloseClipboard(); }
 
