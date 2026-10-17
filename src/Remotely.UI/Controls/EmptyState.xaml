@@ -1,0 +1,14 @@
+<UserControl x:Class="Remotely.UI.Controls.EmptyState"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Remotely.UI.Controls"
+             IsTabStop="False">
+    <StackPanel x:Name="Root" Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="420" Padding="24">
+        <Border Width="72" Height="72" CornerRadius="{StaticResource Portico.Radius.Pill}" HorizontalAlignment="Center" Background="{ThemeResource Portico.Card}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1">
+            <local:PorticoIcon x:Name="Mark" Size="32" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource Portico.AccentText}" />
+        </Border>
+        <TextBlock x:Name="TitleText" Style="{StaticResource Portico.Text.Subtitle}" HorizontalAlignment="Center" TextAlignment="Center" />
+        <TextBlock x:Name="MessageText" Style="{StaticResource Portico.Text.Secondary}" HorizontalAlignment="Center" TextAlignment="Center" Visibility="Collapsed" />
+        <ContentPresenter x:Name="ActionHost" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    </StackPanel>
+</UserControl>

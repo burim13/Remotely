@@ -1,0 +1,117 @@
+<UserControl x:Class="Remotely.App.Views.Gallery.GalleryPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="using:Remotely.UI.Controls"
+             IsTabStop="False">
+    <!-- Every design-system control in every state, once. GalleryPage shows this panel in the dark and in the light theme side by side. Debug page: its sample texts are not localised. -->
+    <Border Background="{ThemeResource Portico.Surface}" Padding="24">
+        <StackPanel Spacing="16">
+            <TextBlock x:Name="ThemeName" Style="{StaticResource Portico.Text.Caption}" />
+
+            <ui:PageHeader x:Name="Header" Title="Page title" Subtitle="One line saying what this page is for" Glyph="Monitor">
+                <ui:PageHeader.Actions>
+                    <Button Content="Action" Style="{StaticResource AccentButtonStyle}" />
+                </ui:PageHeader.Actions>
+            </ui:PageHeader>
+
+            <ui:SectionTitle Text="Type ramp" Description="IBM Plex Sans, Segoe UI as fallback" />
+            <StackPanel Spacing="4">
+                <TextBlock Style="{StaticResource Portico.Text.Display}" Text="Display 40" />
+                <TextBlock Style="{StaticResource Portico.Text.Title}" Text="Title 28" />
+                <TextBlock Style="{StaticResource Portico.Text.Subtitle}" Text="Subtitle 20" />
+                <TextBlock Style="{StaticResource Portico.Text.Body}" Text="Body 14: the quick brown fox jumps over the lazy dog" />
+                <TextBlock Style="{StaticResource Portico.Text.BodyStrong}" Text="Body strong 14" />
+                <TextBlock Style="{StaticResource Portico.Text.Secondary}" Text="Secondary text 14" />
+                <TextBlock Style="{StaticResource Portico.Text.Caption}" Text="Caption 12" />
+                <TextBlock Style="{StaticResource Portico.Text.Mono}" Text="K7P4-4NX2-QMH9" />
+            </StackPanel>
+
+            <ui:SectionTitle Text="Colour" />
+            <Grid ColumnSpacing="8" RowSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition /><ColumnDefinition /><ColumnDefinition /><ColumnDefinition /><ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions><RowDefinition /><RowDefinition /></Grid.RowDefinitions>
+                <Border Height="40" Background="{ThemeResource Portico.Card}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Style="{StaticResource Portico.Text.Caption}" Text="Card" Margin="6" /></Border>
+                <Border Grid.Column="1" Height="40" Background="{ThemeResource Portico.CardRaised}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Style="{StaticResource Portico.Text.Caption}" Text="Raised" Margin="6" /></Border>
+                <Border Grid.Column="2" Height="40" Background="{ThemeResource Portico.Field}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Style="{StaticResource Portico.Text.Caption}" Text="Field" Margin="6" /></Border>
+                <Border Grid.Column="3" Height="40" Background="{ThemeResource Portico.Accent}" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Foreground="{ThemeResource Portico.OnAccent}" Style="{StaticResource Portico.Text.Caption}" Text="Accent" Margin="6" /></Border>
+                <Border Grid.Column="4" Height="40" Background="{ThemeResource Portico.Offline}" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Foreground="{ThemeResource Portico.Surface}" Style="{StaticResource Portico.Text.Caption}" Text="Offline dot" Margin="6" /></Border>
+                <Border Grid.Row="1" Height="40" Background="{ThemeResource Portico.ConnectedSurface}" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Foreground="{ThemeResource Portico.Connected}" Style="{StaticResource Portico.Text.Caption}" Text="Connected" Margin="6" /></Border>
+                <Border Grid.Row="1" Grid.Column="1" Height="40" Background="{ThemeResource Portico.InfoSurface}" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Foreground="{ThemeResource Portico.Info}" Style="{StaticResource Portico.Text.Caption}" Text="Info" Margin="6" /></Border>
+                <Border Grid.Row="1" Grid.Column="2" Height="40" Background="{ThemeResource Portico.WarningSurface}" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Foreground="{ThemeResource Portico.Warning}" Style="{StaticResource Portico.Text.Caption}" Text="Warning" Margin="6" /></Border>
+                <Border Grid.Row="1" Grid.Column="3" Height="40" Background="{ThemeResource Portico.ErrorSurface}" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Foreground="{ThemeResource Portico.Error}" Style="{StaticResource Portico.Text.Caption}" Text="Error" Margin="6" /></Border>
+                <Border Grid.Row="1" Grid.Column="4" Height="40" Background="{ThemeResource Portico.NeutralSurface}" CornerRadius="{StaticResource Portico.Radius.Small}"><TextBlock Foreground="{ThemeResource Portico.NeutralText}" Style="{StaticResource Portico.Text.Caption}" Text="Neutral" Margin="6" /></Border>
+            </Grid>
+
+            <ui:SectionTitle Text="Status pills" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ui:StatusPill Kind="Neutral" Text="Offline" />
+                <ui:StatusPill Kind="Connected" Text="Connected" />
+                <ui:StatusPill Kind="Info" Text="Waiting" />
+                <ui:StatusPill Kind="Warning" Text="Not secure" />
+                <ui:StatusPill Kind="Error" Text="Failed" />
+            </StackPanel>
+
+            <ui:SectionTitle Text="Banners" />
+            <StackPanel Spacing="8">
+                <ui:InlineBanner Kind="Info" Title="Information" Message="Something worth knowing, next to where it matters." />
+                <ui:InlineBanner Kind="Connected" Title="Done" Message="The change was saved." IsDismissible="True" />
+                <ui:InlineBanner Kind="Warning" Title="Careful" Message="This PC will accept connections until you stop sharing.">
+                    <ui:InlineBanner.ActionContent><Button Content="Stop sharing" /></ui:InlineBanner.ActionContent>
+                </ui:InlineBanner>
+                <ui:InlineBanner Kind="Error" Title="That did not work" Message="The other PC did not answer. Check that both PCs are on the same network." IsDismissible="True" />
+                <ui:InlineBanner Kind="Neutral" Message="A plain note without a title." />
+            </StackPanel>
+
+            <ui:SectionTitle Text="Cards" />
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition /></Grid.ColumnDefinitions>
+                <ui:Card><StackPanel Spacing="4"><TextBlock Style="{StaticResource Portico.Text.BodyStrong}" Text="Card" /><TextBlock Style="{StaticResource Portico.Text.Secondary}" Text="The default panel." /></StackPanel></ui:Card>
+                <ui:Card Grid.Column="1" Raised="True"><StackPanel Spacing="4"><TextBlock Style="{StaticResource Portico.Text.BodyStrong}" Text="Raised card" /><TextBlock Style="{StaticResource Portico.Text.Secondary}" Text="For a card on a card." /></StackPanel></ui:Card>
+            </Grid>
+
+            <ui:SectionTitle Text="Device tiles" />
+            <StackPanel Spacing="8">
+                <ui:DeviceTile DeviceName="Office desktop" Detail="192.168.1.20" StatusText="Online" StatusKind="Connected" />
+                <ui:DeviceTile DeviceName="Laptop" Detail="Last seen yesterday" StatusText="Offline" StatusKind="Neutral" Glyph="Monitor" />
+                <ui:DeviceTile DeviceName="Reception PC" Detail="Needs approval on that PC" StatusText="Waiting" StatusKind="Warning" />
+                <ui:DeviceTile DeviceName="Server room" Detail="Connection refused" StatusText="Failed" StatusKind="Error" Glyph="Server" />
+            </StackPanel>
+
+            <ui:SectionTitle Text="Token box" />
+            <StackPanel Spacing="12">
+                <ui:TokenBox x:Name="EmptyToken" Header="Token" />
+                <ui:TokenBox x:Name="FilledToken" Header="Token (filled)" />
+                <ui:TokenBox x:Name="InvalidToken" Header="Token (invalid)" ErrorMessage="A token has 12 letters and numbers." />
+            </StackPanel>
+
+            <ui:SectionTitle Text="Empty state" />
+            <ui:Card>
+                <ui:EmptyState Glyph="Monitor" Title="No computers yet" Message="Add a PC you want to reach from here.">
+                    <ui:EmptyState.ActionContent><Button Content="Add a computer" Style="{StaticResource AccentButtonStyle}" /></ui:EmptyState.ActionContent>
+                </ui:EmptyState>
+            </ui:Card>
+
+            <ui:SectionTitle Text="Icons" />
+            <ItemsRepeater x:Name="IconGrid">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout MinItemWidth="88" MinRowSpacing="8" MinColumnSpacing="8" />
+                </ItemsRepeater.Layout>
+            </ItemsRepeater>
+
+            <ui:SectionTitle Text="Spacing and radius" />
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Border Width="4" Height="24" Background="{ThemeResource Portico.AccentText}" />
+                <Border Width="8" Height="24" Background="{ThemeResource Portico.AccentText}" />
+                <Border Width="12" Height="24" Background="{ThemeResource Portico.AccentText}" />
+                <Border Width="16" Height="24" Background="{ThemeResource Portico.AccentText}" />
+                <Border Width="24" Height="24" Background="{ThemeResource Portico.AccentText}" />
+                <Border Width="32" Height="24" Background="{ThemeResource Portico.AccentText}" />
+                <Border Width="48" Height="48" Background="{ThemeResource Portico.Card}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1" CornerRadius="{StaticResource Portico.Radius.Small}" />
+                <Border Width="48" Height="48" Background="{ThemeResource Portico.Card}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1" CornerRadius="{StaticResource Portico.Radius.Medium}" />
+                <Border Width="48" Height="48" Background="{ThemeResource Portico.Card}" BorderBrush="{ThemeResource Portico.CardStroke}" BorderThickness="1" CornerRadius="{StaticResource Portico.Radius.Large}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>
