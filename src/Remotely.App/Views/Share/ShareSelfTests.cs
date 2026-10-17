@@ -60,7 +60,7 @@ internal static class ShareSelfTests
             }
             catch (ConsentDeniedException) { log("Denied PC was told no."); }
             var refused = false;
-            try { (await ViewerSession.OpenAsync(denied.Channel, "selftest", cts.Token)).Dispose(); }
+            try { await (await ViewerSession.OpenAsync(denied.Channel, "selftest", cts.Token)).DisposeAsync(); }
             catch (Exception ex) when (ex is not OperationCanceledException) { refused = true; }
             Require(refused, "a denied PC could not open a session");
             await WaitAsync(() => share.State.Current.State == ShareState.Ready && share.Coordinator.History.All.Count == 1, "back to Ready after a denial");
