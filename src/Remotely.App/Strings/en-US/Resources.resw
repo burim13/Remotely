@@ -9,4 +9,51 @@
   <data name="Nav_Home" xml:space="preserve"><value>This network</value></data>
   <data name="Nav_Computers" xml:space="preserve"><value>My computers</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
+  <!-- A8: file transfer panel (Session/Files) -->
+  <data name="Transfers_Title" xml:space="preserve"><value>Files</value></data>
+  <data name="Transfers_SendFiles" xml:space="preserve"><value>Send files…</value></data>
+  <data name="Transfers_SendFolder" xml:space="preserve"><value>Send folder…</value></data>
+  <data name="Transfers_GetFiles" xml:space="preserve"><value>Get from this PC…</value></data>
+  <data name="Transfers_More" xml:space="preserve"><value>More</value></data>
+  <data name="Transfers_OpenReceiveFolder" xml:space="preserve"><value>Open receive folder</value></data>
+  <data name="Transfers_ChangeReceiveFolder" xml:space="preserve"><value>Change receive folder…</value></data>
+  <data name="Transfers_ClearFinished" xml:space="preserve"><value>Clear finished</value></data>
+  <data name="Transfers_DropHint" xml:space="preserve"><value>Drop files or folders here to send them to the other PC</value></data>
+  <data name="Transfers_DropCaption" xml:space="preserve"><value>Send to the other PC</value></data>
+  <data name="Transfers_Empty" xml:space="preserve"><value>No transfers yet.</value></data>
+  <data name="Transfers_Summary" xml:space="preserve"><value>{0} active, {1} finished</value></data>
+  <data name="Transfers_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Transfers_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Transfers_Retry" xml:space="preserve"><value>Try again</value></data>
+  <data name="Transfers_ShowInFolder" xml:space="preserve"><value>Show in folder</value></data>
+  <data name="Transfers_Queued" xml:space="preserve"><value>Waiting…</value></data>
+  <data name="Transfers_Starting" xml:space="preserve"><value>Starting…</value></data>
+  <data name="Transfers_Progress" xml:space="preserve"><value>{0} of {1}</value></data>
+  <data name="Transfers_ProgressUnknown" xml:space="preserve"><value>{0} so far</value></data>
+  <data name="Transfers_Eta" xml:space="preserve"><value>{0} left</value></data>
+  <data name="Transfers_Resumed" xml:space="preserve"><value>continued from {0}</value></data>
+  <data name="Transfers_Interrupted" xml:space="preserve"><value>Connection lost. It continues by itself when the connection is back.</value></data>
+  <data name="Transfers_Done" xml:space="preserve"><value>Done</value></data>
+  <data name="Transfers_SavedAs" xml:space="preserve"><value>saved as {0}</value></data>
+  <data name="Transfers_Cancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="Transfers_Skipped" xml:space="preserve"><value>{0} file(s) could not be read and were left out</value></data>
+  <data name="Transfers_Folder" xml:space="preserve"><value>folder</value></data>
+  <data name="Transfers_GetTitle" xml:space="preserve"><value>Files on the other PC</value></data>
+  <data name="Transfers_GetButton" xml:space="preserve"><value>Get</value></data>
+  <data name="Transfers_NothingShared" xml:space="preserve"><value>The other PC has nothing in its shared folder.</value></data>
+  <data name="Transfers_ListFailed" xml:space="preserve"><value>Could not read the list: {0}</value></data>
+  <data name="Transfers_Error_Declined" xml:space="preserve"><value>The owner of the other PC declined the file.</value></data>
+  <data name="Transfers_Error_TooLarge" xml:space="preserve"><value>The file or folder is larger than the allowed size.</value></data>
+  <data name="Transfers_Error_QuotaExceeded" xml:space="preserve"><value>The receive folder has a size limit and this would go over it.</value></data>
+  <data name="Transfers_Error_DiskFull" xml:space="preserve"><value>There is not enough free space for this file.</value></data>
+  <data name="Transfers_Error_NameClash" xml:space="preserve"><value>A file with that name already exists and no free name was found.</value></data>
+  <data name="Transfers_Error_AccessDenied" xml:space="preserve"><value>Access was denied. Check the permissions of the folder.</value></data>
+  <data name="Transfers_Error_HashMismatch" xml:space="preserve"><value>The file arrived damaged and was thrown away. Try again.</value></data>
+  <data name="Transfers_Error_NotFound" xml:space="preserve"><value>The file or folder was not found.</value></data>
+  <data name="Transfers_Error_Busy" xml:space="preserve"><value>The file is in use, or too many transfers are running. Try again in a moment.</value></data>
+  <data name="Transfers_Error_Protocol" xml:space="preserve"><value>The other PC sent something unexpected. Try again.</value></data>
+  <data name="Transfers_Error_UnsafeArchive" xml:space="preserve"><value>The folder contained unsafe paths and was refused.</value></data>
+  <data name="Transfers_Error_Unsupported" xml:space="preserve"><value>The other PC does not support this. Update Remotely there.</value></data>
+  <data name="Transfers_Error_SourceChanged" xml:space="preserve"><value>The file changed while it was being sent. Try again.</value></data>
+  <data name="Transfers_Error_Other" xml:space="preserve"><value>Something went wrong: {0}</value></data>
 </root>

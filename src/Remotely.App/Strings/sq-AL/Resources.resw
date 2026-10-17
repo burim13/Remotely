@@ -9,4 +9,51 @@
   <data name="Nav_Home" xml:space="preserve"><value>Kjo rrjet</value></data>
   <data name="Nav_Computers" xml:space="preserve"><value>Kompjuterët e mi</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Cilësimet</value></data>
+  <!-- A8: file transfer panel. MACHINE-WRITTEN Albanian: not reviewed by a native speaker. -->
+  <data name="Transfers_Title" xml:space="preserve"><value>Skedarët</value></data>
+  <data name="Transfers_SendFiles" xml:space="preserve"><value>Dërgo skedarë…</value></data>
+  <data name="Transfers_SendFolder" xml:space="preserve"><value>Dërgo dosje…</value></data>
+  <data name="Transfers_GetFiles" xml:space="preserve"><value>Merr nga ky kompjuter…</value></data>
+  <data name="Transfers_More" xml:space="preserve"><value>Më shumë</value></data>
+  <data name="Transfers_OpenReceiveFolder" xml:space="preserve"><value>Hap dosjen e marrjes</value></data>
+  <data name="Transfers_ChangeReceiveFolder" xml:space="preserve"><value>Ndrysho dosjen e marrjes…</value></data>
+  <data name="Transfers_ClearFinished" xml:space="preserve"><value>Pastro të përfunduarat</value></data>
+  <data name="Transfers_DropHint" xml:space="preserve"><value>Hidhni skedarë ose dosje këtu për t'i dërguar te kompjuteri tjetër</value></data>
+  <data name="Transfers_DropCaption" xml:space="preserve"><value>Dërgo te kompjuteri tjetër</value></data>
+  <data name="Transfers_Empty" xml:space="preserve"><value>Ende pa transferime.</value></data>
+  <data name="Transfers_Summary" xml:space="preserve"><value>{0} aktive, {1} të përfunduara</value></data>
+  <data name="Transfers_Cancel" xml:space="preserve"><value>Anulo</value></data>
+  <data name="Transfers_Close" xml:space="preserve"><value>Mbyll</value></data>
+  <data name="Transfers_Retry" xml:space="preserve"><value>Provo përsëri</value></data>
+  <data name="Transfers_ShowInFolder" xml:space="preserve"><value>Shfaq në dosje</value></data>
+  <data name="Transfers_Queued" xml:space="preserve"><value>Në pritje…</value></data>
+  <data name="Transfers_Starting" xml:space="preserve"><value>Duke filluar…</value></data>
+  <data name="Transfers_Progress" xml:space="preserve"><value>{0} nga {1}</value></data>
+  <data name="Transfers_ProgressUnknown" xml:space="preserve"><value>{0} deri tani</value></data>
+  <data name="Transfers_Eta" xml:space="preserve"><value>edhe {0}</value></data>
+  <data name="Transfers_Resumed" xml:space="preserve"><value>vazhduar nga {0}</value></data>
+  <data name="Transfers_Interrupted" xml:space="preserve"><value>Lidhja u ndërpre. Vazhdon vetë kur lidhja të kthehet.</value></data>
+  <data name="Transfers_Done" xml:space="preserve"><value>U krye</value></data>
+  <data name="Transfers_SavedAs" xml:space="preserve"><value>u ruajt si {0}</value></data>
+  <data name="Transfers_Cancelled" xml:space="preserve"><value>U anulua</value></data>
+  <data name="Transfers_Skipped" xml:space="preserve"><value>{0} skedarë nuk u lexuan dhe u lanë jashtë</value></data>
+  <data name="Transfers_Folder" xml:space="preserve"><value>dosje</value></data>
+  <data name="Transfers_GetTitle" xml:space="preserve"><value>Skedarët në kompjuterin tjetër</value></data>
+  <data name="Transfers_GetButton" xml:space="preserve"><value>Merr</value></data>
+  <data name="Transfers_NothingShared" xml:space="preserve"><value>Kompjuteri tjetër nuk ka asgjë në dosjen e ndarë.</value></data>
+  <data name="Transfers_ListFailed" xml:space="preserve"><value>Lista nuk u lexua: {0}</value></data>
+  <data name="Transfers_Error_Declined" xml:space="preserve"><value>Pronari i kompjuterit tjetër e refuzoi skedarin.</value></data>
+  <data name="Transfers_Error_TooLarge" xml:space="preserve"><value>Skedari ose dosja është më e madhe se madhësia e lejuar.</value></data>
+  <data name="Transfers_Error_QuotaExceeded" xml:space="preserve"><value>Dosja e marrjes ka kufi madhësie dhe kjo do ta tejkalonte.</value></data>
+  <data name="Transfers_Error_DiskFull" xml:space="preserve"><value>Nuk ka hapësirë të mjaftueshme të lirë për këtë skedar.</value></data>
+  <data name="Transfers_Error_NameClash" xml:space="preserve"><value>Ekziston tashmë një skedar me atë emër dhe nuk u gjet emër i lirë.</value></data>
+  <data name="Transfers_Error_AccessDenied" xml:space="preserve"><value>Qasja u refuzua. Kontrolloni lejet e dosjes.</value></data>
+  <data name="Transfers_Error_HashMismatch" xml:space="preserve"><value>Skedari mbërriti i dëmtuar dhe u hodh. Provoni përsëri.</value></data>
+  <data name="Transfers_Error_NotFound" xml:space="preserve"><value>Skedari ose dosja nuk u gjet.</value></data>
+  <data name="Transfers_Error_Busy" xml:space="preserve"><value>Skedari është në përdorim, ose po ekzekutohen shumë transferime. Provoni pas pak.</value></data>
+  <data name="Transfers_Error_Protocol" xml:space="preserve"><value>Kompjuteri tjetër dërgoi diçka të papritur. Provoni përsëri.</value></data>
+  <data name="Transfers_Error_UnsafeArchive" xml:space="preserve"><value>Dosja përmbante shtigje të pasigurta dhe u refuzua.</value></data>
+  <data name="Transfers_Error_Unsupported" xml:space="preserve"><value>Kompjuteri tjetër nuk e mbështet këtë. Përditësoni Remotely atje.</value></data>
+  <data name="Transfers_Error_SourceChanged" xml:space="preserve"><value>Skedari ndryshoi gjatë dërgimit. Provoni përsëri.</value></data>
+  <data name="Transfers_Error_Other" xml:space="preserve"><value>Diçka shkoi keq: {0}</value></data>
 </root>

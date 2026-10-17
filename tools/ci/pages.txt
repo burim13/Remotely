@@ -2,3 +2,4 @@ HomePage
 ComputersPage
 SettingsPage
 GalleryPage
+TransfersPage
