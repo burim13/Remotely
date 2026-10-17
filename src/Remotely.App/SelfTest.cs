@@ -13,7 +13,7 @@ internal static class SelfTest
     public static async Task<int> RunAsync(string resultPath)
     {
         var lines = new List<string>();
-        void Log(string s) { lock (lines) lines.Add($"{DateTime.UtcNow:HH:mm:ss.fff} {s}"); }
+        void Log(string s) { lock (lines) { lines.Add($"{DateTime.UtcNow:HH:mm:ss.fff} {s}"); try { File.WriteAllLines(resultPath, ["FAIL (progress)", .. lines]); } catch (IOException) { } } }
         try
         {
             var share = new ShareService();
