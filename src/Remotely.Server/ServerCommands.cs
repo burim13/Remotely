@@ -34,6 +34,8 @@ internal static class ServerCommands
             .Build();
         var options = new ServerOptions();
         config.GetSection(ServerOptions.Section).Bind(options);
+        try { RuntimeSettings.Load(options.ResolveDataDir(), options); }   // settings saved through the admin API win, as they do in the running server
+        catch (DataFormatException ex) { Console.Error.WriteLine(ex.Message); }
         return options;
     }
 
@@ -80,6 +82,7 @@ internal static class ServerCommands
         Run("icacls.exe", data, "/grant", @"NT AUTHORITY\LocalService:(OI)(CI)M", "/T", "/Q");
         // Load or create the certificate now, as administrator, so the pin is known before the first start.
         ServerCertificate.LoadOrCreate(data);
+        AdminToken.LoadOrCreate(data, out _);   // made here, as administrator, so the account that installs can read it later
         Run("icacls.exe", data, "/grant", @"NT AUTHORITY\LocalService:(OI)(CI)M", "/T", "/Q");
 
         var binPath = $"\"{InstalledExe}\"";
@@ -110,7 +113,7 @@ internal static class ServerCommands
 
     private static async Task<int> PairCodeAsync(ServerOptions options, bool quiet)
     {
-        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        using var http = AdminHttp(options);
         for (var attempt = 0; attempt < 20; attempt++)
         {
             try
@@ -131,7 +134,7 @@ internal static class ServerCommands
 
     private static async Task<int> DevicesAsync(ServerOptions options)
     {
-        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        using var http = AdminHttp(options);
         try
         {
             var list = await http.GetFromJsonAsync<List<Dictionary<string, System.Text.Json.JsonElement>>>($"http://127.0.0.1:{options.AdminPort}/admin/devices") ?? [];
@@ -145,7 +148,7 @@ internal static class ServerCommands
 
     private static async Task<int> RemoveAsync(ServerOptions options, string id)
     {
-        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        using var http = AdminHttp(options);
         try
         {
             var response = await http.DeleteAsync($"http://127.0.0.1:{options.AdminPort}/admin/devices/{Uri.EscapeDataString(id)}");
@@ -155,20 +158,33 @@ internal static class ServerCommands
         catch (HttpRequestException) { Console.Error.WriteLine("The server is not running."); return 2; }
     }
 
+    /// <summary>HTTP client for the loopback admin port. It presents the admin token when this account can read it (the server only asks for it when LegacyAdminRequiresToken is on).</summary>
+    private static HttpClient AdminHttp(ServerOptions options)
+    {
+        var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        try
+        {
+            var path = Path.Combine(options.ResolveDataDir(), Remotely.Core.Admin.ServerAdminClient.TokenFileName);
+            if (File.Exists(path) && File.ReadAllText(path).Trim() is { Length: > 0 } token)
+                http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
+        return http;
+    }
+
     private static string? ArgValue(string[] args, string name)
     {
         var i = Array.IndexOf(args, name);
         return i >= 0 && i + 1 < args.Length ? args[i + 1] : null;
     }
 
-    private static string AddressFile(ServerOptions options) => Path.Combine(options.ResolveDataDir(), "address.txt");
-
     private static int SetAddress(ServerOptions options, string address)
     {
         try
         {
-            Directory.CreateDirectory(options.ResolveDataDir());
-            File.WriteAllText(AddressFile(options), address.Trim());
+            if (ServerAddress.Validate(address, options.TlsEnabled, options.PublicPort) is { } problem)
+                Console.Error.WriteLine("Warning: " + problem + " Saving it anyway.");
+            ServerAddress.Save(options.ResolveDataDir(), address);
             Console.WriteLine($"Devices will now be told to connect to: {BuildUri(options, address)}");
             return 0;
         }
@@ -176,48 +192,14 @@ internal static class ServerCommands
     }
 
     /// <summary>"myhome.example.com", "myhome.example.com:9000" or a full wss:// address become the address devices connect to.</summary>
-    internal static string BuildUri(ServerOptions options, string address)
-    {
-        address = address.Trim();
-        if (address.Contains("://", StringComparison.Ordinal)) return address;
-        var scheme = options.TlsEnabled ? "wss" : "ws";
-        var hasPort = address.Contains(':') && !address.Contains("::") && address.Count(c => c == ':') == 1;
-        return $"{scheme}://{(hasPort ? address : $"{address}:{options.PublicPort}")}/ws";
-    }
+    internal static string BuildUri(ServerOptions options, string address) => ServerAddress.BuildUri(options.TlsEnabled, options.PublicPort, address);
 
-    /// <summary>The address to put in an invite: the one given, else the one saved at install, else this PC's home-network address.</summary>
-    private static (string? Uri, string Source) ResolveAddress(ServerOptions options, string? given)
-    {
-        if (!string.IsNullOrWhiteSpace(given)) return (BuildUri(options, given), "given");
-        try
-        {
-            if (File.Exists(AddressFile(options)) && File.ReadAllText(AddressFile(options)).Trim() is { Length: > 0 } saved) return (BuildUri(options, saved), "saved");
-        }
-        catch (IOException) { }
-        var lan = LocalNetworkAddress();
-        return lan is null ? (null, "none") : (BuildUri(options, lan), "automatic");
-    }
-
-    private static string? LocalNetworkAddress()
-    {
-        try
-        {
-            foreach (var nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()
-                         .Where(n => n.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up
-                                     && n.NetworkInterfaceType is not (System.Net.NetworkInformation.NetworkInterfaceType.Loopback or System.Net.NetworkInformation.NetworkInterfaceType.Tunnel))
-                         .OrderByDescending(n => n.GetIPProperties().GatewayAddresses.Any(g => !g.Address.Equals(System.Net.IPAddress.Any))))
-                foreach (var u in nic.GetIPProperties().UnicastAddresses)
-                    if (u.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork && !System.Net.IPAddress.IsLoopback(u.Address)
-                        && !u.Address.ToString().StartsWith("169.254.", StringComparison.Ordinal))
-                        return u.Address.ToString();
-        }
-        catch (System.Net.NetworkInformation.NetworkInformationException) { }
-        return null;
-    }
+    private static (string? Uri, string Source) ResolveAddress(ServerOptions options, string? given) =>
+        ServerAddress.Resolve(options.ResolveDataDir(), options.TlsEnabled, options.PublicPort, given);
 
     private static async Task<string?> RequestCodeAsync(ServerOptions options, int uses, int minutes)
     {
-        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        using var http = AdminHttp(options);
         for (var attempt = 0; attempt < 20; attempt++)
         {
             try
