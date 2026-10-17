@@ -1,0 +1,20 @@
+<Page x:Class="Remotely.App.Views.Help.NetworkTestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel Padding="32,24" MaxWidth="760" HorizontalAlignment="Center" Spacing="16">
+            <TextBlock x:Name="TitleText" Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock x:Name="IntroText" TextWrapping="Wrap" Opacity="0.7" />
+            <TextBox x:Name="PeerBox" />
+            <TextBox x:Name="LabelBox" />
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button x:Name="RunButton" Style="{StaticResource AccentButtonStyle}" Click="OnRun" />
+                <Button x:Name="CancelButton" Visibility="Collapsed" Click="OnCancel" />
+                <Button x:Name="BackButton" Click="OnBack" />
+                <ProgressRing x:Name="Busy" IsActive="False" Width="24" Height="24" />
+            </StackPanel>
+            <InfoBar x:Name="SummaryBar" IsOpen="False" IsClosable="False" />
+            <StackPanel x:Name="ChecksPanel" Spacing="10" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

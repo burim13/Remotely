@@ -20,3 +20,5 @@ SettingsAppearancePage
 SettingsAdvancedPage
 SettingsAboutPage
 SettingsAddressBookPage
+DiagnosticsPage
+NetworkTestPage

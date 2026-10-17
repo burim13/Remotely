@@ -459,4 +459,188 @@
   <data name="Settings_AddressBook_Failed" xml:space="preserve"><value>Ndryshimi nuk mund të bëhej.</value></data>
   <data name="Settings_AddressBook_ImportDone" xml:space="preserve"><value>U importua: {0} të shtuar, {1} të përditësuar, {2} të anashkaluar.</value></data>
   <data name="Settings_AddressBook_ImportBad" xml:space="preserve"><value>Ky nuk është skedar libri adresash i Remotely, ose vjen nga një Remotely më i ri. Asgjë nuk u ndryshua.</value></data>
+  <!-- A18: error catalogue MACHINE-WRITTEN Albanian: a fluent speaker must read every string before release. -->
+  <data name="Diag_Err_1001_Title" xml:space="preserve"><value>Kodi nuk është i vlefshëm</value></data>
+  <data name="Diag_Err_1001_Cause" xml:space="preserve"><value>Teksti i shkruar si kod është bosh, ka gjatësi të gabuar ose përmban një shenjë që kodet nuk e përmbajnë kurrë (0, 1, I, O).</value></data>
+  <data name="Diag_Err_1001_Fix" xml:space="preserve"><value>Një kod ka 12 shkronja e shifra, si K7P4-4NX2-QMH9. Shkruaje siç e shfaq tani kompjuteri tjetër. Shkronjat e mëdha, viza dhe hapësirat nuk kanë rëndësi.</value></data>
+  <data name="Diag_Err_1002_Title" xml:space="preserve"><value>Kjo është adresë IPv6</value></data>
+  <data name="Diag_Err_1002_Cause" xml:space="preserve"><value>Lidhjet në të njëjtin rrjet përdorin adresa IPv4 (si 192.168.1.20). U shkrua një adresë IPv6.</value></data>
+  <data name="Diag_Err_1002_Fix" xml:space="preserve"><value>Shkruaj adresën IPv4 që shfaq kompjuteri tjetër. Nëse ai nuk ka adresë IPv4, përdor një rrjet që jep adresa IPv4.</value></data>
+  <data name="Diag_Err_1003_Title" xml:space="preserve"><value>Adresa nuk është e vlefshme</value></data>
+  <data name="Diag_Err_1003_Cause" xml:space="preserve"><value>Fusha e adresës nuk përmban adresë IPv4 si 192.168.1.20, opsionalisht e ndjekur nga :porta.</value></data>
+  <data name="Diag_Err_1003_Fix" xml:space="preserve"><value>Kontrollo për gabime shkrimi. Lëre fushën bosh që Remotely ta gjejë kompjuterin nga kodi.</value></data>
+  <data name="Diag_Err_1004_Title" xml:space="preserve"><value>Ky kompjuter nuk është i lidhur me rrjet</value></data>
+  <data name="Diag_Err_1004_Cause" xml:space="preserve"><value>Nuk u gjet asnjë përshtatës rrjeti me adresë IPv4 të përdorshme (pa lidhje, ose vetëm adresë 169.254 e vetë-caktuar).</value></data>
+  <data name="Diag_Err_1004_Fix" xml:space="preserve"><value>Lidhu me Wi-Fi ose vendos kabllon e rrjetit. Nëse je i lidhur, kontrollo që router-i jep adresa dhe provo përsëri.</value></data>
+  <data name="Diag_Err_1005_Title" xml:space="preserve"><value>Ky kompjuter ka vetëm adresë IPv6</value></data>
+  <data name="Diag_Err_1005_Cause" xml:space="preserve"><value>Lidhjet në të njëjtin rrjet kërkojnë IPv4 dhe ky kompjuter ka vetëm adresa IPv6.</value></data>
+  <data name="Diag_Err_1005_Fix" xml:space="preserve"><value>Përdor një rrjet që jep adresa IPv4 ose aktivizo IPv4 për këtë lidhje rrjeti në Windows.</value></data>
+  <data name="Diag_Err_1006_Title" xml:space="preserve"><value>Asnjë kompjuter nuk iu përgjigj kërkimit</value></data>
+  <data name="Diag_Err_1006_Cause" xml:space="preserve"><value>Askush në këtë rrjet nuk iu përgjigj kërkimit për kodin. Kompjuteri tjetër mund të mos jetë duke ndarë, të jetë në rrjet tjetër ose rrjeti të bllokojë transmetimet (shpesh Wi-Fi për mysafirë).</value></data>
+  <data name="Diag_Err_1006_Fix" xml:space="preserve"><value>Kontrollo që kompjuteri tjetër shfaq një kod dhe që të dy janë në të njëjtin Wi-Fi ose router. Lejo Remotely në Windows Firewall në të dy. Nëse prapë dështon, shkruaj adresën e kompjuterit tjetër pranë kodit.</value></data>
+  <data name="Diag_Err_1007_Title" xml:space="preserve"><value>Kompjuteri nuk u arrit</value></data>
+  <data name="Diag_Err_1007_Cause" xml:space="preserve"><value>Kompjuteri u gjet (ose u shkrua adresa) por nuk u hap dot lidhje me të: është i fikur, në gjumë, në rrjet tjetër ose një firewall e bllokon portën.</value></data>
+  <data name="Diag_Err_1007_Fix" xml:space="preserve"><value>Kontrollo që kompjuteri tjetër është i ndezur, po ndan dhe është në të njëjtin rrjet. Aty kontrollo që rregullat e Windows Firewall "Remotely same-network (TCP)" dhe "(UDP)" ekzistojnë dhe janë aktive.</value></data>
+  <data name="Diag_Err_1008_Title" xml:space="preserve"><value>Kompjuteri tjetër nuk e pranoi kodin</value></data>
+  <data name="Diag_Err_1008_Cause" xml:space="preserve"><value>Kodi është përdorur tashmë, ka skaduar (një kod zgjat 10 minuta) ose është shkruar gabim.</value></data>
+  <data name="Diag_Err_1008_Fix" xml:space="preserve"><value>Lexo kodin që shfaq tani kompjuteri tjetër dhe shkruaj atë.</value></data>
+  <data name="Diag_Err_1009_Title" xml:space="preserve"><value>Kodi është provuar shumë herë</value></data>
+  <data name="Diag_Err_1009_Cause" xml:space="preserve"><value>U bënë tre prova të gabuara me këtë kod, ndaj kompjuteri tjetër e zëvendësoi.</value></data>
+  <data name="Diag_Err_1009_Fix" xml:space="preserve"><value>Lexo kodin e ri në kompjuterin tjetër. Nëse nuk i bëre ti provat e gabuara, i bëri dikush tjetër në rrjet.</value></data>
+  <data name="Diag_Err_1010_Title" xml:space="preserve"><value>Kompjuteri i ruajtur nuk e pranoi këtë kompjuter</value></data>
+  <data name="Diag_Err_1010_Cause" xml:space="preserve"><value>Kompjuteri në adresën e ruajtur nuk e ka më këtë kompjuter në listën e lejuar, nuk po ndan ose adresa i përket tani një kompjuteri tjetër.</value></data>
+  <data name="Diag_Err_1010_Fix" xml:space="preserve"><value>Lidhu një herë me kodin e atij kompjuteri dhe lejo përsëri këtë kompjuter kur të pyetesh.</value></data>
+  <data name="Diag_Err_1011_Title" xml:space="preserve"><value>Kompjuteri tjetër nuk lejoi lidhjen</value></data>
+  <data name="Diag_Err_1011_Cause" xml:space="preserve"><value>Personi te kompjuteri tjetër zgjodhi Refuzo, nuk u përgjigj në kohë ose kompjuteri e mbylli lidhjen para përgjigjes.</value></data>
+  <data name="Diag_Err_1011_Fix" xml:space="preserve"><value>Kërkoji personit ta lejojë lidhjen kur shfaqet pyetja, pastaj provo përsëri.</value></data>
+  <data name="Diag_Err_2001_Title" xml:space="preserve"><value>Pala tjetër nuk foli saktë Remotely</value></data>
+  <data name="Diag_Err_2001_Cause" xml:space="preserve"><value>Programi që u përgjigj dërgoi të dhëna që nuk janë një shtrëngim duarsh i vlefshëm Remotely: porta përdoret nga program tjetër ose versionet janë shumë të ndryshme.</value></data>
+  <data name="Diag_Err_2001_Fix" xml:space="preserve"><value>Kontrollo që kompjuteri tjetër përdor Remotely dhe përditëso të dy në të njëjtin version.</value></data>
+  <data name="Diag_Err_2002_Title" xml:space="preserve"><value>Pajisja që u përgjigj nuk është ajo e pritur</value></data>
+  <data name="Diag_Err_2002_Cause" xml:space="preserve"><value>Përgjigjja erdhi nga pajisje tjetër nga ajo e zgjedhur ose kërkesa ishte për pajisje a kod tjetër.</value></data>
+  <data name="Diag_Err_2002_Fix" xml:space="preserve"><value>Kontrollo që zgjodhe kompjuterin e duhur. Nëse kompjuteri u zëvendësua ose u rivendos, shtoje përsëri.</value></data>
+  <data name="Diag_Err_2003_Title" xml:space="preserve"><value>Një nënshkrim nuk u verifikua</value></data>
+  <data name="Diag_Err_2003_Cause" xml:space="preserve"><value>Nënshkrimi i palës tjetër nuk është i vlefshëm për çelësin e saj. Të dhënat u ndryshuan gjatë rrugës ose pala tjetër nuk është pajisja që pretendon.</value></data>
+  <data name="Diag_Err_2003_Fix" xml:space="preserve"><value>Mos vazhdo në rrjet që nuk e beson. Provo përsëri; nëse përsëritet, shtoje pajisjen përsëri.</value></data>
+  <data name="Diag_Err_2004_Title" xml:space="preserve"><value>Kjo pajisje nuk besohet nga kompjuteri tjetër</value></data>
+  <data name="Diag_Err_2004_Cause" xml:space="preserve"><value>Kompjuteri me të cilin lidhesh nuk e ka këtë pajisje në listën e pajisjeve të lejuara.</value></data>
+  <data name="Diag_Err_2004_Fix" xml:space="preserve"><value>Në kompjuterin tjetër lejo këtë pajisje ose çiftoje këtë pajisje me të njëjtin server.</value></data>
+  <data name="Diag_Err_3001_Title" xml:space="preserve"><value>Kjo pajisje nuk është çiftuar me serverin</value></data>
+  <data name="Diag_Err_3001_Cause" xml:space="preserve"><value>Serveri nuk e njeh ende këtë pajisje ose ajo u hoq nga serveri.</value></data>
+  <data name="Diag_Err_3001_Fix" xml:space="preserve"><value>Bashkohu me një ftesë ose kod çiftimi të ri nga serveri (Cilësimet ose faqja Kryesore).</value></data>
+  <data name="Diag_Err_3002_Title" xml:space="preserve"><value>Lidhja e pashifruar me serverin u refuzua</value></data>
+  <data name="Diag_Err_3002_Cause" xml:space="preserve"><value>Adresa e serverit fillon me ws:// (pa shifrim). Remotely e refuzon këtë nëse nuk është lejuar qëllimisht.</value></data>
+  <data name="Diag_Err_3002_Fix" xml:space="preserve"><value>Përdor adresë serveri që fillon me wss:// dhe bashkohu përsëri me ftesë të re nga serveri.</value></data>
+  <data name="Diag_Err_3003_Title" xml:space="preserve"><value>Çelësi i serverit mungon</value></data>
+  <data name="Diag_Err_3003_Cause" xml:space="preserve"><value>Një adresë serveri e sigurt (wss) kërkon shenjën e çelësit të serverit, që vjen me ftesën. Nuk është ruajtur në këtë kompjuter.</value></data>
+  <data name="Diag_Err_3003_Fix" xml:space="preserve"><value>Bashkohu përsëri me ftesë të re nga serveri. Mos e shkruaj adresën me dorë.</value></data>
+  <data name="Diag_Err_3004_Title" xml:space="preserve"><value>Serveri dhe ky aplikacion janë versione të ndryshme</value></data>
+  <data name="Diag_Err_3004_Cause" xml:space="preserve"><value>Serveri flet version tjetër të protokollit nga ky aplikacion.</value></data>
+  <data name="Diag_Err_3004_Fix" xml:space="preserve"><value>Përditëso Remotely në këtë kompjuter dhe në server në të njëjtin version.</value></data>
+  <data name="Diag_Err_3005_Title" xml:space="preserve"><value>Serveri u përgjigj në mënyrë të papritur</value></data>
+  <data name="Diag_Err_3005_Cause" xml:space="preserve"><value>Përgjigjja nuk ishte ajo që pret aplikacioni ose serveri e mbylli lidhjen. Adresa mund t'i përkasë shërbimi tjetër ose një proxy a filtër e ndryshoi trafikun.</value></data>
+  <data name="Diag_Err_3005_Fix" xml:space="preserve"><value>Kontrollo adresën e serverit. Ekzekuto Testin e rrjetit. Rinis serverin nga Menaxheri i serverit nëse është i yti.</value></data>
+  <data name="Diag_Err_3006_Title" xml:space="preserve"><value>Serveri refuzoi kodin e çiftimit</value></data>
+  <data name="Diag_Err_3006_Cause" xml:space="preserve"><value>Kodi është i gabuar, është përdorur tashmë ose ka skaduar (kodet zgjasin 15 minuta si parazgjedhje).</value></data>
+  <data name="Diag_Err_3006_Fix" xml:space="preserve"><value>Krijo ftesë ose kod çiftimi të ri në server dhe përdor atë.</value></data>
+  <data name="Diag_Err_3007_Title" xml:space="preserve"><value>Shumë përpjekje</value></data>
+  <data name="Diag_Err_3007_Cause" xml:space="preserve"><value>Serveri kufizon sa shpesh mund të provohet çiftimi, lidhja dhe hapja e seancave nga një adresë, dhe kufiri u arrit.</value></data>
+  <data name="Diag_Err_3007_Fix" xml:space="preserve"><value>Prit një minutë dhe provo përsëri.</value></data>
+  <data name="Diag_Err_3008_Title" xml:space="preserve"><value>Serveri ka arritur kufirin e pajisjeve</value></data>
+  <data name="Diag_Err_3008_Cause" xml:space="preserve"><value>Serveri nuk pranon më shumë pajisje se kufiri i tij.</value></data>
+  <data name="Diag_Err_3008_Fix" xml:space="preserve"><value>Hiq pajisjet që nuk përdoren më te Menaxheri i serverit ose rrit kufirin te cilësimet e serverit.</value></data>
+  <data name="Diag_Err_3009_Title" xml:space="preserve"><value>Kjo pajisje u bllokua nga serveri</value></data>
+  <data name="Diag_Err_3009_Cause" xml:space="preserve"><value>Administratori i serverit e bllokoi këtë pajisje. Një kod i ri nuk e heq bllokimin.</value></data>
+  <data name="Diag_Err_3009_Fix" xml:space="preserve"><value>Kërkoji administratorit ta zhbllokojë pajisjen te Menaxheri i serverit.</value></data>
+  <data name="Diag_Err_3010_Title" xml:space="preserve"><value>Ajo pajisje është jashtë linje</value></data>
+  <data name="Diag_Err_3010_Cause" xml:space="preserve"><value>Pajisja që dëshiron nuk është e lidhur me serverin tani (e fikur, në gjumë, pa internet ose Remotely nuk po funksionon).</value></data>
+  <data name="Diag_Err_3010_Fix" xml:space="preserve"><value>Ndiz pajisjen dhe prit të shfaqet në linjë, pastaj provo përsëri.</value></data>
+  <data name="Diag_Err_3011_Title" xml:space="preserve"><value>Me atë pajisje nuk mund të lidhesh</value></data>
+  <data name="Diag_Err_3011_Cause" xml:space="preserve"><value>Serveri nuk e njeh pajisjen, zgjodhe këtë kompjuter ose ajo pajisje nuk pranon lidhje.</value></data>
+  <data name="Diag_Err_3011_Fix" xml:space="preserve"><value>Zgjidh pajisje tjetër nga lista. Një pajisje që vetëm kontrollon të tjerat nuk mund të lidhet.</value></data>
+  <data name="Diag_Err_3012_Title" xml:space="preserve"><value>Serveri nuk u arrit</value></data>
+  <data name="Diag_Err_3012_Cause" xml:space="preserve"><value>Nuk u hap dot lidhje me adresën e serverit: adresë e gabuar, pa internet, serveri i fikur ose firewall-i a router-i bllokon portën.</value></data>
+  <data name="Diag_Err_3012_Fix" xml:space="preserve"><value>Ekzekuto Testin e rrjetit. Kontrollo adresën, që serveri po funksionon dhe që porta është e hapur në firewall-in e kompjuterit të serverit dhe e përcjellë në router.</value></data>
+  <data name="Diag_Err_3013_Title" xml:space="preserve"><value>Adresa e serverit nuk është e vlefshme</value></data>
+  <data name="Diag_Err_3013_Cause" xml:space="preserve"><value>Adresa e ruajtur e serverit nuk mund të lexohet si host dhe portë.</value></data>
+  <data name="Diag_Err_3013_Fix" xml:space="preserve"><value>Përdor formën server.example.com:443 ose wss://server.example.com. Më mirë, bashkohu përsëri me ftesë të re.</value></data>
+  <data name="Diag_Err_5001_Title" xml:space="preserve"><value>Skedari u refuzua</value></data>
+  <data name="Diag_Err_5001_Cause" xml:space="preserve"><value>Pala tjetër zgjodhi të mos e pranojë skedarin ose zotëruesi i kompjuterit e refuzoi pyetjen.</value></data>
+  <data name="Diag_Err_5001_Fix" xml:space="preserve"><value>Kërkoji personit tjetër ta pranojë dhe dërgoje përsëri.</value></data>
+  <data name="Diag_Err_5002_Title" xml:space="preserve"><value>Skedari është shumë i madh</value></data>
+  <data name="Diag_Err_5002_Cause" xml:space="preserve"><value>Skedari është më i madh se kufiri për një transferim (512 MB).</value></data>
+  <data name="Diag_Err_5002_Fix" xml:space="preserve"><value>Ndaje ose ngjeshe skedarin dhe dërgo pjesët.</value></data>
+  <data name="Diag_Err_5003_Title" xml:space="preserve"><value>Dosja e pranimit është plot</value></data>
+  <data name="Diag_Err_5003_Cause" xml:space="preserve"><value>Dosja që pranon skedarë arriti kuotën e saj.</value></data>
+  <data name="Diag_Err_5003_Fix" xml:space="preserve"><value>Fshi skedarët e vjetër nga dosja e pranimit dhe dërgo përsëri.</value></data>
+  <data name="Diag_Err_5004_Title" xml:space="preserve"><value>Nuk ka hapësirë të mjaftueshme</value></data>
+  <data name="Diag_Err_5004_Cause" xml:space="preserve"><value>Disku që duhet ta ruajë skedarin nuk ka më vend.</value></data>
+  <data name="Diag_Err_5004_Fix" xml:space="preserve"><value>Liro hapësirë në atë disk dhe provo përsëri.</value></data>
+  <data name="Diag_Err_5005_Title" xml:space="preserve"><value>Ekziston një skedar me atë emër</value></data>
+  <data name="Diag_Err_5005_Cause" xml:space="preserve"><value>Remotely nuk mbishkruan kurrë një skedar dhe emri është i zënë.</value></data>
+  <data name="Diag_Err_5005_Fix" xml:space="preserve"><value>Riemëro skedarin ose hiq të vjetrin dhe dërgo përsëri.</value></data>
+  <data name="Diag_Err_5006_Title" xml:space="preserve"><value>Qasja në skedar ose dosje u refuzua</value></data>
+  <data name="Diag_Err_5006_Cause" xml:space="preserve"><value>Windows nuk e lejon Remotely të lexojë ose shkruajë aty.</value></data>
+  <data name="Diag_Err_5006_Fix" xml:space="preserve"><value>Zgjidh një dosje të tuat (p.sh. Documents) ose ndrysho lejet e saj.</value></data>
+  <data name="Diag_Err_5007_Title" xml:space="preserve"><value>Skedari mbërriti i dëmtuar</value></data>
+  <data name="Diag_Err_5007_Cause" xml:space="preserve"><value>Shuma kontrolluese e skedarit të marrë nuk përputhet me të dërguarën, ndaj u hodh.</value></data>
+  <data name="Diag_Err_5007_Fix" xml:space="preserve"><value>Dërgo skedarin përsëri. Nëse përsëritet, kontrollo rrjetin dhe disqet e të dy kompjuterëve.</value></data>
+  <data name="Diag_Err_5008_Title" xml:space="preserve"><value>Skedari ose dosja nuk u gjet</value></data>
+  <data name="Diag_Err_5008_Cause" xml:space="preserve"><value>U zhvendos, u riemërua ose u fshi para se të transferohej.</value></data>
+  <data name="Diag_Err_5008_Fix" xml:space="preserve"><value>Zgjidhe përsëri nga vendi i ri.</value></data>
+  <data name="Diag_Err_5010_Title" xml:space="preserve"><value>Skedari është në përdorim nga program tjetër</value></data>
+  <data name="Diag_Err_5010_Cause" xml:space="preserve"><value>Një program tjetër e ka skedarin të hapur dhe Windows nuk e lejon Remotely ta lexojë ose zëvendësojë.</value></data>
+  <data name="Diag_Err_5010_Fix" xml:space="preserve"><value>Mbyll programin tjetër dhe provo përsëri.</value></data>
+  <data name="Diag_Err_5011_Title" xml:space="preserve"><value>Transferimi nuk u kuptua</value></data>
+  <data name="Diag_Err_5011_Cause" xml:space="preserve"><value>Të dy palët nuk u morën vesh për transferimin, zakonisht nga versione të ndryshme.</value></data>
+  <data name="Diag_Err_5011_Fix" xml:space="preserve"><value>Përditëso Remotely në të dy kompjuterët dhe provo përsëri.</value></data>
+  <data name="Diag_Err_5012_Title" xml:space="preserve"><value>Dosja u refuzua si e pasigurt</value></data>
+  <data name="Diag_Err_5012_Cause" xml:space="preserve"><value>Një emër brenda dosjes do të ishte shkruar jashtë dosjes së pranimit.</value></data>
+  <data name="Diag_Err_5012_Fix" xml:space="preserve"><value>Dërgo skedarët në një dosje të re që e krijove vetë.</value></data>
+  <data name="Diag_Err_5013_Title" xml:space="preserve"><value>Pala tjetër nuk mund ta bëjë këtë</value></data>
+  <data name="Diag_Err_5013_Cause" xml:space="preserve"><value>Kompjuteri tjetër ka version që nuk e mbështet këtë lloj transferimi.</value></data>
+  <data name="Diag_Err_5013_Fix" xml:space="preserve"><value>Përditëso Remotely në kompjuterin tjetër.</value></data>
+  <data name="Diag_Err_5014_Title" xml:space="preserve"><value>Lidhja u ndërpre gjatë transferimit</value></data>
+  <data name="Diag_Err_5014_Cause" xml:space="preserve"><value>Lidhja e rrjetit u prish para përfundimit të transferimit.</value></data>
+  <data name="Diag_Err_5014_Fix" xml:space="preserve"><value>Lidhu përsëri dhe dërgo përsëri.</value></data>
+  <data name="Diag_Err_5015_Title" xml:space="preserve"><value>Transferimi dështoi</value></data>
+  <data name="Diag_Err_5015_Cause" xml:space="preserve"><value>Windows ose kompjuteri tjetër raportoi një problem pa kod të veçantë. Mesazhi pranë kodit ka detajet.</value></data>
+  <data name="Diag_Err_5015_Fix" xml:space="preserve"><value>Lexo atë mesazh dhe provo përsëri. Nëse përsëritet, eksporto diagnostikën.</value></data>
+  <data name="Diag_Err_5016_Title" xml:space="preserve"><value>Skedari ndryshoi gjatë dërgimit</value></data>
+  <data name="Diag_Err_5016_Cause" xml:space="preserve"><value>Skedari u modifikua gjatë transferimit, ndaj ajo që mbërriti do të ishte përzierje e dy versioneve.</value></data>
+  <data name="Diag_Err_5016_Fix" xml:space="preserve"><value>Prit sa të mbarojë programi që e shkruan skedarin dhe dërgo përsëri.</value></data>
+  <data name="Diag_Err_6001_Title" xml:space="preserve"><value>Ftesa nuk është e vlefshme</value></data>
+  <data name="Diag_Err_6001_Cause" xml:space="preserve"><value>Teksti nuk është ftesë e plotë Remotely: nuk fillon me RMT1-, është e prerë, ka gabim shkrimi ose është bërë nga Remotely më i ri.</value></data>
+  <data name="Diag_Err_6001_Fix" xml:space="preserve"><value>Kopjo përsëri të gjithë ftesën nga "Remotely Server info" në serverin tënd (një rresht i gjatë). Përditëso Remotely nëse ftesa është nga version më i ri.</value></data>
+  <data name="Diag_Err_9001_Title" xml:space="preserve"><value>Ndodhi diçka e papritur</value></data>
+  <data name="Diag_Err_9001_Cause" xml:space="preserve"><value>Programi hasi një problem që nuk ka kod të veçantë.</value></data>
+  <data name="Diag_Err_9001_Fix" xml:space="preserve"><value>Provo përsëri. Nëse përsëritet, hap Ndihma, Diagnostika, eksporto diagnostikën dhe raportoje me detajet e shfaqura.</value></data>
+  <!-- A18: diagnostics pages. MACHINE-WRITTEN Albanian: a fluent speaker must read every string before release. Placeholders {0} must stay. -->
+  <data name="Diag_Help_Nav" xml:space="preserve"><value>Diagnostika</value></data>
+  <data name="Diag_Help_Title" xml:space="preserve"><value>Diagnostika</value></data>
+  <data name="Diag_Help_Intro" xml:space="preserve"><value>Kur diçka nuk funksionon, kjo faqe të ndihmon të gjesh pse. Asgjë këtu nuk dërgohet askund: skedarët mbeten në këtë kompjuter derisa i ndan vetë.</value></data>
+  <data name="Diag_LogLevel" xml:space="preserve"><value>Detajet në ditar</value></data>
+  <data name="Diag_Level_Debug" xml:space="preserve"><value>Gjithçka (debug)</value></data>
+  <data name="Diag_Level_Info" xml:space="preserve"><value>Normale</value></data>
+  <data name="Diag_Level_Warning" xml:space="preserve"><value>Vetëm paralajmërime dhe gabime</value></data>
+  <data name="Diag_Level_Error" xml:space="preserve"><value>Vetëm gabime</value></data>
+  <data name="Diag_CrashDumps" xml:space="preserve"><value>Ruaj një dump kur programi prishet</value></data>
+  <data name="Diag_CrashDumps_Note" xml:space="preserve"><value>Çaktivizuar si parazgjedhje. Një dump përmban kujtesën e programit, e cila mund të ketë çelësa dhe kode. Mbetet në këtë kompjuter, ruhen vetëm 3 më të rejat dhe eksporti nuk e përfshin kurrë.</value></data>
+  <data name="Diag_Export" xml:space="preserve"><value>Eksporto diagnostikën</value></data>
+  <data name="Diag_Export_Note" xml:space="preserve"><value>Krijon një zip me versionet, sistemin, përshtatësit e rrjetit, rregullat e firewall-it, gjendjen e shërbimit, cilësimet e sigurta, rreshtat e fundit të ditarit dhe prishjen e fundit. Kodet, ftesat, kodet e çiftimit, çelësat dhe dump-et lihen jashtë. Adresat IP dhe emrat e kompjuterëve nuk hiqen, ndaj lexoje para se ta ndash.</value></data>
+  <data name="Diag_Export_Done" xml:space="preserve"><value>U ruajt: {0}</value></data>
+  <data name="Diag_Export_Failed" xml:space="preserve"><value>Eksporti nuk mund të ruhej: {0}</value></data>
+  <data name="Diag_OpenLogs" xml:space="preserve"><value>Hap dosjen e ditarit</value></data>
+  <data name="Diag_NetworkTest" xml:space="preserve"><value>Testi i rrjetit</value></data>
+  <data name="Diag_Codes_Title" xml:space="preserve"><value>Kodet e gabimeve</value></data>
+  <data name="Diag_Codes_Intro" xml:space="preserve"><value>Një gabim me kod si RMT-1006 ka një faqe që thotë çfarë do të thotë dhe çfarë të bësh. Faqet janë në dosjen docs/errors të projektit.</value></data>
+  <data name="Diag_Net_Title" xml:space="preserve"><value>Testi i rrjetit</value></data>
+  <data name="Diag_Net_Intro" xml:space="preserve"><value>Kontrollon rrjetin e këtij kompjuteri, kërkon kompjuterë që po ndajnë dhe mat sa zgjat një lidhje me serverin tënd. Dërgon vetëm përpjekje lidhjeje dhe një kërkim në rrjetin lokal.</value></data>
+  <data name="Diag_Net_Run" xml:space="preserve"><value>Nis testin</value></data>
+  <data name="Diag_Net_Cancel" xml:space="preserve"><value>Anulo</value></data>
+  <data name="Diag_Net_Back" xml:space="preserve"><value>Kthehu</value></data>
+  <data name="Diag_Net_Peer" xml:space="preserve"><value>Adresa e kompjuterit tjetër (opsionale)</value></data>
+  <data name="Diag_Net_Label" xml:space="preserve"><value>Kodi i kompjuterit tjetër (opsional)</value></data>
+  <data name="Diag_Net_Passed" xml:space="preserve"><value>Nuk u gjet asnjë problem</value></data>
+  <data name="Diag_Net_Failed" xml:space="preserve"><value>U gjet një problem</value></data>
+  <data name="Diag_Net_Cancelled" xml:space="preserve"><value>Testi u anulua.</value></data>
+  <data name="Diag_Net_TimedOut" xml:space="preserve"><value>Testi zgjati shumë dhe u ndal.</value></data>
+  <data name="Diag_Net_Check_adapter" xml:space="preserve"><value>Lidhja e rrjetit</value></data>
+  <data name="Diag_Net_Check_subnet" xml:space="preserve"><value>I njëjti rrjet</value></data>
+  <data name="Diag_Net_Check_discovery" xml:space="preserve"><value>Përgjigjja ndaj kërkimit</value></data>
+  <data name="Diag_Net_Check_port" xml:space="preserve"><value>Porta e lidhjes</value></data>
+  <data name="Diag_Net_Check_server" xml:space="preserve"><value>Serveri</value></data>
+  <data name="Diag_Net_Latency" xml:space="preserve"><value>Koha mesatare e lidhjes: {0} ms</value></data>
+  <data name="Diag_Quality_Level_Unknown" xml:space="preserve"><value>Cilësia e lidhjes: po matet</value></data>
+  <data name="Diag_Quality_Level_Good" xml:space="preserve"><value>Lidhja: e mirë</value></data>
+  <data name="Diag_Quality_Level_Fair" xml:space="preserve"><value>Lidhja: e mesme</value></data>
+  <data name="Diag_Quality_Level_Poor" xml:space="preserve"><value>Lidhja: e dobët</value></data>
+  <data name="Diag_Quality_Level_Lost" xml:space="preserve"><value>Lidhja: e humbur</value></data>
+  <data name="Diag_Quality_Reason_NoData" xml:space="preserve"><value>Ende nuk është matur asgjë.</value></data>
+  <data name="Diag_Quality_Reason_Healthy" xml:space="preserve"><value>E shpejtë dhe e qëndrueshme.</value></data>
+  <data name="Diag_Quality_Reason_SlowRoundTrip" xml:space="preserve"><value>Përgjigjet janë të ngadalta.</value></data>
+  <data name="Diag_Quality_Reason_UnstableRoundTrip" xml:space="preserve"><value>Kohët e përgjigjes luhaten shumë.</value></data>
+  <data name="Diag_Quality_Reason_FramesStalled" xml:space="preserve"><value>Pamja u ndal për një moment.</value></data>
+  <data name="Diag_Quality_Reason_NoReply" xml:space="preserve"><value>Nuk është dëgjuar asgjë nga kompjuteri tjetër për disa sekonda.</value></data>
+  <data name="Diag_Quality_Reason_Reconnecting" xml:space="preserve"><value>Po lidhet përsëri.</value></data>
 </root>

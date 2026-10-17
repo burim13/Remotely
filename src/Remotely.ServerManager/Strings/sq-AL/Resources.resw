@@ -433,4 +433,92 @@
   <data name="Backup_Restored" xml:space="preserve"><value>Kopja rezervë u rikthye dhe shërbimi u nis.</value></data>
   <data name="Setup_Nav" xml:space="preserve"><value>Bëje të arritshëm</value></data>
   <data name="Setup_Err_Cancelled" xml:space="preserve"><value>E refuzove kërkesën e lejes së Windows, ndaj asgjë nuk u ndryshua.</value></data>
+  <!-- A18: error catalogue MACHINE-WRITTEN Albanian: a fluent speaker must read every string before release. -->
+  <data name="Diag_Err_1004_Title" xml:space="preserve"><value>Ky kompjuter nuk është i lidhur me rrjet</value></data>
+  <data name="Diag_Err_1004_Cause" xml:space="preserve"><value>Nuk u gjet asnjë përshtatës rrjeti me adresë IPv4 të përdorshme (pa lidhje, ose vetëm adresë 169.254 e vetë-caktuar).</value></data>
+  <data name="Diag_Err_1004_Fix" xml:space="preserve"><value>Lidhu me Wi-Fi ose vendos kabllon e rrjetit. Nëse je i lidhur, kontrollo që router-i jep adresa dhe provo përsëri.</value></data>
+  <data name="Diag_Err_1005_Title" xml:space="preserve"><value>Ky kompjuter ka vetëm adresë IPv6</value></data>
+  <data name="Diag_Err_1005_Cause" xml:space="preserve"><value>Lidhjet në të njëjtin rrjet kërkojnë IPv4 dhe ky kompjuter ka vetëm adresa IPv6.</value></data>
+  <data name="Diag_Err_1005_Fix" xml:space="preserve"><value>Përdor një rrjet që jep adresa IPv4 ose aktivizo IPv4 për këtë lidhje rrjeti në Windows.</value></data>
+  <data name="Diag_Err_1006_Title" xml:space="preserve"><value>Asnjë kompjuter nuk iu përgjigj kërkimit</value></data>
+  <data name="Diag_Err_1006_Cause" xml:space="preserve"><value>Askush në këtë rrjet nuk iu përgjigj kërkimit për kodin. Kompjuteri tjetër mund të mos jetë duke ndarë, të jetë në rrjet tjetër ose rrjeti të bllokojë transmetimet (shpesh Wi-Fi për mysafirë).</value></data>
+  <data name="Diag_Err_1006_Fix" xml:space="preserve"><value>Kontrollo që kompjuteri tjetër shfaq një kod dhe që të dy janë në të njëjtin Wi-Fi ose router. Lejo Remotely në Windows Firewall në të dy. Nëse prapë dështon, shkruaj adresën e kompjuterit tjetër pranë kodit.</value></data>
+  <data name="Diag_Err_1007_Title" xml:space="preserve"><value>Kompjuteri nuk u arrit</value></data>
+  <data name="Diag_Err_1007_Cause" xml:space="preserve"><value>Kompjuteri u gjet (ose u shkrua adresa) por nuk u hap dot lidhje me të: është i fikur, në gjumë, në rrjet tjetër ose një firewall e bllokon portën.</value></data>
+  <data name="Diag_Err_1007_Fix" xml:space="preserve"><value>Kontrollo që kompjuteri tjetër është i ndezur, po ndan dhe është në të njëjtin rrjet. Aty kontrollo që rregullat e Windows Firewall "Remotely same-network (TCP)" dhe "(UDP)" ekzistojnë dhe janë aktive.</value></data>
+  <data name="Diag_Err_3012_Title" xml:space="preserve"><value>Serveri nuk u arrit</value></data>
+  <data name="Diag_Err_3012_Cause" xml:space="preserve"><value>Nuk u hap dot lidhje me adresën e serverit: adresë e gabuar, pa internet, serveri i fikur ose firewall-i a router-i bllokon portën.</value></data>
+  <data name="Diag_Err_3012_Fix" xml:space="preserve"><value>Ekzekuto Testin e rrjetit. Kontrollo adresën, që serveri po funksionon dhe që porta është e hapur në firewall-in e kompjuterit të serverit dhe e përcjellë në router.</value></data>
+  <data name="Diag_Err_3013_Title" xml:space="preserve"><value>Adresa e serverit nuk është e vlefshme</value></data>
+  <data name="Diag_Err_3013_Cause" xml:space="preserve"><value>Adresa e ruajtur e serverit nuk mund të lexohet si host dhe portë.</value></data>
+  <data name="Diag_Err_3013_Fix" xml:space="preserve"><value>Përdor formën server.example.com:443 ose wss://server.example.com. Më mirë, bashkohu përsëri me ftesë të re.</value></data>
+  <data name="Diag_Err_4001_Title" xml:space="preserve"><value>Shenja e administratorit nuk lexohet</value></data>
+  <data name="Diag_Err_4001_Cause" xml:space="preserve"><value>Menaxheri lexon një skedar shenje në dosjen e të dhënave të serverit për të folur me serverin, dhe Windows nuk e lejoi.</value></data>
+  <data name="Diag_Err_4001_Fix" xml:space="preserve"><value>Ekzekuto Menaxherin e serverit si administrator në kompjuterin e serverit.</value></data>
+  <data name="Diag_Err_4002_Title" xml:space="preserve"><value>Porta e administrimit të serverit nuk arrihet</value></data>
+  <data name="Diag_Err_4002_Cause" xml:space="preserve"><value>Porta e administrimit është e hapur vetëm në këtë kompjuter dhe vetëm sa punon serveri.</value></data>
+  <data name="Diag_Err_4002_Fix" xml:space="preserve"><value>Nise serverin te faqja Shërbimi dhe provo përsëri. Ekzekuto Menaxherin në të njëjtin kompjuter me serverin.</value></data>
+  <data name="Diag_Err_4003_Title" xml:space="preserve"><value>Serveri e refuzoi kërkesën</value></data>
+  <data name="Diag_Err_4003_Cause" xml:space="preserve"><value>Serveri u përgjigj me gabim për këtë veprim (për shembull pajisje e panjohur ose vlerë e palejuar).</value></data>
+  <data name="Diag_Err_4003_Fix" xml:space="preserve"><value>Lexo mesazhin pranë kodit. Nëse nuk ndihmon, eksporto diagnostikën dhe shiko ditarin e serverit.</value></data>
+  <data name="Diag_Err_6002_Title" xml:space="preserve"><value>Ai emër publik nuk mund të përdoret</value></data>
+  <data name="Diag_Err_6002_Cause" xml:space="preserve"><value>Emri ose adresa publike opsionale ka skemë (https://), hapësira, portë të gabuar ose adresë IPv6 pa kllapa katrore.</value></data>
+  <data name="Diag_Err_6002_Fix" xml:space="preserve"><value>Shkruaj vetëm një emër si myhome.example.com ose një adresë IP, opsionalisht me :porta. Mund ta lësh bosh.</value></data>
+  <data name="Diag_Err_6003_Title" xml:space="preserve"><value>Windows refuzoi të ndryshojë firewall-in</value></data>
+  <data name="Diag_Err_6003_Cause" xml:space="preserve"><value>Shtimi ose heqja e rregullit "Remotely Server" dështoi, zakonisht sepse Menaxheri nuk u lejua të ekzekutohet si administrator.</value></data>
+  <data name="Diag_Err_6003_Fix" xml:space="preserve"><value>Prano pyetjen e administratorit (UAC) kur shfaqet ose shto vetë një rregull hyrës TCP për portën e serverit në Windows Defender Firewall.</value></data>
+  <data name="Diag_Err_7001_Title" xml:space="preserve"><value>Një veprim i shërbimit dështoi</value></data>
+  <data name="Diag_Err_7001_Cause" xml:space="preserve"><value>Ndihmësi i administratorit u ekzekutua, por Windows ose programi i serverit raportoi gabim në hap (nise, ndale, instalo, rikthe).</value></data>
+  <data name="Diag_Err_7001_Fix" xml:space="preserve"><value>Hap ditarin e ndihmësit të shfaqur te faqja Shërbimi. Kontrollo që asnjë program tjetër nuk i mban skedarët e serverit dhe provo përsëri.</value></data>
+  <data name="Diag_Err_7002_Title" xml:space="preserve"><value>Ndihmësi u nis gabim</value></data>
+  <data name="Diag_Err_7002_Cause" xml:space="preserve"><value>Ndihmësi me të drejta u thirr me komandë që nuk e njeh ose pa argument.</value></data>
+  <data name="Diag_Err_7002_Fix" xml:space="preserve"><value>Ky është gabim në Menaxher. Eksporto diagnostikën dhe raportoje.</value></data>
+  <data name="Diag_Err_7003_Title" xml:space="preserve"><value>Remotely.Server.exe nuk u gjet</value></data>
+  <data name="Diag_Err_7003_Cause" xml:space="preserve"><value>Ndihmësi e kërkon programin e serverit në vende të caktuara dhe nuk gjeti asnjë.</value></data>
+  <data name="Diag_Err_7003_Fix" xml:space="preserve"><value>Instalo serverin me instaluesin Remotely Server ose mbaje Remotely.Server.exe pranë Menaxherit.</value></data>
+  <data name="Diag_Err_7004_Title" xml:space="preserve"><value>Nevojiten të drejta administratori</value></data>
+  <data name="Diag_Err_7004_Cause" xml:space="preserve"><value>Veprimi ndryshon shërbimet ose firewall-in dhe duhet të ekzekutohet si administrator.</value></data>
+  <data name="Diag_Err_7004_Fix" xml:space="preserve"><value>Zgjidhe veprimin përsëri dhe prano pyetjen e administratorit (UAC).</value></data>
+  <data name="Diag_Err_7005_Title" xml:space="preserve"><value>Pyetja e administratorit u refuzua</value></data>
+  <data name="Diag_Err_7005_Cause" xml:space="preserve"><value>Windows raportoi që përdoruesi e anuloi pyetjen e administratorit (UAC), ndaj asgjë nuk u ndryshua.</value></data>
+  <data name="Diag_Err_7005_Fix" xml:space="preserve"><value>Provo përsëri dhe zgjidh Po në pyetje.</value></data>
+  <data name="Diag_Err_9001_Title" xml:space="preserve"><value>Ndodhi diçka e papritur</value></data>
+  <data name="Diag_Err_9001_Cause" xml:space="preserve"><value>Programi hasi një problem që nuk ka kod të veçantë.</value></data>
+  <data name="Diag_Err_9001_Fix" xml:space="preserve"><value>Provo përsëri. Nëse përsëritet, hap Ndihma, Diagnostika, eksporto diagnostikën dhe raportoje me detajet e shfaqura.</value></data>
+  <!-- A18: diagnostics pages. MACHINE-WRITTEN Albanian: a fluent speaker must read every string before release. Placeholders {0} must stay. -->
+  <data name="Diag_Help_Nav" xml:space="preserve"><value>Diagnostika</value></data>
+  <data name="Diag_Help_Title" xml:space="preserve"><value>Diagnostika</value></data>
+  <data name="Diag_Help_Intro" xml:space="preserve"><value>Kur diçka nuk funksionon, kjo faqe të ndihmon të gjesh pse. Asgjë këtu nuk dërgohet askund: skedarët mbeten në këtë kompjuter derisa i ndan vetë.</value></data>
+  <data name="Diag_LogLevel" xml:space="preserve"><value>Detajet në ditar</value></data>
+  <data name="Diag_Level_Debug" xml:space="preserve"><value>Gjithçka (debug)</value></data>
+  <data name="Diag_Level_Info" xml:space="preserve"><value>Normale</value></data>
+  <data name="Diag_Level_Warning" xml:space="preserve"><value>Vetëm paralajmërime dhe gabime</value></data>
+  <data name="Diag_Level_Error" xml:space="preserve"><value>Vetëm gabime</value></data>
+  <data name="Diag_CrashDumps" xml:space="preserve"><value>Ruaj një dump kur programi prishet</value></data>
+  <data name="Diag_CrashDumps_Note" xml:space="preserve"><value>Çaktivizuar si parazgjedhje. Një dump përmban kujtesën e programit, e cila mund të ketë çelësa dhe kode. Mbetet në këtë kompjuter, ruhen vetëm 3 më të rejat dhe eksporti nuk e përfshin kurrë.</value></data>
+  <data name="Diag_Export" xml:space="preserve"><value>Eksporto diagnostikën</value></data>
+  <data name="Diag_Export_Note" xml:space="preserve"><value>Krijon një zip me versionet, sistemin, përshtatësit e rrjetit, rregullat e firewall-it, gjendjen e shërbimit, cilësimet e sigurta, rreshtat e fundit të ditarit dhe prishjen e fundit. Kodet, ftesat, kodet e çiftimit, çelësat dhe dump-et lihen jashtë. Adresat IP dhe emrat e kompjuterëve nuk hiqen, ndaj lexoje para se ta ndash.</value></data>
+  <data name="Diag_Export_Done" xml:space="preserve"><value>U ruajt: {0}</value></data>
+  <data name="Diag_Export_Failed" xml:space="preserve"><value>Eksporti nuk mund të ruhej: {0}</value></data>
+  <data name="Diag_OpenLogs" xml:space="preserve"><value>Hap dosjen e ditarit</value></data>
+  <data name="Diag_NetworkTest" xml:space="preserve"><value>Testi i rrjetit</value></data>
+  <data name="Diag_Codes_Title" xml:space="preserve"><value>Kodet e gabimeve</value></data>
+  <data name="Diag_Codes_Intro" xml:space="preserve"><value>Një gabim me kod si RMT-1006 ka një faqe që thotë çfarë do të thotë dhe çfarë të bësh. Faqet janë në dosjen docs/errors të projektit.</value></data>
+  <data name="Diag_Net_Title" xml:space="preserve"><value>Testi i rrjetit</value></data>
+  <data name="Diag_Net_Intro" xml:space="preserve"><value>Kontrollon rrjetin e këtij kompjuteri, kërkon kompjuterë që po ndajnë dhe mat sa zgjat një lidhje me serverin tënd. Dërgon vetëm përpjekje lidhjeje dhe një kërkim në rrjetin lokal.</value></data>
+  <data name="Diag_Net_Run" xml:space="preserve"><value>Nis testin</value></data>
+  <data name="Diag_Net_Cancel" xml:space="preserve"><value>Anulo</value></data>
+  <data name="Diag_Net_Back" xml:space="preserve"><value>Kthehu</value></data>
+  <data name="Diag_Net_Peer" xml:space="preserve"><value>Adresa e kompjuterit tjetër (opsionale)</value></data>
+  <data name="Diag_Net_Label" xml:space="preserve"><value>Kodi i kompjuterit tjetër (opsional)</value></data>
+  <data name="Diag_Net_Passed" xml:space="preserve"><value>Nuk u gjet asnjë problem</value></data>
+  <data name="Diag_Net_Failed" xml:space="preserve"><value>U gjet një problem</value></data>
+  <data name="Diag_Net_Cancelled" xml:space="preserve"><value>Testi u anulua.</value></data>
+  <data name="Diag_Net_TimedOut" xml:space="preserve"><value>Testi zgjati shumë dhe u ndal.</value></data>
+  <data name="Diag_Net_Check_adapter" xml:space="preserve"><value>Lidhja e rrjetit</value></data>
+  <data name="Diag_Net_Check_subnet" xml:space="preserve"><value>I njëjti rrjet</value></data>
+  <data name="Diag_Net_Check_discovery" xml:space="preserve"><value>Përgjigjja ndaj kërkimit</value></data>
+  <data name="Diag_Net_Check_port" xml:space="preserve"><value>Porta e lidhjes</value></data>
+  <data name="Diag_Net_Check_server" xml:space="preserve"><value>Serveri</value></data>
+  <data name="Diag_Net_Latency" xml:space="preserve"><value>Koha mesatare e lidhjes: {0} ms</value></data>
 </root>

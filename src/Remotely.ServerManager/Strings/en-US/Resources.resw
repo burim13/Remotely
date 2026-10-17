@@ -433,4 +433,92 @@
   <data name="Backup_Restored" xml:space="preserve"><value>The backup was restored and the service started.</value></data>
   <data name="Setup_Nav" xml:space="preserve"><value>Make reachable</value></data>
   <data name="Setup_Err_Cancelled" xml:space="preserve"><value>You declined the Windows permission prompt, so nothing was changed.</value></data>
+  <!-- A18: error catalogue -->
+  <data name="Diag_Err_1004_Title" xml:space="preserve"><value>This PC is not connected to a network</value></data>
+  <data name="Diag_Err_1004_Cause" xml:space="preserve"><value>No network adapter with a usable IPv4 address was found (no connection, or only a self-assigned 169.254 address).</value></data>
+  <data name="Diag_Err_1004_Fix" xml:space="preserve"><value>Connect to Wi-Fi or plug in a network cable. If you are connected, check that the router gives out addresses, then try again.</value></data>
+  <data name="Diag_Err_1005_Title" xml:space="preserve"><value>This PC has only an IPv6 address</value></data>
+  <data name="Diag_Err_1005_Cause" xml:space="preserve"><value>Same-network connections need IPv4, and this PC only has IPv6 addresses.</value></data>
+  <data name="Diag_Err_1005_Fix" xml:space="preserve"><value>Use a network that gives out IPv4 addresses, or turn IPv4 on for this network connection in Windows.</value></data>
+  <data name="Diag_Err_1006_Title" xml:space="preserve"><value>No PC answered the search</value></data>
+  <data name="Diag_Err_1006_Cause" xml:space="preserve"><value>Nobody on this network answered the search for the token. The other PC may not be sharing, may use another network, or the network may block broadcasts (guest Wi-Fi often does).</value></data>
+  <data name="Diag_Err_1006_Fix" xml:space="preserve"><value>Check that the other PC shows a token and that both PCs are on the same Wi-Fi or router. Allow Remotely in Windows Firewall on both PCs. If it still fails, type the other PC's address next to the token.</value></data>
+  <data name="Diag_Err_1007_Title" xml:space="preserve"><value>The PC could not be reached</value></data>
+  <data name="Diag_Err_1007_Cause" xml:space="preserve"><value>The PC was found (or its address typed) but a connection to it could not be opened: it is off, asleep, on another network, or a firewall blocks the port.</value></data>
+  <data name="Diag_Err_1007_Fix" xml:space="preserve"><value>Check that the other PC is on and sharing and on the same network. On that PC, check that the Windows Firewall rules "Remotely same-network (TCP)" and "(UDP)" exist and are enabled.</value></data>
+  <data name="Diag_Err_3012_Title" xml:space="preserve"><value>The server could not be reached</value></data>
+  <data name="Diag_Err_3012_Cause" xml:space="preserve"><value>A connection to the server's address could not be opened: wrong address, no internet, the server is off, or a firewall or router blocks the port.</value></data>
+  <data name="Diag_Err_3012_Fix" xml:space="preserve"><value>Run the Network test. Check the address, that the server is running, and that its port is open in the server PC's firewall and forwarded in the router.</value></data>
+  <data name="Diag_Err_3013_Title" xml:space="preserve"><value>The server address is not valid</value></data>
+  <data name="Diag_Err_3013_Cause" xml:space="preserve"><value>The saved server address cannot be read as host and port.</value></data>
+  <data name="Diag_Err_3013_Fix" xml:space="preserve"><value>Use the form server.example.com:443 or wss://server.example.com. Better, join again with a new invite.</value></data>
+  <data name="Diag_Err_4001_Title" xml:space="preserve"><value>The admin token cannot be read</value></data>
+  <data name="Diag_Err_4001_Cause" xml:space="preserve"><value>The Manager reads a token file in the server's data folder to talk to the server, and Windows did not let it.</value></data>
+  <data name="Diag_Err_4001_Fix" xml:space="preserve"><value>Run the Server Manager as administrator on the server PC.</value></data>
+  <data name="Diag_Err_4002_Title" xml:space="preserve"><value>The server's admin port cannot be reached</value></data>
+  <data name="Diag_Err_4002_Cause" xml:space="preserve"><value>The admin port is open on this PC only while the server runs.</value></data>
+  <data name="Diag_Err_4002_Fix" xml:space="preserve"><value>Start the server on the Service page, then try again. Run the Manager on the same PC as the server.</value></data>
+  <data name="Diag_Err_4003_Title" xml:space="preserve"><value>The server refused the request</value></data>
+  <data name="Diag_Err_4003_Cause" xml:space="preserve"><value>The server answered with an error for this action (for example an unknown device, or a value that is not allowed).</value></data>
+  <data name="Diag_Err_4003_Fix" xml:space="preserve"><value>Read the message next to the code. If it does not help, export diagnostics and look at the server log.</value></data>
+  <data name="Diag_Err_6002_Title" xml:space="preserve"><value>That public name cannot be used</value></data>
+  <data name="Diag_Err_6002_Cause" xml:space="preserve"><value>The optional public name or address has a scheme (https://), spaces, a bad port, or an IPv6 address without square brackets.</value></data>
+  <data name="Diag_Err_6002_Fix" xml:space="preserve"><value>Type only a name such as myhome.example.com or an IP address, optionally with :port. You can leave it empty.</value></data>
+  <data name="Diag_Err_6003_Title" xml:space="preserve"><value>Windows refused to change the firewall</value></data>
+  <data name="Diag_Err_6003_Cause" xml:space="preserve"><value>Adding or removing the firewall rule "Remotely Server" failed, usually because the Manager was not allowed to run as administrator.</value></data>
+  <data name="Diag_Err_6003_Fix" xml:space="preserve"><value>Accept the administrator prompt (UAC) when it appears, or add an inbound TCP rule for the server port yourself in Windows Defender Firewall.</value></data>
+  <data name="Diag_Err_7001_Title" xml:space="preserve"><value>A service action failed</value></data>
+  <data name="Diag_Err_7001_Cause" xml:space="preserve"><value>The administrator helper ran, but Windows or the server program reported an error for the step (start, stop, install, restore).</value></data>
+  <data name="Diag_Err_7001_Fix" xml:space="preserve"><value>Read manager-helper.log in the server's data folder (C:\ProgramData\Remotely Server). Check that no other program holds the server's files, then try again.</value></data>
+  <data name="Diag_Err_7002_Title" xml:space="preserve"><value>The helper was started wrongly</value></data>
+  <data name="Diag_Err_7002_Cause" xml:space="preserve"><value>The elevated helper got a command it does not know or a missing argument.</value></data>
+  <data name="Diag_Err_7002_Fix" xml:space="preserve"><value>This is a bug in the Manager. Export diagnostics and report it.</value></data>
+  <data name="Diag_Err_7003_Title" xml:space="preserve"><value>Remotely.Server.exe was not found</value></data>
+  <data name="Diag_Err_7003_Cause" xml:space="preserve"><value>The helper looks for the server program in fixed places and found none.</value></data>
+  <data name="Diag_Err_7003_Fix" xml:space="preserve"><value>Install the server with the Remotely Server installer, or keep Remotely.Server.exe next to the Manager.</value></data>
+  <data name="Diag_Err_7004_Title" xml:space="preserve"><value>Administrator rights are needed</value></data>
+  <data name="Diag_Err_7004_Cause" xml:space="preserve"><value>The action changes services or the firewall and has to run as administrator.</value></data>
+  <data name="Diag_Err_7004_Fix" xml:space="preserve"><value>Choose the action again and accept the administrator prompt (UAC).</value></data>
+  <data name="Diag_Err_7005_Title" xml:space="preserve"><value>The administrator prompt was declined</value></data>
+  <data name="Diag_Err_7005_Cause" xml:space="preserve"><value>Windows reported that the user cancelled the administrator (UAC) prompt, so nothing was changed.</value></data>
+  <data name="Diag_Err_7005_Fix" xml:space="preserve"><value>Try again and choose Yes in the prompt.</value></data>
+  <data name="Diag_Err_9001_Title" xml:space="preserve"><value>Something unexpected went wrong</value></data>
+  <data name="Diag_Err_9001_Cause" xml:space="preserve"><value>The program hit a problem that has no code of its own.</value></data>
+  <data name="Diag_Err_9001_Fix" xml:space="preserve"><value>Try again. If it repeats, open Help, Diagnostics, export diagnostics and report it with the details shown.</value></data>
+  <!-- A18: diagnostics pages. Placeholders {0} must stay. -->
+  <data name="Diag_Help_Nav" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Diag_Help_Title" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Diag_Help_Intro" xml:space="preserve"><value>When something does not work, this page helps you find out why. Nothing here is sent anywhere: the files stay on this PC until you share them yourself.</value></data>
+  <data name="Diag_LogLevel" xml:space="preserve"><value>Detail in the log</value></data>
+  <data name="Diag_Level_Debug" xml:space="preserve"><value>Everything (debug)</value></data>
+  <data name="Diag_Level_Info" xml:space="preserve"><value>Normal</value></data>
+  <data name="Diag_Level_Warning" xml:space="preserve"><value>Only warnings and errors</value></data>
+  <data name="Diag_Level_Error" xml:space="preserve"><value>Only errors</value></data>
+  <data name="Diag_CrashDumps" xml:space="preserve"><value>Save a crash dump when the program crashes</value></data>
+  <data name="Diag_CrashDumps_Note" xml:space="preserve"><value>Off by default. A dump holds the program's memory, which can include keys and tokens. It stays on this PC, only the newest 3 are kept, and the export never contains it.</value></data>
+  <data name="Diag_Export" xml:space="preserve"><value>Export diagnostics</value></data>
+  <data name="Diag_Export_Note" xml:space="preserve"><value>Makes a zip with versions, system, network adapters, firewall rules, service state, safe settings, the last log lines and the last crash. Tokens, invites, pairing codes, keys and crash dumps are left out. IP addresses and PC names are not removed, so read it before you share it.</value></data>
+  <data name="Diag_Export_Done" xml:space="preserve"><value>Saved: {0}</value></data>
+  <data name="Diag_Export_Failed" xml:space="preserve"><value>The export could not be saved: {0}</value></data>
+  <data name="Diag_OpenLogs" xml:space="preserve"><value>Open the log folder</value></data>
+  <data name="Diag_NetworkTest" xml:space="preserve"><value>Network test</value></data>
+  <data name="Diag_Codes_Title" xml:space="preserve"><value>Error codes</value></data>
+  <data name="Diag_Codes_Intro" xml:space="preserve"><value>An error with a code like RMT-1006 has a page that says what it means and what to do. The pages are in the docs/errors folder of the project.</value></data>
+  <data name="Diag_Net_Title" xml:space="preserve"><value>Network test</value></data>
+  <data name="Diag_Net_Intro" xml:space="preserve"><value>Checks this PC's network, looks for PCs that are sharing, and measures how long a connection to your server takes. It sends nothing but connection attempts and a search on the local network.</value></data>
+  <data name="Diag_Net_Run" xml:space="preserve"><value>Run the test</value></data>
+  <data name="Diag_Net_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Diag_Net_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Diag_Net_Peer" xml:space="preserve"><value>Address of the other PC (optional)</value></data>
+  <data name="Diag_Net_Label" xml:space="preserve"><value>Token of the other PC (optional)</value></data>
+  <data name="Diag_Net_Passed" xml:space="preserve"><value>No problem found</value></data>
+  <data name="Diag_Net_Failed" xml:space="preserve"><value>A problem was found</value></data>
+  <data name="Diag_Net_Cancelled" xml:space="preserve"><value>The test was cancelled.</value></data>
+  <data name="Diag_Net_TimedOut" xml:space="preserve"><value>The test took too long and was stopped.</value></data>
+  <data name="Diag_Net_Check_adapter" xml:space="preserve"><value>Network connection</value></data>
+  <data name="Diag_Net_Check_subnet" xml:space="preserve"><value>Same network</value></data>
+  <data name="Diag_Net_Check_discovery" xml:space="preserve"><value>Answer to the search</value></data>
+  <data name="Diag_Net_Check_port" xml:space="preserve"><value>Connection port</value></data>
+  <data name="Diag_Net_Check_server" xml:space="preserve"><value>Server</value></data>
+  <data name="Diag_Net_Latency" xml:space="preserve"><value>Average connection time: {0} ms</value></data>
 </root>

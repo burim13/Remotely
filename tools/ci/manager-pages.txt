@@ -5,3 +5,5 @@ ActivityPage
 ServicePage
 ServerSettingsPage
 SetupWizardPage
+DiagnosticsPage
+NetworkTestPage

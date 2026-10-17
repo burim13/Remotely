@@ -19,6 +19,7 @@ public sealed partial class MainWindow : Window
         NavActivity.Content = Ui.T("Nav_Activity");
         NavService.Content = Ui.T("Nav_Service");
         NavSetup.Content = Ui.T("Setup_Nav");
+        NavDiagnostics.Content = Ui.T("Diag_Help_Nav");
         foreach (var item in Nav.MenuItems.OfType<NavigationViewItem>())
             Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(item, (string)item.Content);
 
@@ -65,6 +66,7 @@ public sealed partial class MainWindow : Window
                 "ActivityPage" => typeof(ActivityPage),
                 "ServicePage" => typeof(ServicePage),
                 "SetupWizardPage" => typeof(SetupWizardPage),
+                "DiagnosticsPage" => typeof(Views.Help.DiagnosticsPage),
                 _ => typeof(DashboardPage),
             };
         if (Pages.CurrentSourcePageType != page) Pages.Navigate(page, page == typeof(SetupWizardPage) ? SetupLifecycle.Dependencies : null);

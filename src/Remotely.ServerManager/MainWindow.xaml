@@ -36,6 +36,9 @@
                 <NavigationViewItem x:Name="NavSetup" Tag="SetupWizardPage">
                     <NavigationViewItem.Icon><SymbolIcon Symbol="World" /></NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem x:Name="NavDiagnostics" Tag="DiagnosticsPage">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Help" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="Pages" AutomationProperties.LandmarkType="Main" />
         </NavigationView>
