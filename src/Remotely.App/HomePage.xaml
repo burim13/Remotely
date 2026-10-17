@@ -16,8 +16,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <share:ShareCard x:Name="Share" VerticalAlignment="Top" />
-                <connect:ConnectCard x:Name="Connect" Grid.Column="1" VerticalAlignment="Top" />
+                <share:ShareCard x:Name="ShareCardHost" VerticalAlignment="Top" />
+                <connect:ConnectCard x:Name="ConnectCardHost" Grid.Column="1" VerticalAlignment="Top" />
             </Grid>
         </Grid>
     </ScrollViewer>

@@ -14,9 +14,9 @@ public sealed partial class HomePage : Page
         NetworkText.Text = addresses.Count == 0
             ? Remotely.UI.Localization.Loc.Get("Home_NoNetwork")
             : string.Format(Remotely.UI.Localization.Loc.Get("Home_ThisPc"), string.Join(", ", addresses));
-        Connect.DiagnoseRequested += (address, label) => Frame.Navigate(typeof(DiagnosisPage), new DiagnosisRequest(address, label));
+        ConnectCardHost.DiagnoseRequested += (address, label) => Frame.Navigate(typeof(DiagnosisPage), new DiagnosisRequest(address, label));
     }
 
     /// <summary>Fills the token box (for <c>--connect-token</c>).</summary>
-    public void SetToken(string token) => Connect.SetToken(token);
+    public void SetToken(string token) => ConnectCardHost.SetToken(token);
 }
