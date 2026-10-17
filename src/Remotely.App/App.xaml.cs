@@ -17,7 +17,9 @@ public partial class App : Application
         InitializeComponent();
         UnhandledException += (_, e) =>
         {
-            if (CrashReporter.TryHandle(e.Exception ?? new InvalidOperationException(e.Message))) e.Handled = true;
+            var ex = e.Exception ?? new InvalidOperationException(e.Message);
+            if (Options.Show is not null) ShowVerifier.Fail("unhandled exception: " + ex);   // exits with code 3
+            if (CrashReporter.TryHandle(ex)) e.Handled = true;
         };
         AppDomain.CurrentDomain.UnhandledException += (_, e) => LogCrash(e.ExceptionObject as Exception);
         TaskScheduler.UnobservedTaskException += (_, e) => LogCrash(e.Exception);
@@ -132,11 +134,12 @@ public partial class App : Application
             return;
         }
 
+        if (Options.SelfTestShellResultPath is { } shellFile) { Environment.Exit(await SelfTest.RunShellAsync(shellFile)); return; }
+
         // CI starts every page with --show. A build whose strings did not load would show resource keys everywhere, so fail that launch loudly.
         if ((Options.Show is not null || Options.UiaScanResultPath is not null) && Loc.Get("App_Name") == "App_Name")
         {
-            LogCrash(new InvalidOperationException("The string resources (Strings/en-US/Resources.resw) did not load."));
-            Environment.Exit(3);
+            ShowVerifier.Fail("the string resources (Strings/en-US/Resources.resw) did not load");
             return;
         }
 
@@ -160,6 +163,7 @@ public partial class App : Application
         {
             // A window that failed to build must not leave an invisible process behind (CI would call that "running").
             LogCrash(ex);
+            if (Options.Show is not null) ShowVerifier.Fail("the window could not be built: " + ex);   // exits with code 3
             Environment.Exit(2);
         }
     }
@@ -181,7 +185,7 @@ public partial class App : Application
     private static async Task<bool> ClaimSingleInstanceAsync(string[] argv)
     {
         var user = new string(Environment.UserName.Where(char.IsLetterOrDigit).ToArray());
-        var name = $"Remotely.App.{user}.{System.Diagnostics.Process.GetCurrentProcess().SessionId}";
+        var name = Options.InstanceName ?? $"Remotely.App.{user}.{System.Diagnostics.Process.GetCurrentProcess().SessionId}";
         // A previous copy that was just killed can still own the mutex and a pipe for a moment (process teardown is not instant). So each round
         // asks the owner briefly, and a round that finds no owner any more simply becomes the first instance.
         var deadline = DateTime.UtcNow.AddSeconds(8);
