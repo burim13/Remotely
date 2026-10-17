@@ -136,16 +136,24 @@ public partial class App : Application
     {
         var user = new string(Environment.UserName.Where(char.IsLetterOrDigit).ToArray());
         var name = $"Remotely.App.{user}.{System.Diagnostics.Process.GetCurrentProcess().SessionId}";
-        var instance = SingleInstance.Acquire(name);
-        if (instance.IsPrimary)
+        // A previous copy that was just killed can still own the mutex and a pipe for a moment (process teardown is not instant). So each round
+        // asks the owner briefly, and a round that finds no owner any more simply becomes the first instance.
+        var deadline = DateTime.UtcNow.AddSeconds(8);
+        do
         {
-            instance.Listen(OnForwarded);
-            _single = instance;
-            return true;
+            var instance = SingleInstance.Acquire(name);
+            if (instance.IsPrimary)
+            {
+                instance.Listen(OnForwarded);
+                _single = instance;
+                return true;
+            }
+            var forwarded = await instance.ForwardAsync(argv, TimeSpan.FromMilliseconds(800), pid => AllowSetForegroundWindow(pid));
+            instance.Dispose();
+            if (forwarded) return false;
+            await Task.Delay(150);
         }
-        var forwarded = await instance.ForwardAsync(argv, TimeSpan.FromSeconds(5), pid => AllowSetForegroundWindow(pid));
-        instance.Dispose();
-        if (forwarded) return false;
+        while (DateTime.UtcNow < deadline);
         LogCrash(new TimeoutException("Another Remotely is running but did not answer; starting anyway."));
         return true;
     }
