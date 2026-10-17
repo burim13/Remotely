@@ -9,6 +9,26 @@
   <data name="Nav_Home" xml:space="preserve"><value>This network</value></data>
   <data name="Nav_Computers" xml:space="preserve"><value>My computers</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
+  <!-- A15: My computers page, join messages, shared control labels. -->
+  <data name="Banner_Dismiss" xml:space="preserve"><value>Dismiss</value></data>
+  <data name="Computers_Title" xml:space="preserve"><value>My computers</value></data>
+  <data name="Computers_Refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="Computers_Subtitle" xml:space="preserve"><value>Computers paired with your own server. They work from any network. Connections go only through your server.</value></data>
+  <data name="Computers_Join_Title" xml:space="preserve"><value>Connect to your server</value></data>
+  <data name="Computers_Join_Help" xml:space="preserve"><value>Paste the invite from your server to connect this PC. You get it from 'Remotely Server info' on the server. Not needed for connections on this network.</value></data>
+  <data name="Computers_Invite_Name" xml:space="preserve"><value>Invite</value></data>
+  <data name="Computers_Join_Button" xml:space="preserve"><value>Connect</value></data>
+  <data name="Computers_Empty" xml:space="preserve"><value>No computers yet. Install Remotely on the PC you want to reach and paste the same invite there.</value></data>
+  <data name="Computers_Unreachable" xml:space="preserve"><value>Can't reach your server: {0}</value></data>
+  <data name="Computers_ThisPc" xml:space="preserve"><value>This PC</value></data>
+  <data name="Computers_Online" xml:space="preserve"><value>Online</value></data>
+  <data name="Computers_Offline" xml:space="preserve"><value>Offline</value></data>
+  <data name="Computers_Connect" xml:space="preserve"><value>Connect</value></data>
+  <data name="Computers_Connecting" xml:space="preserve"><value>Connecting to {0}…</value></data>
+  <data name="Computers_NotTrusted" xml:space="preserve"><value>That PC does not trust this device yet. On that PC, run:  Remotely.Host trust {0}</value></data>
+  <data name="Join_Paired" xml:space="preserve"><value>Connected. This device is paired with your server.</value></data>
+  <data name="Join_FreshInvite" xml:space="preserve"><value>{0} Ask the server for a fresh invite.</value></data>
+  <data name="Join_Unreachable" xml:space="preserve"><value>Could not reach your server: {0}</value></data>
   <!-- A8: file transfer panel (Session/Files) -->
   <data name="Transfers_Title" xml:space="preserve"><value>Files</value></data>
   <data name="Transfers_SendFiles" xml:space="preserve"><value>Send files…</value></data>

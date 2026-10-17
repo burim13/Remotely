@@ -1,5 +1,6 @@
 using Remotely.Client;
 using Remotely.Core.Protocol;
+using Remotely.UI.Localization;
 
 namespace Remotely.App;
 
@@ -31,13 +32,13 @@ internal static class Join
         try
         {
             await App.Connection.PairAsync(code);
-            return (true, "Connected. This device is paired with your server.");
+            return (true, Loc.Get("Join_Paired"));
         }
         catch (Exception ex) when (ex is CoordinatorException or IOException or System.Net.WebSockets.WebSocketException or HttpRequestException or TimeoutException or OperationCanceledException or UriFormatException)
         {
             var text = ex.Message;
             return (false, text.Contains("pairing", StringComparison.OrdinalIgnoreCase) || text.Contains("code", StringComparison.OrdinalIgnoreCase)
-                ? text + " Ask the server for a fresh invite." : "Could not reach your server: " + text);
+                ? string.Format(Loc.Get("Join_FreshInvite"), text) : string.Format(Loc.Get("Join_Unreachable"), text));
         }
     }
 }

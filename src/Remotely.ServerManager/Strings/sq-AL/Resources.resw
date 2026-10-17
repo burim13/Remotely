@@ -18,6 +18,8 @@
   <data name="Nav_Activity" xml:space="preserve"><value>Aktiviteti</value></data>
   <data name="Nav_Service" xml:space="preserve"><value>Shërbimi</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Cilësimet</value></data>
+  <!-- A15: MACHINE-WRITTEN Albanian: not reviewed by a native speaker. -->
+  <data name="Banner_Dismiss" xml:space="preserve"><value>Mbyll</value></data>
   <!-- Setup_ strings: server setup wizard (agent A12). Albanian is machine-written and has not been read by a fluent speaker. -->
   <data name="Setup_Title" xml:space="preserve"><value>Bëje serverin tim të arritshëm</value></data>
   <data name="Setup_StepOf" xml:space="preserve"><value>Hapi {0} nga {1}: {2}</value></data>
