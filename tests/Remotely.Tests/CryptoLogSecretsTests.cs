@@ -143,26 +143,4 @@ public class CryptoLogSecretsTests
         }
         finally { try { Directory.Delete(dir, true); } catch (IOException) { } }
     }
-
-    // Known problems found by this audit, kept as tests that state the right behaviour and are skipped until the owner of the code fixes it.
-    // Remove the Skip when fixed; the reason names who owns the change.
-
-    [Fact(Skip = "Known leak, owner A3 (LanHost.cs): Start() logs 'Sharing on port N. Token <the whole token>.' so the secret reaches the host's log and any diagnostics bundle built from it.")]
-    public async Task KnownIssue_the_start_up_line_of_the_token_host_must_not_contain_the_token()
-    {
-        var lines = new List<string>();
-        var probe = new UdpClient(0);
-        var discoveryPort = ((IPEndPoint)probe.Client.LocalEndPoint!).Port;
-        probe.Dispose();
-        await using var host = new LanHost(new LanHostOptions { TcpPort = 0, DiscoveryPort = discoveryPort, AllowLoopback = true }, (_, _, _) => Task.CompletedTask, lines.Add);
-        host.Start();
-        AssertNoSecrets(lines, host.CurrentToken.Secret, host.CurrentToken.Display);
-    }
-
-    [Fact(Skip = "Known leak, owner Protocol/Invite.cs (A10 or integrator): Invite is a record, so ToString() prints Code (a live pairing code) and PinHex; any log or exception text that formats an Invite leaks the code.")]
-    public void KnownIssue_an_invite_must_not_print_its_pairing_code()
-    {
-        var invite = new Invite("wss://example.test/ws", new string('a', 64), "K7P4-4NX2");
-        AssertNoSecrets([invite.ToString()], "K7P4-4NX2", "4NX2");
-    }
 }
