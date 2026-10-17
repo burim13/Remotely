@@ -9,4 +9,86 @@
   <data name="Nav_Home" xml:space="preserve"><value>This network</value></data>
   <data name="Nav_Computers" xml:space="preserve"><value>My computers</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
+  <!-- A3: Share this PC (host experience). -->
+  <data name="Share_Title" xml:space="preserve"><value>Share this PC</value></data>
+  <data name="Share_Intro" xml:space="preserve"><value>Turn this on, then type the token on the PC you want to use from.</value></data>
+  <data name="Share_Switch_On" xml:space="preserve"><value>Sharing</value></data>
+  <data name="Share_Switch_Off" xml:space="preserve"><value>Not sharing</value></data>
+  <data name="Share_Token_Label" xml:space="preserve"><value>Token</value></data>
+  <data name="Share_Copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="Share_Copied" xml:space="preserve"><value>Copied</value></data>
+  <data name="Share_NewToken" xml:space="preserve"><value>New token</value></data>
+  <data name="Share_ExpiresIn" xml:space="preserve"><value>Works once. Changes in {0}.</value></data>
+  <data name="Share_Refreshing" xml:space="preserve"><value>Getting a new token…</value></data>
+  <data name="Share_NoNetwork" xml:space="preserve"><value>This PC is not connected to a network.</value></data>
+  <data name="Share_Addresses" xml:space="preserve"><value>This PC's addresses on the network</value></data>
+  <data name="Share_Qr_Header" xml:space="preserve"><value>Show a QR code for a phone</value></data>
+  <data name="Share_Qr_Help" xml:space="preserve"><value>Scan it with a phone camera to get the token as text, then type it on the other PC.</value></data>
+  <data name="Share_Qr_Name" xml:space="preserve"><value>QR code for the token {0}</value></data>
+  <data name="Share_Ask_Label" xml:space="preserve"><value>Ask me before someone connects</value></data>
+  <data name="Share_Ask_Help" xml:space="preserve"><value>A PC that is not on your list of remembered PCs must be approved here first.</value></data>
+  <data name="Share_Ask_OffWarning" xml:space="preserve"><value>Without asking, anyone on this network who learns the token can connect without your approval.</value></data>
+  <data name="Share_Remembered_Label" xml:space="preserve"><value>Let remembered PCs reconnect without a token</value></data>
+  <data name="Share_Error_Listen" xml:space="preserve"><value>Remotely could not start listening on this network: {0}</value></data>
+  <data name="Switch_On" xml:space="preserve"><value>On</value></data>
+  <data name="Switch_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Share_State_Off" xml:space="preserve"><value>Not sharing. Nobody can connect to this PC.</value></data>
+  <data name="Share_State_Ready" xml:space="preserve"><value>Ready. Another PC on this network can connect with the token below.</value></data>
+  <data name="Share_State_Connecting" xml:space="preserve"><value>A PC is connecting…</value></data>
+  <data name="Share_State_AwaitingConsent" xml:space="preserve"><value>Waiting for your answer: {0} wants to connect.</value></data>
+  <data name="Share_State_InSession" xml:space="preserve"><value>{0} is connected and can see and control this PC.</value></data>
+  <data name="Share_State_InSessionPaused" xml:space="preserve"><value>{0} is connected and can only watch. Control is paused.</value></data>
+  <data name="Share_State_Error" xml:space="preserve"><value>Sharing is not working: {0}</value></data>
+  <data name="Banner_Title" xml:space="preserve"><value>Your screen is being shared</value></data>
+  <data name="Banner_Stop" xml:space="preserve"><value>Stop sharing</value></data>
+  <data name="Banner_Who" xml:space="preserve"><value>{0} ({1}) is connected</value></data>
+  <data name="Banner_Since" xml:space="preserve"><value>Connected since {0} ({1})</value></data>
+  <data name="Banner_Pause" xml:space="preserve"><value>Pause control</value></data>
+  <data name="Banner_Resume" xml:space="preserve"><value>Resume control</value></data>
+  <data name="Banner_PausedNote" xml:space="preserve"><value>Control is paused: they can only watch.</value></data>
+  <data name="Banner_ViewerNotice" xml:space="preserve"><value>The person at the other PC paused control. You can only watch for now.</value></data>
+  <data name="Consent_Title" xml:space="preserve"><value>Allow this PC to connect?</value></data>
+  <data name="Consent_Body" xml:space="preserve"><value>{0} ({1}) knows your token and wants to see and control this PC.</value></data>
+  <data name="Consent_AlwaysHelp" xml:space="preserve"><value>"Always allow" saves this PC's key so it can connect again without a token. You can remove it from the list at any time.</value></data>
+  <data name="Consent_NoRemember" xml:space="preserve"><value>This PC runs an older version of the app, so it cannot be remembered.</value></data>
+  <data name="Consent_Once" xml:space="preserve"><value>Allow once</value></data>
+  <data name="Consent_Always" xml:space="preserve"><value>Always allow this PC</value></data>
+  <data name="Consent_Deny" xml:space="preserve"><value>Deny</value></data>
+  <data name="Consent_Countdown" xml:space="preserve"><value>No answer within {0} s counts as Deny.</value></data>
+  <data name="Toast_Question_Title" xml:space="preserve"><value>{0} wants to connect</value></data>
+  <data name="Toast_Question_Body" xml:space="preserve"><value>Allow or deny it in the Remotely window. Address: {1}.</value></data>
+  <data name="Toast_Connected_Title" xml:space="preserve"><value>{0} connected</value></data>
+  <data name="Toast_Connected_Body" xml:space="preserve"><value>They can see and control this PC. Open Remotely to stop sharing.</value></data>
+  <data name="Toast_Left_Title" xml:space="preserve"><value>{0} disconnected</value></data>
+  <data name="Toast_Left_Body" xml:space="preserve"><value>Sharing continues with a new token.</value></data>
+  <data name="Toast_Stopped_Body" xml:space="preserve"><value>The session ended.</value></data>
+  <data name="Toast_Refused_Title" xml:space="preserve"><value>Connection blocked</value></data>
+  <data name="Toast_Refused_Body" xml:space="preserve"><value>{0} ({1}) was not let in.</value></data>
+  <data name="Remembered_Title" xml:space="preserve"><value>Remembered PCs</value></data>
+  <data name="Remembered_Help" xml:space="preserve"><value>These PCs can connect without a token while sharing is on. Remove one to end that.</value></data>
+  <data name="Remembered_Empty" xml:space="preserve"><value>No PCs are remembered yet. Choose "Always allow this PC" when a PC connects.</value></data>
+  <data name="Remembered_RemoveAll" xml:space="preserve"><value>Remove all</value></data>
+  <data name="Remembered_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Remembered_RemoveName" xml:space="preserve"><value>Remove {0}</value></data>
+  <data name="Remembered_LastSeen" xml:space="preserve"><value>Last connected {0}</value></data>
+  <data name="Remembered_NeverSeen" xml:space="preserve"><value>Not connected yet</value></data>
+  <data name="History_Title" xml:space="preserve"><value>Session history</value></data>
+  <data name="History_Empty" xml:space="preserve"><value>Nobody has connected yet.</value></data>
+  <data name="History_Clear" xml:space="preserve"><value>Clear history</value></data>
+  <data name="History_Who" xml:space="preserve"><value>{0} ({1})</value></data>
+  <data name="History_Outcome_AllowedRemembered" xml:space="preserve"><value>let in as a remembered PC</value></data>
+  <data name="History_Outcome_AllowedWithoutAsking" xml:space="preserve"><value>let in without asking</value></data>
+  <data name="History_Outcome_AllowedOnce" xml:space="preserve"><value>allowed once</value></data>
+  <data name="History_Outcome_AllowedAlways" xml:space="preserve"><value>always allowed</value></data>
+  <data name="History_Outcome_Denied" xml:space="preserve"><value>denied</value></data>
+  <data name="History_Outcome_TimedOut" xml:space="preserve"><value>no answer (refused)</value></data>
+  <data name="History_Via_Token" xml:space="preserve"><value>with a token</value></data>
+  <data name="History_Via_Remembered" xml:space="preserve"><value>without a token</value></data>
+  <data name="History_Reason_StoppedByHost" xml:space="preserve"><value>ended by you</value></data>
+  <data name="History_Reason_SharingStopped" xml:space="preserve"><value>sharing was turned off</value></data>
+  <data name="History_Reason_ControllerLeft" xml:space="preserve"><value>the other PC left</value></data>
+  <data name="History_Reason_AppClosed" xml:space="preserve"><value>the app was closed</value></data>
+  <data name="Duration_HoursMinutes" xml:space="preserve"><value>{0} h {1} min</value></data>
+  <data name="Duration_Minutes" xml:space="preserve"><value>{0} min</value></data>
+  <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
 </root>
