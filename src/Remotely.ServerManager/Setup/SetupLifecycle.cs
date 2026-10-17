@@ -19,7 +19,7 @@ internal static class SetupLifecycle
     private static SetupWizardDependencies Create()
     {
         var fake = App.Args.Fake;
-        var services = SetupWizardDefaults.Create(new ElevatedSetupActions(), App.Admin, fake ? new DemoOutsideCheck() : null, fake ? [] : null);
+        var services = SetupWizardDefaults.Create(new ElevatedSetupActions(), App.Admin, fake ? new DemoOutsideCheck() : App.Admin is Remotely.Core.Admin.ServerAdminClient client ? new Remotely.Core.Admin.ServerOutsideCheck(client) : null, fake ? [] : null);
         return new SetupWizardDependencies(services, PickPfxFileAsync);
     }
 
