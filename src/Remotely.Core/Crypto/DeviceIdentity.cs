@@ -22,9 +22,22 @@ public sealed class DeviceIdentity : IDisposable
     public static DeviceIdentity FromPkcs8(ReadOnlySpan<byte> pkcs8)
     {
         var key = ECDsa.Create();
-        key.ImportPkcs8PrivateKey(pkcs8, out _);
-        CurveCheck.RequireP256(key.ExportParameters(false));
-        return new DeviceIdentity(key);
+        try
+        {
+            key.ImportPkcs8PrivateKey(pkcs8, out _);
+            CurveCheck.RequireP256(key.ExportParameters(false));
+            return new DeviceIdentity(key);
+        }
+        catch (PlatformNotSupportedException ex)
+        {
+            key.Dispose();
+            throw new CryptographicException(ex.Message, ex);
+        }
+        catch
+        {
+            key.Dispose();
+            throw;
+        }
     }
 
     public byte[] ExportPkcs8() => _key.ExportPkcs8PrivateKey();
@@ -40,9 +53,12 @@ public sealed class DeviceIdentity : IDisposable
             using var key = ECDsa.Create();
             key.ImportSubjectPublicKeyInfo(publicKeySpki, out _);
             CurveCheck.RequireP256(key.ExportParameters(false));
+            // A device id is the hash of these exact bytes. The importer accepts a few other encodings of the same key (for example a non-zero "unused bits"
+            // byte in the BIT STRING), which would let one key appear under several ids. Only the canonical encoding counts.
+            if (!key.ExportSubjectPublicKeyInfo().AsSpan().SequenceEqual(publicKeySpki)) return false;
             return key.VerifyData(data, signature, HashAlgorithmName.SHA256, DSASignatureFormat.IeeeP1363FixedFieldConcatenation);
         }
-        catch (CryptographicException)
+        catch (Exception ex) when (CurveCheck.IsKeyError(ex))
         {
             return false;
         }
