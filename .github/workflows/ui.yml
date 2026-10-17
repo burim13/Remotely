@@ -131,10 +131,11 @@ jobs:
           git push --force-with-lease="ci-screenshots:${old}" origin HEAD:refs/heads/ci-screenshots
           echo "Screenshots are on the ci-screenshots branch: runs/${run} and latest/" >> "$GITHUB_STEP_SUMMARY"
 
-  # Only for a manual run with update_baseline: commits the new baselines to the branch the run was started on.
+  # Only for a manual run with update_baseline: commits the new baselines to the branch the run was started on. It also runs when a check failed (a person asked for new
+  # baselines on purpose); a job that produced no baseline artifact simply leaves its architecture unchanged.
   baselines:
     needs: ui
-    if: github.event_name == 'workflow_dispatch' && inputs.update_baseline && needs.ui.result == 'success'
+    if: always() && github.event_name == 'workflow_dispatch' && inputs.update_baseline && (needs.ui.result == 'success' || needs.ui.result == 'failure')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
