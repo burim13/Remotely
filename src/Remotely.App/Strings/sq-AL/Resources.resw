@@ -297,4 +297,166 @@
   <data name="Connect_Denied" xml:space="preserve"><value>Kompjuteri tjetër nuk e lejoi këtë lidhje. Personi atje zgjodhi Refuzo, ose askush nuk u përgjigj në kohë. Asgjë nuk u shfaq dhe nuk u kontrollua.</value></data>
   <data name="Connect_Reconnect" xml:space="preserve"><value>Rilidhu</value></data>
   <data name="Connect_ReconnectTip" xml:space="preserve"><value>Ky kompjuter të mban mend, ndaj nuk nevojitet kod.</value></data>
+  <!-- A14: settings pages and address book. MACHINE-WRITTEN Albanian: not reviewed by a native speaker. -->
+  <data name="Settings_Section_General" xml:space="preserve"><value>Të përgjithshme</value></data>
+  <data name="Settings_Section_Sharing" xml:space="preserve"><value>Ndarja</value></data>
+  <data name="Settings_Section_Connection" xml:space="preserve"><value>Lidhja</value></data>
+  <data name="Settings_Section_Security" xml:space="preserve"><value>Siguria</value></data>
+  <data name="Settings_Section_Appearance" xml:space="preserve"><value>Pamja</value></data>
+  <data name="Settings_Section_Advanced" xml:space="preserve"><value>Të avancuara</value></data>
+  <data name="Settings_Section_About" xml:space="preserve"><value>Rreth aplikacionit</value></data>
+  <data name="Settings_Section_AddressBook" xml:space="preserve"><value>Libri i adresave</value></data>
+  <data name="Settings_Intro_General" xml:space="preserve"><value>Emri i këtij kompjuteri, sjellja gjatë nisjes dhe gjuha.</value></data>
+  <data name="Settings_Intro_Sharing" xml:space="preserve"><value>Kush mund të lidhet me këtë kompjuter dhe kur fillon ndarja.</value></data>
+  <data name="Settings_Intro_Connection" xml:space="preserve"><value>Serveri juaj, mënyra si dërgohen tastet dhe kujtesa e kopjimit, dhe transferimi i skedarëve.</value></data>
+  <data name="Settings_Intro_Security" xml:space="preserve"><value>Rregullat e vendosura nga organizata juaj, identiteti i kësaj pajisjeje dhe kufijtë që ju mbrojnë.</value></data>
+  <data name="Settings_Intro_Appearance" xml:space="preserve"><value>Si duket Remotely.</value></data>
+  <data name="Settings_Intro_Advanced" xml:space="preserve"><value>Ruani, zhvendosni ose rivendosni cilësimet tuaja.</value></data>
+  <data name="Settings_Intro_About" xml:space="preserve"><value>Versioni dhe vendi ku ruhen të dhënat tuaja.</value></data>
+  <data name="Settings_Intro_AddressBook" xml:space="preserve"><value>Kompjuterët që keni ruajtur: grupojini, shënoni të preferuarit, shtoni shënime dhe zhvendoseni listën mes kompjuterëve si skedar JSON.</value></data>
+  <data name="Settings_On" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Settings_Off" xml:space="preserve"><value>Joaktiv</value></data>
+  <data name="Settings_PolicyManaged" xml:space="preserve"><value>Menaxhohet nga organizata juaj. Nuk mund ta ndryshoni këtu.</value></data>
+  <data name="Settings_Status_Saved" xml:space="preserve"><value>U ruajt.</value></data>
+  <data name="Settings_Status_Restart" xml:space="preserve"><value>U ruajt. Hyn në fuqi herën tjetër që niset Remotely.</value></data>
+  <data name="Settings_Status_SaveFailed" xml:space="preserve"><value>Skedari i cilësimeve nuk mund të shkruhej. Ndryshimi vlen deri sa të mbyllet Remotely.</value></data>
+  <data name="Settings_Status_Refused" xml:space="preserve"><value>Windows nuk e lejoi këtë ndryshim. Cilësimi u kthye si më parë.</value></data>
+  <data name="Settings_Status_Invalid" xml:space="preserve"><value>Kjo vlerë nuk lejohet.</value></data>
+  <data name="Settings_Status_InvalidNumber" xml:space="preserve"><value>Shkruani një numër të plotë nga {0} deri në {1}.</value></data>
+  <data name="Settings_Search_Placeholder" xml:space="preserve"><value>Kërko te cilësimet</value></data>
+  <data name="Settings_Search_None" xml:space="preserve"><value>Asnjë cilësim nuk përputhet me "{0}".</value></data>
+  <data name="Settings_Search_Open" xml:space="preserve"><value>Hap</value></data>
+  <data name="Settings_Folder_Default" xml:space="preserve"><value>Dosja Shkarkimet (parazgjedhja)</value></data>
+  <data name="Settings_Folder_Choose" xml:space="preserve"><value>Zgjidh dosjen…</value></data>
+  <data name="Settings_Folder_UseDefault" xml:space="preserve"><value>Përdor Shkarkimet</value></data>
+  <data name="Settings_Choice_LanguageSystem" xml:space="preserve"><value>Si Windows</value></data>
+  <data name="Settings_Choice_LanguageEnglish" xml:space="preserve"><value>Anglisht</value></data>
+  <data name="Settings_Choice_LanguageAlbanian" xml:space="preserve"><value>Shqip</value></data>
+  <data name="Settings_Choice_KeyboardAuto" xml:space="preserve"><value>Automatike</value></data>
+  <data name="Settings_Choice_KeyboardScanCode" xml:space="preserve"><value>Pozicionet e tasteve</value></data>
+  <data name="Settings_Choice_KeyboardUnicode" xml:space="preserve"><value>Karakteret e shtypura</value></data>
+  <data name="Settings_Choice_ThemeSystem" xml:space="preserve"><value>Si Windows</value></data>
+  <data name="Settings_Choice_ThemeDark" xml:space="preserve"><value>E errët</value></data>
+  <data name="Settings_Choice_ThemeLight" xml:space="preserve"><value>E çelët</value></data>
+  <data name="Settings_DeviceName_Label" xml:space="preserve"><value>Emri i këtij kompjuteri</value></data>
+  <data name="Settings_DeviceName_Help" xml:space="preserve"><value>Si shfaqet ky kompjuter te personat dhe pajisjet me të cilat lidheni. Lëreni bosh për të përdorur emrin e kompjuterit në Windows.</value></data>
+  <data name="Settings_StartWithWindows_Label" xml:space="preserve"><value>Nise Remotely kur hyj në Windows</value></data>
+  <data name="Settings_StartWithWindows_Help" xml:space="preserve"><value>Nis Remotely të minimizuar në zonën e njoftimeve. Shton një hyrje në listën e nisjes së llogarisë suaj; nuk nevojiten të drejta administratori.</value></data>
+  <data name="Settings_CloseToTray_Label" xml:space="preserve"><value>Vazhdo në tabakanë e sistemit kur mbyll dritaren</value></data>
+  <data name="Settings_CloseToTray_Help" xml:space="preserve"><value>Mbyllja e dritares e fsheh Remotely në vend që ta mbyllë, kështu ndarja dhe menyja e tabakasë mbeten në dispozicion. Vlen vetëm kur shfaqet ikona e tabakasë.</value></data>
+  <data name="Settings_Language_Label" xml:space="preserve"><value>Gjuha</value></data>
+  <data name="Settings_Language_Help" xml:space="preserve"><value>Gjuha e Remotely. Ndryshimi hyn në fuqi herën tjetër që niset Remotely. Teksti në shqip është shkruar nga makina dhe nuk është rishikuar nga një folës amtar.</value></data>
+  <data name="Settings_AskBeforeConnect_Label" xml:space="preserve"><value>Më pyet para se dikush të lidhet</value></data>
+  <data name="Settings_AskBeforeConnect_Help" xml:space="preserve"><value>Një kompjuter që nuk është në listën tuaj të kujtuar duhet të lejohet nga ju para se të shohë ekranin tuaj. Aktiv si parazgjedhje. Një administrator mund ta kërkojë.</value></data>
+  <data name="Settings_AllowRemembered_Label" xml:space="preserve"><value>Lejo kompjuterët e kujtuar të rilidhen pa tokenin</value></data>
+  <data name="Settings_AllowRemembered_Help" xml:space="preserve"><value>Kompjuterët për të cilët zgjodhët "Lejo gjithmonë" mund të rilidhen kur ndarja është aktive, pa token të ri dhe pa pyetje. Çaktivizojeni për të kërkuar token çdo herë.</value></data>
+  <data name="Settings_ShareOnStart_Label" xml:space="preserve"><value>Fillo ndarjen në rrjetin tim kur hapet Remotely</value></data>
+  <data name="Settings_ShareOnStart_Help" xml:space="preserve"><value>Ndarja mbetet joaktive derisa ta aktivizoni, përveç nëse e zgjidhni këtë. Dikush prapë ka nevojë për tokenin (ose të jetë në listën tuaj të kujtuar) për t'u lidhur.</value></data>
+  <data name="Settings_KeyboardMode_Label" xml:space="preserve"><value>Mënyra e tastierës</value></data>
+  <data name="Settings_KeyboardMode_Help" xml:space="preserve"><value>Si arrijnë te kompjuteri tjetër tastet që shtypni. Automatike përdor pozicionet e tasteve kur të dy kompjuterët kanë të njëjtën tastierë dhe karakteret e shtypura përndryshe. Pozicionet e tasteve i përshtaten lojërave dhe shkurtoreve; karakteret e shtypura japin shkronjat e duhura mes tastierave të ndryshme.</value></data>
+  <data name="Settings_SyncClipboard_Label" xml:space="preserve"><value>Ndaj kujtesën e kopjimit gjatë një sesioni</value></data>
+  <data name="Settings_SyncClipboard_Help" xml:space="preserve"><value>Teksti dhe përmbajtja tjetër e kopjuar lëviz mes dy kompjuterëve gjatë një sesioni. Çaktivizojeni nëse nuk doni që përmbajtja e kopjuar të dalë nga ky kompjuter.</value></data>
+  <data name="Settings_FileTransferEnabled_Label" xml:space="preserve"><value>Lejo transferimin e skedarëve</value></data>
+  <data name="Settings_FileTransferEnabled_Help" xml:space="preserve"><value>Ju lejon të dërgoni skedarë te kompjuteri tjetër dhe t'i merrni prej tij gjatë një sesioni. Një administrator mund ta çaktivizojë transferimin e skedarëve për këtë kompjuter.</value></data>
+  <data name="Settings_ReceiveFolder_Label" xml:space="preserve"><value>Dosja për skedarët e marrë</value></data>
+  <data name="Settings_ReceiveFolder_Help" xml:space="preserve"><value>Skedarët që merrni nga kompjuteri tjetër ruhen këtu. Kur nuk zgjidhet asnjë, përdoret dosja juaj Shkarkimet.</value></data>
+  <data name="Settings_MaxItemMegabytes_Label" xml:space="preserve"><value>Skedari ose dosja më e madhe që pranohet (MB)</value></data>
+  <data name="Settings_MaxItemMegabytes_Help" xml:space="preserve"><value>Një skedar ose dosje e vetme më e madhe se kjo refuzohet. Parazgjedhja është 32768 MB (32 GB).</value></data>
+  <data name="Settings_ReceiveQuotaMegabytes_Label" xml:space="preserve"><value>Hapësira totale e lejuar në dosjen e marrjes (MB)</value></data>
+  <data name="Settings_ReceiveQuotaMegabytes_Help" xml:space="preserve"><value>Marrja ndalon kur dosja do të rritej përtej kësaj madhësie. 0 do të thotë pa kufi.</value></data>
+  <data name="Settings_ExtractFolders_Label" xml:space="preserve"><value>Zhpaketo dosjet e marra</value></data>
+  <data name="Settings_ExtractFolders_Help" xml:space="preserve"><value>Një dosje e dërguar nga kompjuteri tjetër zhpaketohet në dosjen e marrjes. Kur është joaktive, mbetet si skedar zip.</value></data>
+  <data name="Settings_ClipboardConfirmMegabytes_Label" xml:space="preserve"><value>Pyet para se të pranohet kujtesa e kopjimit më e madhe se (MB)</value></data>
+  <data name="Settings_ClipboardConfirmMegabytes_Help" xml:space="preserve"><value>Një kopjim më i madh se kjo kërkon pëlqimin tuaj para se të pranohet. Parazgjedhja është 8 MB.</value></data>
+  <data name="Settings_Theme_Label" xml:space="preserve"><value>Pamja</value></data>
+  <data name="Settings_Theme_Help" xml:space="preserve"><value>E errët, e çelët ose si Windows. Zbatohet menjëherë.</value></data>
+  <data name="Settings_Policy_Title" xml:space="preserve"><value>Rregullat nga organizata juaj</value></data>
+  <data name="Settings_Policy_None" xml:space="preserve"><value>Asnjë politikë nuk është vendosur në këtë kompjuter. Gjithçka në këto faqe është zgjedhja juaj.</value></data>
+  <data name="Settings_Policy_Active" xml:space="preserve"><value>Një administrator ka vendosur rregulla në këtë kompjuter. Ato kanë përparësi mbi zgjedhjet tuaja.</value></data>
+  <data name="Settings_Policy_DisableServerMode" xml:space="preserve"><value>Lidhja përmes një serveri është çaktivizuar.</value></data>
+  <data name="Settings_Policy_ForceConsent" xml:space="preserve"><value>Dikush duhet të lejohet gjithmonë nga ju para se të lidhet.</value></data>
+  <data name="Settings_Policy_DisableFileTransfer" xml:space="preserve"><value>Transferimi i skedarëve është çaktivizuar.</value></data>
+  <data name="Settings_Device_Title" xml:space="preserve"><value>Kjo pajisje</value></data>
+  <data name="Settings_Device_Help" xml:space="preserve"><value>Një kompjuter që arrini përmes serverit tuaj duhet t'i besojë këtij identifikuesi. Instaluesi e bën këtë për ju.</value></data>
+  <data name="Settings_Device_Copy" xml:space="preserve"><value>Kopjo identifikuesin</value></data>
+  <data name="Settings_Device_Secure" xml:space="preserve"><value>Lidhja me serverin tuaj është e enkriptuar (wss).</value></data>
+  <data name="Settings_Device_Insecure" xml:space="preserve"><value>Lidhja me serverin tuaj nuk është e enkriptuar (ws). Përdoreni vetëm në një rrjet që i besoni.</value></data>
+  <data name="Settings_Server_Title" xml:space="preserve"><value>Serveri juaj</value></data>
+  <data name="Settings_Server_None" xml:space="preserve"><value>Ende pa server. Lidhjet në këtë rrjet nuk kanë nevojë për të.</value></data>
+  <data name="Settings_Server_State" xml:space="preserve"><value>I lidhur me {0}</value></data>
+  <data name="Settings_Server_Disabled" xml:space="preserve"><value>Lidhja përmes një serveri është çaktivizuar në këtë kompjuter.</value></data>
+  <data name="Settings_Server_Invite" xml:space="preserve"><value>Ftesa nga serveri juaj</value></data>
+  <data name="Settings_Server_InvitePlaceholder" xml:space="preserve"><value>RMT1-…  (lëreni bosh për të mbajtur serverin aktual)</value></data>
+  <data name="Settings_Server_Manual" xml:space="preserve"><value>Konfiguroje manualisht</value></data>
+  <data name="Settings_Server_Address" xml:space="preserve"><value>Adresa e serverit</value></data>
+  <data name="Settings_Server_Pin" xml:space="preserve"><value>Pini i çelësit të serverit (64 karaktere)</value></data>
+  <data name="Settings_Server_Code" xml:space="preserve"><value>Kodi i çiftimit</value></data>
+  <data name="Settings_Server_Connect" xml:space="preserve"><value>Lidhu</value></data>
+  <data name="Settings_Server_Connecting" xml:space="preserve"><value>Duke u lidhur…</value></data>
+  <data name="Settings_Server_Connected" xml:space="preserve"><value>U lidh. Kjo pajisje është çiftuar me serverin tuaj.</value></data>
+  <data name="Settings_Server_Failed" xml:space="preserve"><value>Nuk u lidh: {0}</value></data>
+  <data name="Settings_Server_NothingToDo" xml:space="preserve"><value>Ngjitni një ftesë ose shkruani adresën e serverit.</value></data>
+  <data name="Settings_Server_BadAddress" xml:space="preserve"><value>Shkruani adresën e serverit, duke filluar me wss://</value></data>
+  <data name="Settings_Server_BadPin" xml:space="preserve"><value>Pini i çelësit të serverit është 64 karaktere. Kopjojeni nga mesazhi i nisjes së serverit.</value></data>
+  <data name="Settings_Advanced_Title" xml:space="preserve"><value>Kopje rezervë dhe rivendosje</value></data>
+  <data name="Settings_Advanced_Help" xml:space="preserve"><value>Eksportimi shkruan cilësimet tuaja në një skedar që mund ta importoni në një kompjuter tjetër. Lë jashtë serverin, çiftimin, emrin e këtij kompjuteri dhe librin e adresave. Rivendosja kthen çdo cilësim në këto faqe te parazgjedhja; serveri, çiftimi dhe libri i adresave mbeten.</value></data>
+  <data name="Settings_Export" xml:space="preserve"><value>Eksporto cilësimet…</value></data>
+  <data name="Settings_Import" xml:space="preserve"><value>Importo cilësimet…</value></data>
+  <data name="Settings_Reset" xml:space="preserve"><value>Rivendos parazgjedhjet…</value></data>
+  <data name="Settings_OpenFolder" xml:space="preserve"><value>Hap dosjen e të dhënave</value></data>
+  <data name="Settings_OpenFolder_Failed" xml:space="preserve"><value>Dosja nuk mund të hapej.</value></data>
+  <data name="Settings_Export_Done" xml:space="preserve"><value>U ruajt në {0}</value></data>
+  <data name="Settings_Import_Bad" xml:space="preserve"><value>Ky nuk është skedar cilësimesh i Remotely, ose vjen nga një Remotely më i ri. Asgjë nuk u ndryshua.</value></data>
+  <data name="Settings_Import_Done" xml:space="preserve"><value>U importuan {0} cilësime. U anashkaluan {1} që nuk ishin të vlefshme ose të njohura, dhe {2} që i kontrollon organizata juaj.</value></data>
+  <data name="Settings_File_ReadFailed" xml:space="preserve"><value>Skedari nuk mund të lexohej, ose është më i madh se 4 MB.</value></data>
+  <data name="Settings_File_WriteFailed" xml:space="preserve"><value>Skedari nuk mund të shkruhej.</value></data>
+  <data name="Settings_Reset_Title" xml:space="preserve"><value>Të rivendosen cilësimet?</value></data>
+  <data name="Settings_Reset_Body" xml:space="preserve"><value>Çdo cilësim në këto faqe kthehet te parazgjedhja. Serveri, çiftimi dhe libri i adresave mbeten.</value></data>
+  <data name="Settings_Reset_Accept" xml:space="preserve"><value>Rivendos</value></data>
+  <data name="Settings_Reset_Cancel" xml:space="preserve"><value>Anulo</value></data>
+  <data name="Settings_Reset_Done" xml:space="preserve"><value>Cilësimet u rivendosën te parazgjedhjet.</value></data>
+  <data name="Settings_Load_Damaged" xml:space="preserve"><value>Skedari i cilësimeve nuk mund të lexohej, ndaj po përdoren cilësimet e parazgjedhura. Skedari i palexueshëm u ruajt si {0}.</value></data>
+  <data name="Settings_Load_Newer" xml:space="preserve"><value>Skedari i cilësimeve është shkruar nga një Remotely më i ri. Një kopje u ruajt si {0} para çdo ndryshimi.</value></data>
+  <data name="Settings_Load_Migrated" xml:space="preserve"><value>Skedari juaj i cilësimeve u përditësua nga formati {0}. Një kopje e skedarit të vjetër u ruajt si {1}.</value></data>
+  <data name="Settings_About_Body" xml:space="preserve"><value>Remotely ju lejon të ndani këtë kompjuter dhe të kontrolloni të tjerë, në rrjetin tuaj ose përmes serverit tuaj. Pa llogari, pa telemetri.</value></data>
+  <data name="Settings_About_Folder" xml:space="preserve"><value>Të dhënat tuaja ruhen në {0}</value></data>
+  <data name="Settings_About_Schema" xml:space="preserve"><value>Formatet e skedarëve: cilësimet {0}, libri i adresave {1}</value></data>
+  <data name="Settings_About_License" xml:space="preserve"><value>Publikuar nën licencën MIT.</value></data>
+  <data name="Settings_About_Project" xml:space="preserve"><value>Faqja e projektit</value></data>
+  <data name="Settings_AddressBook_Add" xml:space="preserve"><value>Shto një kompjuter…</value></data>
+  <data name="Settings_AddressBook_Import" xml:space="preserve"><value>Importo…</value></data>
+  <data name="Settings_AddressBook_Export" xml:space="preserve"><value>Eksporto…</value></data>
+  <data name="Settings_AddressBook_Filter" xml:space="preserve"><value>Filtro sipas emrit, adresës, grupit ose shënimeve</value></data>
+  <data name="Settings_AddressBook_FavoritesOnly" xml:space="preserve"><value>Vetëm të preferuarit</value></data>
+  <data name="Settings_AddressBook_Empty" xml:space="preserve"><value>Ende pa kompjuterë të ruajtur. Shtoni një, ose lidhuni me një kompjuter dhe do të shfaqet këtu.</value></data>
+  <data name="Settings_AddressBook_NoMatch" xml:space="preserve"><value>Asnjë kompjuter i ruajtur nuk përputhet.</value></data>
+  <data name="Settings_AddressBook_Ungrouped" xml:space="preserve"><value>Pa grup</value></data>
+  <data name="Settings_AddressBook_Favorite" xml:space="preserve"><value>Shto te të preferuarit</value></data>
+  <data name="Settings_AddressBook_Unfavorite" xml:space="preserve"><value>Hiq nga të preferuarit</value></data>
+  <data name="Settings_AddressBook_Edit" xml:space="preserve"><value>Ndrysho</value></data>
+  <data name="Settings_AddressBook_Remove" xml:space="preserve"><value>Hiq</value></data>
+  <data name="Settings_AddressBook_RemoveTitle" xml:space="preserve"><value>Të hiqet ky kompjuter?</value></data>
+  <data name="Settings_AddressBook_RemoveBody" xml:space="preserve"><value>"{0}" do të hiqet nga libri juaj i adresave. Vetë kompjuteri nuk ndryshon.</value></data>
+  <data name="Settings_AddressBook_LastUsed" xml:space="preserve"><value>Përdorur së fundi {0}</value></data>
+  <data name="Settings_AddressBook_AddTitle" xml:space="preserve"><value>Shto një kompjuter</value></data>
+  <data name="Settings_AddressBook_EditTitle" xml:space="preserve"><value>Ndrysho këtë kompjuter</value></data>
+  <data name="Settings_AddressBook_Name" xml:space="preserve"><value>Emri</value></data>
+  <data name="Settings_AddressBook_Target" xml:space="preserve"><value>Adresa ose identifikuesi i pajisjes</value></data>
+  <data name="Settings_AddressBook_TargetHint" xml:space="preserve"><value>Një emër hosti, një adresë ose një identifikues pajisjeje</value></data>
+  <data name="Settings_AddressBook_Group" xml:space="preserve"><value>Grupi</value></data>
+  <data name="Settings_AddressBook_GroupsInUse" xml:space="preserve"><value>Grupet në përdorim: {0}</value></data>
+  <data name="Settings_AddressBook_Notes" xml:space="preserve"><value>Shënime</value></data>
+  <data name="Settings_AddressBook_ColorHeader" xml:space="preserve"><value>Etiketa e ngjyrës</value></data>
+  <data name="Settings_AddressBook_Color_none" xml:space="preserve"><value>Asnjë</value></data>
+  <data name="Settings_AddressBook_Color_red" xml:space="preserve"><value>E kuqe</value></data>
+  <data name="Settings_AddressBook_Color_amber" xml:space="preserve"><value>Qelibar</value></data>
+  <data name="Settings_AddressBook_Color_green" xml:space="preserve"><value>E gjelbër</value></data>
+  <data name="Settings_AddressBook_Color_blue" xml:space="preserve"><value>Blu</value></data>
+  <data name="Settings_AddressBook_Color_gray" xml:space="preserve"><value>Gri</value></data>
+  <data name="Settings_AddressBook_Save" xml:space="preserve"><value>Ruaj</value></data>
+  <data name="Settings_AddressBook_NeedTarget" xml:space="preserve"><value>Shkruani një adresë ose identifikues pajisjeje.</value></data>
+  <data name="Settings_AddressBook_Duplicate" xml:space="preserve"><value>Kjo adresë është ruajtur tashmë si "{0}".</value></data>
+  <data name="Settings_AddressBook_Failed" xml:space="preserve"><value>Ndryshimi nuk mund të bëhej.</value></data>
+  <data name="Settings_AddressBook_ImportDone" xml:space="preserve"><value>U importua: {0} të shtuar, {1} të përditësuar, {2} të anashkaluar.</value></data>
+  <data name="Settings_AddressBook_ImportBad" xml:space="preserve"><value>Ky nuk është skedar libri adresash i Remotely, ose vjen nga një Remotely më i ri. Asgjë nuk u ndryshua.</value></data>
 </root>

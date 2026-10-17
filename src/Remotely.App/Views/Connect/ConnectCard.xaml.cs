@@ -16,7 +16,7 @@ namespace Remotely.App.Views.Connect;
 /// </summary>
 public sealed partial class ConnectCard : UserControl
 {
-    private readonly IRecentPcs _recent = new JsonRecentPcs(Path.Combine(ViewerSettings.Dir, "recent-pcs.json"));
+    private readonly IRecentPcs _recent = ViewerSettings.RecentPcs;
     private readonly Button _diagnoseButton = new() { Visibility = Visibility.Collapsed };
     private CancellationTokenSource? _connectCts;
     private CancellationTokenSource? _nearbyCts;

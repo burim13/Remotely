@@ -297,4 +297,166 @@
   <data name="Connect_Denied" xml:space="preserve"><value>The other PC did not allow this connection. The person there chose Deny, or nobody answered in time. Nothing was shown or controlled.</value></data>
   <data name="Connect_Reconnect" xml:space="preserve"><value>Reconnect</value></data>
   <data name="Connect_ReconnectTip" xml:space="preserve"><value>This PC remembers you, so no token is needed.</value></data>
+  <!-- A14: settings pages and address book. English. -->
+  <data name="Settings_Section_General" xml:space="preserve"><value>General</value></data>
+  <data name="Settings_Section_Sharing" xml:space="preserve"><value>Sharing</value></data>
+  <data name="Settings_Section_Connection" xml:space="preserve"><value>Connection</value></data>
+  <data name="Settings_Section_Security" xml:space="preserve"><value>Security</value></data>
+  <data name="Settings_Section_Appearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Settings_Section_Advanced" xml:space="preserve"><value>Advanced</value></data>
+  <data name="Settings_Section_About" xml:space="preserve"><value>About</value></data>
+  <data name="Settings_Section_AddressBook" xml:space="preserve"><value>Address book</value></data>
+  <data name="Settings_Intro_General" xml:space="preserve"><value>This PC's name, start-up behaviour and language.</value></data>
+  <data name="Settings_Intro_Sharing" xml:space="preserve"><value>Who may connect to this PC, and when sharing starts.</value></data>
+  <data name="Settings_Intro_Connection" xml:space="preserve"><value>Your server, how keys and the clipboard are sent, and file transfer.</value></data>
+  <data name="Settings_Intro_Security" xml:space="preserve"><value>Rules set by your organisation, this device's identity and limits that protect you.</value></data>
+  <data name="Settings_Intro_Appearance" xml:space="preserve"><value>How Remotely looks.</value></data>
+  <data name="Settings_Intro_Advanced" xml:space="preserve"><value>Back up, move or reset your settings.</value></data>
+  <data name="Settings_Intro_About" xml:space="preserve"><value>Version and where your data is kept.</value></data>
+  <data name="Settings_Intro_AddressBook" xml:space="preserve"><value>PCs you saved: group them, mark favourites, add notes, and move the list between PCs as a JSON file.</value></data>
+  <data name="Settings_On" xml:space="preserve"><value>On</value></data>
+  <data name="Settings_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Settings_PolicyManaged" xml:space="preserve"><value>Managed by your organisation. You cannot change this here.</value></data>
+  <data name="Settings_Status_Saved" xml:space="preserve"><value>Saved.</value></data>
+  <data name="Settings_Status_Restart" xml:space="preserve"><value>Saved. It takes effect the next time Remotely starts.</value></data>
+  <data name="Settings_Status_SaveFailed" xml:space="preserve"><value>Could not write the settings file. The change works until Remotely closes.</value></data>
+  <data name="Settings_Status_Refused" xml:space="preserve"><value>Windows did not allow this change. The setting was put back.</value></data>
+  <data name="Settings_Status_Invalid" xml:space="preserve"><value>That value is not allowed.</value></data>
+  <data name="Settings_Status_InvalidNumber" xml:space="preserve"><value>Enter a whole number from {0} to {1}.</value></data>
+  <data name="Settings_Search_Placeholder" xml:space="preserve"><value>Search settings</value></data>
+  <data name="Settings_Search_None" xml:space="preserve"><value>No setting matches "{0}".</value></data>
+  <data name="Settings_Search_Open" xml:space="preserve"><value>Open</value></data>
+  <data name="Settings_Folder_Default" xml:space="preserve"><value>Downloads folder (default)</value></data>
+  <data name="Settings_Folder_Choose" xml:space="preserve"><value>Choose folder…</value></data>
+  <data name="Settings_Folder_UseDefault" xml:space="preserve"><value>Use Downloads</value></data>
+  <data name="Settings_Choice_LanguageSystem" xml:space="preserve"><value>Same as Windows</value></data>
+  <data name="Settings_Choice_LanguageEnglish" xml:space="preserve"><value>English</value></data>
+  <data name="Settings_Choice_LanguageAlbanian" xml:space="preserve"><value>Shqip (Albanian)</value></data>
+  <data name="Settings_Choice_KeyboardAuto" xml:space="preserve"><value>Automatic</value></data>
+  <data name="Settings_Choice_KeyboardScanCode" xml:space="preserve"><value>Key positions</value></data>
+  <data name="Settings_Choice_KeyboardUnicode" xml:space="preserve"><value>Typed characters</value></data>
+  <data name="Settings_Choice_ThemeSystem" xml:space="preserve"><value>Same as Windows</value></data>
+  <data name="Settings_Choice_ThemeDark" xml:space="preserve"><value>Dark</value></data>
+  <data name="Settings_Choice_ThemeLight" xml:space="preserve"><value>Light</value></data>
+  <data name="Settings_DeviceName_Label" xml:space="preserve"><value>This PC's name</value></data>
+  <data name="Settings_DeviceName_Help" xml:space="preserve"><value>How this PC appears to the people and devices you connect with. Leave it empty to use the Windows computer name.</value></data>
+  <data name="Settings_StartWithWindows_Label" xml:space="preserve"><value>Start Remotely when I sign in to Windows</value></data>
+  <data name="Settings_StartWithWindows_Help" xml:space="preserve"><value>Starts Remotely minimised in the notification area. It adds one entry to your account's start-up list; no administrator rights are needed.</value></data>
+  <data name="Settings_CloseToTray_Label" xml:space="preserve"><value>Keep running in the tray when I close the window</value></data>
+  <data name="Settings_CloseToTray_Help" xml:space="preserve"><value>Closing the window hides Remotely instead of quitting, so sharing and the tray menu stay available. It only applies while the tray icon is shown.</value></data>
+  <data name="Settings_Language_Label" xml:space="preserve"><value>Language</value></data>
+  <data name="Settings_Language_Help" xml:space="preserve"><value>The language of Remotely. The change takes effect the next time Remotely starts. The Albanian text is machine-written and has not been reviewed by a native speaker.</value></data>
+  <data name="Settings_AskBeforeConnect_Label" xml:space="preserve"><value>Ask me before someone connects</value></data>
+  <data name="Settings_AskBeforeConnect_Help" xml:space="preserve"><value>A PC that is not on your remembered list must be allowed by you before it sees your screen. On by default. An administrator can require it.</value></data>
+  <data name="Settings_AllowRemembered_Label" xml:space="preserve"><value>Let remembered PCs reconnect without a token</value></data>
+  <data name="Settings_AllowRemembered_Help" xml:space="preserve"><value>PCs you chose "Always allow" for can reconnect while sharing is on, without a new token and without a question. Turn this off to ask for a token every time.</value></data>
+  <data name="Settings_ShareOnStart_Label" xml:space="preserve"><value>Start sharing on my network when Remotely opens</value></data>
+  <data name="Settings_ShareOnStart_Help" xml:space="preserve"><value>Sharing stays off until you turn it on, unless you choose this. Someone still needs the token (or to be on your remembered list) to connect.</value></data>
+  <data name="Settings_KeyboardMode_Label" xml:space="preserve"><value>Keyboard mode</value></data>
+  <data name="Settings_KeyboardMode_Help" xml:space="preserve"><value>How keys you type reach the other PC. Automatic uses key positions when both PCs have the same keyboard layout and typed characters otherwise. Key positions suits games and shortcuts; typed characters give the right letters across different layouts.</value></data>
+  <data name="Settings_SyncClipboard_Label" xml:space="preserve"><value>Share the clipboard during a session</value></data>
+  <data name="Settings_SyncClipboard_Help" xml:space="preserve"><value>Text and other copied content move between the two PCs while a session is open. Turn off if you do not want copied content to leave this PC.</value></data>
+  <data name="Settings_FileTransferEnabled_Label" xml:space="preserve"><value>Allow file transfer</value></data>
+  <data name="Settings_FileTransferEnabled_Help" xml:space="preserve"><value>Lets you send files to the other PC and receive files from it in a session. An administrator can switch file transfer off for this PC.</value></data>
+  <data name="Settings_ReceiveFolder_Label" xml:space="preserve"><value>Folder for received files</value></data>
+  <data name="Settings_ReceiveFolder_Help" xml:space="preserve"><value>Files you receive from the other PC are saved here. When none is chosen, your Downloads folder is used.</value></data>
+  <data name="Settings_MaxItemMegabytes_Label" xml:space="preserve"><value>Largest file or folder to accept (MB)</value></data>
+  <data name="Settings_MaxItemMegabytes_Help" xml:space="preserve"><value>A single file or folder bigger than this is refused. The default is 32768 MB (32 GB).</value></data>
+  <data name="Settings_ReceiveQuotaMegabytes_Label" xml:space="preserve"><value>Total space allowed in the receive folder (MB)</value></data>
+  <data name="Settings_ReceiveQuotaMegabytes_Help" xml:space="preserve"><value>Receiving stops when the folder would grow past this size. 0 means no limit.</value></data>
+  <data name="Settings_ExtractFolders_Label" xml:space="preserve"><value>Unpack received folders</value></data>
+  <data name="Settings_ExtractFolders_Help" xml:space="preserve"><value>A folder sent from the other PC is unpacked into the receive folder. When off, it is left as a zip file.</value></data>
+  <data name="Settings_ClipboardConfirmMegabytes_Label" xml:space="preserve"><value>Ask before accepting a clipboard larger than (MB)</value></data>
+  <data name="Settings_ClipboardConfirmMegabytes_Help" xml:space="preserve"><value>A copy bigger than this needs your agreement before it is accepted. The default is 8 MB.</value></data>
+  <data name="Settings_Theme_Label" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Settings_Theme_Help" xml:space="preserve"><value>Dark, light, or the same as Windows. It applies at once.</value></data>
+  <data name="Settings_Policy_Title" xml:space="preserve"><value>Rules from your organisation</value></data>
+  <data name="Settings_Policy_None" xml:space="preserve"><value>No policy is set on this PC. Everything on these pages is your own choice.</value></data>
+  <data name="Settings_Policy_Active" xml:space="preserve"><value>An administrator has set rules on this PC. They override your choices.</value></data>
+  <data name="Settings_Policy_DisableServerMode" xml:space="preserve"><value>Connecting through a server is turned off.</value></data>
+  <data name="Settings_Policy_ForceConsent" xml:space="preserve"><value>Someone must always be allowed by you before they connect.</value></data>
+  <data name="Settings_Policy_DisableFileTransfer" xml:space="preserve"><value>File transfer is turned off.</value></data>
+  <data name="Settings_Device_Title" xml:space="preserve"><value>This device</value></data>
+  <data name="Settings_Device_Help" xml:space="preserve"><value>A PC you reach through your server must trust this id. The installer does that for you.</value></data>
+  <data name="Settings_Device_Copy" xml:space="preserve"><value>Copy id</value></data>
+  <data name="Settings_Device_Secure" xml:space="preserve"><value>The link to your server is encrypted (wss).</value></data>
+  <data name="Settings_Device_Insecure" xml:space="preserve"><value>The link to your server is not encrypted (ws). Use it only on a network you trust.</value></data>
+  <data name="Settings_Server_Title" xml:space="preserve"><value>Your server</value></data>
+  <data name="Settings_Server_None" xml:space="preserve"><value>No server yet. Connections on this network do not need one.</value></data>
+  <data name="Settings_Server_State" xml:space="preserve"><value>Connected to {0}</value></data>
+  <data name="Settings_Server_Disabled" xml:space="preserve"><value>Connecting through a server is turned off on this PC.</value></data>
+  <data name="Settings_Server_Invite" xml:space="preserve"><value>Invite from your server</value></data>
+  <data name="Settings_Server_InvitePlaceholder" xml:space="preserve"><value>RMT1-…  (leave empty to keep the current server)</value></data>
+  <data name="Settings_Server_Manual" xml:space="preserve"><value>Set up by hand instead</value></data>
+  <data name="Settings_Server_Address" xml:space="preserve"><value>Server address</value></data>
+  <data name="Settings_Server_Pin" xml:space="preserve"><value>Server key pin (64 characters)</value></data>
+  <data name="Settings_Server_Code" xml:space="preserve"><value>Pairing code</value></data>
+  <data name="Settings_Server_Connect" xml:space="preserve"><value>Connect</value></data>
+  <data name="Settings_Server_Connecting" xml:space="preserve"><value>Connecting…</value></data>
+  <data name="Settings_Server_Connected" xml:space="preserve"><value>Connected. This device is paired with your server.</value></data>
+  <data name="Settings_Server_Failed" xml:space="preserve"><value>Could not connect: {0}</value></data>
+  <data name="Settings_Server_NothingToDo" xml:space="preserve"><value>Paste an invite, or enter the server address.</value></data>
+  <data name="Settings_Server_BadAddress" xml:space="preserve"><value>Enter the server address, starting with wss://</value></data>
+  <data name="Settings_Server_BadPin" xml:space="preserve"><value>The server key pin is 64 characters. Copy it from the server's start-up message.</value></data>
+  <data name="Settings_Advanced_Title" xml:space="preserve"><value>Back up and reset</value></data>
+  <data name="Settings_Advanced_Help" xml:space="preserve"><value>Export writes your settings to a file you can import on another PC. It leaves out the server, pairing, this PC's name and the address book. Reset puts every setting on these pages back to its default; the server, pairing and address book stay.</value></data>
+  <data name="Settings_Export" xml:space="preserve"><value>Export settings…</value></data>
+  <data name="Settings_Import" xml:space="preserve"><value>Import settings…</value></data>
+  <data name="Settings_Reset" xml:space="preserve"><value>Reset to defaults…</value></data>
+  <data name="Settings_OpenFolder" xml:space="preserve"><value>Open data folder</value></data>
+  <data name="Settings_OpenFolder_Failed" xml:space="preserve"><value>Could not open the folder.</value></data>
+  <data name="Settings_Export_Done" xml:space="preserve"><value>Saved to {0}</value></data>
+  <data name="Settings_Import_Bad" xml:space="preserve"><value>This is not a Remotely settings file, or it comes from a newer Remotely. Nothing was changed.</value></data>
+  <data name="Settings_Import_Done" xml:space="preserve"><value>Imported {0} settings. Skipped {1} that were not valid or not known, and {2} that your organisation controls.</value></data>
+  <data name="Settings_File_ReadFailed" xml:space="preserve"><value>The file could not be read, or it is larger than 4 MB.</value></data>
+  <data name="Settings_File_WriteFailed" xml:space="preserve"><value>The file could not be written.</value></data>
+  <data name="Settings_Reset_Title" xml:space="preserve"><value>Reset settings?</value></data>
+  <data name="Settings_Reset_Body" xml:space="preserve"><value>Every setting on these pages goes back to its default. Your server, pairing and address book stay.</value></data>
+  <data name="Settings_Reset_Accept" xml:space="preserve"><value>Reset</value></data>
+  <data name="Settings_Reset_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Settings_Reset_Done" xml:space="preserve"><value>Settings were reset to their defaults.</value></data>
+  <data name="Settings_Load_Damaged" xml:space="preserve"><value>The settings file could not be read, so default settings are in use. The unreadable file was kept as {0}.</value></data>
+  <data name="Settings_Load_Newer" xml:space="preserve"><value>The settings file was written by a newer Remotely. A copy was kept as {0} before anything is changed.</value></data>
+  <data name="Settings_Load_Migrated" xml:space="preserve"><value>Your settings file was updated from format {0}. A copy of the old file was kept as {1}.</value></data>
+  <data name="Settings_About_Body" xml:space="preserve"><value>Remotely lets you share this PC and control others, on your network or through your own server. No accounts, no telemetry.</value></data>
+  <data name="Settings_About_Folder" xml:space="preserve"><value>Your data is kept in {0}</value></data>
+  <data name="Settings_About_Schema" xml:space="preserve"><value>File formats: settings {0}, address book {1}</value></data>
+  <data name="Settings_About_License" xml:space="preserve"><value>Released under the MIT licence.</value></data>
+  <data name="Settings_About_Project" xml:space="preserve"><value>Project page</value></data>
+  <data name="Settings_AddressBook_Add" xml:space="preserve"><value>Add a PC…</value></data>
+  <data name="Settings_AddressBook_Import" xml:space="preserve"><value>Import…</value></data>
+  <data name="Settings_AddressBook_Export" xml:space="preserve"><value>Export…</value></data>
+  <data name="Settings_AddressBook_Filter" xml:space="preserve"><value>Filter by name, address, group or notes</value></data>
+  <data name="Settings_AddressBook_FavoritesOnly" xml:space="preserve"><value>Favourites only</value></data>
+  <data name="Settings_AddressBook_Empty" xml:space="preserve"><value>No saved PCs yet. Add one, or connect to a PC and it will appear here.</value></data>
+  <data name="Settings_AddressBook_NoMatch" xml:space="preserve"><value>No saved PC matches.</value></data>
+  <data name="Settings_AddressBook_Ungrouped" xml:space="preserve"><value>No group</value></data>
+  <data name="Settings_AddressBook_Favorite" xml:space="preserve"><value>Add to favourites</value></data>
+  <data name="Settings_AddressBook_Unfavorite" xml:space="preserve"><value>Remove from favourites</value></data>
+  <data name="Settings_AddressBook_Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Settings_AddressBook_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Settings_AddressBook_RemoveTitle" xml:space="preserve"><value>Remove this PC?</value></data>
+  <data name="Settings_AddressBook_RemoveBody" xml:space="preserve"><value>"{0}" will be removed from your address book. The PC itself is not changed.</value></data>
+  <data name="Settings_AddressBook_LastUsed" xml:space="preserve"><value>Last used {0}</value></data>
+  <data name="Settings_AddressBook_AddTitle" xml:space="preserve"><value>Add a PC</value></data>
+  <data name="Settings_AddressBook_EditTitle" xml:space="preserve"><value>Edit this PC</value></data>
+  <data name="Settings_AddressBook_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Settings_AddressBook_Target" xml:space="preserve"><value>Address or device id</value></data>
+  <data name="Settings_AddressBook_TargetHint" xml:space="preserve"><value>A host name, an address, or a device id</value></data>
+  <data name="Settings_AddressBook_Group" xml:space="preserve"><value>Group</value></data>
+  <data name="Settings_AddressBook_GroupsInUse" xml:space="preserve"><value>Groups in use: {0}</value></data>
+  <data name="Settings_AddressBook_Notes" xml:space="preserve"><value>Notes</value></data>
+  <data name="Settings_AddressBook_ColorHeader" xml:space="preserve"><value>Colour tag</value></data>
+  <data name="Settings_AddressBook_Color_none" xml:space="preserve"><value>None</value></data>
+  <data name="Settings_AddressBook_Color_red" xml:space="preserve"><value>Red</value></data>
+  <data name="Settings_AddressBook_Color_amber" xml:space="preserve"><value>Amber</value></data>
+  <data name="Settings_AddressBook_Color_green" xml:space="preserve"><value>Green</value></data>
+  <data name="Settings_AddressBook_Color_blue" xml:space="preserve"><value>Blue</value></data>
+  <data name="Settings_AddressBook_Color_gray" xml:space="preserve"><value>Gray</value></data>
+  <data name="Settings_AddressBook_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Settings_AddressBook_NeedTarget" xml:space="preserve"><value>Enter an address or device id.</value></data>
+  <data name="Settings_AddressBook_Duplicate" xml:space="preserve"><value>That address is already saved as "{0}".</value></data>
+  <data name="Settings_AddressBook_Failed" xml:space="preserve"><value>The change could not be made.</value></data>
+  <data name="Settings_AddressBook_ImportDone" xml:space="preserve"><value>Imported: {0} added, {1} updated, {2} skipped.</value></data>
+  <data name="Settings_AddressBook_ImportBad" xml:space="preserve"><value>This is not a Remotely address book file, or it comes from a newer Remotely. Nothing was changed.</value></data>
 </root>

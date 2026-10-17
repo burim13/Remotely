@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitions revision="1.0" schemaVersion="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <policyNamespaces>
+    <target prefix="remotely" namespace="Remotely.Policies.Remotely" />
+  </policyNamespaces>
+  <resources minRequiredRevision="1.0" />
+  <supportedOn>
+    <definitions>
+      <definition name="SUPPORTED_Remotely1" displayName="$(string.SUPPORTED_Remotely1)" />
+    </definitions>
+  </supportedOn>
+  <categories>
+    <category name="Remotely" displayName="$(string.Remotely)" />
+  </categories>
+  <policies>
+    <policy name="DisableServerMode" class="Machine" displayName="$(string.DisableServerMode)" explainText="$(string.DisableServerMode_Help)" key="Software\Policies\Remotely" valueName="DisableServerMode">
+      <parentCategory ref="Remotely" />
+      <supportedOn ref="SUPPORTED_Remotely1" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+    <policy name="ForceConsent" class="Machine" displayName="$(string.ForceConsent)" explainText="$(string.ForceConsent_Help)" key="Software\Policies\Remotely" valueName="ForceConsent">
+      <parentCategory ref="Remotely" />
+      <supportedOn ref="SUPPORTED_Remotely1" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+    <policy name="DisableFileTransfer" class="Machine" displayName="$(string.DisableFileTransfer)" explainText="$(string.DisableFileTransfer_Help)" key="Software\Policies\Remotely" valueName="DisableFileTransfer">
+      <parentCategory ref="Remotely" />
+      <supportedOn ref="SUPPORTED_Remotely1" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+  </policies>
+</policyDefinitions>
