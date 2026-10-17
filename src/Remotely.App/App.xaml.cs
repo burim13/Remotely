@@ -124,6 +124,7 @@ public partial class App : Application
         catch (UnauthorizedAccessException) { }
 
         if (Options.SelfTestResultPath is { } lanFile) { Environment.Exit(await SelfTest.RunAsync(lanFile)); return; }
+        if (Options.SelfTestShareResultPath is { } shareFile) { Environment.Exit(await Views.Share.ShareSelfTests.RunAsync(shareFile)); return; }
         if (Options.SelfTestServerResultPath is { } serverFile && Options.SelfTestServerHostPrefix is { } hostPrefix)
         {
             Environment.Exit(await SelfTest.RunServerAsync(serverFile, hostPrefix));

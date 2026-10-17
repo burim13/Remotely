@@ -662,3 +662,17 @@ public class ShareHostIntegrationTests
         Assert.Equal(0, rig.Screen.Captures);
     }
 }
+
+public class ShareSelfTestOptionTests
+{
+    [Fact]
+    public void The_share_self_test_flag_takes_a_file_and_is_a_self_test_that_is_not_the_token_self_test()
+    {
+        var o = Remotely.App.Shell.AppOptions.Parse(["--selftest-share", "share.txt"]);
+        Assert.Equal("share.txt", o.SelfTestShareResultPath);
+        Assert.Null(o.SelfTestResultPath);
+        Assert.True(o.IsSelfTest);
+        Assert.False(o.UsesSingleInstance);
+        Assert.NotEmpty(Remotely.App.Shell.AppOptions.Parse(["--selftest-share"]).Problems);
+    }
+}

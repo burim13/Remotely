@@ -14,7 +14,7 @@ namespace Remotely.Tests;
 /// </summary>
 public class CryptoKnownIssuesTests
 {
-    [Fact(Skip = "Known leak, owner A3 (LanHost.cs): Start() logs 'Sharing on port N. Token <the whole token>.' so the secret reaches the host's log and any diagnostics bundle built from it.")]
+    [Fact]
     public async Task KnownIssue_the_start_up_line_of_the_token_host_must_not_contain_the_token()
     {
         var lines = new List<string>();
