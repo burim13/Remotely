@@ -17,9 +17,9 @@ public static class SetupWizardDefaults
     /// The real probes: system addresses, a TCP/TLS reachability probe, a port probe, UPnP and NAT-PMP mappers (inactive until the user switches automatic mapping on).
     /// The host must supply <paramref name="elevated"/> (it starts the elevated helper) and, once the server's admin API exists, <paramref name="admin"/> and <paramref name="outside"/>.
     /// </summary>
-    public static SetupWizardServices Create(IElevatedActions elevated, Remotely.Core.Admin.IServerAdmin? admin = null, IOutsideCheck? outside = null)
+    public static SetupWizardServices Create(IElevatedActions elevated, Remotely.Core.Admin.IServerAdmin? admin = null, IOutsideCheck? outside = null, IEnumerable<IPortMapper>? mappers = null)
     {
-        var mappers = new IPortMapper[]
+        mappers ??= new IPortMapper[]
         {
             new UpnpPortMapper(new SsdpIgdLocator()),
             new NatPmpPortMapper(SystemLocalAddressSource.Gateways, new UdpNatPmpTransport()),
