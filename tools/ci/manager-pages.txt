@@ -1,0 +1,6 @@
+DashboardPage
+InvitePage
+DevicesPage
+ActivityPage
+ServicePage
+ServerSettingsPage

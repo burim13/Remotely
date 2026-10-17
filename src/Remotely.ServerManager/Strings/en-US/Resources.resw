@@ -4,10 +4,210 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <!-- Server Manager strings. Every user-visible string is a key here; no literals in XAML or code-behind. -->
   <data name="App_Name" xml:space="preserve"><value>Remotely Server Manager</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Common_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Common_On" xml:space="preserve"><value>On</value></data>
+  <data name="Common_Refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Save</value></data>
   <data name="Nav_Dashboard" xml:space="preserve"><value>Dashboard</value></data>
   <data name="Nav_Invite" xml:space="preserve"><value>Invite a device</value></data>
   <data name="Nav_Devices" xml:space="preserve"><value>Devices</value></data>
   <data name="Nav_Activity" xml:space="preserve"><value>Activity</value></data>
+  <data name="Nav_Service" xml:space="preserve"><value>Service</value></data>
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="Tray_Open" xml:space="preserve"><value>Open Server Manager</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Exit</value></data>
+  <data name="Tray_Running" xml:space="preserve"><value>running, {0} device(s) online</value></data>
+  <data name="Tray_NotAnswering" xml:space="preserve"><value>not answering</value></data>
+  <data name="Tray_Stopped" xml:space="preserve"><value>stopped</value></data>
+  <data name="Tray_NotInstalled" xml:space="preserve"><value>not installed</value></data>
+  <data name="Tray_Unknown" xml:space="preserve"><value>status unknown</value></data>
+  <data name="Notify_Title" xml:space="preserve"><value>New device</value></data>
+  <data name="Notify_NewDevice" xml:space="preserve"><value>{0} paired with your server.</value></data>
+  <data name="Notify_NewDevices" xml:space="preserve"><value>{0} new devices paired with your server.</value></data>
+  <data name="Elevated_Title" xml:space="preserve"><value>The Manager is running as administrator</value></data>
+  <data name="Elevated_Message" xml:space="preserve"><value>That is not needed. The Manager asks Windows for permission only when it installs, stops or restores the service. Close it and open it normally.</value></data>
+  <data name="Error_NoClient" xml:space="preserve"><value>The Manager is not connected to a server yet: the admin client is not part of this build. Start it with --fake to see sample data.</value></data>
+  <data name="Dash_Running" xml:space="preserve"><value>The server is running</value></data>
+  <data name="Dash_NotAnswering" xml:space="preserve"><value>The service is running but the server does not answer</value></data>
+  <data name="Dash_Stopped" xml:space="preserve"><value>The server is stopped</value></data>
+  <data name="Dash_NotInstalled" xml:space="preserve"><value>The server is not installed as a service</value></data>
+  <data name="Dash_Unknown" xml:space="preserve"><value>Cannot reach the server</value></data>
+  <data name="Dash_Detail" xml:space="preserve"><value>Version {0}, started {1}</value></data>
+  <data name="Dash_ServiceIs" xml:space="preserve"><value>Windows service: {0}</value></data>
+  <data name="Dash_DevicesOnline" xml:space="preserve"><value>Devices online</value></data>
+  <data name="Dash_OfTotal" xml:space="preserve"><value>of {0} paired</value></data>
+  <data name="Dash_Sessions" xml:space="preserve"><value>Active sessions</value></data>
+  <data name="Dash_Address" xml:space="preserve"><value>Address and port</value></data>
+  <data name="Dash_TlsOn" xml:space="preserve"><value>TLS on</value></data>
+  <data name="Dash_TlsOff" xml:space="preserve"><value>TLS off</value></data>
+  <data name="Dash_Certificate" xml:space="preserve"><value>Certificate expires</value></data>
+  <data name="Dash_CertOk" xml:space="preserve"><value>Valid</value></data>
+  <data name="Dash_CertSoon" xml:space="preserve"><value>Expires in {0} days. Renew it in time.</value></data>
+  <data name="Dash_CertExpired" xml:space="preserve"><value>Expired</value></data>
+  <data name="Dash_Reach" xml:space="preserve"><value>Reachability from this PC</value></data>
+  <data name="Dash_ReachChecking" xml:space="preserve"><value>Checking…</value></data>
+  <data name="Dash_ReachFake" xml:space="preserve"><value>Not checked (sample data).</value></data>
+  <data name="Dash_ReachOk" xml:space="preserve"><value>The server answers at {0}:{1} from this PC.</value></data>
+  <data name="Dash_ReachLocal" xml:space="preserve"><value>The server answers on this PC but not at {0}:{1}.</value></data>
+  <data name="Dash_ReachNone" xml:space="preserve"><value>Nothing is listening on port {0} on this PC.</value></data>
+  <data name="Dash_ReachOutside" xml:space="preserve"><value>Access from the internet is not tested here. That needs a test from outside your network, for example with your phone.</value></data>
+  <data name="Dash_Pin" xml:space="preserve"><value>Server key pin</value></data>
+  <data name="Dash_PinHelp" xml:space="preserve"><value>Every device checks the server against this SHA-256 fingerprint. It is not a secret.</value></data>
+  <data name="Dash_CopyPin" xml:space="preserve"><value>Copy pin</value></data>
+  <data name="Dash_Recent" xml:space="preserve"><value>Recent activity</value></data>
+  <data name="Dash_NoActivity" xml:space="preserve"><value>No activity yet.</value></data>
+  <data name="Dash_CopyInfo" xml:space="preserve"><value>Copy server info</value></data>
+  <data name="Dash_InfoCopied" xml:space="preserve"><value>Server info copied. It contains no invites or pairing codes.</value></data>
+  <data name="Invite_NewTitle" xml:space="preserve"><value>Create an invite</value></data>
+  <data name="Invite_Help" xml:space="preserve"><value>Paste the invite into Remotely on the new device, or scan the QR code. After the chosen time, or the allowed number of devices, it stops working.</value></data>
+  <data name="Invite_Lifetime" xml:space="preserve"><value>Valid for</value></data>
+  <data name="Invite_Uses" xml:space="preserve"><value>Devices that may use it</value></data>
+  <data name="Invite_Create" xml:space="preserve"><value>Create invite</value></data>
+  <data name="Invite_Minutes" xml:space="preserve"><value>{0} minutes</value></data>
+  <data name="Invite_OneHour" xml:space="preserve"><value>1 hour</value></data>
+  <data name="Invite_Hours" xml:space="preserve"><value>{0} hours</value></data>
+  <data name="Invite_Days" xml:space="preserve"><value>{0} days</value></data>
+  <data name="Invite_OneUse" xml:space="preserve"><value>1 device</value></data>
+  <data name="Invite_NUses" xml:space="preserve"><value>{0} devices</value></data>
+  <data name="Invite_Ready" xml:space="preserve"><value>Your invite is ready</value></data>
+  <data name="Invite_Copy" xml:space="preserve"><value>Copy invite</value></data>
+  <data name="Invite_Copied" xml:space="preserve"><value>Invite copied.</value></data>
+  <data name="Invite_Expires" xml:space="preserve"><value>Expires {0}. Uses left: {1} of {2}.</value></data>
+  <data name="Invite_QrHelp" xml:space="preserve"><value>The QR code holds the same invite. Anyone who scans it can use it, so do not post it publicly.</value></data>
+  <data name="Invite_QrLabel" xml:space="preserve"><value>QR code of the invite</value></data>
+  <data name="Invite_History" xml:space="preserve"><value>Earlier invites</value></data>
+  <data name="Invite_NoHistory" xml:space="preserve"><value>No invites yet.</value></data>
+  <data name="Invite_Active" xml:space="preserve"><value>Active</value></data>
+  <data name="Invite_Expired" xml:space="preserve"><value>Expired</value></data>
+  <data name="Invite_UsedUp" xml:space="preserve"><value>Used up</value></data>
+  <data name="Invite_Uses2" xml:space="preserve"><value>{0} of {1} uses left</value></data>
+  <data name="Invite_ExpiresShort" xml:space="preserve"><value>Expires {0}</value></data>
+  <data name="Invite_Show" xml:space="preserve"><value>Show</value></data>
+  <data name="Invite_CopyShort" xml:space="preserve"><value>Copy</value></data>
+  <data name="Invite_Revoke" xml:space="preserve"><value>Revoke</value></data>
+  <data name="Invite_RevokeTitle" xml:space="preserve"><value>Revoke this invite?</value></data>
+  <data name="Invite_RevokeBody" xml:space="preserve"><value>Nobody will be able to join with it any more. Devices that already joined stay.</value></data>
+  <data name="Invite_BadLifetime" xml:space="preserve"><value>The lifetime must be between 1 minute and 30 days.</value></data>
+  <data name="Invite_BadUses" xml:space="preserve"><value>The number of devices must be between 1 and 100.</value></data>
+  <data name="Devices_Search" xml:space="preserve"><value>Search by name or id</value></data>
+  <data name="Devices_State" xml:space="preserve"><value>State</value></data>
+  <data name="Devices_All" xml:space="preserve"><value>All</value></data>
+  <data name="Devices_OnlineOnly" xml:space="preserve"><value>Online</value></data>
+  <data name="Devices_OfflineOnly" xml:space="preserve"><value>Offline</value></data>
+  <data name="Devices_BlockedOnly" xml:space="preserve"><value>Blocked</value></data>
+  <data name="Devices_Summary" xml:space="preserve"><value>Showing {0} of {1} devices</value></data>
+  <data name="Devices_None" xml:space="preserve"><value>No devices paired yet. Create an invite to add the first one.</value></data>
+  <data name="Devices_NoMatch" xml:space="preserve"><value>No device matches.</value></data>
+  <data name="Devices_Blocked" xml:space="preserve"><value>Blocked</value></data>
+  <data name="Devices_CanHost" xml:space="preserve"><value>can be shared</value></data>
+  <data name="Devices_ViewerOnly" xml:space="preserve"><value>viewer only</value></data>
+  <data name="Devices_Paired" xml:space="preserve"><value>paired {0}</value></data>
+  <data name="Devices_Id" xml:space="preserve"><value>id {0}…</value></data>
+  <data name="Devices_History" xml:space="preserve"><value>History</value></data>
+  <data name="Devices_Rename" xml:space="preserve"><value>Rename</value></data>
+  <data name="Devices_Block" xml:space="preserve"><value>Block</value></data>
+  <data name="Devices_Unblock" xml:space="preserve"><value>Unblock</value></data>
+  <data name="Devices_Revoke" xml:space="preserve"><value>Remove</value></data>
+  <data name="Devices_RenameTitle" xml:space="preserve"><value>Device name</value></data>
+  <data name="Devices_NameEmpty" xml:space="preserve"><value>A device needs a name.</value></data>
+  <data name="Devices_BlockTitle" xml:space="preserve"><value>Block {0}?</value></data>
+  <data name="Devices_BlockBody" xml:space="preserve"><value>The device cannot connect until you unblock it. It stays paired.</value></data>
+  <data name="Devices_RevokeTitle" xml:space="preserve"><value>Remove {0}?</value></data>
+  <data name="Devices_RevokeBody" xml:space="preserve"><value>The server forgets this device. To use it again it must join with a new invite.</value></data>
+  <data name="Devices_HistoryTitle" xml:space="preserve"><value>History of {0}</value></data>
+  <data name="Devices_NoHistory" xml:space="preserve"><value>No activity for this device.</value></data>
+  <data name="Seen_Online" xml:space="preserve"><value>Online</value></data>
+  <data name="Seen_Never" xml:space="preserve"><value>Never seen</value></data>
+  <data name="Seen_JustNow" xml:space="preserve"><value>Seen just now</value></data>
+  <data name="Seen_Minutes" xml:space="preserve"><value>Seen {0} min ago</value></data>
+  <data name="Seen_Hours" xml:space="preserve"><value>Seen {0} h ago</value></data>
+  <data name="Seen_Days" xml:space="preserve"><value>Seen {0} days ago</value></data>
+  <data name="Seen_Date" xml:space="preserve"><value>Seen {0}</value></data>
+  <data name="Activity_Search" xml:space="preserve"><value>Search the activity</value></data>
+  <data name="Activity_Kind" xml:space="preserve"><value>Type</value></data>
+  <data name="Activity_Result" xml:space="preserve"><value>Result</value></data>
+  <data name="Activity_Period" xml:space="preserve"><value>Period</value></data>
+  <data name="Activity_AllKinds" xml:space="preserve"><value>All types</value></data>
+  <data name="Activity_AllResults" xml:space="preserve"><value>All results</value></data>
+  <data name="Activity_Hour" xml:space="preserve"><value>Last hour</value></data>
+  <data name="Activity_Day" xml:space="preserve"><value>Last 24 hours</value></data>
+  <data name="Activity_Week" xml:space="preserve"><value>Last 7 days</value></data>
+  <data name="Activity_Anytime" xml:space="preserve"><value>Any time</value></data>
+  <data name="Activity_Export" xml:space="preserve"><value>Export CSV</value></data>
+  <data name="Activity_Summary" xml:space="preserve"><value>Showing {0} of {1} entries</value></data>
+  <data name="Activity_None" xml:space="preserve"><value>No activity yet.</value></data>
+  <data name="Activity_NoMatch" xml:space="preserve"><value>No entry matches.</value></data>
+  <data name="Activity_NothingToExport" xml:space="preserve"><value>There is nothing to export.</value></data>
+  <data name="Activity_Exported" xml:space="preserve"><value>Exported {0} entries to {1}</value></data>
+  <data name="Kind_pair" xml:space="preserve"><value>Pairing</value></data>
+  <data name="Kind_connect" xml:space="preserve"><value>Connection</value></data>
+  <data name="Kind_disconnect" xml:space="preserve"><value>Disconnection</value></data>
+  <data name="Kind_revoke" xml:space="preserve"><value>Removed</value></data>
+  <data name="Kind_block" xml:space="preserve"><value>Blocked</value></data>
+  <data name="Kind_unblock" xml:space="preserve"><value>Unblocked</value></data>
+  <data name="Result_ok" xml:space="preserve"><value>OK</value></data>
+  <data name="Result_refused" xml:space="preserve"><value>Refused</value></data>
+  <data name="Result_failed" xml:space="preserve"><value>Failed</value></data>
+  <data name="Service_Unknown" xml:space="preserve"><value>Service state unknown</value></data>
+  <data name="Service_NotInstalled" xml:space="preserve"><value>The service is not installed</value></data>
+  <data name="Service_Stopped" xml:space="preserve"><value>The service is stopped</value></data>
+  <data name="Service_StartPending" xml:space="preserve"><value>The service is starting</value></data>
+  <data name="Service_Running" xml:space="preserve"><value>The service is running</value></data>
+  <data name="Service_StopPending" xml:space="preserve"><value>The service is stopping</value></data>
+  <data name="Service_Paused" xml:space="preserve"><value>The service is paused</value></data>
+  <data name="Service_Answers" xml:space="preserve"><value>The server answers.</value></data>
+  <data name="Service_NoAnswer" xml:space="preserve"><value>The server does not answer.</value></data>
+  <data name="Service_Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Service_Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="Service_Restart" xml:space="preserve"><value>Restart</value></data>
+  <data name="Service_Install" xml:space="preserve"><value>Install</value></data>
+  <data name="Service_Uninstall" xml:space="preserve"><value>Uninstall</value></data>
+  <data name="Service_UacTitle" xml:space="preserve"><value>Windows will ask for permission</value></data>
+  <data name="Service_UacBody" xml:space="preserve"><value>The Manager never runs as administrator. To install, stop or restore the service it starts a small elevated helper, and Windows asks you each time.</value></data>
+  <data name="Service_KeepsData" xml:space="preserve"><value>Uninstalling removes the service and its firewall rule but keeps your devices and key in the data folder.</value></data>
+  <data name="Service_UninstallTitle" xml:space="preserve"><value>Uninstall the service?</value></data>
+  <data name="Service_UninstallBody" xml:space="preserve"><value>The server stops and no longer starts with Windows. Your devices and key are kept.</value></data>
+  <data name="Service_Cancelled" xml:space="preserve"><value>Cancelled: permission was not given.</value></data>
+  <data name="Service_Failed" xml:space="preserve"><value>The action failed (code {0}).</value></data>
+  <data name="Service_DoneStart" xml:space="preserve"><value>The service was started.</value></data>
+  <data name="Service_DoneStop" xml:space="preserve"><value>The service was stopped.</value></data>
+  <data name="Service_DoneRestart" xml:space="preserve"><value>The service was restarted.</value></data>
+  <data name="Service_DoneInstall" xml:space="preserve"><value>The service was installed and started.</value></data>
+  <data name="Service_DoneUninstall" xml:space="preserve"><value>The service was uninstalled.</value></data>
+  <data name="Settings_ServerTitle" xml:space="preserve"><value>Server</value></data>
+  <data name="Settings_ServerHelp" xml:space="preserve"><value>The server stores these settings itself. Changes to the address, port or TLS may need a service restart.</value></data>
+  <data name="Settings_Address" xml:space="preserve"><value>Address devices are told to use</value></data>
+  <data name="Settings_Port" xml:space="preserve"><value>Port</value></data>
+  <data name="Settings_MaxDevices" xml:space="preserve"><value>Maximum devices</value></data>
+  <data name="Settings_MaxSessions" xml:space="preserve"><value>Maximum sessions per device</value></data>
+  <data name="Settings_Tls" xml:space="preserve"><value>Require TLS</value></data>
+  <data name="Settings_Saved" xml:space="preserve"><value>Saved. Changes to the port or TLS may need a service restart.</value></data>
+  <data name="Settings_ManagerTitle" xml:space="preserve"><value>This Manager</value></data>
+  <data name="Settings_AutoStart" xml:space="preserve"><value>Start the Manager when I sign in to Windows</value></data>
+  <data name="Settings_CloseToTray" xml:space="preserve"><value>Closing the window keeps the Manager in the notification area</value></data>
+  <data name="Settings_Notify" xml:space="preserve"><value>Notify me when a new device pairs</value></data>
+  <data name="Settings_Theme" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Settings_ThemeSystem" xml:space="preserve"><value>Follow Windows</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Dark</value></data>
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Light</value></data>
+  <data name="Settings_About" xml:space="preserve"><value>Remotely Server Manager {0}</value></data>
+  <data name="Settings_BadAddress" xml:space="preserve"><value>Enter a name or address without spaces, http:// or /.</value></data>
+  <data name="Settings_BadPort" xml:space="preserve"><value>The port must be between 1 and 65535.</value></data>
+  <data name="Settings_BadMaxDevices" xml:space="preserve"><value>The maximum number of devices must be at least 1.</value></data>
+  <data name="Settings_BadMaxSessions" xml:space="preserve"><value>Sessions per device must be at least 1.</value></data>
+  <data name="Backup_Title" xml:space="preserve"><value>Backup and restore</value></data>
+  <data name="Backup_Help" xml:space="preserve"><value>Saves a copy of the server's data into a folder you choose. Keep it somewhere safe: it may contain the server's private key.</value></data>
+  <data name="Backup_Create" xml:space="preserve"><value>Create backup…</value></data>
+  <data name="Backup_RestoreFile" xml:space="preserve"><value>Restore from a file…</value></data>
+  <data name="Backup_RestoreFolder" xml:space="preserve"><value>Restore from a folder…</value></data>
+  <data name="Backup_RestoreHelp" xml:space="preserve"><value>Restoring accepts a .zip file or a folder. It stops the service, replaces the server's data and starts it again. The data it replaces is kept in a before-restore folder.</value></data>
+  <data name="Backup_Done" xml:space="preserve"><value>Backup created: {0}</value></data>
+  <data name="Backup_RestoreTitle" xml:space="preserve"><value>Restore this backup?</value></data>
+  <data name="Backup_RestoreBody" xml:space="preserve"><value>The server's current data will be replaced with the contents of {0}. Windows will ask for permission.</value></data>
+  <data name="Backup_Restore" xml:space="preserve"><value>Restore</value></data>
+  <data name="Backup_Restored" xml:space="preserve"><value>The backup was restored and the service started.</value></data>
 </root>
