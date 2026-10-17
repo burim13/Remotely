@@ -2,14 +2,3 @@ HomePage
 ComputersPage
 SettingsPage
 GalleryPage
-DiagHeaderPage
-DiagSectionPage
-DiagPillPage
-DiagBannerPage
-DiagBannerDismissPage
-DiagCardPage
-DiagTilePage
-DiagTokenPage
-DiagEmptyPage
-DiagIconPage
-DiagIconBarePage

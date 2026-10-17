@@ -1,6 +1,0 @@
-<Page x:Class="Remotely.App.Views.Gallery.DiagTokenPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:ui="using:Remotely.UI.Controls">
-    <StackPanel><ui:TokenBox Header="h" /></StackPanel>
-</Page>

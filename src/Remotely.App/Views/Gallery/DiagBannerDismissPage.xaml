@@ -1,6 +1,0 @@
-<Page x:Class="Remotely.App.Views.Gallery.DiagBannerDismissPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:ui="using:Remotely.UI.Controls">
-    <StackPanel><ui:InlineBanner Title="t" IsDismissible="True" DismissLabel="x" /></StackPanel>
-</Page>

@@ -1,6 +1,0 @@
-<Page x:Class="Remotely.App.Views.Gallery.DiagHeaderPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:ui="using:Remotely.UI.Controls">
-    <StackPanel><ui:PageHeader Title="t" Subtitle="s" Glyph="Monitor" /></StackPanel>
-</Page>
