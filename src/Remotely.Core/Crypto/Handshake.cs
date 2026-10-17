@@ -41,7 +41,15 @@ internal static class HandshakeCommon
         var salt = SHA256.HashData([.. nonceI, .. nonceR]);
         var info = new FieldWriter().Field("RMT1-keys"u8).Field(transcript).ToArray();
         var okm = HKDF.DeriveKey(HashAlgorithmName.SHA256, secret, 64, salt, info);
-        return (okm[..32], okm[32..]);
+        try { return (okm[..32], okm[32..]); }
+        finally { CryptographicOperations.ZeroMemory(okm); }
+    }
+
+    /// <summary>Overwrites key material that is no longer needed. Strings and the keys inside <see cref="AesGcm"/> are out of reach of this; see docs/security.md.</summary>
+    public static void Zero(params byte[]?[] secrets)
+    {
+        foreach (var s in secrets)
+            if (s is not null) CryptographicOperations.ZeroMemory(s);
     }
 
     public static byte[] Hash(params byte[][] parts)
@@ -75,6 +83,7 @@ public sealed class InitiatorHandshake(DeviceIdentity self, string expectedRespo
     public SecureChannel ProcessHello2(ReadOnlySpan<byte> hello2)
     {
         if (_ephemeral is null || _nonce is null || _hello1 is null) throw new InvalidOperationException("Call CreateHello1 first.");
+        byte[]? secret = null, i2r = null, r2i = null;
         try
         {
             var r = new FieldReader(hello2);
@@ -94,13 +103,14 @@ public sealed class InitiatorHandshake(DeviceIdentity self, string expectedRespo
             if (!DeviceIdentity.Verify(identity, signed, signature))
                 throw new HandshakeException("Responder signature is invalid.");
 
-            var secret = HandshakeCommon.Agree(_ephemeral, ephemeral);
+            secret = HandshakeCommon.Agree(_ephemeral, ephemeral);
             var transcript = HandshakeCommon.Hash(_hello1, body);
-            var (i2r, r2i) = HandshakeCommon.DeriveKeys(secret, _nonce, nonceR, transcript);
+            (i2r, r2i) = HandshakeCommon.DeriveKeys(secret, _nonce, nonceR, transcript);
             return new SecureChannel(sendKey: i2r, receiveKey: r2i);
         }
         catch (FormatException ex) { throw new HandshakeException(ex.Message); }
-        catch (CryptographicException ex) { throw new HandshakeException(ex.Message); }
+        catch (Exception ex) when (CurveCheck.IsKeyError(ex)) { throw new HandshakeException(ex.Message); }
+        finally { HandshakeCommon.Zero(secret, i2r, r2i); }
     }
 
     public void Dispose() => _ephemeral?.Dispose();
@@ -111,6 +121,7 @@ public sealed class ResponderHandshake(DeviceIdentity self) : IDisposable
     /// <summary>Verifies Hello1 and returns Hello2 plus the keyed channel. <paramref name="isTrusted"/> decides whether the initiator may connect.</summary>
     public byte[] ProcessHello1(ReadOnlySpan<byte> hello1, Func<string, bool> isTrusted, out string initiatorId, out SecureChannel channel)
     {
+        byte[]? secret = null, i2r = null, r2i = null;
         try
         {
             var r = new FieldReader(hello1);
@@ -141,14 +152,15 @@ public sealed class ResponderHandshake(DeviceIdentity self) : IDisposable
                 .Field(self.PublicKey).Field(ephPublic).Field(nonceR)
                 .ToArray();
 
-            var secret = HandshakeCommon.Agree(eph, ephemeral);
+            secret = HandshakeCommon.Agree(eph, ephemeral);
             var transcript = HandshakeCommon.Hash(hello1.ToArray(), body);
-            var (i2r, r2i) = HandshakeCommon.DeriveKeys(secret, nonceI, nonceR, transcript);
+            (i2r, r2i) = HandshakeCommon.DeriveKeys(secret, nonceI, nonceR, transcript);
             channel = new SecureChannel(sendKey: r2i, receiveKey: i2r);
             return [.. body, .. new FieldWriter().Field(sig).ToArray()];
         }
         catch (FormatException ex) { throw new HandshakeException(ex.Message); }
-        catch (CryptographicException ex) { throw new HandshakeException(ex.Message); }
+        catch (Exception ex) when (CurveCheck.IsKeyError(ex)) { throw new HandshakeException(ex.Message); }
+        finally { HandshakeCommon.Zero(secret, i2r, r2i); }
     }
 
     public void Dispose() { }

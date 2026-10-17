@@ -23,8 +23,16 @@ internal static class LanHandshakeCommon
         var transcript = SHA256.HashData([.. hello1, .. hello2]);
         var salt = SHA256.HashData([.. nonceC, .. nonceH]);
         var info = new FieldWriter().Field("RMTL1-keys"u8).Field(transcript).ToArray();
-        var okm = HKDF.DeriveKey(HashAlgorithmName.SHA256, [.. ecdh, .. tokenKey], 64, salt, info);
-        return (okm[..32], okm[32..]);
+        var ikm = new byte[ecdh.Length + tokenKey.Length];
+        ecdh.CopyTo(ikm, 0);
+        tokenKey.CopyTo(ikm, ecdh.Length);
+        byte[]? okm = null;
+        try
+        {
+            okm = HKDF.DeriveKey(HashAlgorithmName.SHA256, ikm, 64, salt, info);
+            return (okm[..32], okm[32..]);
+        }
+        finally { HandshakeCommon.Zero(ikm, okm); }
     }
 
     public static byte[] Agree(ECDiffieHellman mine, ReadOnlySpan<byte> peerSpki)
@@ -55,6 +63,7 @@ public sealed class LanInitiatorHandshake(LanToken token) : IDisposable
     public SecureChannel ProcessHello2(ReadOnlySpan<byte> hello2)
     {
         if (_ephemeral is null || _nonce is null || _hello1 is null) throw new InvalidOperationException("Call CreateHello1 first.");
+        byte[]? tokenKey = null, ecdh = null, c2h = null, h2c = null;
         try
         {
             var r = new FieldReader(hello2);
@@ -63,12 +72,14 @@ public sealed class LanInitiatorHandshake(LanToken token) : IDisposable
             var nonceH = r.Field().ToArray();
             var salt = r.Field().ToArray();
             if (!r.AtEnd || nonceH.Length != LanHandshakeCommon.NonceLength || salt.Length != 16) throw new HandshakeException("Bad reply from the other PC.");
-            var tokenKey = token.DeriveKey(salt);
-            var (c2h, h2c) = LanHandshakeCommon.DeriveKeys(LanHandshakeCommon.Agree(_ephemeral, ephemeral), tokenKey, _nonce, nonceH, _hello1, hello2.ToArray());
+            tokenKey = token.DeriveKey(salt);
+            ecdh = LanHandshakeCommon.Agree(_ephemeral, ephemeral);
+            (c2h, h2c) = LanHandshakeCommon.DeriveKeys(ecdh, tokenKey, _nonce, nonceH, _hello1, hello2.ToArray());
             return new SecureChannel(sendKey: c2h, receiveKey: h2c);
         }
         catch (FormatException ex) { throw new HandshakeException(ex.Message); }
-        catch (CryptographicException ex) { throw new HandshakeException(ex.Message); }
+        catch (Exception ex) when (CurveCheck.IsKeyError(ex)) { throw new HandshakeException(ex.Message); }
+        finally { HandshakeCommon.Zero(tokenKey, ecdh, c2h, h2c); }
     }
 
     public void Dispose() => _ephemeral?.Dispose();
@@ -80,6 +91,7 @@ public sealed class LanResponderHandshake(LanTokenState state)
     /// <summary>Returns Hello2 and the keyed channel. Throws <see cref="HandshakeException"/> if the hello is not for this token's label.</summary>
     public byte[] ProcessHello1(ReadOnlySpan<byte> hello1, out SecureChannel channel)
     {
+        byte[]? ecdh = null, c2h = null, h2c = null;
         try
         {
             var r = new FieldReader(hello1);
@@ -94,11 +106,13 @@ public sealed class LanResponderHandshake(LanTokenState state)
             var nonceH = RandomNumberGenerator.GetBytes(LanHandshakeCommon.NonceLength);
             var hello2 = new FieldWriter().Raw(LanHandshakeCommon.Magic).Byte(LanHandshakeCommon.TypeHello2)
                 .Field(eph.ExportSubjectPublicKeyInfo()).Field(nonceH).Field(state.Salt).ToArray();
-            var (c2h, h2c) = LanHandshakeCommon.DeriveKeys(LanHandshakeCommon.Agree(eph, ephemeral), state.Key, nonceC, nonceH, hello1.ToArray(), hello2);
+            ecdh = LanHandshakeCommon.Agree(eph, ephemeral);
+            (c2h, h2c) = LanHandshakeCommon.DeriveKeys(ecdh, state.Key, nonceC, nonceH, hello1.ToArray(), hello2);
             channel = new SecureChannel(sendKey: h2c, receiveKey: c2h);
             return hello2;
         }
         catch (FormatException ex) { throw new HandshakeException(ex.Message); }
-        catch (CryptographicException ex) { throw new HandshakeException(ex.Message); }
+        catch (Exception ex) when (CurveCheck.IsKeyError(ex)) { throw new HandshakeException(ex.Message); }
+        finally { HandshakeCommon.Zero(ecdh, c2h, h2c); }
     }
 }

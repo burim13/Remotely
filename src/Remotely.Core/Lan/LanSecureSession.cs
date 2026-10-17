@@ -49,6 +49,11 @@ public sealed class LanSecureSession : IMessageChannel
     {
         var hello1 = await wire.ReceiveAsync(ct).ConfigureAwait(false) ?? throw new HandshakeException("The connection closed before it started.");
         var hello2 = new LanResponderHandshake(state).ProcessHello1(hello1, out var channel);
+        if (!state.TryBeginAttempt())
+        {
+            channel.Dispose();
+            throw new LanAuthException("This token has been tried too often.");
+        }
         await wire.SendAsync(hello2, ct).ConfigureAwait(false);
         var session = new LanSecureSession(wire, channel);
         try
