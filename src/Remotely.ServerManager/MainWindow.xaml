@@ -18,7 +18,7 @@
             <NavigationView.PaneHeader>
                 <StackPanel Orientation="Horizontal" Spacing="10" Margin="12,8,0,8">
                     <Image Source="ms-appx:///Assets/remotely-64.png" Width="28" Height="28" />
-                    <TextBlock x:Name="PaneTitle" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <TextBlock x:Name="PaneTitle" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="150" />
                 </StackPanel>
             </NavigationView.PaneHeader>
             <NavigationView.MenuItems>

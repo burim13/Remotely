@@ -23,8 +23,11 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="TokenText" FontFamily="Cascadia Mono, Consolas" FontSize="38" FontWeight="SemiBold"
-                               IsTextSelectionEnabled="True" VerticalAlignment="Center" TextWrapping="NoWrap" />
+                    <!-- The token scales down to fit the card instead of being cut off or running under the expiry ring. -->
+                    <Viewbox Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock x:Name="TokenText" FontFamily="Cascadia Mono, Consolas" FontSize="38" FontWeight="SemiBold"
+                                   IsTextSelectionEnabled="True" TextWrapping="NoWrap" />
+                    </Viewbox>
                     <Grid Grid.Column="1" Width="44" Height="44" VerticalAlignment="Center">
                         <ProgressRing x:Name="ExpiryRing" IsIndeterminate="False" Minimum="0" Maximum="100" Value="100" Width="44" Height="44" />
                     </Grid>
