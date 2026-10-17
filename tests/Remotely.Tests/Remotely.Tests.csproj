@@ -28,6 +28,9 @@
     <Compile Include="..\..\src\Remotely.UI\Controls\TokenFormat.cs" Link="Linked\TokenFormat.cs" />
     <!-- Agent A2: the app shell's UI-free logic (command line, window placement, navigation catalog, single instance) is compiled into the tests, since the WinUI app cannot be referenced from Linux. -->
     <Compile Include="..\..\src\Remotely.App\Shell\Core\*.cs" LinkBase="ShellCore" />
+    <!-- Agent A13: unattended access. The pipe protocol and the logic of the host service (pipe rules, consent relay, power requests, token sharing), none of it Windows-only, compiled here so it can be tested on Linux. -->
+    <Compile Include="..\..\src\Remotely.App\Views\Unattended\Protocol\*.cs" LinkBase="UnattendedProtocol" />
+    <Compile Include="..\..\src\Remotely.Host\Unattended\Core\*.cs" LinkBase="UnattendedCore" />
   </ItemGroup>
 
   <ItemGroup>

@@ -275,4 +275,92 @@
   <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
   <data name="Home_NoNetwork" xml:space="preserve"><value>Ky kompjuter nuk është i lidhur me rrjet.</value></data>
   <data name="Home_ThisPc" xml:space="preserve"><value>Lidhje në të njëjtin rrjet. Ky kompjuter: {0}</value></data>
+  <!-- A13: Unattended access page. Albanian below is MACHINE-WRITTEN and has not been read by a native speaker; it must be reviewed before release. -->
+  <data name="Unattended_Nav" xml:space="preserve"><value>Qasje pa praninë e njeriut</value></data>
+  <data name="Unattended_Title" xml:space="preserve"><value>Qasje pa praninë e njeriut</value></data>
+  <data name="Unattended_Intro" xml:space="preserve"><value>Lejon që ky kompjuter të arrihet kur askush nuk është i kyçur, kur është i bllokuar dhe kur Windows kërkon leje administratori. Për këtë duhet shërbimi Remotely: një program që Windows e nis bashkë me kompjuterin dhe që punon me të drejtat më të larta që Windows i jep një programi (llogaria SYSTEM).</value></data>
+  <data name="Unattended_Live_Title" xml:space="preserve"><value>Tani</value></data>
+  <data name="Unattended_Switch_On" xml:space="preserve"><value>Aktiv</value></data>
+  <data name="Unattended_Switch_Off" xml:space="preserve"><value>Joaktiv</value></data>
+  <data name="Unattended_Copy" xml:space="preserve"><value>Kopjo</value></data>
+  <data name="Unattended_Copied" xml:space="preserve"><value>U kopjua</value></data>
+  <data name="Unattended_NewToken" xml:space="preserve"><value>Kod i ri</value></data>
+  <data name="Unattended_Service_Title" xml:space="preserve"><value>Shërbimi Remotely</value></data>
+  <data name="Unattended_Service_Help" xml:space="preserve"><value>Shërbimi niset bashkë me Windows dhe vazhdon të punojë pasi të dalësh nga llogaria. Instalimi, nisja, ndalimi dhe heqja e tij kërkojnë administrator: Windows pyet një herë për çdo klikim dhe nuk provohet përsëri nëse thua jo.</value></data>
+  <data name="Unattended_State_NotInstalled" xml:space="preserve"><value>Nuk është instaluar</value></data>
+  <data name="Unattended_State_Stopped" xml:space="preserve"><value>I instaluar, i ndalur</value></data>
+  <data name="Unattended_State_Starting" xml:space="preserve"><value>Po niset…</value></data>
+  <data name="Unattended_State_Running" xml:space="preserve"><value>I instaluar dhe po punon</value></data>
+  <data name="Unattended_State_Stopping" xml:space="preserve"><value>Po ndalet…</value></data>
+  <data name="Unattended_State_Paused" xml:space="preserve"><value>I pezulluar</value></data>
+  <data name="Unattended_State_Unknown" xml:space="preserve"><value>Gjendja e panjohur</value></data>
+  <data name="Unattended_Install" xml:space="preserve"><value>Instalo shërbimin</value></data>
+  <data name="Unattended_Start" xml:space="preserve"><value>Nise</value></data>
+  <data name="Unattended_Stop" xml:space="preserve"><value>Ndale</value></data>
+  <data name="Unattended_Uninstall" xml:space="preserve"><value>Hiq shërbimin</value></data>
+  <data name="Unattended_Uninstall_Title" xml:space="preserve"><value>Të hiqet shërbimi Remotely?</value></data>
+  <data name="Unattended_Uninstall_Body" xml:space="preserve"><value>Pas kësaj Remotely nuk do të arrihet më në ekranin e bllokimit ose kur askush nuk është i kyçur. Cilësimet, çelësat dhe ditarët ruhen.</value></data>
+  <data name="Unattended_Uninstall_Accept" xml:space="preserve"><value>Hiqe</value></data>
+  <data name="Unattended_Uninstall_Cancel" xml:space="preserve"><value>Mbaje</value></data>
+  <data name="Unattended_Recovery" xml:space="preserve"><value>Nëse shërbimi ndalet për shkak të një gabimi, Windows ka urdhër ta nisë përsëri pas 5 sekondash. Këtë e cakton instaluesi; kjo faqe nuk e lexon nga Windows.</value></data>
+  <data name="Unattended_Action_Done" xml:space="preserve"><value>U krye.</value></data>
+  <data name="Unattended_Action_Cancelled" xml:space="preserve"><value>E mbylle dritaren e administratorit, ndaj asgjë nuk u ndryshua.</value></data>
+  <data name="Unattended_Action_Failed" xml:space="preserve"><value>Ndryshimi nuk funksionoi. Nuk u provua asgjë tjetër. Ditari i shërbimit është te C:\ProgramData\Remotely\logs.</value></data>
+  <data name="Unattended_Action_NotFound" xml:space="preserve"><value>Remotely.Host.exe nuk u gjet pranë aplikacionit, ndaj shërbimi nuk mund të menaxhohet që këtu.</value></data>
+  <data name="Unattended_Action_NotTrusted" xml:space="preserve"><value>Remotely.Host.exe nuk është në dosjen Program Files. Për siguri ky aplikacion kërkon të drejta administratori vetëm për kopjen e instaluar atje. Instalo Remotely për të gjithë përdoruesit me instaluesin për ta menaxhuar shërbimin që këtu.</value></data>
+  <data name="Unattended_Action_Busy" xml:space="preserve"><value>Një ndryshim tjetër është ende duke u kryer.</value></data>
+  <data name="Unattended_Action_Unknown" xml:space="preserve"><value>Ndryshimi u ekzekutua, por Windows nuk i tha këtij aplikacioni si përfundoi. Gjendja më sipër tregon se si është tani.</value></data>
+  <data name="Unattended_Line_NotInstalled" xml:space="preserve"><value>Shërbimi nuk është instaluar. Remotely punon vetëm kur je i kyçur dhe nuk mund të tregojë ekranin e bllokimit.</value></data>
+  <data name="Unattended_Line_Stopped" xml:space="preserve"><value>Shërbimi është i instaluar por i ndalur, ndaj ekrani i bllokimit nuk arrihet.</value></data>
+  <data name="Unattended_Line_Starting" xml:space="preserve"><value>Shërbimi po niset…</value></data>
+  <data name="Unattended_Line_Stopping" xml:space="preserve"><value>Shërbimi po ndalet…</value></data>
+  <data name="Unattended_Line_Paused" xml:space="preserve"><value>Shërbimi është i pezulluar.</value></data>
+  <data name="Unattended_Line_Unknown" xml:space="preserve"><value>Windows nuk tha në çfarë gjendjeje është shërbimi.</value></data>
+  <data name="Unattended_Line_LinkUnreachable" xml:space="preserve"><value>Shërbimi punon, por ky aplikacion nuk mund të komunikojë ende me të. Mund të jetë ende duke u nisur, ose askush nuk është i kyçur në ekranin e vetë kompjuterit.</value></data>
+  <data name="Unattended_Line_LinkDenied" xml:space="preserve"><value>Shërbimi punon, por Windows e refuzoi lidhjen e këtij aplikacioni me të. Vetëm përdoruesi i kyçur në ekranin e vetë kompjuterit mund ta përdorë.</value></data>
+  <data name="Unattended_Line_LinkUntrusted" xml:space="preserve"><value>Diçka tjetër përveç shërbimit Remotely po përdor emrin e lidhjes së shërbimit, ndaj ky aplikacion nuk i beson. Rinise shërbimin.</value></data>
+  <data name="Unattended_Line_LinkBad" xml:space="preserve"><value>Shërbimi dërgoi një përgjigje që ky aplikacion nuk e kupton. Aplikacioni dhe shërbimi mund të jenë versione të ndryshme.</value></data>
+  <data name="Unattended_Line_Asking" xml:space="preserve"><value>Po pres përgjigjen tënde: {0} dëshiron të lidhet.</value></data>
+  <data name="Unattended_Line_SessionLock" xml:space="preserve"><value>{0} është i lidhur dhe po shikon ekranin e bllokimit ose të hyrjes.</value></data>
+  <data name="Unattended_Line_SessionDesktop" xml:space="preserve"><value>{0} është i lidhur dhe e sheh desktopin tënd.</value></data>
+  <data name="Unattended_Line_Session" xml:space="preserve"><value>{0} është i lidhur.</value></data>
+  <data name="Unattended_Line_ViewingLock" xml:space="preserve"><value>Një shikues po shikon ekranin e bllokimit ose të hyrjes.</value></data>
+  <data name="Unattended_Line_ViewingDesktop" xml:space="preserve"><value>Një shikues po shikon desktopin tënd.</value></data>
+  <data name="Unattended_Line_Listening" xml:space="preserve"><value>Po pres një kod. Shërbimi po e ndan këtë kompjuter në rrjetin tënd.</value></data>
+  <data name="Unattended_Line_NoHelper" xml:space="preserve"><value>Shërbimi punon, por ndihmësi i tij i ekranit nuk është lidhur ende, ndaj nuk mund ta kapë ekranin.</value></data>
+  <data name="Unattended_Line_Ready" xml:space="preserve"><value>Shërbimi po punon dhe është gati për ekranin e bllokimit dhe dritaret e administratorit.</value></data>
+  <data name="Unattended_Lock_Title" xml:space="preserve"><value>Ekrani i bllokimit dhe dritaret e administratorit</value></data>
+  <data name="Unattended_Lock_Body1" xml:space="preserve"><value>Remotely në një dritare të kyçur nuk i sheh ekranin e bllokimit të Windows, ekranin e hyrjes ose ekranin e errësuar që Windows e shfaq për dritaret e administratorit (UAC). Ato i përkasin vetë Windows. Shërbimi mundet: ai punon si SYSTEM dhe shikon cilindo ekran që po merr hyrje.</value></data>
+  <data name="Unattended_Lock_Body2" xml:space="preserve"><value>Me shërbimin në punë, një lidhje përmes serverit tënd i tregon këto ekrane. Edhe një lidhje në të njëjtin rrjet me kod i tregon, kur ndan përmes shërbimit (më poshtë). Ndarja vetëm nga aplikacioni nuk i tregon.</value></data>
+  <data name="Unattended_Lock_Body3" xml:space="preserve"><value>Ende nuk është treguar që punon në një kompjuter të vërtetë: shkrimi i fjalëkalimit ose PIN-it në ekranin e hyrjes dhe klikimi i një dritareje administratori. Hyrja me gjurmë gishti, fytyrë ose çelës sigurie kërkon personin te kompjuteri dhe nuk bëhet nga një kompjuter tjetër.</value></data>
+  <data name="Unattended_Lan_Title" xml:space="preserve"><value>Ndarja në të njëjtin rrjet përmes shërbimit</value></data>
+  <data name="Unattended_Lan_Help" xml:space="preserve"><value>Lejon një kompjuter tjetër në rrjetin tënd të lidhet me një kod njëpërdorimsh dhe të arrijë ekranin e bllokimit. Shërbimi e krijon kodin dhe e shfaq këtu përmes një lidhjeje private që mund ta përdorë vetëm përdoruesi i kyçur në këtë kompjuter. Aktivizimi i tij ndalon "Ndaj këtë kompjuter" në faqen e fillimit, sepse të dy nuk mund të dëgjojnë njëkohësisht.</value></data>
+  <data name="Unattended_Lan_NeedsService" xml:space="preserve"><value>Në dispozicion kur shërbimi është në punë.</value></data>
+  <data name="Unattended_Lan_Allow_Label" xml:space="preserve"><value>Lejo ndarjen përmes shërbimit (kërkon administrator)</value></data>
+  <data name="Unattended_Lan_Allow_Help" xml:space="preserve"><value>Një administrator e lejon një herë. Gjithashtu hap murin e zjarrit të Windows për shërbimin vetëm në rrjetet private dhe të domenit.</value></data>
+  <data name="Unattended_Lan_Share_Label" xml:space="preserve"><value>Ndaj këtë kompjuter përmes shërbimit</value></data>
+  <data name="Unattended_Lan_On" xml:space="preserve"><value>Po ndan</value></data>
+  <data name="Unattended_Lan_Off" xml:space="preserve"><value>Nuk ndan</value></data>
+  <data name="Unattended_Lan_Token" xml:space="preserve"><value>Kodi</value></data>
+  <data name="Unattended_Lan_Expires" xml:space="preserve"><value>Punon një herë. Ndryshon pas {0}.</value></data>
+  <data name="Unattended_Lan_Connected" xml:space="preserve"><value>{0} ({1}) është i lidhur.</value></data>
+  <data name="Unattended_Lan_Disconnect" xml:space="preserve"><value>Shkëpute</value></data>
+  <data name="Unattended_Ask_Label" xml:space="preserve"><value>Më pyet para se dikush të lidhet (kërkon administrator)</value></data>
+  <data name="Unattended_Ask_Help" xml:space="preserve"><value>Pyetja shfaqet në këtë aplikacion. Nëse aplikacioni është i mbyllur, nuk je te kompjuteri ose kompjuteri është i bllokuar, një kompjuter me kod refuzohet. Çaktivizoje për të lejuar pa pyetur një kompjuter që e di kodin. Përmes shërbimit çdo kompjuter duhet të përdorë kod çdo herë; kompjuterët e kujtuar nuk përdoren këtu.</value></data>
+  <data name="Unattended_Err_NotAllowed" xml:space="preserve"><value>Një administrator nuk e ka lejuar ende ndarjen përmes shërbimit.</value></data>
+  <data name="Unattended_Err_ListenFailed" xml:space="preserve"><value>Shërbimi nuk mundi të fillojë të dëgjojë në këtë rrjet.</value></data>
+  <data name="Unattended_Err_NotListening" xml:space="preserve"><value>Shërbimi nuk po ndan.</value></data>
+  <data name="Unattended_Err_Unreachable" xml:space="preserve"><value>Shërbimi nuk u arrit.</value></data>
+  <data name="Unattended_Err_Internal" xml:space="preserve"><value>Shërbimi raportoi një gabim të brendshëm. Shiko ditarin te C:\ProgramData\Remotely\logs.</value></data>
+  <data name="Unattended_Sas_Title" xml:space="preserve"><value>Dërgo Ctrl+Alt+Del</value></data>
+  <data name="Unattended_Sas_Help" xml:space="preserve"><value>Windows e lejon një shërbim të shtypë Ctrl+Alt+Del vetëm kur një politikë ("Disable or enable software Secure Attention Sequence") e lejon. Disa kompjuterë kërkojnë Ctrl+Alt+Del para se të shfaqet kutia e fjalëkalimit. Aktivizimi e vendos atë politikë në "Services" në këtë kompjuter; çaktivizimi e heq cilësimin.</value></data>
+  <data name="Unattended_Sas_Switch" xml:space="preserve"><value>Lejo shërbimin të dërgojë Ctrl+Alt+Del (kërkon administrator)</value></data>
+  <data name="Unattended_Sas_State_On" xml:space="preserve"><value>Lejuar: butoni Ctrl+Alt+Del në një seancë punon.</value></data>
+  <data name="Unattended_Sas_State_Off" xml:space="preserve"><value>Nuk lejohet: butoni Ctrl+Alt+Del në një seancë nuk do të punojë.</value></data>
+  <data name="Unattended_Sas_State_Unknown" xml:space="preserve"><value>Windows nuk tha cila është politika.</value></data>
+  <data name="Unattended_Awake_Title" xml:space="preserve"><value>Mbaje zgjuar gjatë përdorimit</value></data>
+  <data name="Unattended_Awake_Help" xml:space="preserve"><value>Sa kohë dikush po shikon këtë kompjuter (përmes serverit tënd ose me kod), shërbimi i kërkon Windows të mos fiket dhe ta mbajë ekranin ndezur. E lë 30 sekonda pas figurës së fundit të dërguar. Ndryshimi kërkon administrator.</value></data>
+  <data name="Unattended_Awake_Switch" xml:space="preserve"><value>Mbaje këtë kompjuter zgjuar kur dikush e shikon (kërkon administrator)</value></data>
+  <data name="Unattended_Awake_Held" xml:space="preserve"><value>Windows po mbahet zgjuar tani.</value></data>
+  <data name="Unattended_Awake_Idle" xml:space="preserve"><value>Askush nuk po e shikon këtë kompjuter, ndaj Windows mund të fiket.</value></data>
 </root>

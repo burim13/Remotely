@@ -21,6 +21,8 @@ const string Usage = """
       trust [--user] <viewer id> [--view-only]     allow a viewer (control, or watch only)
       untrust [--user] <viewer id>                 remove a viewer
       enable-sas                   allow the service to send Ctrl+Alt+Del (administrator)
+      service-start | service-stop start or stop the installed service (administrator)
+      unattended ...               unattended-access settings and the local pipe (run 'unattended' alone for the list)
       diag [capture.jpg]           print what this PC allows; optionally grab one screen image
       service | user | helper      run modes started by Windows / the installer, not by hand
     """;
@@ -51,6 +53,9 @@ switch (command)
     case "trust-all" when rest.Length >= 1 && rest[0] is "on" or "off": return Installer.TrustAll(rest[0] == "on");
     case "untrust" when rest.Length >= 1: return Installer.Untrust(rest[0]);
     case "enable-sas": return Installer.EnableSas();
+    case "service-start": return Installer.StartService();
+    case "service-stop": return Installer.StopService();
+    case "unattended": return UnattendedCommand.Run(rest);
     case "diag": return Diagnostics.Run(rest.Length >= 1 ? rest[0] : null);
     default:
         Console.WriteLine(Usage);

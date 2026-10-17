@@ -12,3 +12,4 @@ SessionPreviewPage
 ConnectPage
 DiagnosisPage
 SharePage
+UnattendedPage

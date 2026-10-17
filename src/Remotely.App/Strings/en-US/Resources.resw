@@ -275,4 +275,92 @@
   <data name="Duration_Seconds" xml:space="preserve"><value>{0} s</value></data>
   <data name="Home_NoNetwork" xml:space="preserve"><value>This PC is not connected to a network.</value></data>
   <data name="Home_ThisPc" xml:space="preserve"><value>Same-network connections. This PC: {0}</value></data>
+  <!-- A13: Unattended access page (prefix Unattended_). -->
+  <data name="Unattended_Nav" xml:space="preserve"><value>Unattended access</value></data>
+  <data name="Unattended_Title" xml:space="preserve"><value>Unattended access</value></data>
+  <data name="Unattended_Intro" xml:space="preserve"><value>Lets this PC be reached while nobody is signed in, while it is locked, and when Windows asks for administrator permission. This needs the Remotely service: a program that Windows starts with the PC and that runs with the highest rights Windows gives a program (the SYSTEM account).</value></data>
+  <data name="Unattended_Live_Title" xml:space="preserve"><value>Right now</value></data>
+  <data name="Unattended_Switch_On" xml:space="preserve"><value>On</value></data>
+  <data name="Unattended_Switch_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Unattended_Copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="Unattended_Copied" xml:space="preserve"><value>Copied</value></data>
+  <data name="Unattended_NewToken" xml:space="preserve"><value>New token</value></data>
+  <data name="Unattended_Service_Title" xml:space="preserve"><value>Remotely service</value></data>
+  <data name="Unattended_Service_Help" xml:space="preserve"><value>The service starts with Windows and keeps working after you sign out. Installing, starting, stopping and removing it needs an administrator: Windows asks once for each click, and nothing is tried again if you say no.</value></data>
+  <data name="Unattended_State_NotInstalled" xml:space="preserve"><value>Not installed</value></data>
+  <data name="Unattended_State_Stopped" xml:space="preserve"><value>Installed, stopped</value></data>
+  <data name="Unattended_State_Starting" xml:space="preserve"><value>Starting…</value></data>
+  <data name="Unattended_State_Running" xml:space="preserve"><value>Installed and running</value></data>
+  <data name="Unattended_State_Stopping" xml:space="preserve"><value>Stopping…</value></data>
+  <data name="Unattended_State_Paused" xml:space="preserve"><value>Paused</value></data>
+  <data name="Unattended_State_Unknown" xml:space="preserve"><value>State unknown</value></data>
+  <data name="Unattended_Install" xml:space="preserve"><value>Install the service</value></data>
+  <data name="Unattended_Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Unattended_Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="Unattended_Uninstall" xml:space="preserve"><value>Remove the service</value></data>
+  <data name="Unattended_Uninstall_Title" xml:space="preserve"><value>Remove the Remotely service?</value></data>
+  <data name="Unattended_Uninstall_Body" xml:space="preserve"><value>Remotely can then no longer be reached at the lock screen or while nobody is signed in. Your settings, keys and logs are kept.</value></data>
+  <data name="Unattended_Uninstall_Accept" xml:space="preserve"><value>Remove</value></data>
+  <data name="Unattended_Uninstall_Cancel" xml:space="preserve"><value>Keep it</value></data>
+  <data name="Unattended_Recovery" xml:space="preserve"><value>If the service stops because of an error, Windows is told to start it again after 5 seconds. The installer sets this; this page does not read it back from Windows.</value></data>
+  <data name="Unattended_Action_Done" xml:space="preserve"><value>Done.</value></data>
+  <data name="Unattended_Action_Cancelled" xml:space="preserve"><value>You closed the administrator prompt, so nothing was changed.</value></data>
+  <data name="Unattended_Action_Failed" xml:space="preserve"><value>The change did not work. Nothing else was tried. The service log is in C:\ProgramData\Remotely\logs.</value></data>
+  <data name="Unattended_Action_NotFound" xml:space="preserve"><value>Remotely.Host.exe was not found next to the app, so the service cannot be managed from here.</value></data>
+  <data name="Unattended_Action_NotTrusted" xml:space="preserve"><value>Remotely.Host.exe is not in the Program Files folder. For safety this app asks for administrator rights only for the copy installed there. Install Remotely for all users with the installer to manage the service from here.</value></data>
+  <data name="Unattended_Action_Busy" xml:space="preserve"><value>Another change is still running.</value></data>
+  <data name="Unattended_Action_Unknown" xml:space="preserve"><value>The change ran, but Windows did not tell this app how it ended. The state above shows what it is now.</value></data>
+  <data name="Unattended_Line_NotInstalled" xml:space="preserve"><value>The service is not installed. Remotely only works while you are signed in and cannot show the lock screen.</value></data>
+  <data name="Unattended_Line_Stopped" xml:space="preserve"><value>The service is installed but stopped, so the lock screen cannot be reached.</value></data>
+  <data name="Unattended_Line_Starting" xml:space="preserve"><value>The service is starting…</value></data>
+  <data name="Unattended_Line_Stopping" xml:space="preserve"><value>The service is stopping…</value></data>
+  <data name="Unattended_Line_Paused" xml:space="preserve"><value>The service is paused.</value></data>
+  <data name="Unattended_Line_Unknown" xml:space="preserve"><value>Windows did not say what state the service is in.</value></data>
+  <data name="Unattended_Line_LinkUnreachable" xml:space="preserve"><value>The service runs, but this app cannot talk to it yet. It may still be starting, or nobody may be signed in at the PC's own screen.</value></data>
+  <data name="Unattended_Line_LinkDenied" xml:space="preserve"><value>The service runs, but Windows refused this app's connection to it. Only the user signed in at the PC's own screen may use it.</value></data>
+  <data name="Unattended_Line_LinkUntrusted" xml:space="preserve"><value>Something other than the Remotely service is using the service's connection name, so this app does not trust it. Restart the service.</value></data>
+  <data name="Unattended_Line_LinkBad" xml:space="preserve"><value>The service sent an answer this app does not understand. The app and the service may be different versions.</value></data>
+  <data name="Unattended_Line_Asking" xml:space="preserve"><value>Waiting for your answer: {0} wants to connect.</value></data>
+  <data name="Unattended_Line_SessionLock" xml:space="preserve"><value>{0} is connected and is looking at the lock or sign-in screen.</value></data>
+  <data name="Unattended_Line_SessionDesktop" xml:space="preserve"><value>{0} is connected and sees your desktop.</value></data>
+  <data name="Unattended_Line_Session" xml:space="preserve"><value>{0} is connected.</value></data>
+  <data name="Unattended_Line_ViewingLock" xml:space="preserve"><value>A viewer is looking at the lock or sign-in screen.</value></data>
+  <data name="Unattended_Line_ViewingDesktop" xml:space="preserve"><value>A viewer is looking at your desktop.</value></data>
+  <data name="Unattended_Line_Listening" xml:space="preserve"><value>Waiting for a token. The service is sharing this PC on your network.</value></data>
+  <data name="Unattended_Line_NoHelper" xml:space="preserve"><value>The service runs, but its screen helper is not connected yet, so it cannot capture the screen.</value></data>
+  <data name="Unattended_Line_Ready" xml:space="preserve"><value>The service is running and ready for the lock screen and administrator prompts.</value></data>
+  <data name="Unattended_Lock_Title" xml:space="preserve"><value>Lock screen and administrator prompts</value></data>
+  <data name="Unattended_Lock_Body1" xml:space="preserve"><value>Remotely in a signed-in window cannot see the Windows lock screen, the sign-in screen or the dimmed screen Windows shows for administrator (UAC) prompts. Those belong to Windows itself. The service can: it runs as SYSTEM and looks at whichever screen is receiving input.</value></data>
+  <data name="Unattended_Lock_Body2" xml:space="preserve"><value>With the service running, a connection through your server shows these screens. A same-network connection with a token does too, when you share through the service (below). Sharing from the app alone does not.</value></data>
+  <data name="Unattended_Lock_Body3" xml:space="preserve"><value>Not yet shown to work on a real PC: typing a password or PIN on the sign-in screen, and clicking an administrator prompt. Fingerprint, face and security-key sign-in need the person at the PC and cannot be done from another PC.</value></data>
+  <data name="Unattended_Lan_Title" xml:space="preserve"><value>Same-network sharing through the service</value></data>
+  <data name="Unattended_Lan_Help" xml:space="preserve"><value>Lets another PC on your network connect with a one-time token and reach the lock screen. The service makes the token and shows it here through a private connection that only the user signed in at this PC can use. Turning it on stops "Share this PC" on the start page, because the two cannot listen at once.</value></data>
+  <data name="Unattended_Lan_NeedsService" xml:space="preserve"><value>Available when the service is running.</value></data>
+  <data name="Unattended_Lan_Allow_Label" xml:space="preserve"><value>Allow sharing through the service (needs an administrator)</value></data>
+  <data name="Unattended_Lan_Allow_Help" xml:space="preserve"><value>An administrator allows this once. It also opens the Windows Firewall for the service on private and domain networks only.</value></data>
+  <data name="Unattended_Lan_Share_Label" xml:space="preserve"><value>Share this PC through the service</value></data>
+  <data name="Unattended_Lan_On" xml:space="preserve"><value>Sharing</value></data>
+  <data name="Unattended_Lan_Off" xml:space="preserve"><value>Not sharing</value></data>
+  <data name="Unattended_Lan_Token" xml:space="preserve"><value>Token</value></data>
+  <data name="Unattended_Lan_Expires" xml:space="preserve"><value>Works once. Changes in {0}.</value></data>
+  <data name="Unattended_Lan_Connected" xml:space="preserve"><value>{0} ({1}) is connected.</value></data>
+  <data name="Unattended_Lan_Disconnect" xml:space="preserve"><value>Disconnect</value></data>
+  <data name="Unattended_Ask_Label" xml:space="preserve"><value>Ask me before someone connects (needs an administrator)</value></data>
+  <data name="Unattended_Ask_Help" xml:space="preserve"><value>The question appears in this app. If the app is closed, you are not at the PC, or the PC is locked, a PC with the token is turned away. Turn this off to let a PC that knows the token in without asking. A PC must use a token every time through the service; remembered PCs are not used here.</value></data>
+  <data name="Unattended_Err_NotAllowed" xml:space="preserve"><value>An administrator has not allowed sharing through the service yet.</value></data>
+  <data name="Unattended_Err_ListenFailed" xml:space="preserve"><value>The service could not start listening on this network.</value></data>
+  <data name="Unattended_Err_NotListening" xml:space="preserve"><value>The service is not sharing.</value></data>
+  <data name="Unattended_Err_Unreachable" xml:space="preserve"><value>The service could not be reached.</value></data>
+  <data name="Unattended_Err_Internal" xml:space="preserve"><value>The service reported an internal error. See its log in C:\ProgramData\Remotely\logs.</value></data>
+  <data name="Unattended_Sas_Title" xml:space="preserve"><value>Send Ctrl+Alt+Del</value></data>
+  <data name="Unattended_Sas_Help" xml:space="preserve"><value>Windows lets a service press Ctrl+Alt+Del only when a policy ("Disable or enable software Secure Attention Sequence") allows it. Some PCs need Ctrl+Alt+Del before the password box appears. Switching this on sets that policy to "Services" on this PC; switching it off removes the setting.</value></data>
+  <data name="Unattended_Sas_Switch" xml:space="preserve"><value>Let the service send Ctrl+Alt+Del (needs an administrator)</value></data>
+  <data name="Unattended_Sas_State_On" xml:space="preserve"><value>Allowed: the Ctrl+Alt+Del button in a session works.</value></data>
+  <data name="Unattended_Sas_State_Off" xml:space="preserve"><value>Not allowed: the Ctrl+Alt+Del button in a session will not work.</value></data>
+  <data name="Unattended_Sas_State_Unknown" xml:space="preserve"><value>Windows did not say what the policy is.</value></data>
+  <data name="Unattended_Awake_Title" xml:space="preserve"><value>Stay awake while in use</value></data>
+  <data name="Unattended_Awake_Help" xml:space="preserve"><value>While someone is viewing this PC (through your server or with a token), the service asks Windows not to sleep and to keep the screen on. It lets go 30 seconds after the last picture was sent. Changing this needs an administrator.</value></data>
+  <data name="Unattended_Awake_Switch" xml:space="preserve"><value>Keep this PC awake while someone is viewing it (needs an administrator)</value></data>
+  <data name="Unattended_Awake_Held" xml:space="preserve"><value>Windows is being kept awake right now.</value></data>
+  <data name="Unattended_Awake_Idle" xml:space="preserve"><value>Nobody is viewing this PC, so Windows may sleep.</value></data>
 </root>

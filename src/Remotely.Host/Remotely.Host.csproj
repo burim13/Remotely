@@ -13,6 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Agent A13: the pipe protocol is shared with the app (it lives in the app's Views/Unattended/Protocol folder, free of WinUI) so both ends use one definition. -->
+    <Compile Include="..\Remotely.App\Views\Unattended\Protocol\*.cs" LinkBase="Unattended\Protocol" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Remotely.HostCore\Remotely.HostCore.csproj" />
     <ProjectReference Include="..\Remotely.HostWindows\Remotely.HostWindows.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.0" />

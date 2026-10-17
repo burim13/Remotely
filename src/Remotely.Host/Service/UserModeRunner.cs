@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using Remotely.Host.Helper;
+using Remotely.Host.Unattended;
 using Remotely.HostCore;
 
 namespace Remotely.Host.Service;
@@ -31,9 +32,20 @@ internal static class UserModeRunner
         using var stop = new EventWaitHandle(false, EventResetMode.ManualReset, StopEventName);
         _ = Task.Run(() => { stop.WaitOne(); cts.Cancel(); });
 
+        var settings = new CachedSettings(new UnattendedSettingsStore(HostPaths.UnattendedFile));
+        using var power = new PowerRequest(log.Write);
+        var activity = new SessionActivity(power, () => settings.Current.KeepAwake);
+        _ = Task.Run(async () =>
+        {
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
+            try { while (await timer.WaitForNextTickAsync(cts.Token).ConfigureAwait(false)) activity.Tick(); }
+            catch (OperationCanceledException) { }
+        });
+
         using var desktop = new DesktopThread();
         await HostConnection.RunForeverAsync(HostPaths.ConfigFile, identity,
-            (trusted, control) => HostRuntime.ForUser(desktop, trusted, control, log.Write), log.Write, cts.Token).ConfigureAwait(false);
+            (trusted, control) => HostRuntime.ForUser(desktop, activity, trusted, control, log.Write), log.Write, cts.Token).ConfigureAwait(false);
+        activity.Shutdown();
         log.Write("Remotely.Host (user mode) stopped.");
         return 0;
     }
